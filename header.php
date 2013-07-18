@@ -35,4 +35,4 @@ $DOMAIN = "goeverywhere.web44.net"; //This is the global variable, which will ho
     </head>
     
     <body>
-<!-- no need to add </html> or </body>, since that will be taken care of in footer.php
+<!-- no need to add </html> or </body>, since that will be taken care of in footer.php -->
