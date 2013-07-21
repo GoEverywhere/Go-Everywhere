@@ -1,0 +1,12 @@
+@font-face
+{
+    font-family: ScratchFont;
+    src: url('../fonts/ScratchFont.ttf');
+}
+
+#title {
+    color: orange;
+    font-family: ScratchFont, "Comic Sans MS", sans-serif; /* Comic Sans sort of looks like the Scratch Font. */
+    font-size: 48pt;
+    text-align: center;
+}
