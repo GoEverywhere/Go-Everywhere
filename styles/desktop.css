@@ -1,9 +1,9 @@
 @font-face {
     font-family: 'ScratchFont';
-    src: url('/fonts/ScratchFont.eot?#iefix') format('embedded-opentype'),
-        url('/fonts/ScratchFont.woff') format('woff'),
-        url('/fonts/ScratchFont.ttf')  format('truetype'),
-        url('/fonts/ScratchFont.svg#ScratchFont') format('svg');
+    src: url('../fonts/ScratchFont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ScratchFont.woff') format('woff'),
+        url('../fonts/ScratchFont.ttf')  format('truetype'),
+        url('../fonts/ScratchFont.svg#ScratchFont') format('svg');
 }
 
 body {
