@@ -15,6 +15,9 @@ if ($res === TRUE) {
     //close the zip
     $zip->close();
     //we are all done. Hooray!
+    //Since we probably don't need the zip anymore,
+    //and it is just using space, we will delete it
+    unlink("goev-tmp.zip");
     //Now, we go to a new script to finish the process
     header("Location: rename.php");
 } else {
