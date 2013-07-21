@@ -41,9 +41,11 @@ session_start(); //Always like to start the session, in case we use it later, an
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS BELOW THIS LINE:. -->
         
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS ABOVE THIS LINE:. -->
+        
         <!-- .:ADD ANY EXTERNAL JAVASCRIPT BELOW THIS LINE:. -->
-        <script src="http://<?php echo $DOMAIN; ?>/js/UI.js">//To get the correct style, JavaScript is needed to calculate height properly</script>
+        <script src="http://<?php echo $DOMAIN; ?>/scripts/UI.js">//To get the correct style, JavaScript is needed to calculate height properly</script>
         <!-- .:ADD ANY EXTERNAL JAVASCRIPT ABOVE THIS LINE:. -->
+        
         <!-- .:ADD ANY CSS LINKS BELOW THIS LINE:. -->
         <link href="http://<?php echo $DOMAIN; ?>/styles/desktop.css" rel="stylesheet" /> <!-- The CSS file for the header (this page). -->
         <!-- .:ADD ANY CSS LINKS ABOVE THIS LIKE:. -->
