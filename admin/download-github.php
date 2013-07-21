@@ -11,13 +11,12 @@ $zip = new ZipArchive;
 $res = $zip->open('goev-tmp.zip');
 if ($res === TRUE) {
     //extract it to the current directory (for now, to see if this will all work)
-    $zip->extractTo('../admin/');
+    $zip->extractTo('../../');
     //close the zip
     $zip->close();
-    //rename the folder that it will create from "Go-Everywhere-master" to "Go-Everywhere"
-    rename("Go-Everywhere-master", "Go-Everywhere");
     //we are all done. Hooray!
-    echo 'Site has been updated; go check and see!';
+    //Now, we go to a new script to finish the process
+    header("../../rename.php");
 } else {
     //Well, it failed
     echo 'Download was OK, but the extraction failed. Go check the logs and see why.';
