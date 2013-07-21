@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'ScratchFont';
+    src: url('/fonts/ScratchFont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/ScratchFont.woff') format('woff'),
+        url('/fonts/ScratchFont.ttf')  format('truetype'),
+        url('/fonts/ScratchFont.svg#ScratchFont') format('svg');
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#header {
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-top-left-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-image: -ms-linear-gradient(top, #00AEFF 0%, #006C9E 100%);
+    background-image: -moz-linear-gradient(top, #00AEFF 0%, #006C9E 100%);
+    background-image: -o-linear-gradient(top, #00AEFF 0%, #006C9E 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00AEFF), color-stop(1, #006C9E));
+    background-image: -webkit-linear-gradient(top, #00AEFF 0%, #006C9E 100%);
+    background-image: linear-gradient(to bottom, #00AEFF 0%, #006C9E 100%);
+    width: 100%;
+    height: 30px;
+}
+
+#logo {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 3px;
+    font-family: "ScratchFont";
+    font-size: 25px;
+    color: #ff8d00;
+    text-shadow: 1px 1px 3px #ffbb67;
+}
+
+#menuitems {
+    position: absolute;
+    margin-left: 180px;
+    height: 30px;
+    overflow-x: auto;
+}
+
+.menuitem {
+    background-color: #00AEFF;
+    border-color: #006C9E;
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 30px;
+    font-size: 15px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+#container {
+    border-color: #006C9E;
+    border-style: solid;
+    border-width: 3px;
+    -webkit-border-bottom-left-radius: 15px;
+    -moz-border-radius-bottomleft: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #c1fffa;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    overflow: auto;
+}
+
+#content {
+    margin: 15px;
+}
