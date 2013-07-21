@@ -1,4 +1,4 @@
-function loadContainer() {
+var loadContainer = function() {
     //get the container
     container = document.getElementById('container');
     //calculate the height of the container by taking height of window and subtract height of header
@@ -10,3 +10,5 @@ function loadContainer() {
     //set it back to the container's style
     container.style.height = height;
 }
+$(document).ready(loadContainer);
+$(window).resize(loadContainer);
