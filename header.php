@@ -31,8 +31,9 @@ $DOMAIN = "goeverywhere.web44.net"; //This is the global variable, which will ho
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS BELOW THIS LINE:. -->
         
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS ABOVE THIS LINE:. -->
-    
+        <link href="styles/header.css" rel="stylesheet" /> <!-- The CSS file for the header (this page). -->
     </head>
     
     <body>
+        <div id="title">Go Everywhere</div>
 <!-- no need to add </html> or </body>, since that will be taken care of in footer.php -->
