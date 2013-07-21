@@ -4,8 +4,18 @@
 
 session_start(); //Always like to start the session, in case we use it later, and you can't use it after this
 
-$DOMAIN = "goeverywhere.web44.net"; //This is the global variable, which will hold the current domain we are using,
-                                    //in case we ever need to change it. use it as: "http://" + $DOMAIN + "/index.php"
+//I improved this, so that it will automaticly change on server
+//This means that on local servers for testing, you do not have to change the $DOMAIN variable back and forth
+//This is the global variable, which will hold the current domain we are using,
+//in case we ever need to change it. use it as: "http://" + $DOMAIN + "/index.php"
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $DOMAIN = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+    } else {
+        $DOMAIN = $_SERVER["SERVER_NAME"];
+    }
+    $DOMAIN .= "/Go-Everywhere"; //Because of how I told all of you to set this up, you must run this in the "Go-Everywhere" folder
+    //Ex. http://localhost/Go-Everywhere/ instead of http://localhost/ or http://localhost/develop/Go-Everywhere
+    //This extra folder will also come in handy when we have the self extracting PHP script for Github
 
 ?>
 <!DOCTYPE html> <!-- we are using HTML5; this is the default DOCTYPE for it -->
@@ -31,9 +41,23 @@ $DOMAIN = "goeverywhere.web44.net"; //This is the global variable, which will ho
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS BELOW THIS LINE:. -->
         
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS ABOVE THIS LINE:. -->
-        <link href="styles/header.css" rel="stylesheet" /> <!-- The CSS file for the header (this page). -->
+        <!-- .:ADD ANY EXTERNAL JAVASCRIPT BELOW THIS LINE:. -->
+        <script src="http://<?php echo $DOMAIN; ?>/js/UI.js">//To get the correct style, JavaScript is needed to calculate height properly</script>
+        <!-- .:ADD ANY EXTERNAL JAVASCRIPT ABOVE THIS LINE:. -->
+        <!-- .:ADD ANY CSS LINKS BELOW THIS LINE:. -->
+        <link href="http://<?php echo $DOMAIN; ?>/styles/desktop.css" rel="stylesheet" /> <!-- The CSS file for the header (this page). -->
+        <!-- .:ADD ANY CSS LINKS ABOVE THIS LIKE:. -->
     </head>
     
     <body>
-        <div id="title">Go Everywhere</div>
+        <div id="header">
+               <a href="http://<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
+            <div id="menuitems">
+                <a href="http://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
+                <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
+            </div>
+        </div>
+        <div id="container"><!-- Something to help with styling -->
+            <div id="content">
+                
 <!-- no need to add </html> or </body>, since that will be taken care of in footer.php -->
