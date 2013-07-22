@@ -48,6 +48,7 @@ session_start(); //Always like to start the session, in case we use it later, an
         
         <!-- .:ADD ANY CSS LINKS BELOW THIS LINE:. -->
         <link href="http://<?php echo $DOMAIN; ?>/styles/desktop.css" rel="stylesheet" /> <!-- The CSS file for the header (this page). -->
+        <link href="http://<?php echo $DOMAIN; ?>/styles/image.css" rel="stylesheet" /> <!-- The CSS file for the images. -->
         <!-- .:ADD ANY CSS LINKS ABOVE THIS LIKE:. -->
     </head>
     
