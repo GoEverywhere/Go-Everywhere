@@ -57,6 +57,7 @@ session_start(); //Always like to start the session, in case we use it later, an
             <div id="menuitems">
                 <a href="http://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
                 <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
+                <a href="http://Upcoming Website!" target="_blank"><button class=menuitem">Explore Go Everywhere Projects</button></a>
             </div>
         </div>
         <div id="container"><!-- Something to help with styling -->
