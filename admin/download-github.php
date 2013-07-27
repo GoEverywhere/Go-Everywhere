@@ -3,7 +3,7 @@
  * Then, extract it into the main directory, as to update the site
  */
 // Download the zip from Github
-file_put_contents("goev-tmp.zip", file_get_contents("https://api.github.com/repos/GoEverywhere/Go-Everywhere/archive/master.zip"));
+file_put_contents("goev-tmp.zip", file_get_contents("https://codeload.github.com/GoEverywhere/Go-Everywhere/zip/master"));
 // Now, just to unzip it!
 // Create the ZipArchive object
 $zip = new ZipArchive;
