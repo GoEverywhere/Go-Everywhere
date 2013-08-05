@@ -7,11 +7,8 @@
  * be that hard, but it would be nice to have it on the official
  * script.
  */
-/* TO BETTER SIMULATE AND WRITE YOUR SCRIPTS, COPY (not move) THIS
- * FILE TO THE ROOT OF YOUR SERVER (ex. http://localhost/login.php)
- *
- * When using AJAX, make sure that you send the info with the GET
- * variable "returnonly=true", such like "http://localhost/login.php?returnonly=true"
+/* When using AJAX, make sure that you send the info with the GET
+ * variable "returnonly=true", such like "http://localhost/Go-Everywhere/actions/login.php?returnonly=true"
  * or else the server will direct the page somewhere, where you only
  * want the data, and nothing else
  */
@@ -25,11 +22,11 @@ $errormessage = "";
 //verify that the user is an actual user
 $verified = false;
 //Get the database functions
-require_once("db_constants.php");
+require_once("../../db_constants.php");
 //Connect to the database
 db_connect();
 //Query the database to see if the user exists
-$result = db_query("SELECT * FROM user_credentials WHERE user='" . $username . "' AND passwd='" . sha1($password) . "'");
+$result = db_query("SELECT * FROM users WHERE user='" . $username . "' AND passwd='" . sha1($password) . "'");
 if(db_num_rows($result) > 0)
 {
     //There is at least one user. There should be one, and only one.
@@ -105,7 +102,7 @@ switch($returnonly)
             header('Location: ' . $_GET['redirect'] . '?message=' . $errormessage);
         }else{
             //we weren't given a page, go to the home page
-            header('Location: ./Go-Everywhere/?message=' . $errormessage);
+            header('Location: ../?message=' . $errormessage);
         }
         break;
 }
