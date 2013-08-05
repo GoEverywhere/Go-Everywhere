@@ -44,7 +44,7 @@ session_start(); //Always like to start the session, in case we use it later, an
              */
         </script>
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS BELOW THIS LINE:. -->
-        
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS ABOVE THIS LINE:. -->
         
         <!-- .:ADD ANY EXTERNAL JAVASCRIPT BELOW THIS LINE:. -->
@@ -69,8 +69,8 @@ session_start(); //Always like to start the session, in case we use it later, an
                 if(empty($_SESSION['username']))
                 {
                 ?>
-                <a href="#"><button class="menuitem">Signup</button></a>
-                <a href="#"><button class="menuitem">Login</button></a>
+                <a id="signupButton" href="javascript:"><button class="menuitem">Signup</button></a>
+                <a id="loginButton" href="javascript:"><button class="menuitem">Login</button></a>
                 <?php
                 }else{
                 ?>
@@ -79,8 +79,20 @@ session_start(); //Always like to start the session, in case we use it later, an
                 }
                 ?>
             </div>
+            <div id="loginform">
+                <form method="post" action="./actions/login.php" enctype="application/x-www-form-urlencoded">
+                    <label for="username">Username: </label>
+                    <input type="text" length="15" maxlength="20" id="username" name="username" /><br />
+                    <label for="password">Password: </label>
+                    <input type="password" length="20" maxlength="20" id="password" name="password" /><br />
+                    <input type="submit" value="submit" />
+                </form>
+            </div>
         </div>
         <div id="container"><!-- Something to help with styling -->
             <div id="content">
-                
+                <!--Let's see if they have JavaScript -->
+                <noscript>
+                    <h3 style="color:red;">Woah, there! Sorry, but you <u>must</u> have JavaScript to use most features on Go-Everywhere. Please go enable JavaScript!</h3>
+                </noscript>
 <!-- no need to add </html> or </body>, since that will be taken care of in footer.php -->
