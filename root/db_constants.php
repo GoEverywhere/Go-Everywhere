@@ -28,7 +28,7 @@ function db_connect()
 function db_query($q)
 {
     //Call this function whenever you want to query the database
-    return mysql_query($q) or die ("Could not query: " . mysql_error());
+    return mysql_query($q);
 }
 function db_fetch_array($result)
 {
