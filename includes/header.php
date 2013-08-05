@@ -17,6 +17,11 @@ session_start(); //Always like to start the session, in case we use it later, an
     //Ex. http://localhost/Go-Everywhere/ instead of http://localhost/ or http://localhost/develop/Go-Everywhere
     //This extra folder will also come in handy when we have the self extracting PHP script for Github
 
+    //Start the session if the cookie is there, but the user is not existing in the session variable
+    if((empty($_SESSION['username']) || $_SESSION['username'] == '') && (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != ''))
+    {
+        $_SESSION['username'] = $_GET['user_id'];
+    }
 ?>
 <!DOCTYPE html> <!-- we are using HTML5; this is the default DOCTYPE for it -->
 <html>
@@ -58,7 +63,7 @@ session_start(); //Always like to start the session, in case we use it later, an
             <div id="menuitems">
                 <a href="http://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
                 <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
-                <a href="contribute.php" target="_blank"><button class="menuitem">How to contribute</button></a>
+                <a href="http://<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
             </div>
         </div>
         <div id="container"><!-- Something to help with styling -->

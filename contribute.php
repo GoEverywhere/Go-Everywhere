@@ -1,5 +1,5 @@
 <?php
-include_once("header.php");
+include_once("./includes/header.php");
 ?>
 <h2>How to contribute to the main Github repository</h2>
 <p>
@@ -46,5 +46,5 @@ I decided I better teach all of you how to contribute to the main repository. It
 <br /><b>Thank you for contributing :D</b>
 </p>
 <?php
-include_once("footer.php");
+include_once("./includes/footer.php");
 ?>
