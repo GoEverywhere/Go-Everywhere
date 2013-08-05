@@ -10,5 +10,12 @@ var loadContainer = function() {
     //set it back to the container's style
     container.style.height = height;
 }
-$(document).ready(loadContainer);
+$(document).ready(function(){
+    //resize the container to the correct height
+    loadContainer();
+    //add effects to login/signup
+    $("#loginButton").click(function(){
+        $("#loginform").toggle("blind", 500);
+    });
+});
 $(window).resize(loadContainer);
