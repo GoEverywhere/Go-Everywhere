@@ -66,7 +66,7 @@ session_start(); //Always like to start the session, in case we use it later, an
                 <a href="http://<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
                 <!--maybe this can be changed to float on the right. I sure don't know how to do it.-->
                 <?php
-                if(empty($_SESSION['username']))
+                if(!isset($_SESSION['username']))
                 {
                 ?>
                 <a id="signupButton" href="javascript:"><button class="menuitem">Signup</button></a>
@@ -85,7 +85,7 @@ session_start(); //Always like to start the session, in case we use it later, an
                     <input type="text" length="15" maxlength="20" id="username" name="username" /><br />
                     <label for="password">Password: </label>
                     <input type="password" length="20" maxlength="20" id="password" name="password" /><br />
-                    <input type="submit" value="submit" />
+                    <input type="submit" value="Login!" />
                 </form>
             </div>
         </div>

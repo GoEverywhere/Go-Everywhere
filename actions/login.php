@@ -26,7 +26,8 @@ require_once("../../db_constants.php");
 //Connect to the database
 db_connect();
 //Query the database to see if the user exists
-$result = db_query("SELECT * FROM users WHERE user='" . $username . "' AND passwd='" . sha1($password) . "'");
+//I don't know why, but when using the db_query function, it doesn't work. Maybe because it isn't returning a value?
+$result = mysql_query("SELECT * FROM users WHERE user='" . $username ."' AND passwd='" . sha1($password) . "'");
 if(db_num_rows($result) > 0)
 {
     //There is at least one user. There should be one, and only one.
@@ -37,24 +38,26 @@ if(db_num_rows($result) > 0)
         $errormessage .= "multipleaccounts,";
     }else{
         //There is only one user. Now for the minor details.
-        $row = db_fetch_array($result);
-        if($row['scratch'] == 0)
+        while($row = mysql_fetch_array($result))
         {
-            //They didn't verify their Scratch account
-            $verified = false;
-            $errormessage .= "noscratch,";
-        }
-        //TODO: Improve ban (time based instead of Boolean based)
-        else if($row['banned'] == 1)
-        {
-            //User is banned. Format the time to mm/dd/yy (after the : character)
-            $verified = false;
-            $errormessage .= "banned:forever";
-        }
-        else
-        {
-            //Nothing else, the user can be logged in
-            $verified = true;
+            if($row['scratch'] == 0)
+            {
+                //They didn't verify their Scratch account
+                $verified = false;
+                $errormessage .= "noscratch,";
+            }
+            //TODO: Improve ban (time based instead of Boolean based)
+            else if($row['banned'] == 1)
+            {
+                //User is banned. Format the time to mm/dd/yy (after the : character)
+                $verified = false;
+                $errormessage .= "banned:forever";
+            }
+            else
+            {
+                //Nothing else, the user can be logged in
+                $verified = true;
+            }
         }
     }
 }else{
@@ -68,7 +71,7 @@ if($verified)
 {
     //Log the user in
     //start session
-    season_start();
+    session_start();
     //set user in the session (if they are already in, it will just restart the timer)
     $_SESSION ['username'] = $username;
     //set a cookie to the user
@@ -99,10 +102,10 @@ switch($returnonly)
         if(isset($_GET['redirect']) && $_GET['redirect'] != "")
         {
             //we have a specific page to go back to
-            header('Location: ' . $_GET['redirect'] . '?message=' . $errormessage);
+            header('Location: ' . $_GET['redirect'] . '?message=' . $errormessage . '&verified=' . $verified);
         }else{
             //we weren't given a page, go to the home page
-            header('Location: ../?message=' . $errormessage);
+            header('Location: ../?message=' . $errormessage . '&verified=' . $verified);
         }
         break;
 }
