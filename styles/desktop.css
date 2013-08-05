@@ -68,6 +68,9 @@ body {
     -webkit-border-bottom-left-radius: 15px;
     -moz-border-radius-bottomleft: 15px;
     border-bottom-left-radius: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+    -moz-border-radius-bottomright: 15px;
+    border-bottom-right-radius: 15px;
     background-color: #c1fffa;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     overflow: auto;
