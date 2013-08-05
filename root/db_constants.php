@@ -13,7 +13,7 @@
  * YOU CHANGE TO MYSQLI!!!!!!!!!!!!!
  */
 define("MYSQL_USER", "root");
-define("MYSQL_PASSWORD", "";
+define("MYSQL_PASSWORD", "");
 define("MYSQL_SERVER", "127.0.0.1");
 define("MYSQL_DATABASE", "Go-Everywhere");
 
@@ -28,7 +28,7 @@ function db_connect()
 function db_query($q)
 {
     //Call this function whenever you want to query the database
-    return mysql_query($q) or die ("Could not query: " . mysql_error();
+    return mysql_query($q) or die ("Could not query: " . mysql_error());
 }
 function db_fetch_array($result)
 {
