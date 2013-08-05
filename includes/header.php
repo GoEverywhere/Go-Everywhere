@@ -59,11 +59,25 @@ session_start(); //Always like to start the session, in case we use it later, an
     
     <body>
         <div id="header">
-               <a href="http://<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
+            <a href="http://<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
             <div id="menuitems">
                 <a href="http://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
                 <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
                 <a href="http://<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
+                <!--maybe this can be changed to float on the right. I sure don't know how to do it.-->
+                <?php
+                if(empty($_SESSION['username']))
+                {
+                ?>
+                <a href="#"><button class="menuitem">Signup</button></a>
+                <a href="#"><button class="menuitem">Login</button></a>
+                <?php
+                }else{
+                ?>
+                <a href="#"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
+                <?php
+                }
+                ?>
             </div>
         </div>
         <div id="container"><!-- Something to help with styling -->
