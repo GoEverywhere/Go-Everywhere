@@ -53,6 +53,11 @@ if(empty($_SESSION['tmp_username']))
 				<?php
 			}
 		}
+		if(!$success)
+		{
+			//Didn't find it. Send the user to the last step
+			header('Location: ./2.php');
+		}
 	}
 }
 ?>
