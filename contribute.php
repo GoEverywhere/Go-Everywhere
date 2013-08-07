@@ -1,6 +1,13 @@
 <?php
 include_once("./includes/header.php");
 ?>
+<style>
+    /*For the images to have correct size*/
+    img {
+        width: 500px !important;
+        height: 300px !important;
+    }
+</style>
 <h2>How to contribute to the main Github repository</h2>
 <p>
 I decided I better teach all of you how to contribute to the main repository. It is very simple, and very clean. The first thing you are going to want to do is go to <a href="http://github.com/GoEverywhere/Go-Everywhere.git[/url]" target="_blank">http://github.com/GoEverywhere/Go-Everywhere.git</a>. Then, find and click the "Fork" button:
