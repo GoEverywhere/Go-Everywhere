@@ -15,7 +15,7 @@
 //Put the HTTP variables into variables
 $username = $_POST['username'];
 $password = $_POST['password'];
-$returnonly = $_GET['readonly'];
+$returnonly = $_GET['returnonly'];
 //make sure if there is an error to write it to this variable. Append to it, each error having a , between them
 $errormessage = "";
 
@@ -49,7 +49,7 @@ if(db_num_rows($result) > 0)
             //TODO: Improve ban (time based instead of Boolean based)
             else if($row['banned'] == 1)
             {
-                //User is banned. Format the time to mm/dd/yy (after the : character)
+                //User is banned. Format the time to mm/dd/yyyy (after the : character)
                 $verified = false;
                 $errormessage .= "banned:forever";
             }
