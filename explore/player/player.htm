@@ -24,8 +24,10 @@
         }
         document.getElementById('project').setAttribute('project', vars['project']);
         if (vars['width'] != "" && vars['height'] != "") {
+          /*This is commented out because I think that there is an easier way of resizing it
+           *If we zoom the iframe out on other pages, we can simulate this same thing
           document.getElementById('project').setAttribute('jwidth', parseInt(vars['width']) - 20);
-          document.getElementById('project').setAttribute('jheight', parseInt(vars['height']) - 20);
+          document.getElementById('project').setAttribute('jheight', parseInt(vars['height']) - 20);*/
         }
         document.onselectstart = function (e) {
             e.preventDefault();

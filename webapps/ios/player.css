@@ -1,0 +1,10 @@
+/*This code is going to scale the #project_viewer down by 75%*/
+#project_viewer {
+    zoom: 0.75;
+    -moz-transform: scale(0.64);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.64);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.64);
+    -webkit-transform-origin: 0 0;
+}
