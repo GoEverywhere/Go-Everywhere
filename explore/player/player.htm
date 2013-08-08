@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>JsScratch</title>
     <link href="player.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../../scripts/jquery.min.js"></script>
     <script type="text/javascript" src="./js/datatypes.js"></script>
     <script type="text/javascript" src="./js/jsscratch.js"></script>
     <script type="text/javascript" src="./js/blocks.js"></script>
@@ -12,7 +13,7 @@
     <script type="text/javascript" src="./js/jscembed.js"></script>
   </head>
   <body>
-    <div id="project"></div>
+    <div id="project" jwidth="480" jheight="480"></div>
     <script type="text/javascript">
         var player;
         var vars = [], hash;
@@ -22,6 +23,10 @@
             vars[hash[0]] = hash[1];
         }
         document.getElementById('project').setAttribute('project', vars['project']);
+        if (vars['width'] != "" && vars['height'] != "") {
+          document.getElementById('project').setAttribute('jwidth', parseInt(vars['width']) - 20);
+          document.getElementById('project').setAttribute('jheight', parseInt(vars['height']) - 20);
+        }
         document.onselectstart = function (e) {
             e.preventDefault();
         };

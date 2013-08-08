@@ -168,7 +168,7 @@
         };
     }
     
-    jsc.createPlayer = function (url, autoplay) {
+    jsc.createPlayer = function (url, width, height, autoplay) {
         var container = document.createElement('div');
         container.setAttribute('class', 'player');
         
@@ -200,8 +200,8 @@
         container.appendChild(subcon);
         
         var canvas = document.createElement('canvas');
-        canvas.setAttribute('width', '480');
-        canvas.setAttribute('height', '360');
+        canvas.setAttribute('width', width.toString());
+        canvas.setAttribute('height', height.toString());
         canvas.setAttribute('tabindex', '1');
         canvas.innerHTML = 'Sorry, your browser does not support the <code>canvas</code> tag! <a href="http://www.google.com/chrome/">Get Chrome!</a>';
         subcon.appendChild(canvas);
