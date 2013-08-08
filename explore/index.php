@@ -40,7 +40,7 @@ switch($type)
         echo "<table border=\"0\">\n";
         break;
     case 'xml':
-        header ("Content-Type:text/xml");
+        header ("Content-Type: text/xml");
         echo "<?xml version=\"1.0\" ?>\n";
         echo "<projects>\n";
         break;
