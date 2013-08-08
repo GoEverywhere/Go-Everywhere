@@ -13,9 +13,9 @@
                 divs[i].appendChild(project[0]);
                 //We need to restyle lots of things that that stylesheet styles
                 //To get the correct width and height
-                $(".player .header").css("width", (parseInt(divs[i].getAttribute('jwidth')) + 2) + "px");
+                /*$(".player .header").css("width", (parseInt(divs[i].getAttribute('jwidth')) + 2) + "px");
                 $(".player .subcon").css("width", divs[i].getAttribute('jwidth') + "px");
-                $(".player .subcon").css("height", divs[i].getAttribute('jheight') + "px");
+                $(".player .subcon").css("height", divs[i].getAttribute('jheight') + "px");*/
             }
         }
     }
