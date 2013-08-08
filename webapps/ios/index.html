@@ -19,6 +19,7 @@
         <!-- Add any external JavaScript above this line -->
         <!-- Add any external CSS below this line -->
         <link href="../../scripts/jqtouch/themes/css/apple.css" rel="stylesheet" /> <!-- Theme for jQTouch. Maybe we can make it more blue and orange later :P -->
+        <link href="./player.css" rel="stylesheet" />
         <!-- Add any external CSS above this line -->
     </head>
     <body>
@@ -53,7 +54,7 @@
                     <a class="back" href="#">Browse</a>
                 </div>
                 <div class="scroll">
-                    <iframe id="project_viewer" scrolling="no" />
+                    <div id="project_viewer_wrap"><iframe id="project_viewer" scrolling="no"></iframe></div>
                     <div id="project_comments">
                         No Comments
                     </div>

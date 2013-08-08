@@ -52,7 +52,7 @@ function loadProject(id) {
                 var title = $(this).attr("title");
                 var description = $(this).attr("description");
                 //load the actual project
-                $("#project_viewer").attr("src", "../../explore/player/player.htm?width=" + $(window).width().toString() + "&height=" + $(window).width().toString() + "&project=../../../projects/" + user + "/" + id.toString() + ".sb");
+                $("#project_viewer").attr("src", "../../explore/player/player.htm?project=../../../projects/" + user + "/" + id.toString() + ".sb");
                 //Update the title
                 $("#viewproject h1").text(title);
             });
@@ -62,8 +62,8 @@ function loadProject(id) {
 
 $(document).ready(function(){
     //Initialization
-    $("#project_viewer").width($(window).width());
-    $("#project_viewer").height($(window).width() + 15);
+    /*$("#project_viewer").width($(window).width());
+    $("#project_viewer").height($(window).width() + 15);*/
     //Attach touch events
     $(".reloadAllProjects").bind('touchstart', function(){
         reloadAllProjects();
