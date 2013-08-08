@@ -1,9 +1,9 @@
 //Initialize the jQT object and style the page
 var jQT = new $.jQTouch({
-    /*icon: 'jqtouch.png',
-    icon4: 'jqtouch4.png',*/
+    icon: 'icon.png',
+    /*icon4: 'jqtouch4.png',*/
     addGlossToIcon: false,
-    /*startupScreen: 'jqt_startup.png',*/
+    startupScreen: 'iphone_splash.png',
     statusBar: 'black-translucent',
     preloadImages: []
 });
