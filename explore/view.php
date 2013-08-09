@@ -8,7 +8,7 @@ require_once("../../db_constants.php");
 //connect to the db
 db_connect();
 //make sure that there is a project id
-$ID = $_GET['id'];
+$ID = mysql_real_escape_string($_GET['id']);
 if(empty($ID) || $ID == "")
 {
     //send them to the all projects page
