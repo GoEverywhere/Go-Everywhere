@@ -32,14 +32,14 @@ if($_POST['password'] != $_POST['password2'])
 //Okay, now we can begin to register them!
 db_connect();
 //See if they are already registered
-$result = mysql_query("SELECT * FROM users WHERE user='" . $_SESSION['verifieduser'] . "'");
+$result = mysql_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($_SESSION['verifieduser']) . "'");
 if(mysql_num_rows($result) > 0)
 {
     	//They are already registered!
     	echo "<p>ERROR: You are already registered! Go log in instead!</p>";
 }else{
     //Insert them into the database!
-    db_query("INSERT INTO users VALUES('" . $_SESSION['verifieduser'] . "', '" . sha1($_POST['password']) . "', 1, 1, 0)");
+    db_query("INSERT INTO users VALUES('" . mysql_real_escape_string($_SESSION['verifieduser']) . "', '" . sha1($_POST['password']) . "', 1, 1, 0)");
     //Log the user in
     session_start();
     //set user in the session
