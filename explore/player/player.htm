@@ -13,7 +13,7 @@
     <script type="text/javascript" src="./js/jscembed.js"></script>
   </head>
   <body>
-    <div id="project" jwidth="480" jheight="480"></div>
+    <div id="project" jwidth="480" jheight="480" sfactor="1.0"></div>
     <script type="text/javascript">
         var player;
         var vars = [], hash;
@@ -28,6 +28,9 @@
            *If we zoom the iframe out on other pages, we can simulate this same thing
           document.getElementById('project').setAttribute('jwidth', parseInt(vars['width']) - 20);
           document.getElementById('project').setAttribute('jheight', parseInt(vars['height']) - 20);*/
+        }
+        if (vars['scale']) {
+          $("#project").attr("sfactor", vars['scale']);
         }
         document.onselectstart = function (e) {
             e.preventDefault();

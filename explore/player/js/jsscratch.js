@@ -168,7 +168,17 @@
         };
     }
     
-    jsc.createPlayer = function (url, width, height, autoplay) {
+    jsc.scaleFactor = 1.0;
+    
+    jsc.createPlayer = function (url, width, height, autoplay, scale) {
+        if (scale != undefined) {
+            //The frame holder scaled the viewer. Touch and mouse events MUST be translated
+            //to match the percent. The ratio of the scale is proportional to the X. For
+            //example, scale/100 is equal to findX/mouseX. So, (mouseX * scale) / 100 is equal to findX.
+            //findX is the corrected scale
+            jsc.scaleFactor = scale;
+        }
+        
         var container = document.createElement('div');
         container.setAttribute('class', 'player');
         
@@ -246,6 +256,8 @@
             stop.onclick = function () {
                 player.stop();
             };
+            //Auto-start
+            $(start).click();
         });
         
         return [container, player];
@@ -793,6 +805,7 @@
     };
     jsc.Stage.prototype.mousedown = function (e) {
         e.preventDefault();
+        //window.alert((e.layerX * (jsc.scaleFactor * 100)) / 100)
         this.mouseDown = true;
         
         for (var i = 0; i < this.children.length; i++) {
