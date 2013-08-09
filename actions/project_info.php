@@ -6,7 +6,7 @@ require_once("../../db_constants.php");
 //connect to the database
 db_connect();
 //query the database for the project info
-$result = mysql_query("SELECT * FROM projects WHERE id='" . $_GET['id'] . "'") or die("Could not query");
+$result = mysql_query("SELECT * FROM projects WHERE id='" . mysql_real_escape_string($_GET['id']) . "'") or die("Could not query");
 //get the array from the result
 $row = mysql_fetch_array($result);
 //echo the info
