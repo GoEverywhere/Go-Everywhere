@@ -25,7 +25,7 @@ if(isset($_SESSION['username']))
                 //Connect to the database
                 db_connect();
                 //See if they are already registered
-                $result = db_query("SELECT * FROM users WHERE user='" . $_POST['username'] . "'");
+                $result = db_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($_POST['username']) . "'");
                 if(db_num_rows($result) > 0)
                 {
                     //They are already registered!
@@ -40,7 +40,7 @@ if(isset($_SESSION['username']))
                     }else{
                         //Yes!
                         //Insert them into the database!
-                        db_query("INSERT INTO users VALUES('" . $_POST['username'] . "', '" . sha1($_POST['password']) . "', 1, 1, 0)");
+                        db_query("INSERT INTO users VALUES('" . mysql_real_escape_string($_POST['username']) . "', '" . sha1($_POST['password']) . "', 1, 1, 0)");
                         //Log the user in
                         //set user in the session
                         $_SESSION ['username'] = $username;
