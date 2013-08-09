@@ -1,4 +1,9 @@
 <?php
+/*
+ * THIS FILE IS DEPRECATED!
+ * It still exists for reference.
+ * Registration is now located at /register/1.php
+ *
 //Start the session
 session_start();
 //get the database info
@@ -74,8 +79,9 @@ if(isset($errormessage))
 <p style="color:red"><?php echo $errormessage; ?></p>
 <?php
 }
+*/
 ?>
-<form style="padding: 5px;border: 1px solid black; width: 450px;" method="post" action="./register.php?filled=true" enctype="application/x-www-form-urlencoded">
+<!--<form style="padding: 5px;border: 1px solid black; width: 450px;" method="post" action="./register.php?filled=true" enctype="application/x-www-form-urlencoded">
     <label for="username">Existing ModShare Username: </label>
     <input type="text" length="15" maxlength="20" id="username" name="username" /><br />
     <label for="mpassword">Existing ModShare Password: </label>
@@ -85,7 +91,7 @@ if(isset($errormessage))
     <label for="password2">Password for Go Everywhere Again: </label>
     <input type="password" length="20" maxlength="20" id="password2" name="password2" /><br />
     <input type="submit" value="Signup!" />
-</form>
+</form>-->
 <?php
-include_once('./includes/footer.php');
+//include_once('./includes/footer.php');
 ?>
