@@ -7,7 +7,7 @@
         while (i--) {
             if (done.indexOf(divs[i]) === -1) {
                 done.push(divs[i]);
-                var project = jsc.createPlayer(divs[i].getAttribute('project'), divs[i].getAttribute('jwidth'), divs[i].getAttribute('jheight'), divs[i].getAttribute('autoplay') === 'true');
+                var project = jsc.createPlayer(divs[i].getAttribute('project'), divs[i].getAttribute('jwidth'), divs[i].getAttribute('jheight'), divs[i].getAttribute('autoplay') === 'true', parseFloat(divs[i].getAttribute('sfactor')));
                 window.player = project[1];
                 divs[i].innerHTML = '';
                 divs[i].appendChild(project[0]);
