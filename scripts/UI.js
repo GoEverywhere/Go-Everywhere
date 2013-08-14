@@ -17,5 +17,8 @@ $(document).ready(function(){
     $("#loginButton").click(function(){
         $("#loginform").toggle("blind", 500);
     });
+    $("#loginform input").focus(function(){
+        $("#loginform").show();
+    });
 });
 $(window).resize(loadContainer);
