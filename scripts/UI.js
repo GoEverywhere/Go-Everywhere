@@ -19,6 +19,11 @@ $(document).ready(function(){
     });
     $("#loginform input").focus(function(){
         $("#loginform").show();
+        $("#loginform").css({
+            position: "absolute",
+            right: "0px",
+            top: "30px"
+        });
     });
 });
 $(window).resize(loadContainer);
