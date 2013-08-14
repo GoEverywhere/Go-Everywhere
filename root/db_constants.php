@@ -16,6 +16,8 @@ define("MYSQL_USER", "root");
 define("MYSQL_PASSWORD", "");
 define("MYSQL_SERVER", "127.0.0.1");
 define("MYSQL_DATABASE", "Go-Everywhere");
+//The salt for crypting users (change to be more secure)
+define("LOGIN_SALT", "goev");
 
 function db_connect()
 {

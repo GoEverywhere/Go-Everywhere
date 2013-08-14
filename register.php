@@ -45,7 +45,7 @@ if(isset($_SESSION['username']))
                     }else{
                         //Yes!
                         //Insert them into the database!
-                        db_query("INSERT INTO users VALUES('" . mysql_real_escape_string($_POST['username']) . "', '" . sha1($_POST['password']) . "', 1, 1, 0)");
+                        db_query("INSERT INTO users VALUES('" . mysql_real_escape_string($_POST['username']) . "', '" . crypt($_POST['password'], LOGIN_SALT) . "', 1, 1, 0)");
                         //Log the user in
                         //set user in the session
                         $_SESSION ['username'] = $username;

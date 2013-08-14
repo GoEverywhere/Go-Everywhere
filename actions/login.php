@@ -27,7 +27,7 @@ require_once("../../db_constants.php");
 db_connect();
 //Query the database to see if the user exists
 //I don't know why, but when using the db_query function, it doesn't work. Maybe because it isn't returning a value?
-$result = mysql_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($username) ."' AND passwd='" . sha1($password) . "'");
+$result = mysql_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($username) ."' AND passwd='" . crypt($password, LOGIN_SALT) . "'");
 if(db_num_rows($result) > 0)
 {
     //There is at least one user. There should be one, and only one.
