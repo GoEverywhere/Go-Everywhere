@@ -23,7 +23,7 @@ session_start(); //Always like to start the session, in case we use it later, an
         if ($_SERVER["SERVER_PORT"] != "80") {
             $DOMAIN = "http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
         } else {
-            $DOMAIN = "http://"$_SERVER["SERVER_NAME"];
+            $DOMAIN = "http://".$_SERVER["SERVER_NAME"];
         }
     }
 
