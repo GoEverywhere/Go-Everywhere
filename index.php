@@ -2,7 +2,7 @@
 //include the header (but make sure it is only once, to not redo any code that shouldn't)
 include_once("./includes/header.php");
 ?>
-<?php include_once("Mobile_Detect.php");
+<?php include_once("./includes/Mobile_Detect.php");
     $detect = new Mobile_Detect;
     if (!$detect->isMobile() && !$detect->isTablet()) {
         echo 'This website is a Scratch extension designed for mobile devices. Click <a href="http://scratch.mit.edu">here</a> to go back to the main Scratch 2.0 website, designed for desktop computers.';
