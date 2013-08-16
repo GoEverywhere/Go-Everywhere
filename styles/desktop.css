@@ -54,7 +54,6 @@ body {
 }
 
 #menuitems {
-    position: absolute;
     margin-left: 180px;
     height: 30px;
     overflow-x: auto;
