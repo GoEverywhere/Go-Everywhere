@@ -1,5 +1,5 @@
 <?php
-include_once("./includes/header.php");
+include_once("../includes/header.php");
 ?>
 
 <!-- Someone add a profile picture thing and password change stuffs -->
@@ -7,5 +7,5 @@ include_once("./includes/header.php");
 <h1><u>Under Construction</u></h1>
 
 <?php
-include_once("./includes/footer.php");
+include_once("../includes/footer.php");
 ?>
