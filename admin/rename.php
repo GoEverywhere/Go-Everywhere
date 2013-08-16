@@ -32,9 +32,9 @@ $dir->close();
 return rmdir($dirname);
 }
  
-rmdirr("../../Go-Everywhere");
+rmdirr("../Go-Everywhere");
 //rename the folder
-rename("../../Go-Everywhere-master", "../Go-Everywhere");
+rename("../Go-Everywhere-master", "../Go-Everywhere");
 //and, we are done!
 echo "Success! The site should have been updated, but you should go look and make sure.";
 ?>
