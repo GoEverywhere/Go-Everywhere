@@ -11,6 +11,14 @@ if(isset($_SESSION['username']))
 	exit;
 }
 include_once('../includes/header.php');
+//REGISTRATION IS CURRENTLY LOCKED FOR SERVER!
+//This is because some folders have to be made, and we need to create them dynamically. We don't
+//have the scripts yet to create the folders.
+$disabled = true; //True if registration should be disabled
+if($disabled)
+{
+    echo "<h3 style='color:red;'>Sorry, registration is currently locked. Please try again later!</h3>";
+}else{
 ?>
 <h2>Signup!</h2>
 <p>Please insert your existing <a href="http://scratch.mit.edu/" target="_blank">Scratch</a> account.</p>
@@ -20,5 +28,6 @@ include_once('../includes/header.php');
     <input type="submit" value="Signup!" />
 </form>
 <?php
+}
 include_once('../includes/footer.php');
 ?>
