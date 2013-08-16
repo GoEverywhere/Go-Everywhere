@@ -73,7 +73,7 @@ session_start(); //Always like to start the session, in case we use it later, an
                 <?php
                 }else{
                 ?>
-                <a style="float: right" href="#"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
+                <a style="float: right" href="http://<?php echo $DOMAIN; ?>/profile"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
                 <a style="float: right" href="http://<?php echo $DOMAIN; ?>/logout.php"><button class="menuitem">Logout</button></a>
                 <?php
                 }
