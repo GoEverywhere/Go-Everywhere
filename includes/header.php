@@ -8,11 +8,26 @@ session_start(); //Always like to start the session, in case we use it later, an
 //This means that on local servers for testing, you do not have to change the $DOMAIN variable back and forth
 //This is the global variable, which will hold the current domain we are using,
 //in case we ever need to change it. use it as: "http://" + $DOMAIN + "/index.php"
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $DOMAIN = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+
+    //This checks for https
+    //The off is only on IIS
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+        //SSL connection
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $DOMAIN = "https://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+        } else {
+            $DOMAIN = "https://".$_SERVER["SERVER_NAME"];
+        }
     } else {
-        $DOMAIN = $_SERVER["SERVER_NAME"];
+        //Not SSL
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $DOMAIN = "http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+        } else {
+            $DOMAIN = "http://"$_SERVER["SERVER_NAME"];
+        }
     }
+
+    
     $DOMAIN .= "/Go-Everywhere"; //Because of how I told all of you to set this up, you must run this in the "Go-Everywhere" folder
     //Ex. http://localhost/Go-Everywhere/ instead of http://localhost/ or http://localhost/develop/Go-Everywhere
     //This extra folder will also come in handy when we have the self extracting PHP script for Github
@@ -48,34 +63,34 @@ session_start(); //Always like to start the session, in case we use it later, an
         <!-- .:ADD ANY JQUERY PLUGINS OR OTHER USEFUL FRAMEWORKS ABOVE THIS LINE:. -->
         
         <!-- .:ADD ANY EXTERNAL JAVASCRIPT BELOW THIS LINE:. -->
-        <script src="http://<?php echo $DOMAIN; ?>/scripts/UI.js">//To get the correct style, JavaScript is needed to calculate height properly</script>
+        <script src="<?php echo $DOMAIN; ?>/scripts/UI.js">//To get the correct style, JavaScript is needed to calculate height properly</script>
         <!-- .:ADD ANY EXTERNAL JAVASCRIPT ABOVE THIS LINE:. -->
         
         <!-- .:ADD ANY CSS LINKS BELOW THIS LINE:. -->
-        <link href="http://<?php echo $DOMAIN; ?>/styles/desktop.css" rel="stylesheet" /> <!-- The CSS file for the header (this page). -->
+        <link href="<?php echo $DOMAIN; ?>/styles/desktop.css" rel="stylesheet" /> <!-- The CSS file for the header (this page). -->
         <!-- .:ADD ANY CSS LINKS ABOVE THIS LIKE:. -->
     </head>
     
     <body>
         <div id="header">
-            <a href="http://<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
+            <a href="<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
             <div id="menuitems">
-                <a href="http://<?php echo $DOMAIN; ?>/explore"><button class="menuitem">Explore</button></a>
-                <a href="http://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
-                <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
-                <a href="http://<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
+                <a href="<?php echo $DOMAIN; ?>/explore"><button class="menuitem">Explore</button></a>
+                <a href="https://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
+                <a href="scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
+                <a href="<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
                 <!--maybe this can be changed to float on the right. I sure don't know how to do it.-->
                 <?php
                 if(!isset($_SESSION['username']))
                 {
                 ?>
-                <a style="float: right" id="signupButton" href="http://<?php echo $DOMAIN; ?>/register/"><button class="menuitem">Signup</button></a>
+                <a style="float: right" id="signupButton" href="<?php echo $DOMAIN; ?>/register/"><button class="menuitem">Signup</button></a>
                 <a style="float: right" id="loginButton" href="javascript:"><button class="menuitem">Login</button></a>
                 <?php
                 }else{
                 ?>
-                <a style="float: right" href="http://<?php echo $DOMAIN; ?>/profile"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
-                <a style="float: right" href="http://<?php echo $DOMAIN; ?>/logout.php"><button class="menuitem">Logout</button></a>
+                <a style="float: right" href="<?php echo $DOMAIN; ?>/profile"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
+                <a style="float: right" href="<?php echo $DOMAIN; ?>/logout.php"><button class="menuitem">Logout</button></a>
                 <?php
                 }
                 ?>
