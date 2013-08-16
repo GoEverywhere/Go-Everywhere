@@ -11,7 +11,7 @@ if(isset($_GET['user']) && $_GET['user'] != "")
     $displayOwn = false;
 }
 $user = $_SESSION['username'];
-if($displayOwn)
+if(!$displayOwn)
 {
     $user = $_GET['user'];
 }
