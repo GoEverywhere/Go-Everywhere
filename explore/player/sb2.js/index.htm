@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>sb2.js project viewer</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+    <script type="text/javascript" src='script/ZipFile.complete.js'></script>
+
+    <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
+    <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
+
+    <script type="text/javascript" src="script/sb2.js"></script> 
+
+<!-- To load a file on page load, embed a script that sets autoLoad to the sb2 file you wish to load, eg.
+
+	<script>
+		autoLoad = "examples/coin.sb2";
+	</script>
+
+-->
+
+  </head>
+
+  <body style="margin:0px;">
+
+    <div id='main' class='column'>
+
+<div style="position: absolute; top: 50%; width:100%" >
+<div style="width:486px; height:420px; margin-left:auto; margin-right:auto;">
+<div style="position: relative; top: -50%;">
+
+
+	<canvas id='scratch' width='486' height='391' tabindex='1'></canvas>
+
+	<!-- <canvas id='pencanvas' width='480' height='360'></canvas> -->
+    <div>
+      <select style='margin:2px 0px 12px 0px;' id="urlToLoad">
+
+        <option>---TESTS (incomplete)---</option>
+        <option>exectest.sb2</option>
+
+        <option>---PERFECT---</option>
+        <option>MarioBros.sb2</option>
+        <option>LINE Tennis.sb2</option>
+        <option>ContrastHQ.sb2</option>
+        <option>coin.sb2</option>
+        <option>scratchcraft.sb2</option>
+        <option>line.sb2</option>
+        <option>3d.sb2</option>
+        <option>test.sb2</option>
+        <option>variablepong.sb2</option>
+        <option>not fez.sb2</option>
+        <option>caramia.sb2</option>
+        <option>pokemonmusic.sb2</option>
+        <option>nyan.sb2</option>
+        <option>fractal.sb2</option>
+        <option>summer.sb2</option>
+        <option>nyansync.sb2</option>
+
+        <option>---PLAYABLE---</option>
+        <option>sketch.sb2</option>
+        <option>scratchkart.sb2</option>
+        <option>SuperYoshiBros.sb2</option>
+
+        <option>---MESH---</option>
+        <option>linemesh.sb2</option>
+        <option>mariomesh.sb2</option>
+        <option>meshpaint.sb2</option>
+
+        <option>---STUFF---</option>
+        <option>yay.sb2</option>
+        <!-- <option>yes.sb2</option>
+        <option>rof.sb2</option> -->
+        <option>follow.sb2</option>
+
+        <option>---TESTS (complete)---</option>
+        <option>speed.sb2</option>
+        <option>stamptest.sb2</option>
+        <option>saytest.sb2</option>
+        <option>variabletest.sb2</option>
+        <option>waittest.sb2</option>
+        <option>repeattest1.sb2</option>
+        <option>repeattest2.sb2</option>
+        <option>clonetest.sb2</option>
+        <option>asktest.sb2</option>
+        <option>touchingMouseTest.sb2</option>
+        <option>rotcollisiontest.sb2</option>
+        <option>broadwaittest.sb2</option>
+        <option>pencolor.sb2</option>
+
+        <option>advbroadcast.sb2</option>
+
+
+      </select>
+    <input style='padding:2px;'
+           onclick='ReadFile("examples/" + document.getElementById("urlToLoad").value)' type='button' title='Play' value='Play'/>
+<a href="extras.htm" style="margin-left:15px;">Extras</a> - <a href="editor.htm">Editor</a> - <a href="http://code.google.com/p/sb2-js/">Repo</a> - <a href="iphone.htm">iPhone (web app)</a> <!-- <a href="indev.htm" style="margin-left:15px;">Indev</a> -->
+    </div>
+
+<input onclick='connectMesh();' type='button' title='Mesh Connect' value='Mesh'/> websocket server available in repository <br>
+
+still faster than JsScratch
+
+</div>
+</div>
+</div>
+
+<div id="test" style="display:none"> </div>
+<div id="test2" style="display:none"> </div>
+
+
+</html>
+
+
