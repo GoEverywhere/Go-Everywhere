@@ -14,7 +14,7 @@ include_once('../includes/header.php');
 //REGISTRATION IS CURRENTLY LOCKED FOR SERVER!
 //This is because some folders have to be made, and we need to create them dynamically. We don't
 //have the scripts yet to create the folders.
-$disabled = true; //True if registration should be disabled
+$disabled = false; //True if registration should be disabled
 if($disabled)
 {
     echo "<h3 style='color:red;'>Sorry, registration is currently locked. Please try again later!</h3>";
