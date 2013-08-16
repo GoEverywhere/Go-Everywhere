@@ -68,12 +68,12 @@ session_start(); //Always like to start the session, in case we use it later, an
                 if(!isset($_SESSION['username']))
                 {
                 ?>
-                <a style="float: right" id="signupButton" href="http://<?php echo $DOMAIN; ?>/register/"><button class="menuitem">Signup</button></a>
+                <a id="signupButton" href="http://<?php echo $DOMAIN; ?>/register/"><button class="menuitem">Signup</button></a>
                 <a id="loginButton" href="javascript:"><button class="menuitem">Login</button></a>
                 <?php
                 }else{
                 ?>
-                <a style:"float: right" href="#"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
+                <a href="#"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
                 <a href="http://<?php echo $DOMAIN; ?>/logout.php"><button class="menuitem">Logout</button></a>
                 <?php
                 }
