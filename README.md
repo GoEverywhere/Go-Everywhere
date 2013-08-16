@@ -9,4 +9,4 @@ Currently, you cannot use Go Everywhere, as we are not very far into development
 
 How To Contribute
 =============
-Want to contribute to Go Everywhere? Great! All you have to do is fork our repository and edit it.  Then, submit a pull request. We will try to merge it into our experimental branch, and if we are successful, merge it into the master branch. It is that easy!
+Want to contribute to Go Everywhere? Great! All you have to do is fork our repository and edit it.  Then, submit a pull request. We will try to merge it into our repository, and if we are successful, it will be pushed to the site. It is that easy!
