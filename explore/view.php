@@ -36,7 +36,7 @@ $row = mysql_fetch_array($result);
 </style>
 <center>
     <h2><?php echo $row['title']; ?></h2>
-    <iframe id="project_viewer" width="500" height="405" scrolling="no" src="./player/player.htm?project=<?php echo "../../../projects/" . $row['user'] . "/" . $row['id'] . ".sb"; ?>">Loading...</iframe>
+    <iframe id="project_viewer" width="500" height="405" scrolling="no" src="./player/JsScratch/player.htm?project=<?php echo "../../../projects/" . $row['user'] . "/" . $row['id'] . ".sb"; ?>">Loading...</iframe>
     <div id="project_info">
         <h4><b>Description</b></h4>
         <p><?php echo $row['description']; ?></p>
