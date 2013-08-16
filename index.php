@@ -2,6 +2,12 @@
 //include the header (but make sure it is only once, to not redo any code that shouldn't)
 include_once("./includes/header.php");
 ?>
+<?php include_once("./includes/Mobile_Detect.php");
+    $detect = new Mobile_Detect;
+    if (!$detect->isMobile() && !$detect->isTablet()) {
+        echo 'This website is a Scratch extension designed for mobile devices. Click <a href="http://scratch.mit.edu">here</a> to go back to the main Scratch 2.0 website, designed for desktop computers.';
+    }
+?>
 <p>Go Everywhere is inspired by Scratch, to edit Scratch projects on mobile devices, via HTML5, and community made. Each supported device will have a specific stylesheet, making the interface more user-friendly. And for the devices that work, but are not specifically supported, a general stylesheet will be created, as temporary support for the device until we can get a stylesheet working.</p>
 <h1><u>Why should I care? The Scratch Team is already working (or is going to work) on Scratch 2.0 in HTML5.</u></h1>
 <p>Correct. However, there are several advantages. Since this is the community's version of Scratch, we can edit however we please. If we see a feature that we want, or don't like, we don't have to wait for official support. We can edit it, and use Go Everywhere until support is added. We can add blocks, user-interface design, and add advanced editing options. Our projects can also be transformed into native apps for Android, Steam, and iOS (however, with each platform, you have to commit the money yourself to submit apps). Certain restrictions will be set at first (no selling GE-made games, and the requirement for having the GE logo in your splash-screen). However, these restrictions may change in the future.</p>
