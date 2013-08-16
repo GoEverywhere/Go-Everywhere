@@ -44,14 +44,14 @@ session_start(); //Always like to start the session, in case we use it later, an
         <title>Go Everywhere!</title>
         
         <!-- HTML5 <script> tags don't require TYPE or LANGUAGE attributes, so we are fine with just this -->
-        <script src="http://<?php echo $DOMAIN; ?>/scripts/jquery.min.js">
+        <script src="<?php echo $DOMAIN; ?>/scripts/jquery.min.js">
             /*
              * I personally like to use jQuery (http://jquery.com/)
              * as the syntax is clean, powerful, and simple
              * along with the many useful plugins we may use
              */
         </script>
-        <script src="http://<?php echo $DOMAIN; ?>/scripts/jquery-migrate.min.js">
+        <script src="<?php echo $DOMAIN; ?>/scripts/jquery-migrate.min.js">
             /*
              * I am not used to the syntax of jQuery 2.x, however
              * some plugins use the new syntax, and some the old
