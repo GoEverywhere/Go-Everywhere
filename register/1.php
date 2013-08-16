@@ -11,9 +11,6 @@ if(isset($_SESSION['username']))
 	exit;
 }
 include_once('../includes/header.php');
-//REGISTRATION IS CURRENTLY LOCKED FOR SERVER!
-//This is because some folders have to be made, and we need to create them dynamically. We don't
-//have the scripts yet to create the folders.
 $disabled = false; //True if registration should be disabled
 if($disabled)
 {
