@@ -40,6 +40,8 @@ if(mysql_num_rows($result) > 0)
 }else{
     //Insert them into the database!
     db_query("INSERT INTO users VALUES('" . mysql_real_escape_string($_SESSION['verifieduser']) . "', '" . crypt($_POST['password'], LOGIN_SALT) . "', 1, 1, 0)");
+    //Create folders for uploading projects
+    mkdir("../../projects/" + $_SESSION['verifieduser']);
     //Log the user in
     session_start();
     //set user in the session
