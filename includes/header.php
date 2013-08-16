@@ -60,6 +60,7 @@ session_start(); //Always like to start the session, in case we use it later, an
         <div id="header">
             <a href="http://<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
             <div id="menuitems">
+                <a href="http://<?php echo $DOMAIN; ?>/explore"><button class="menuitem">Explore</button></a>
                 <a href="http://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
                 <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
                 <a href="http://<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
