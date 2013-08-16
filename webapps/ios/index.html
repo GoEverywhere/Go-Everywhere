@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+    <!-- PLEASE UNDERSTAND THAT THIS FILE MUST BE A HTML DOCUMENT!!!!!
+        PHP WILL NOT WORK BECAUSE OF HOW OFFLINE CACHING ON IOS WORKS!!!!! -->
+<html>
+    <head>
+        <title>Go Everywhere</title>
+        <!-- jQuery, jQuery Migrate, jQuery UI, jQuery Touch Punch, and jQTouch are required -->
+        <script src="../../scripts/jquery.min.js">//jQuery</script>
+        <script src="../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
+        <script src="../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
+        <script src="../../scripts/jqtouch/src/jqtouch-jquery.min.js">//Add events into jQuery that Zepto adds by default</script>
+        <script src="../../scripts/jqtouch/src/jqtouch.min.js">//Native iOS look and feel</script>
+        <!-- Add any useful jQuery plugins OR alternate frameworks below this line -->
+        <script src="../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>
+        <!-- Add any useful jQuery plugins OR alternate frameworks above this line -->
+        <!-- Add any external JavaScript below this line -->
+        <script src="./app.js">//All the main app scripts</script>
+        <!-- Add any external JavaScript above this line -->
+        <!-- Add any external CSS below this line -->
+        <link href="../../scripts/jqtouch/themes/css/apple.css" rel="stylesheet" /> <!-- Theme for jQTouch. Maybe we can make it more blue and orange later :P -->
+        <link href="./player.css" rel="stylesheet" />
+        <!-- Add any external CSS above this line -->
+    </head>
+    <body>
+        <div id="jqt">
+            <!-- The home of the app -->
+            <div id="home">
+                <div class="toolbar">
+                    <h1>Home</h1>
+                </div>
+                <div class="scroll">
+                    <ul class="rounded">
+                        <li class="arrow"><a class="reloadAllProjects" href="#browseprojects">Browse All Projects</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Browse projects -->
+            <div id="browseprojects">
+                <div class="toolbar">
+                    <h1>Browse</h1>
+                    <a class="back" href="#">Home</a>
+                </div>
+                <div class="scroll">
+                    <div id="container">
+                        Loading...
+                    </div>
+                </div>
+            </div>
+            <!-- View project -->
+            <div id="viewproject">
+                <div class="toolbar">
+                    <h1>Loading...</h1>
+                    <a class="back" href="#">Browse</a>
+                </div>
+                <div class="scroll">
+                    <div id="project_viewer_wrap"><iframe id="project_viewer" scrolling="no"></iframe></div>
+                    <div id="project_comments">
+                        No Comments
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
