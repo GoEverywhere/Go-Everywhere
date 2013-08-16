@@ -11,7 +11,7 @@ $zip = new ZipArchive;
 $res = $zip->open('goev-tmp.zip');
 if ($res === TRUE) {
     //extract it to the current directory (for now, to see if this will all work)
-    $zip->extractTo('../../');
+    $zip->extractTo('../');
     //close the zip
     $zip->close();
     //we are all done. Hooray!
