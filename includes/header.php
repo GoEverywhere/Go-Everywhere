@@ -92,12 +92,6 @@ session_start(); //Always like to start the session, in case we use it later, an
         </div>
         <div id="container"><!-- Something to help with styling -->
             <div id="content">
-                <?php include_once("Mobile_Detect.php");
-                $detect = new Mobile_Detect;
-                if (!$detect->isMobile() && !$detect->isTablet()) {
-                      echo 'This website is designed for mobile devices. Click <a href="http://scratch.mit.edu">here</a> to go back to the main Scratch 2.0 website, designed for desktop computers.';
-                    }
-                ?>
                 <!--Let's see if they have JavaScript -->
                 <noscript>
                     <h3 style="color:red;">Woah, there! Sorry, but you <u>must</u> have JavaScript to use most features on Go-Everywhere. Please go enable JavaScript!</h3>
