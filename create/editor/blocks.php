@@ -11,6 +11,9 @@ switch($_GET['type'])
     case "boolean":
         $type = "boolean";
         break;
+    case "hat":
+        $type = "hat";
+        break;
     case "command":
     default:
         $type = "command";
@@ -25,16 +28,25 @@ switch($type)
 {
     case "reporter":
         $image_width = 21 + ($label_length * 10);
+        //create the image
+        $img = imagecreatetruecolor($image_width, 23);
         break;
     case "command":
         $image_width = 30 + ($label_length * 10);
+        //create the image
+        $img = imagecreatetruecolor($image_width, 24);
         break;
     case "boolean":
         $image_width = 21 + ($label_length * 10);
+        //create the image
+        $img = imagecreatetruecolor($image_width, 23);
+        break;
+    case "hat":
+        $image_width = 10 + ($label_length * 10);
+        //create the image
+        $img = imagecreatetruecolor($image_width, 50);
         break;
 }
-//create the image
-$img = imagecreatetruecolor($image_width, 24);
 // Make the background transparent
 imagecolortransparent($im, imagecolorallocate($im, 0, 0, 0));
 //create the color for the polygon (12-points) and string (white)
@@ -85,6 +97,26 @@ switch($type)
         imagefilledrectangle($img, 11, 0, $image_width - 12, 22, $block_color);
         //draw the text onto the image
         imagestring($img, 5, 13, 2, $_GET['label'], $string_color);
+        break;
+    case "hat":
+        //draw arcs for top
+        imagefilledarc($img, 50, 10, 100, 20, 180, 0, $block_color, IMG_ARC_PIE);
+        //draw polygon for rest
+        //make an array of points for the polygon
+        $points = array(
+            0, 10,
+            10, 10,
+            $image_width, 10,
+            $image_width, 30,
+            30, 30,
+            25, 33,
+            15, 33,
+            10, 30,
+            0, 30
+        );
+        imagefilledpolygon($img, $points, 9, $block_color);
+        //draw the text onto the image
+        imagestring($img, 5, 13, 12, $_GET['label'], $string_color);
         break;
 }
 //flush the image and exit
