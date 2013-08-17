@@ -1,0 +1,36 @@
+<!DOCTYPE>
+<!-- Please do NOT confuse this with Lists in Scratch. This is the List Editor. A special kind of editor
+where blocks appear as lists, not movable stacks. Designed specifically for small screens, such as
+the iPhone -->
+<html>
+    <head>
+        <title>Editor</title>
+        <!-- include JavaScript libraries and plugins -->
+        <script src="../../../scripts/jquery.min.js">//jQuery</script>
+        <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
+        <script src="../../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
+        <script src="../../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>
+        <!-- Go Everywhere Add-ons below this comment!! -->
+        <!-- Go Everywhere Add-ons above this comment!! -->
+        <script src="./editor.js"></script>
+        <style>
+            li
+            {
+                height: 30;
+                width: 30;
+                color: white;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body onload="/*reloadEvents()*/">
+        <div id="blocks">
+            <ul>
+                <li type="command">Test Block</li>
+                <li type="command">Test Block</li>
+                <li type="command">Test Block</li>
+            </ul>
+        </div>
+    </body>
+</html>
