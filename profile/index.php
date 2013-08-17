@@ -28,8 +28,7 @@ $info = mysql_fetch_array($result);
 
 <!-- Someone add a profile picture thing and password change stuffs -->
 <!-- I'll find the time to do this later if you don't want to -->
-<h1><u>Under Construction</u></h1>
-
+<img src="getAvatar.php?username=<?php echo htmlspecialchars($info['user']); ?>" width="64" height="64" title="Profile image"/><span style="font-size:24pt;"><?php echo htmlspecialchars($info['user']); ?></span>
 <?php
 include_once("../includes/footer.php");
 ?>

@@ -57,7 +57,7 @@ while($row = mysql_fetch_array($result))
             case 'html':
                 //create table rows for organization (every first)
                 $num++;
-                if(num == 1)
+                if($num == 1)
                     echo "<tr>";
                 //start the table data
                 echo "<td>";
@@ -67,7 +67,7 @@ while($row = mysql_fetch_array($result))
                 echo "by " . $row['user'] . "</p>";
                 echo "</td>\n";
                 //close the table row for organization (every third)
-                if(num == 3)
+                if($num == 3)
                 {
                     echo "</tr>\n";
                 }
