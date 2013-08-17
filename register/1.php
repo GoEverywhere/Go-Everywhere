@@ -3,14 +3,13 @@
  * The user will need to insert their Scratch username,
  * and go to the next step
  */
-session_start(); //for temporary storage between scripts
+include_once('../includes/header.php');
 if(isset($_SESSION['username']))
 {
 	//They shouldn't be here!
 	header('Location: ../');
 	exit;
 }
-include_once('../includes/header.php');
 $disabled = false; //True if registration should be disabled
 if($disabled)
 {
