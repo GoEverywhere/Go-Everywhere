@@ -1,5 +1,5 @@
 function reloadEvents() {
-    $("#blocks ul").sortable({
+    $("#blocks .sortable-script").sortable({
         axis: "y"
     });
 }
