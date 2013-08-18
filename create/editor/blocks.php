@@ -44,7 +44,7 @@ switch($type)
     case "hat":
         $image_width = 10 + ($label_length * 10);
         //create the image
-        $img = imagecreatetruecolor($image_width, 50);
+        $img = imagecreatetruecolor($image_width, 34);
         break;
 }
 // Make the background transparent

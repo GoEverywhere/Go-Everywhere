@@ -17,16 +17,26 @@ the iPhone -->
         <style>
             li
             {
-                height: 30;
-                color: white;
-                margin: -8px;
+                list-style: none;
                 padding: 0px;
+            }
+            ul
+            {
+                padding: 0px;
+            }
+            .sortable-script
+            {
+                margin-top: -20px;
             }
         </style>
     </head>
-    <body onload="/*reloadEvents()*/">
+    <body>
+        
         <div id="blocks">
             <ul>
+                <li class="sortable-locked" type="hat"><img src="../blocks.php?type=hat&label=When Test Hat Happens" /></li>
+            </ul>
+            <ul class="sortable-script">
                 <li type="command"><img src="../blocks.php?label=Test Block" /></li>
                 <li type="command"><img src="../blocks.php?label=Test Block" /></li>
                 <li type="command"><img src="../blocks.php?label=Test Block" /></li>
