@@ -56,7 +56,43 @@ $whiteColorIndex = imagecolorallocate($img, 255, 255, 255);
 $whiteColor = imagecolorsforindex($img, $whiteColorIndex);
 imagecolortransparent($img, $whiteColor);
 //create the color for the polygon (12-points) and string (white)
-$block_color = imagecolorallocate($img, 109, 75, 242);
+switch($_GET['group'])
+{
+    case "Events":
+        $block_color = imagecolorallocate($img, 201, 151, 0);
+        break;
+    case "Control":
+        $block_color = imagecolorallocate($img, 247, 193, 30);
+        break;
+    case "Sensing":
+        $block_color = imagecolorallocate($img, 21, 186, 232);
+        break;
+    case "Operators":
+        $block_color = imagecolorallocate($img, 67, 214, 30);
+        break;
+    case "More Blocks":
+        $block_color = imagecolorallocate($img, 97, 5, 158);
+        break;
+    case "Motion":
+        $block_color = imagecolorallocate($img, 44, 100, 232);
+        break;
+    case "Sound":
+        $block_color = imagecolorallocate($img, 209, 71, 209);
+        break;
+    case "Pen":
+        $block_color = imagecolorallocate($img, 61, 71, 209);
+        break;
+    case "Variables":
+        $block_color = imagecolorallocate($img, 255, 149, 0);
+        break;
+    case "Lists":
+        $block_color = imagecolorallocate($img, 212, 89, 13);
+        break;
+    case "Looks":
+    default:
+        $block_color = imagecolorallocate($img, 109, 75, 242);
+        break;
+}
 $string_color = imagecolorallocate($img, 255, 255, 255);
 //create the polygon
 switch($type)
