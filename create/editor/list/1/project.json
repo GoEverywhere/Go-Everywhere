@@ -1,0 +1,166 @@
+{
+	"objName": "Stage",
+	"variables": [{
+			"name": "a var",
+			"value": 38,
+			"isPersistent": false
+		}],
+	"sounds": [{
+			"soundName": "pop",
+			"soundID": 1,
+			"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+			"sampleCount": 258,
+			"rate": 11025,
+			"format": ""
+		}],
+	"costumes": [{
+			"costumeName": "background1",
+			"baseLayerID": 4,
+			"baseLayerMD5": "510da64cf172d53750dffd23fbf73563.png",
+			"bitmapResolution": 1,
+			"rotationCenterX": 240,
+			"rotationCenterY": 180
+		},
+		{
+			"costumeName": "background2",
+			"baseLayerID": 5,
+			"baseLayerMD5": "8c33ad7d51f7ba9ea761681cf026c5c4.png",
+			"bitmapResolution": 1,
+			"rotationCenterX": 240,
+			"rotationCenterY": 180
+		}],
+	"currentCostumeIndex": 1,
+	"penLayerMD5": "279467d0d49e152706ed66539b577c00.png",
+	"tempoBPM": 60,
+	"videoAlpha": 0.5,
+	"children": [{
+			"objName": "Sprite1",
+			"scripts": [[20,
+					245,
+					[["whenGreenFlag"], ["doForever", [["wait:elapsed:from:", 0.2], ["say:", "Hello!"]]]]],
+				[20,
+					20,
+					[["whenGreenFlag"],
+						["doForever",
+							[["setSizeTo:",
+									["*",
+										["+", ["\/", ["computeFunction:of:", "sin", ["*", ["timer"], 180]], 2], 1],
+										100]],
+								["pointTowards:", "_mouse_"]]]]],
+				[20, 169, [["whenKeyPressed", "space"], ["nextCostume"]]]],
+			"sounds": [{
+					"soundName": "meow",
+					"soundID": 0,
+					"md5": "83c36d806dc92327b9e7049a565c6bff.wav",
+					"sampleCount": 18688,
+					"rate": 22050,
+					"format": ""
+				}],
+			"costumes": [{
+					"costumeName": "costume1",
+					"baseLayerID": 1,
+					"baseLayerMD5": "cce61b6e9ad98ea8c8c2e9556a94b7ab.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				},
+				{
+					"costumeName": "costume2",
+					"baseLayerID": 2,
+					"baseLayerMD5": "51f6fa1871f17de1a21cdfead7aad574.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				},
+				{
+					"costumeName": "costume5",
+					"baseLayerID": 3,
+					"baseLayerMD5": "230c60d82b8e6e81712d5894e5445ec2.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 67,
+					"rotationCenterY": 66
+				}],
+			"currentCostumeIndex": 0,
+			"scratchX": -97.99999999976717,
+			"scratchY": -51.00000000023283,
+			"scale": 0.6291291136306335,
+			"direction": 54.00477912522988,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 1,
+			"visible": true,
+			"spriteInfo": {
+			}
+		},
+		{
+			"objName": "Sprite2",
+			"scripts": [[20, 20, [["whenGreenFlag"], ["doForever", [["gotoSpriteOrMouse:", "_mouse_"]]]]],
+				[20,
+					126,
+					[["whenGreenFlag"],
+						["doForever",
+							[["doIf",
+									["touching:", "Sprite1"],
+									[["say:", "Hello!"], ["doWaitUntil", ["not", ["touching:", "Sprite1"]]]]]]]]]],
+			"sounds": [{
+					"soundName": "meow",
+					"soundID": 0,
+					"md5": "83c36d806dc92327b9e7049a565c6bff.wav",
+					"sampleCount": 18688,
+					"rate": 22050,
+					"format": ""
+				}],
+			"costumes": [{
+					"costumeName": "costume1",
+					"baseLayerID": 1,
+					"baseLayerMD5": "cce61b6e9ad98ea8c8c2e9556a94b7ab.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				},
+				{
+					"costumeName": "costume2",
+					"baseLayerID": 2,
+					"baseLayerMD5": "51f6fa1871f17de1a21cdfead7aad574.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				},
+				{
+					"costumeName": "costume5",
+					"baseLayerID": 3,
+					"baseLayerMD5": "230c60d82b8e6e81712d5894e5445ec2.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 67,
+					"rotationCenterY": 66
+				}],
+			"currentCostumeIndex": 0,
+			"scratchX": 220,
+			"scratchY": 180,
+			"scale": 1.0000000002328306,
+			"direction": 90,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 2,
+			"visible": true,
+			"spriteInfo": {
+			}
+		}],
+	"info": {
+		"scriptCount": 5,
+		"hasCloudData": false,
+		"spriteCount": 2,
+		"flashVersion": "MAC 11,8,800,97",
+		"videoOn": false,
+		"comment": "Bienvenue à l'unicode.",
+		"history": "2012-7-12 09:05:26\tsave\tproject\t\t\r2012-7-12 09:46:23\tsave\tproject\t\t\r2012-7-12 09:47:33\tsave\tproject\t\t\r2012-7-12 09:49:08\tsave\tproject\t\t\r2012-7-12 09:49:31\tsave\tproject\t\t\r2012-7-12 09:51:43\tsave\tproject\t\t\r2012-7-12 10:42:01\tsave\tproject\t\t\r2012-7-12 10:44:32\tsave\tproject\t\t\r2012-7-12 10:56:26\tsave\tproject\t\t\r2012-7-16 15:13:45\tsave\tproject\t\t\r",
+		"userAgent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/28.0.1500.95 Safari\/537.36",
+		"language": "en",
+		"os-version": "NT",
+		"scratch-version": "1.4 of 30-Jun-09",
+		"platform": "Win32",
+		"author": "",
+		"swfVersion": "v356",
+		"projectID": "11875966"
+	}
+}
