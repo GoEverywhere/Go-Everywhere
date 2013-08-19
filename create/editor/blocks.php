@@ -19,6 +19,10 @@ switch($_GET['type'])
         $type = "command";
         break;
 }
+/**** FOR PARAMETERS ****/
+//Key parameter (9 spaces)
+$_GET['label'] = str_replace('%k', '         ', $_GET['label']);
+
 //set the content header type
 header('Content-Type: image/png');
 //get the length of the label
@@ -48,7 +52,9 @@ switch($type)
         break;
 }
 // Make the background transparent
-imagecolortransparent($im, imagecolorallocate($im, 0, 0, 0));
+$whiteColorIndex = imagecolorallocate($img, 255, 255, 255);
+$whiteColor = imagecolorsforindex($img, $whiteColorIndex);
+imagecolortransparent($img, $whiteColor);
 //create the color for the polygon (12-points) and string (white)
 $block_color = imagecolorallocate($img, 109, 75, 242);
 $string_color = imagecolorallocate($img, 255, 255, 255);
