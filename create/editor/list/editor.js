@@ -38,13 +38,6 @@ function doneReadingZip(zip) {
             //create a place for the hat block
             scriptHTML += "<ul>\n";
             var currentBlock = getBlockData(project.children[0].scripts[i][2][0][0]);
-            if (currentBlock.params) {
-                //This block has parameters. We must place the parameter in, and position it so that it is in the correct place
-                //loop through all the parameters
-                for (var j = 0; j < currentBlock.params.length; j++) {
-                    //paramHTML += currentBlock(currentBlock.params[j]);
-                }
-            }
             scriptHTML += "<li class=\"sortable-locked\" spec=\"" + currentBlock.spec + "\" type=\"hat\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?type=hat&group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /></li>\n";
             //add in the parameter code
             if (currentBlock.params) {
@@ -52,7 +45,7 @@ function doneReadingZip(zip) {
                 //loop through all the parameters
                 for (var j = 0; j < currentBlock.params.length; j++) {
                     //get the code and put it in the script div
-                    scriptHTML += "<div class=\"param\" style=\"position:relative;top:-28px;left:" + currentBlock.params[j].positionFromLeft + "px\">\n" + getParameterCode(currentBlock.params[j].type) + "</div>\n";
+                    scriptHTML += "<div class=\"param\" style=\"position:relative;margin-top: -28px;left:" + currentBlock.params[j].positionFromLeft + "px\">\n" + getParameterCode(currentBlock.params[j].type) + "</div>\n";
                 }
             }
             scriptHTML += "</ul>\n";
@@ -108,6 +101,79 @@ function getBlockData(spec) {
             break;
         /***SENSING BLOCKS***/
         /***OPERATORS BLOCKS***/
+        /* Please leave these commented. They are not finished, and may or may not break the GUI up a bit.
+        case "+":
+            return {
+                type: "number",
+                spec: "+",
+                label: "%n + %n",
+                group: "Operators",
+                params: [
+                    {
+                        type: "number",
+                        positionFromLeft: 5
+                    },
+                    {
+                        type: "number",
+                        positionFromLeft: 60
+                    }
+                ]
+            }
+            break;
+        case "-":
+            return {
+                type: "number",
+                spec: "-",
+                label: "%n - %n",
+                group: "Operators",
+                params: [
+                    {
+                        type: "number",
+                        positionFromLeft: 5
+                    },
+                    {
+                        type: "number",
+                        positionFromLeft: 60
+                    }
+                ]
+            }
+            break;
+        case "*":
+            return {
+                type: "number",
+                spec: "*",
+                label: "%n * %n",
+                group: "Operators",
+                params: [
+                    {
+                        type: "number",
+                        positionFromLeft: 5
+                    },
+                    {
+                        type: "number",
+                        positionFromLeft: 60
+                    }
+                ]
+            }
+            break;
+        case "/":
+            return {
+                type: "number",
+                spec: "/",
+                label: "%n / %n",
+                group: "Operators",
+                params: [
+                    {
+                        type: "number",
+                        positionFromLeft: 5
+                    },
+                    {
+                        type: "number",
+                        positionFromLeft: 60
+                    }
+                ]
+            }
+            break;*/
         /***MORE BLOCKS (Scratch Extension Blocks & GE Add-ons)***/
         /***MOTION BLOCKS***/
         /***LOOKS BLOCKS***/

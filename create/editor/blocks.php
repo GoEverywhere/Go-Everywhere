@@ -55,7 +55,7 @@ switch($type)
 $whiteColorIndex = imagecolorallocate($img, 255, 255, 255);
 $whiteColor = imagecolorsforindex($img, $whiteColorIndex);
 imagecolortransparent($img, $whiteColor);
-//create the color for the polygon (12-points) and string (white)
+//create the color for the polygons and string (white)
 switch($_GET['group'])
 {
     case "Events":
