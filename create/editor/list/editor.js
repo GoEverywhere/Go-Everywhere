@@ -54,8 +54,18 @@ function doneReadingZip(zip) {
             for (var j = 1; j < project.children[0].scripts[i][2].length; j++) {
                 //get block info
                 currentBlock = getBlockData(project.children[0].scripts[i][2][j][0]);
-                //get the label of the blocks and add them to the HTML
-                scriptHTML += "<li type=\"command\" spec=\"" + currentBlock.spec + "\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /></li>\n";
+		if (currentBlock.type != "c") {
+		    //get the label of the blocks and add them to the HTML
+		    scriptHTML += "<li type=\"command\" spec=\"" + currentBlock.spec + "\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /></li>\n";
+		} else {
+		    //This is a C block
+		    //It is a stack of blocks inside of a stack of blocks.
+		    scriptHTML += "<li type=\"c\" spec=\"" + currentBlock.spec + "\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /><br />\n";
+		    //Add in the lists for the blocks
+		    scriptHTML += generateCShapeBlocks(project.children[0].scripts[i][2][j]);
+		    //finish up the li
+		    scriptHTML += "</li>";
+		}
             }
             scriptHTML += "</ul>\n";
             scriptHTML += "</div>\n";
@@ -63,6 +73,18 @@ function doneReadingZip(zip) {
     }
     $("#blocks").html(scriptHTML);
     reloadEvents();
+}
+function generateCShapeBlocks(blockToDecode) {
+    var totalHTML = "<ul style=\"margin-left:30px;\" class=\"script\">\n";
+    //loop through the loop's blocks
+    for (var k = 0; k < blockToDecode.length; k++) {
+	var currentDecodingBlock = getBlockData(blockToDecode[1][k][0]);
+	window.alert(blockToDecode[1][k][0]);
+	totalHTML += "<li type=\"c\" spec=\"" + blockToDecode + "\"><img src=\"../blocks.php?label=" + blockToDecode[1][k][0] + "\" /></li>";
+    }
+    //finish up the HTML
+    totalHTML += "</ul>\n";
+    return totalHTML;
 }
 function getBlockData(spec) {
     //Return an object, telling info about the block
