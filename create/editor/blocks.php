@@ -14,6 +14,15 @@ switch($_GET['type'])
     case "hat":
         $type = "hat";
         break;
+    case "c":
+        $type = "c";
+        if(isset($_GET['height']))
+        {
+            $height = (int)$_GET['height'];
+        }else{
+            $height = 1;
+        }
+        break;
     case "command":
     default:
         $type = "command";
@@ -35,6 +44,11 @@ switch($type)
         //create the image
         $img = imagecreatetruecolor($image_width, 23);
         break;
+    case "c":
+        $image_width = 30 + ($label_length * 10);
+        //create the image
+        $img = imagecreatetruecolor($image_width, 24 * ($height + 1.7));
+        break;
     case "command":
         $image_width = 30 + ($label_length * 10);
         //create the image
@@ -51,7 +65,7 @@ switch($type)
         $img = imagecreatetruecolor($image_width, 34);
         break;
 }
-// Make the background transparent
+// Make the background transparent (not working? D-: )
 $whiteColorIndex = imagecolorallocate($img, 255, 255, 255);
 $whiteColor = imagecolorsforindex($img, $whiteColorIndex);
 imagecolortransparent($img, $whiteColor);
@@ -114,6 +128,41 @@ switch($type)
             0, 20,
         );
         imagefilledpolygon($img, $points, 12, $block_color);
+        //draw the text onto the image
+        imagestring($img, 5, 30, 2, $_GET['label'], $string_color);
+        break;
+    case "c":
+        //make an array of points for the polygon
+        $points = array(
+            0, 0,
+            10, 0,
+            15, 3,
+            25, 3,
+            30, 0,
+            $image_width, 0,
+            $image_width, 20,
+            30, 20,
+            25, 23,
+            15, 23,
+            10, 20,
+            0, 20,
+        );
+        imagefilledpolygon($img, $points, 12, $block_color);
+        //Now for the C-shape extention
+        $points = array(
+            0, 0,
+            0, 20 * ($height + 2),
+            10, 20 * ($height + 2),
+            15, (20 * ($height + 2)) + 3,
+            25, (20 * ($height + 2)) + 3,
+            30, (20 * ($height + 2)),
+            $image_width, 20 * ($height + 2),
+            $image_width, (20 * ($height + 2)) - 5,
+            5, (20 * ($height + 2)) - 5,
+            5, 0
+        );
+        imagefilledpolygon($img, $points, 10, $block_color);
+        
         //draw the text onto the image
         imagestring($img, 5, 30, 2, $_GET['label'], $string_color);
         break;

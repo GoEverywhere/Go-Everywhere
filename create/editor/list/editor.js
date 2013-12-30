@@ -60,7 +60,7 @@ function doneReadingZip(zip) {
 		} else {
 		    //This is a C block
 		    //It is a stack of blocks inside of a stack of blocks.
-		    scriptHTML += "<li type=\"c\" spec=\"" + currentBlock.spec + "\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /><br />\n";
+		    scriptHTML += "<li type=\"c\" spec=\"" + currentBlock.spec + "\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?type=c&height=" + project.children[0].scripts[i][2][j].length + "&group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /><br />\n";
 		    //Add in the lists for the blocks
 		    scriptHTML += generateCShapeBlocks(project.children[0].scripts[i][2][j]);
 		    //finish up the li
@@ -75,7 +75,7 @@ function doneReadingZip(zip) {
     reloadEvents();
 }
 function generateCShapeBlocks(blockToDecode) {
-    var totalHTML = "<ul style=\"margin-left:30px; margin-top: 0px;\" class=\"sortable-script\">\n";
+    var totalHTML = "<ul style=\"margin-left:8px; margin-top: -" + (24 * (blockToDecode.length + 0.7)) + "px;\" class=\"sortable-script\">\n";
     //loop through the loop's blocks
     for (var k = 0; k < blockToDecode.length; k++) {
 	var currentDecodingBlock = getBlockData(blockToDecode[1][k][0]);
