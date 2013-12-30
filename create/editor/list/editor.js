@@ -2,7 +2,7 @@
 var zipFile;
 
 function reloadEvents() {
-    $("#blocks .sortable-script").sortable({
+    $(".sortable-script").sortable({
         axis: "y"
     });
 }
@@ -75,7 +75,7 @@ function doneReadingZip(zip) {
     reloadEvents();
 }
 function generateCShapeBlocks(blockToDecode) {
-    var totalHTML = "<ul style=\"margin-left:30px;\" class=\"script\">\n";
+    var totalHTML = "<ul style=\"margin-left:30px; margin-top: 0px;\" class=\"sortable-script\">\n";
     //loop through the loop's blocks
     for (var k = 0; k < blockToDecode.length; k++) {
 	var currentDecodingBlock = getBlockData(blockToDecode[1][k][0]);
