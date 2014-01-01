@@ -12,20 +12,24 @@ the iPhone -->
         <script src="../../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
         <script src="../../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>
         <script src="../ZipFile.complete.js">//To unzip the sb2 format</script>
+        <script src="../scratchblocks2/build/scratchblocks2.js">//Better block image generation</script>
         <!-- Go Everywhere Add-ons below this comment!! -->
         <!-- Go Everywhere Add-ons above this comment!! -->
         <script src="./editor.js"></script>
+        
         <style>
-            li
+            @import url("../scratchblocks2/build/scratchblocks2.css");
+            
+            #blocks li
             {
                 list-style: none;
                 padding: 0px;
             }
-            ul
+            #blocks ul
             {
                 padding: 0px;
             }
-            .sortable-script
+            #blocks .sortable-script
             {
                 margin-top: -20px;
             }
@@ -37,16 +41,8 @@ the iPhone -->
         </div>
         
         <div id="blocks">
-            <div class="script">
-                <ul>
-                    <li class="sortable-locked" type="hat"><img src="../blocks.php?type=hat&label=When Test Hat Happens" /></li>
-                </ul>
-                <ul class="sortable-script">
-                    <li type="command"><img src="../blocks.php?label=Test Block" /></li>
-                    <li type="command"><img src="../blocks.php?label=Test Block" /></li>
-                    <li type="command"><img src="../blocks.php?label=Test Block" /></li>
-                </ul>
-            </div>
+            <!-- Blocks will be loaded here -->
+            <h3>Loading...</h3>
         </div>
     </body>
 </html>
