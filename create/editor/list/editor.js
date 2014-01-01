@@ -2,9 +2,7 @@
 var zipFile;
 
 function reloadEvents() {
-    $(".sortable-script").sortable({
-        axis: "y"
-    });
+    $(".script").draggable();
 }
 $(document).ready(function(){
     
@@ -24,69 +22,58 @@ function doneReadingZip(zip) {
 	}
     }
     //DEBUG!
-    /*loopThroughSprite(project);
-    //Now, loop through every sprite, and alert its info
-    for (var i = 0; i < project.children.length; i++) {
-        loopThroughSprite(project.children[i]);
-    }*/
     //Put the scripts of the first sprite onto the page
-    var scriptHTML = "";
+    var scratchblocksText = "";
     if (project.children[0].scripts) {
         //loop through each script
         for (var i = 0; i < project.children[0].scripts.length; i++) {
-            //HTML div
-            scriptHTML += "<div class=\"script\">\n";
-            //create a place for the hat block
-            scriptHTML += "<ul>\n";
+            var _isDefineBlock = false;
+	    
             var currentBlock = getBlockData(project.children[0].scripts[i][2][0][0]);
-            scriptHTML += "<li class=\"sortable-locked\" spec=\"" + currentBlock.spec + "\" type=\"hat\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?type=hat&group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /></li>\n";
-            //add in the parameter code
-            if (currentBlock.params) {
-                //This block has parameters. We must place the parameter in, and position it so that it is in the correct place
-                //loop through all the parameters
-                for (var j = 0; j < currentBlock.params.length; j++) {
-                    //get the code and put it in the script div
-                    scriptHTML += "<div class=\"param\" style=\"position:relative;margin-top: -28px;left:" + currentBlock.params[j].positionFromLeft + "px\">\n" + getParameterCode(currentBlock.params[j].type) + "</div>\n";
-                }
-            }
-            scriptHTML += "</ul>\n";
-            //loop through all blocks in the stack
-            scriptHTML += "<ul class=\"sortable-script\">\n";
+	    if (currentBlock.type == "hat") {
+		scratchblocksText += currentBlock.scratchblocks;
+		scratchblocksText += "\n";
+	    }
+	    
             for (var j = 1; j < project.children[0].scripts[i][2].length; j++) {
                 //get block info
                 currentBlock = getBlockData(project.children[0].scripts[i][2][j][0]);
-		if (currentBlock.type != "c") {
-		    //get the label of the blocks and add them to the HTML
-		    scriptHTML += "<li type=\"command\" spec=\"" + currentBlock.spec + "\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /></li>\n";
-		} else {
-		    //This is a C block
-		    //It is a stack of blocks inside of a stack of blocks.
-		    scriptHTML += "<li type=\"c\" spec=\"" + currentBlock.spec + "\" group=\"" + currentBlock.group + "\"><img src=\"../blocks.php?type=c&height=" + project.children[0].scripts[i][2][j].length + "&group=" + currentBlock.group + "&label=" + currentBlock.label + "\" /><br />\n";
+		//add it to the script
+		scratchblocksText += currentBlock.scratchblocks;
+		scratchblocksText += "\n";
+		
+		if (currentBlock.type == "c") {
+		    //get the label of the blocks and add them to the script
 		    //Add in the lists for the blocks
-		    scriptHTML += generateCShapeBlocks(project.children[0].scripts[i][2][j]);
-		    //finish up the li
-		    scriptHTML += "</li>";
+		    scratchblocksText += generateCShapeBlocks(project.children[0].scripts[i][2][j]);
+		    //add an end tag
+		    scratchblocksText += "end\n";
 		}
             }
-            scriptHTML += "</ul>\n";
-            scriptHTML += "</div>\n";
+	    
+	    if (_isDefineBlock) {
+		scratchblocksText += "end\n";
+	    }
         }
     }
-    $("#blocks").html(scriptHTML);
+    $("#blocks").html("<pre class=\"blockCodeParse\">" + scratchblocksText + "</pre>");
+    //Parse blocks
+    scratchblocks2.parse("pre.blockCodeParse");
+    //Add sorting and dragging
     reloadEvents();
 }
 function generateCShapeBlocks(blockToDecode) {
-    var totalHTML = "<ul style=\"margin-left:8px; margin-top: -" + (24 * (blockToDecode.length + 0.7)) + "px;\" class=\"sortable-script\">\n";
+    var totalScripts = "";
     //loop through the loop's blocks
     for (var k = 0; k < blockToDecode.length; k++) {
 	var currentDecodingBlock = getBlockData(blockToDecode[1][k][0]);
-	window.alert(blockToDecode[1][k][0]);
-	totalHTML += "<li type=\"c\" spec=\"" + blockToDecode + "\"><img src=\"../blocks.php?label=" + blockToDecode[1][k][0] + "\" /></li>";
+	
+	totalScripts += currentDecodingBlock.scratchblocks;
+	totalScripts += "\n";
     }
-    //finish up the HTML
-    totalHTML += "</ul>\n";
-    return totalHTML;
+    return totalScripts;
 }
+
 function getBlockData(spec) {
     //Return an object, telling info about the block
     switch (spec) {
@@ -96,6 +83,7 @@ function getBlockData(spec) {
                 type: "hat",
                 spec: "whenGreenFlag",
                 label: "when green flag clicked",
+		scratchblocks: "when green flag clicked",
                 group: "Events"
             };
             break;
@@ -104,6 +92,7 @@ function getBlockData(spec) {
                 type: "hat",
                 spec: "whenKeyPressed",
                 label: "when %k key pressed",
+		scratchblocks: "when [space v] key pressed",
                 group: "Events",
                 params: [
                     {
@@ -119,6 +108,7 @@ function getBlockData(spec) {
                 type: "c",
                 spec: "doForever",
                 label: "forever",
+		scratchblocks: "forever",
                 group: "Control"
             };
             break;
@@ -130,6 +120,7 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "+",
                 label: "%n + %n",
+                scratchblocks: "((10) + (10))",
                 group: "Operators",
                 params: [
                     {
@@ -148,6 +139,7 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "-",
                 label: "%n - %n",
+                scratchblocks: "((10) - (10))"
                 group: "Operators",
                 params: [
                     {
@@ -166,6 +158,7 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "*",
                 label: "%n * %n",
+                scratchblocks: "((10) * (10))",
                 group: "Operators",
                 params: [
                     {
@@ -184,6 +177,7 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "/",
                 label: "%n / %n",
+                scratchblocks: "((10) / (10))",
                 group: "Operators",
                 params: [
                     {
@@ -197,7 +191,7 @@ function getBlockData(spec) {
                 ]
             }
             break;*/
-        /***MORE BLOCKS (Scratch Extension Blocks & GE Add-ons)***/
+        /***MORE BLOCKS (Scratch Custom Blocks, Scratch Extension Blocks, & GE Add-ons)***/
         /***MOTION BLOCKS***/
         /***LOOKS BLOCKS***/
         case "nextCostume":
@@ -205,15 +199,31 @@ function getBlockData(spec) {
                 type: "command",
                 spec: "nextCostume",
                 label: "next costume",
+		scratchblocks: "next costume",
                 group: "Looks"
             };
             break;
+	case "setSizeTo:":
+	    return {
+		type: "command",
+		spec: "setSizeTo:",
+		label: "set size to %n",
+		scratchblocks: "set size to (100)",
+		group: "Looks"
+	    };
+	    break;
         /***SOUND BLOCKS***/
         /***PEN BLOCKS***/
         /***DATA BLOCKS***/
         
         default:
-            return {};
+            return {
+		type: "command",
+		spec: spec,
+		label: spec,
+		scratchblocks: spec,
+		group: "Obsolete"
+		};
             break;
     }
 }
