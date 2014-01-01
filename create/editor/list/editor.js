@@ -7,6 +7,7 @@ function reloadEvents() {
     });
 }
 $(document).ready(function(){
+    
     reloadEvents();
     loadProject("1.ge");
 });
