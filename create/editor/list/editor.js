@@ -2,7 +2,28 @@
 var zipFile;
 
 function reloadEvents() {
-    $(".script").draggable();
+    
+    //SCRATCHBLOCKS2 EVENTS!!!!!!
+    //Add ul and li tags around the existing scratchblocks2 tags
+    $("#blocks .script").each(function(){
+	//Turn the script into a UL list
+	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() +  "</ul>");
+    });
+    $("#blocks .script > div:not(.hat)").each(function(){
+	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
+    });
+    $("#blocks .script .cmouth").each(function(){
+	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
+    });
+    /*$("#blocks .script .cmouth > .stack").each(function(){
+	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
+    });*/
+    //Bind the actual events
+    $("#blocks ul").sortable({
+	axis: "y",
+	items: "li:not(.hat),.stack"
+    });
+    
 }
 $(document).ready(function(){
     
