@@ -20,6 +20,65 @@ the iPhone -->
         <style>
             @import url("../scratchblocks2/build/scratchblocks2.css");
             
+            #toolbar {
+                height: 50px;
+                width: 100%;
+                
+                padding-left: 5px;
+                
+                border:2px solid black;
+                background-color: white;
+                background-image: -webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    color-stop(0, #B0B0B0),
+                    color-stop(1, #FFFFFF)
+                );
+                background-image: -o-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: -moz-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: -webkit-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: -ms-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: linear-gradient(to bottom, #B0B0B0 0%, #FFFFFF 100%);
+            }
+            #toolbar #garbageBin img
+            {
+                width:40px;
+                height:40px;
+                
+                opacity: 0.5;
+                
+                border: 2px groove black;
+            }
+            #toolbar #garbageBin
+            {
+                margin-top: 3px;
+                
+                width: 40px;
+                height: 40px;
+            }
+            #toolbar #addNew {
+                
+                background-color: white;
+                
+                width: 40px;
+                height: 40px;
+                
+                color: black;
+                
+                font-size: 40px;
+                
+                margin-top: 3px;
+                
+                opacity: 0.5;
+                
+                border: 2px groove black;
+            }
+            #toolbar #addNew img {
+                width: 40px;
+                height: 40px;
+            }
+            
             #blocks li
             {
                 list-style: none;
@@ -42,8 +101,13 @@ the iPhone -->
         </style>
     </head>
     <body>
-        <div id="garbage">
-            
+        <div id="toolbar">
+            <div id="addNew">
+                <img src="../images/new.png" />
+            </div>
+            <div id="garbageBin">
+                <img src="../images/trash-bin.jpg" />
+            </div>
         </div>
         
         <div id="blocks">
