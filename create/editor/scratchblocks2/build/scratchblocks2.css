@@ -743,9 +743,9 @@
 .sb2 .grey.cmouth > .stack:before {
   background: #ffffff;
 }
-.sb2 .script * {
+/*.sb2 .script * {
   background: red;
-}
+}*/
 .sb2 .stack,
 .sb2 .reporter,
 .sb2 .embedded,
