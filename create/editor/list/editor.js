@@ -20,8 +20,17 @@ function reloadEvents() {
     });*/
     //Bind the actual events
     $("#blocks ul").sortable({
-	axis: "y",
+	axis: "both",
+	placeholder: "block-placeholder",
 	items: "li:not(.hat),.stack:not(.cstart)"
+    });
+    
+    //PARAMETER CHANGE EVENTS!!!!!!
+    $("#blocks input[type=text]").keypress(function(){
+	$(this).attr("size", $(this).val().length);
+    });
+    $("#blocks input[type=text][pattern]").bind("keydown keyup keypress focus unfocus", function(){
+	$(this).val($(this).val().match($(this).attr("pattern")));
     });
     
 }
@@ -80,6 +89,17 @@ function doneReadingZip(zip) {
     $("#blocks").html("<pre class=\"blockCodeParse\">" + scratchblocksText + "</pre>");
     //Parse blocks
     scratchblocks2.parse("pre.blockCodeParse");
+    //Add replace block tags with HTML input tags. PARAMETERS!!!!!!!!!!
+    //Number tags
+    $("#blocks .number").each(function(){
+	$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
+    });
+    //String tags
+    $("#blocks .string").each(function(){
+	$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
+    });
+    //Key drop down tags
+    $("#blocks .dropdown:contains('%k')").html(getParameterCode("key"));
     //Add sorting and dragging
     reloadEvents();
 }
@@ -113,7 +133,7 @@ function getBlockData(spec) {
                 type: "hat",
                 spec: "whenKeyPressed",
                 label: "when %k key pressed",
-		scratchblocks: "when [space v] key pressed",
+		scratchblocks: "when [%k v] key pressed",
                 group: "Events",
                 params: [
                     {
@@ -215,6 +235,15 @@ function getBlockData(spec) {
         /***MORE BLOCKS (Scratch Custom Blocks, Scratch Extension Blocks, & GE Add-ons)***/
         /***MOTION BLOCKS***/
         /***LOOKS BLOCKS***/
+	case "say:":
+	    return {
+		type: "command",
+		spec: "say:",
+		label: "say %s",
+		scratchblocks: "say [Hello!]",
+		group: "Looks"
+	    }
+	    break;
         case "nextCostume":
             return {
                 type: "command",
@@ -229,7 +258,7 @@ function getBlockData(spec) {
 		type: "command",
 		spec: "setSizeTo:",
 		label: "set size to %n",
-		scratchblocks: "set size to (100)",
+		scratchblocks: "set size to (100) %",
 		group: "Looks"
 	    };
 	    break;
@@ -252,7 +281,7 @@ function getParameterCode(type) {
     //return HTML for the parameter type
     switch (type) {
         case "key":
-            return "<select>\n" +
+            return "<select class=\"background-color: transparent;\">\n" +
                     "<option value=\"up\">up arrow</option>\n" +
                     "<option value=\"down\">down arrow</option>\n" +
                     "<option value=\"right\">right arrow</option>\n" +

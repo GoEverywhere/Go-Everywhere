@@ -42,6 +42,9 @@
   display: block;
   z-index: 100;
 }
+.sb2 select {
+  color: white;
+}
 .sb2 *,
 .sb2 *:before,
 .sb2 *:after {
@@ -166,6 +169,7 @@
 }
 .sb2 .custom > .dropdown,
 .sb2 .custom > .boolean.empty,
+.sb2 .custom select,
 .sb2 .custom > .color {
   background: #5b298c;
   border-color: #431e67 #70449a #70449a #431e67;
@@ -211,6 +215,7 @@
   border-color: #cf944d #8e5d22 #8e5d22 #cf944d;
 }
 .sb2 .events > .dropdown,
+.sb2 .events select,
 .sb2 .events > .boolean.empty,
 .sb2 .events > .color {
   background: #b8782c;
@@ -257,6 +262,7 @@
   border-color: #d26f3d #a74a1b #a74a1b #d26f3d;
 }
 .sb2 .list > .dropdown,
+.sb2 .list select,
 .sb2 .list > .boolean.empty,
 .sb2 .list > .color {
   background: #bb531f;
@@ -303,6 +309,7 @@
   border-color: #9a6ddc #623c99 #623c99 #9a6ddc;
 }
 .sb2 .looks > .dropdown,
+.sb2 .looks select,
 .sb2 .looks > .boolean.empty,
 .sb2 .looks > .color {
   background: #7e4ec5;
@@ -349,6 +356,7 @@
   border-color: #6380da #344d97 #344d97 #6380da;
 }
 .sb2 .motion > .dropdown,
+.sb2 .motion select,
 .sb2 .motion > .boolean.empty,
 .sb2 .motion > .color {
   background: #4463c3;
@@ -395,6 +403,7 @@
   border-color: #a7ce87 #488f0e #488f0e #a7ce87;
 }
 .sb2 .operators > .dropdown,
+.sb2 .operators select,
 .sb2 .operators > .boolean.empty,
 .sb2 .operators > .color {
   background: #54a810;
@@ -441,6 +450,7 @@
   border-color: #30a880 #0a6e4d #0a6e4d #30a880;
 }
 .sb2 .pen > .dropdown,
+.sb2 .pen select,
 .sb2 .pen > .boolean.empty,
 .sb2 .pen > .color {
   background: none;
@@ -487,6 +497,7 @@
   border-color: #49b1e6 #1f75a1 #1f75a1 #49b1e6;
 }
 .sb2 .sensing > .dropdown,
+.sb2 .sensing select,
 .sb2 .sensing > .boolean.empty,
 .sb2 .sensing > .color {
   background: #2897cf;
@@ -533,6 +544,7 @@
   border-color: #c45ccb #852f8b #852f8b #c45ccb;
 }
 .sb2 .sound > .dropdown,
+.sb2 .sound select,
 .sb2 .sound > .boolean.empty,
 .sb2 .sound > .color {
   background: #ac3cb3;
@@ -579,6 +591,7 @@
   border-color: #f08d33 #c36612 #c36612 #f08d33;
 }
 .sb2 .variables > .dropdown,
+.sb2 .variables select,
 .sb2 .variables > .boolean.empty,
 .sb2 .variables > .color {
   background: #da7214;
@@ -625,6 +638,7 @@
   border-color: #6857b8 #423584 #423584 #6857b8;
 }
 .sb2 .custom-arg > .dropdown,
+.sb2 .custom-arg select,
 .sb2 .custom-arg > .boolean.empty,
 .sb2 .custom-arg > .color {
   background: none;
@@ -671,6 +685,7 @@
   border-color: #646376 #353444 #353444 #646376;
 }
 .sb2 .extension > .dropdown,
+.sb2 .extension select,
 .sb2 .extension > .boolean.empty,
 .sb2 .extension > .color {
   background: #454458;
@@ -717,6 +732,7 @@
   border-color: #b7b7b7 #656565 #656565 #b7b7b7;
 }
 .sb2 .grey > .dropdown,
+.sb2 .grey select,
 .sb2 .grey > .boolean.empty,
 .sb2 .grey > .color {
   background: #717171;
@@ -1069,7 +1085,7 @@
 .sb2 .dropdown {
   padding: 1px 2px;
 }
-.sb2 .dropdown:after,
+/*.sb2 .dropdown:after, The arrow is messing some things up. Plus, it is very misleading.*/
 .sb2 .number-dropdown:after {
   content: "▼";
   font-size: 8px;
@@ -1280,10 +1296,10 @@
   padding: 1px;
 }
 .sb2 .arrow {
-  background: none;
+  /*background: none;
   font-size: 8px;
-  color: #000000;
+  color: #000000;*/
 }
 .sb2 .arrow:nth-last-child(2) {
-  padding-left: 2px;
+  /*padding-left: 2px;*/
 }
