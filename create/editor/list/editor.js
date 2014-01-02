@@ -12,6 +12,22 @@ function reloadEvents() {
     $("#blocks .script > div:not(.hat)").each(function(){
 	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
     });
+    $("#blocks .script > .hat").each(function(){
+	$(this).draggable({
+	    start: function(event, ui){
+		//Hide the new button, Show the garbage bin
+		$("#addNew").hide("slide", 50, function(){
+		    $("#garbageBin").show("slide", 50).css("opacity", "0.5");
+		});
+	    },
+	    stop: function(event, ui){
+		//Hide the garbage bin, Show the new button
+		$("#garbageBin").hide("slide", 50, function(){
+		    $("#addNew").show("slide", 50);
+		});
+	    }
+	});
+    });
     $("#blocks .script .cmouth").each(function(){
 	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
     });
@@ -22,7 +38,19 @@ function reloadEvents() {
     $("#blocks ul").sortable({
 	axis: "both",
 	placeholder: "block-placeholder",
-	items: "li:not(.hat),.stack:not(.cstart)"
+	items: "li:not(.hat),.stack:not(.cstart)",
+	start: function(event, ui){
+	    //Hide the new button, Show the garbage bin
+	    $("#addNew").hide("slide", 50, function(){
+		$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+	    });
+	},
+	stop: function(event, ui){
+	    //Hide the garbage bin, Show the new button
+	    $("#garbageBin").hide("slide", 50, function(){
+		$("#addNew").show("slide", 50);
+	    });
+	}
     });
     
     //PARAMETER CHANGE EVENTS!!!!!!
@@ -33,8 +61,32 @@ function reloadEvents() {
 	$(this).val($(this).val().match($(this).attr("pattern")));
     });
     
+    //GARBAGE BIN EVENTS!!!!!!
+    $("#garbageBin").droppable({
+	drop: function(event, ui){
+	    if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
+		//code
+	    }else{
+		ui.helper.remove();
+		ui.draggable.remove();
+	    }
+	    //Hide the garbage bin, Show the new button
+	    $("#garbageBin").hide("slide", 50, function(){
+		$("#addNew").show("slide", 50);
+	    });
+	},
+	over: function(){
+	    $(this).children().css("opacity", "1.0");
+	},
+	out: function(){
+	    $(this).children().css("opacity", "0.5");
+	}
+    });
+    
 }
 $(document).ready(function(){
+    //Hide the garbage bin
+    $("#garbageBin").hide();
     
     reloadEvents();
     loadProject("1.ge");
