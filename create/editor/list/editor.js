@@ -21,7 +21,7 @@ function reloadEvents() {
     //Bind the actual events
     $("#blocks ul").sortable({
 	axis: "y",
-	items: "li:not(.hat),.stack"
+	items: "li:not(.hat),.stack:not(.cstart)"
     });
     
 }
