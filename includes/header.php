@@ -11,7 +11,7 @@ session_start(); //Always like to start the session, in case we use it later, an
 
     //This checks for https
     //The off is only on IIS
-    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' || $_SERVER['HTTP_X_FORWARDED_PROTO'] == https) { // ~comp500 Added Heroku HTTPS thing
         //SSL connection
         if ($_SERVER["SERVER_PORT"] != "80") {
             $DOMAIN = "https://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
