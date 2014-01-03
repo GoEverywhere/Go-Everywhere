@@ -4,7 +4,8 @@
 //get the header
 include_once("../includes/header.php");
 //db info
-require_once("../../db_constants.php");
+//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
+require_once('../db_constants.php');
 //connect to the db
 db_connect();
 //make sure that there is a project id

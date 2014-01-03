@@ -1,7 +1,8 @@
 <?php
 include_once("../includes/header.php");
 //include database info
-require_once("../../db_constants.php");
+//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
+require_once('../db_constants.php');
 //connect to the database
 db_connect();
 //see if we need to view a certain user, or the curren't user's profile page

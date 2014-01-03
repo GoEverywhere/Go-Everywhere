@@ -3,7 +3,8 @@
 //start the session
 session_start();
 //get the database info
-require_once("../../db_constants.php");
+//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
+require_once('../db_constants.php');
 //see if all the required info is here
 if(isset($_SESSION['username']))
 {

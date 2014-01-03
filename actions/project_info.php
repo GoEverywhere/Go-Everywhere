@@ -2,7 +2,8 @@
 //This file will echo out project info
 header('Content-Type: text/xml');
 //get database info
-require_once("../../db_constants.php");
+//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
+require_once('../db_constants.php');
 //connect to the database
 db_connect();
 //query the database for the project info

@@ -7,7 +7,7 @@
 //Start the session
 session_start();
 //get the database info
-require_once("../db_constants.php");
+require_once("db_constants.php");
 //See if the user is already logged in
 if(isset($_SESSION['username']))
 {
