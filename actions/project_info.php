@@ -1,9 +1,13 @@
 <?php
 //This file will echo out project info
 header('Content-Type: text/xml');
-//get database info
-//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
-require_once('../db_constants.php');
+//get the database info
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
 //connect to the database
 db_connect();
 //query the database for the project info

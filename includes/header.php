@@ -27,10 +27,11 @@ session_start(); //Always like to start the session, in case we use it later, an
         }
     }
 
-    
-    $DOMAIN .= "/"; //Because of how I told all of you to set this up, you must run this in the "Go-Everywhere" folder
-    //Ex. http://localhost/Go-Everywhere/ instead of http://localhost/ or http://localhost/develop/Go-Everywhere
-    //This extra folder will also come in handy when we have the self extracting PHP script for Github
+    $DOMAIN .= "/";
+    if(!(strpos($_SERVER['SCRIPT_NAME'], "/Go-Everywhere") === false))
+    {
+        $DOMAIN .="Go-Everywhere";
+    }
 
     //Start the session if the cookie is there, but the user is not existing in the session variable
     if((empty($_SESSION['username']) || $_SESSION['username'] == '') && (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != ''))

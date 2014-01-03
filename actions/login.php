@@ -21,9 +21,13 @@ $errormessage = "";
 
 //verify that the user is an actual user
 $verified = false;
-//Get the database functions
-//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
-require_once('../db_constants.php');
+//get the database info
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
 //Connect to the database
 db_connect();
 //Query the database to see if the user exists

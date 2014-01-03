@@ -7,9 +7,15 @@
  *data type. The default is HTML, however it will also accept xml, which will
  *echo the data as an XML document.
  */
+
 //get the database info
-//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
-require_once('../db_constants.php');
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
+
 //So that we have a "global" domain variables
 if ($_SERVER["SERVER_PORT"] != "80") {
     $HDOMAIN = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
