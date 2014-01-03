@@ -3,9 +3,13 @@
 //and eventually along with it's comments
 //get the header
 include_once("../includes/header.php");
-//db info
-//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
-require_once('../db_constants.php');
+//get the database info
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
 //connect to the db
 db_connect();
 //make sure that there is a project id
@@ -37,7 +41,7 @@ $row = mysql_fetch_array($result);
 </style>
 <center>
     <h2><?php echo $row['title']; ?></h2>
-    <iframe id="project_viewer" width="500" height="405" scrolling="no" src="./player/sb2.js/player.htm?project=<?php echo "../../../../projects/" . $row['user'] . "/" . $row['id'] . ".ge"; ?>">Loading...</iframe>
+    <iframe id="project_viewer" width="500" height="405" scrolling="no" src="./player/sb2.js/player.htm?project=<?php echo $backTicks . "projects/" . $row['user'] . "/" . $row['id'] . ".ge"; ?>">Loading...</iframe>
     <div id="project_info">
         <h4><b>Description</b></h4>
         <p><?php echo $row['description']; ?></p>
