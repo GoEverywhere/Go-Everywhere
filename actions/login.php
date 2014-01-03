@@ -22,7 +22,8 @@ $errormessage = "";
 //verify that the user is an actual user
 $verified = false;
 //Get the database functions
-require_once("../../db_constants.php");
+//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
+require_once('../db_constants.php');
 //Connect to the database
 db_connect();
 //Query the database to see if the user exists

@@ -13,3 +13,4 @@ if (file_exists($search)) {
     $echoMe = file_get_contents($search);
 }
 echo $echoMe;
+?>

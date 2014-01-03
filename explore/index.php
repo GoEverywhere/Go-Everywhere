@@ -8,7 +8,8 @@
  *echo the data as an XML document.
  */
 //get the database info
-require_once('../../db_constants.php');
+//TODO: Make this so that it will count back to the base directory dynamically to find the /root folder
+require_once('../db_constants.php');
 //So that we have a "global" domain variables
 if ($_SERVER["SERVER_PORT"] != "80") {
     $HDOMAIN = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
