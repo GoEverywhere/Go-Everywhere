@@ -63,7 +63,7 @@ while($row = mysql_fetch_array($result))
                 //start the table data
                 echo "<td>";
                 //thumbnail image
-                echo "<p><a href=\"http://" . $HDOMAIN . $DOMAIN . "/explore/view.php?id=" . $row['id'] ."\"><img class=\"projectthumbnail\" width=\"219\" height=\"165\" alt=\"No project icon\" title=\"" . $row['title'] . "\" src=\"http://" . $HDOMAIN . "/projects/" . $row['user'] . "/" . $row['id'] . ".png\" /></a><br />\n";
+                echo "<p><a href=\"http://" . $DOMAIN . "/explore/view.php?id=" . $row['id'] ."\"><img class=\"projectthumbnail\" width=\"219\" height=\"165\" alt=\"No project icon\" title=\"" . $row['title'] . "\" src=\"http://" . $HDOMAIN . "/projects/" . $row['user'] . "/" . $row['id'] . ".png\" /></a><br />\n";
                 //credits (needs to be a link once we have user pages)
                 echo "by " . $row['user'] . "</p>";
                 echo "</td>\n";
