@@ -28,7 +28,7 @@ session_start(); //Always like to start the session, in case we use it later, an
     }
 
     
-    $DOMAIN .= "/Go-Everywhere"; //Because of how I told all of you to set this up, you must run this in the "Go-Everywhere" folder
+    $DOMAIN .= "/"; //Because of how I told all of you to set this up, you must run this in the "Go-Everywhere" folder
     //Ex. http://localhost/Go-Everywhere/ instead of http://localhost/ or http://localhost/develop/Go-Everywhere
     //This extra folder will also come in handy when we have the self extracting PHP script for Github
 
