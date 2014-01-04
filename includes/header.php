@@ -26,11 +26,10 @@ session_start(); //Always like to start the session, in case we use it later, an
             $DOMAIN = "http://".$_SERVER["SERVER_NAME"];
         }
     }
-
-    $DOMAIN .= "/";
+    
     if(!(strpos($_SERVER['SCRIPT_NAME'], "/Go-Everywhere") === false))
     {
-        $DOMAIN .="Go-Everywhere";
+        $DOMAIN .="/Go-Everywhere";
     }
 
     //Start the session if the cookie is there, but the user is not existing in the session variable
