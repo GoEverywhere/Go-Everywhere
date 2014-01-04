@@ -82,7 +82,7 @@ session_start(); //Always like to start the session, in case we use it later, an
                 <a href="<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
                 <!--maybe this can be changed to float on the right. I sure don't know how to do it.-->
                 <?php
-                if(!isset($_SESSION['username']))
+                if(empty($_SESSION['username']))
                 {
                 ?>
                 <a style="float: right" id="signupButton" href="<?php echo $DOMAIN; ?>/register/"><button class="menuitem">Signup</button></a>
@@ -97,7 +97,7 @@ session_start(); //Always like to start the session, in case we use it later, an
                 ?>
             </div>
             <div id="loginform">
-                <form method="post" action="./actions/login.php" enctype="application/x-www-form-urlencoded">
+                <form method="post" action="<?php echo $DOMAIN; ?>/actions/login.php" enctype="application/x-www-form-urlencoded">
                     <label for="username">Username: </label>
                     <input type="text" length="15" maxlength="20" id="username" name="username" /><br />
                     <label for="password">Password: </label>
