@@ -41,7 +41,7 @@ $row = mysql_fetch_array($result);
 </style>
 <center>
     <h2><?php echo $row['title']; ?></h2>
-    <iframe id="project_viewer" width="500" height="405" scrolling="no" src="./player/sb2.js/player.htm?project=<?php echo $backTicks . "projects/" . $row['user'] . "/" . $row['id'] . ".ge"; ?>">Loading...</iframe>
+    <iframe id="project_viewer" width="500" height="405" scrolling="no" src="./player/sb2.js/player.htm?project=<?php echo urlencode($DOMAIN . "/projects/" . $row['user'] . "/" . $row['id'] . ".ge"); ?>">Loading...</iframe>
     <div id="project_info">
         <h4><b>Description</b></h4>
         <p><?php echo $row['description']; ?></p>
