@@ -97,7 +97,7 @@ session_start(); //Always like to start the session, in case we use it later, an
                 ?>
             </div>
             <div id="loginform">
-                <form method="post" action="<?php echo $DOMAIN; ?>/actions/login.php" enctype="application/x-www-form-urlencoded">
+                <form method="post" action="<?php echo $DOMAIN; ?>/actions/login.php?redirect=<?php echo urlencode($DOMAIN . $_SERVER['SCRIPT_NAME']); ?>" enctype="application/x-www-form-urlencoded">
                     <label for="username">Username: </label>
                     <input type="text" length="15" maxlength="20" id="username" name="username" /><br />
                     <label for="password">Password: </label>
