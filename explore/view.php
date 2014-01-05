@@ -21,16 +21,16 @@ if(empty($ID) || $ID == "")
     exit;
 }
 //query the database
-$result = db_query("SELECT * FROM projects WHERE id='" . $ID . "'") or die(mysql_error());
+$result = mysql_query("SELECT * FROM projects WHERE id='" . $ID . "'") or die(mysql_error());
 //see if there are any projects with that id
-if(db_num_rows($result) < 0)
+if(mysql_num_rows($result) < 0)
 {
     //send them away
     header("Location: ./index.php");
     exit;
 }
 //get the info
-$row = db_fetch_array($result);
+$row = mysql_fetch_array($result);
 //echo the data into the page.
 ?>
 <style>
