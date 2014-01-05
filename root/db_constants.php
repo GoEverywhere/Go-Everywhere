@@ -50,25 +50,31 @@ $db = null;
 
 function db_connect()
 {
+	global $db;
     $db = new PDO(DB_CONNECTION_STRING, DB_USER, DB_PASSWORD);
 }
 function db_query($q)
 {
+	global $db;
     return $db->query($q);
 }
 function db_fetch_array($result)
 {
-    return $stmt->fetchAll(PDO::FETCH_BOTH);
+	global $db;
+    return $result->fetch(PDO::FETCH_BOTH);
 }
 function db_num_rows($result)
 {
+	global $db;
 	return $result->rowCount();
 }
 function db_free_result($result)
 {
+	global $db;
     $result->closeCursor();
 }
 function db_disconnect()
 {
+	global $db;
     $db = null;
 }
