@@ -46,7 +46,7 @@ function db_connect()
         //Connect to the database (a script for a default database setup, in an sql file, will be put on our site)
         mysql_select_db(MYSQL_DATABASE) or die ('Could not select database: ' . mysql_error());
     }else{
-        pg_connect("host=" . POSTGRE_SERVER . " dbname=" . POSTGRESQL_DATABASE . " user=" . POSTGRESQL_USER . " password=" . POSTGRESQL_PASSWORD . "") or die('Could not connect to PostgreSQL: ' . pg_last_error());
+        pg_connect("host=" . POSTGRE_SERVER . " port=5432 dbname=" . POSTGRESQL_DATABASE . " user=" . POSTGRESQL_USER . " password=" . POSTGRESQL_PASSWORD . "") or die('Could not connect to PostgreSQL: ' . pg_last_error());
     }
 }
 function db_query($q)
