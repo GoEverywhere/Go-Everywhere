@@ -151,6 +151,8 @@ function loadCurrentSelectedSprite(){
     $("#blocks .dropdown:contains('%k')").html(getParameterCode("key"));
     //Object drop down tags
     $("#blocks .dropdown:contains('%o')").html(getParameterCode("object"));
+    //Math drop down tags
+    $("#blocks .dropdown:contains('%m')").html(getParameterCode("math"));
     //Add sorting and dragging
     reloadEvents();
 }
@@ -173,10 +175,8 @@ function parseSpriteBlocks(sprite) {
                 //get block info
                 currentBlock = getBlockData(sprite.scripts[i][2][j][0]);
 		
-		var currentBlockText = currentBlock.scratchblocks;
-		
 		//add it to the script
-		tmpScratchblocksText += currentBlockText;
+		tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][j]);
 		tmpScratchblocksText += "\n";
 		
 		if (currentBlock.type == "c") {
@@ -195,6 +195,25 @@ function parseSpriteBlocks(sprite) {
     }
     return tmpScratchblocksText;
 }
+function generateBlockTextWithParameters(blockToDecodeParameters)
+{
+    var currentBlockText = getBlockData(blockToDecodeParameters[0]).scratchblocks;
+    //Go through each parameter and add blocks
+    if (getBlockData(blockToDecodeParameters[0]).parameters > 0) {
+	for(var parameterI = 0; parameterI < getBlockData(blockToDecodeParameters[0]).parameters; parameterI++)
+	{
+	    //See if it is a block parameter
+	    if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == "unknown") {
+		//No. Put it straight in. That was easy ;D
+		currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
+	    }else{
+		//Yes. Put in the block, and do parameters off of that, too.
+		currentBlockText = currentBlockText.replace(new RegExp('((\\<|\\[|\\()\\$' + (1 + parameterI) + '(\\)|\\]|\\>))',["i"]), generateBlockTextWithParameters(blockToDecodeParameters[1 + parameterI]));
+	    }
+	}
+    }
+    return currentBlockText;
+}
 function generateCShapeBlocks(blockToDecode) {
     var totalScripts = "";
     //loop through the loop's blocks
@@ -203,7 +222,8 @@ function generateCShapeBlocks(blockToDecode) {
     for (var k = 0; k < blockToDecode[1].length; k++) {
 	var currentDecodingBlock = getBlockData(blockToDecode[1 + blockTupleOffset][k][0]);
 	//add it to the scripts
-	totalScripts += currentDecodingBlock.scratchblocks;
+	//totalScripts += currentDecodingBlock.scratchblocks;
+	totalScripts += generateBlockTextWithParameters(blockToDecode[1 + blockTupleOffset][k]);
 	totalScripts += "\n";
 	
 	if (currentDecodingBlock.type == "c") {
@@ -245,7 +265,7 @@ function getBlockData(spec) {
 	    return {
 		type: "command",
 		spec: "wait:elapsed:from:",
-		scratchblocks: "wait (1) secs",
+		scratchblocks: "wait ($1) secs",
 		parameters: 1,
 		group: "Control"
 	    }
@@ -265,7 +285,7 @@ function getBlockData(spec) {
 		type: "c",
 		spec: "doIf",
 		label: "if %b then",
-		scratchblocks: "if < > then",
+		scratchblocks: "if <$1> then",
 		parameters: 1,
 		group: "Control"
 	    };
@@ -275,7 +295,7 @@ function getBlockData(spec) {
 		type: "command",
 		spec: "doWaitUntil",
 		label: "wait until %b",
-		scratchblocks: "wait until < >",
+		scratchblocks: "wait until <$1>",
 		parameters: 1,
 		group: "Control"
 	    };
@@ -287,7 +307,7 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "+",
                 label: "%n + %n",
-                scratchblocks: "((10) + (10))",
+                scratchblocks: "(($1) + ($2))",
                 parameters: 2,
                 group: "Operators"
             }
@@ -297,7 +317,7 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "-",
                 label: "%n - %n",
-                scratchblocks: "((10) - (10))",
+                scratchblocks: "(($1) - ($2))",
                 parameters: 2,
                 group: "Operators"
             }
@@ -307,7 +327,7 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "*",
                 label: "%n * %n",
-                scratchblocks: "((10) * (10))",
+                scratchblocks: "(($1) * ($2))",
                 parameters: 2,
                 group: "Operators"
             }
@@ -317,11 +337,21 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "/",
                 label: "%n / %n",
-                scratchblocks: "((10) / (10))",
+                scratchblocks: "(($1) / ($2))",
                 parameters: 2,
                 group: "Operators"
             }
             break;
+	case "computeFunction:of:":
+	    return {
+		type: "number",
+		spec: "computeFunction:of:",
+		label: "%m of (%n)",
+		scratchblocks: "([%m v] of ($2))",
+		parameters: 2,
+		group: "Operators"
+	    }
+	    break;
         /***MORE BLOCKS (Scratch Custom Blocks, Scratch Extension Blocks, & GE Add-ons)***/
         /***MOTION BLOCKS***/
 	case "pointTowards:":
@@ -350,7 +380,7 @@ function getBlockData(spec) {
 		type: "command",
 		spec: "say:",
 		label: "say %s",
-		scratchblocks: "say [Hello!]",
+		scratchblocks: "say [$1]",
 		parameters: 1,
 		group: "Looks"
 	    }
@@ -370,7 +400,7 @@ function getBlockData(spec) {
 		type: "command",
 		spec: "setSizeTo:",
 		label: "set size to %n",
-		scratchblocks: "set size to (100) %",
+		scratchblocks: "set size to ($1) %",
 		parameters: 1,
 		group: "Looks"
 	    };
@@ -381,7 +411,7 @@ function getBlockData(spec) {
         
         default:
             return {
-		type: "command",
+		type: "unknown",
 		spec: spec,
 		label: spec,
 		scratchblocks: spec,
@@ -447,6 +477,24 @@ function getParameterCode(type) {
 		});
 		paramToReturn += "</select>\n";
 	    return paramToReturn;
+	    break;
+	case "math":
+	    return "<select>\n" +
+		    "<option value=\"abs\">abs</option>\n" +
+		    "<option value=\"floor\">floot</option>\n" +
+		    "<option value=\"ceiling\">ceiling</option>\n" +
+		    "<option value=\"sqrt\">sqrt</option>\n" +
+		    "<option value=\"sin\">sin</option>\n" +
+		    "<option value=\"cos\">cos</option>\n" +
+		    "<option value=\"tan\">tan</option>\n" +
+		    "<option value=\"asin\">asin</option>\n" +
+		    "<option value=\"acos\">acos</option>\n" +
+		    "<option value=\"atan\">atan</option>\n" +
+		    "<option value=\"ln\">ln</option>\n" +
+		    "<option value=\"log\">log</option>\n" +
+		    "<option value=\"e ^\">e ^</option>\n" +
+		    "<option value=\"10 ^\">10 ^</option>\n" +
+		    "</select>\n";
 	    break;
         default:
             return "";
