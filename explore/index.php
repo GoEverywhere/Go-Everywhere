@@ -7,8 +7,15 @@
  *data type. The default is HTML, however it will also accept xml, which will
  *echo the data as an XML document.
  */
+
 //get the database info
-require_once('../../db_constants.php');
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
+
 //So that we have a "global" domain variables
 if ($_SERVER["SERVER_PORT"] != "80") {
     $HDOMAIN = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
@@ -18,7 +25,7 @@ if ($_SERVER["SERVER_PORT"] != "80") {
 //connect to the database
 db_connect();
 //query the projects table (to get project names)
-$result = mysql_query("SELECT * FROM projects");
+$result = db_query("SELECT * FROM projects");
 //see what type of data we have to echo out
 switch($_GET['type'])
 {
@@ -47,7 +54,7 @@ switch($type)
 }
 //Go through each project
 $num = 0;
-while($row = mysql_fetch_array($result))
+while($row = db_fetch_array($result))
 {
     //make sure that the project is shared before we put it up to be viewed
     if($row['shared'] == 1)
@@ -57,17 +64,17 @@ while($row = mysql_fetch_array($result))
             case 'html':
                 //create table rows for organization (every first)
                 $num++;
-                if(num == 1)
+                if($num == 1)
                     echo "<tr>";
                 //start the table data
                 echo "<td>";
                 //thumbnail image
-                echo "<p><a href=\"http://" . $HDOMAIN . "/Go-Everywhere/explore/view.php?id=" . $row['id'] ."\"><img class=\"projectthumbnail\" width=\"219\" height=\"165\" alt=\"No project icon\" title=\"" . $row['title'] . "\" src=\"http://" . $HDOMAIN . "/projects/" . $row['user'] . "/" . $row['id'] . ".png\" /></a><br />\n";
+                echo "<p><a href=\"" . $DOMAIN . "/explore/view.php?id=" . $row['id'] ."\"><img class=\"projectthumbnail\" width=\"219\" height=\"165\" alt=\"No project icon\" title=\"" . $row['title'] . "\" src=\"" . $DOMAIN . "/projects/" . $row['user'] . "/" . $row['id'] . ".png\" /></a><br />\n";
                 //credits (needs to be a link once we have user pages)
                 echo "by " . $row['user'] . "</p>";
                 echo "</td>\n";
                 //close the table row for organization (every third)
-                if(num == 3)
+                if($num == 3)
                 {
                     echo "</tr>\n";
                 }

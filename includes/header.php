@@ -11,7 +11,7 @@ session_start(); //Always like to start the session, in case we use it later, an
 
     //This checks for https
     //The off is only on IIS
-    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' || $_SERVER['HTTP_X_FORWARDED_PROTO'] == "https") { // ~comp500 Added Heroku HTTPS thing
         //SSL connection
         if ($_SERVER["SERVER_PORT"] != "80") {
             $DOMAIN = "https://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
@@ -26,11 +26,11 @@ session_start(); //Always like to start the session, in case we use it later, an
             $DOMAIN = "http://".$_SERVER["SERVER_NAME"];
         }
     }
-
     
-    $DOMAIN .= "/Go-Everywhere"; //Because of how I told all of you to set this up, you must run this in the "Go-Everywhere" folder
-    //Ex. http://localhost/Go-Everywhere/ instead of http://localhost/ or http://localhost/develop/Go-Everywhere
-    //This extra folder will also come in handy when we have the self extracting PHP script for Github
+    if(!(strpos($_SERVER['SCRIPT_NAME'], "/Go-Everywhere") === false))
+    {
+        $DOMAIN .="/Go-Everywhere";
+    }
 
     //Start the session if the cookie is there, but the user is not existing in the session variable
     if((empty($_SESSION['username']) || $_SESSION['username'] == '') && (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != ''))
@@ -44,14 +44,14 @@ session_start(); //Always like to start the session, in case we use it later, an
         <title>Go Everywhere!</title>
         
         <!-- HTML5 <script> tags don't require TYPE or LANGUAGE attributes, so we are fine with just this -->
-        <script src="http://<?php echo $DOMAIN; ?>/scripts/jquery.min.js">
+        <script src="<?php echo $DOMAIN; ?>/scripts/jquery.min.js">
             /*
              * I personally like to use jQuery (http://jquery.com/)
              * as the syntax is clean, powerful, and simple
              * along with the many useful plugins we may use
              */
         </script>
-        <script src="http://<?php echo $DOMAIN; ?>/scripts/jquery-migrate.min.js">
+        <script src="<?php echo $DOMAIN; ?>/scripts/jquery-migrate.min.js">
             /*
              * I am not used to the syntax of jQuery 2.x, however
              * some plugins use the new syntax, and some the old
@@ -77,11 +77,11 @@ session_start(); //Always like to start the session, in case we use it later, an
             <div id="menuitems">
                 <a href="<?php echo $DOMAIN; ?>/explore"><button class="menuitem">Explore</button></a>
                 <a href="https://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
-                <a href="scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
+                <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
                 <a href="<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
                 <!--maybe this can be changed to float on the right. I sure don't know how to do it.-->
                 <?php
-                if(!isset($_SESSION['username']))
+                if(empty($_SESSION['username']))
                 {
                 ?>
                 <a style="float: right" id="signupButton" href="<?php echo $DOMAIN; ?>/register/"><button class="menuitem">Signup</button></a>
@@ -96,7 +96,7 @@ session_start(); //Always like to start the session, in case we use it later, an
                 ?>
             </div>
             <div id="loginform">
-                <form method="post" action="./actions/login.php" enctype="application/x-www-form-urlencoded">
+                <form method="post" action="<?php echo $DOMAIN; ?>/actions/login.php?redirect=<?php echo urlencode($DOMAIN . $_SERVER['SCRIPT_NAME']); ?>" enctype="application/x-www-form-urlencoded">
                     <label for="username">Username: </label>
                     <input type="text" length="15" maxlength="20" id="username" name="username" /><br />
                     <label for="password">Password: </label>

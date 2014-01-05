@@ -7,7 +7,12 @@
 //Start the session
 session_start();
 //get the database info
-require_once("../db_constants.php");
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
 //See if the user is already logged in
 if(isset($_SESSION['username']))
 {

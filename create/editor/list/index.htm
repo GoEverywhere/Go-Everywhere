@@ -1,0 +1,145 @@
+<!DOCTYPE>
+<!-- Please do NOT confuse this with Lists in Scratch. This is the List Editor. A special kind of editor
+where blocks appear as lists, not movable stacks. Designed specifically for small screens, such as
+the iPhone -->
+<html>
+    <head>
+        <title>Editor</title>
+        <!-- include JavaScript libraries and plugins -->
+        <script src="../../../scripts/jquery.min.js">//jQuery</script>
+        <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
+        <script src="../../../scripts/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
+        <script src="../../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
+        <script src="../../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>
+        <script src="../ZipFile.complete.js">//To unzip the sb2 format</script>
+        <script src="../scratchblocks2/build/scratchblocks2.js">//Better block image generation</script>
+        <!-- Go Everywhere Add-ons below this comment!! -->
+        <!-- Go Everywhere Add-ons above this comment!! -->
+        <script src="./editor.js"></script>
+        
+        <style>
+            @import url("../scratchblocks2/build/scratchblocks2.css");
+            
+            body {
+                padding-right: 10px;
+            }
+            
+            #toolbar {
+                height: 50px;
+                width: 100%;
+                
+                padding-left: 5px;
+                
+                border:2px solid black;
+                background-color: white;
+                background-image: -webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    color-stop(0, #B0B0B0),
+                    color-stop(1, #FFFFFF)
+                );
+                background-image: -o-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: -moz-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: -webkit-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: -ms-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+                background-image: linear-gradient(to bottom, #B0B0B0 0%, #FFFFFF 100%);
+            }
+            #toolbar div {
+                display: inline-block;
+            }
+            #toolbar #garbageBin img
+            {
+                width:40px;
+                height:40px;
+                
+                opacity: 0.5;
+                
+                border: 2px groove black;
+            }
+            #toolbar #garbageBin
+            {
+                margin-top: 3px;
+                
+                width: 40px;
+                height: 40px;
+            }
+            #toolbar #addNew {
+                
+                background-color: white;
+                
+                width: 40px;
+                height: 40px;
+                
+                color: black;
+                
+                font-size: 40px;
+                
+                margin-top: 3px;
+                
+                opacity: 0.5;
+                
+                border: 2px groove black;
+            }
+            #toolbar #addNew img {
+                width: 40px;
+                height: 40px;
+            }
+            #toolbar #spriteSelect {
+                position: absolute;
+                left: 80px;
+                top: 35px;
+            }
+            #toolbar #spriteSelect select {
+                top: 5px;
+                background: transparent;
+                font-size: 20px;
+                padding: 5px;
+                border: 0;
+                border-radius: 0;
+                height: 40px;
+                margin-top: -20px;
+            }
+            
+            #blocks li
+            {
+                list-style: none;
+                padding: 0px;
+            }
+            #blocks ul
+            {
+                padding: 0px;
+            }
+            #blocks .sortable-script
+            {
+                margin-top: -20px;
+            }
+            #blocks .block-placeholder
+            {
+                background-color: #FAFF69;
+                width: 100px;
+                height: 6px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="toolbar">
+            <div id="addNew">
+                <img src="../images/new.png" />
+            </div>
+            <div id="garbageBin">
+                <img src="../images/trash-bin.jpg" />
+            </div>
+            <div id="spriteSelect">
+                <select>
+                    <option name="Sprite1">Sprite1</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="blocks">
+            <!-- Blocks will be loaded here -->
+            <h3>Loading...</h3>
+        </div>
+    </body>
+</html>

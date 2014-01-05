@@ -1,0 +1,3 @@
+This is where projects should be saved/uploaded/read from. Supplied is a sample project you can use to test parts of the site locally. You can import the sample MySQL file into your MySQL database to set up the database. Included is the table row for the sample project.
+
+The /project directory should NOT be moved any where else. Most scripts depend on the /projects folder being in this file path.

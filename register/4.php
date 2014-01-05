@@ -3,7 +3,12 @@
 //start the session
 session_start();
 //get the database info
-require_once("../../db_constants.php");
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
 //see if all the required info is here
 if(isset($_SESSION['username']))
 {
@@ -32,8 +37,8 @@ if($_POST['password'] != $_POST['password2'])
 //Okay, now we can begin to register them!
 db_connect();
 //See if they are already registered
-$result = mysql_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($_SESSION['verifieduser']) . "'");
-if(mysql_num_rows($result) > 0)
+$result = db_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($_SESSION['verifieduser']) . "'");
+if(db_num_rows($result) > 0)
 {
     	//They are already registered!
     	echo "<p>ERROR: You are already registered! Go log in instead!</p>";
