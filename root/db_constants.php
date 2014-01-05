@@ -42,11 +42,11 @@ function db_connect()
     {
         //Call this function whenever you want to connect to the database
         //Connect to MySQL, die any errors (for now)
-        return mysql_connect(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD) or die ('Could not connect to MySQL: ' . mysql_error());
+        mysql_connect(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD) or die ('Could not connect to MySQL: ' . mysql_error());
         //Connect to the database (a script for a default database setup, in an sql file, will be put on our site)
-        return mysql_select_db(MYSQL_DATABASE) or die ('Could not select database: ' . mysql_error());
+        mysql_select_db(MYSQL_DATABASE) or die ('Could not select database: ' . mysql_error());
     }else{
-        return pg_connect("host=" . POSTGRE_SERVER . " dbname=" . POSTGRESQL_DATABASE . " user=" . POSTGRESQL_USER . " password=" . POSTGRESQL_PASSWORD . "") or die('Could not connect to PostgreSQL: ' . pg_last_error());
+        pg_connect("host=" . POSTGRE_SERVER . " dbname=" . POSTGRESQL_DATABASE . " user=" . POSTGRESQL_USER . " password=" . POSTGRESQL_PASSWORD . "") or die('Could not connect to PostgreSQL: ' . pg_last_error());
     }
 }
 function db_query($q)
