@@ -301,6 +301,16 @@ function getBlockData(spec) {
 	    };
 	    break;
         /***SENSING BLOCKS***/
+	case "touching:":
+	    return {
+		type: "boolean",
+		spec: "touching:",
+		label: "touching %o ?",
+		scratchblocks: "< touching [%o v]? >",
+		parameters: 1,
+		group: "Sensing"
+	    }
+	    break;
         /***OPERATORS BLOCKS***/
         case "+":
             return {
@@ -342,6 +352,19 @@ function getBlockData(spec) {
                 group: "Operators"
             }
             break;
+	    
+	case "not":
+	    return {
+		type: "boolean",
+		spec: "not",
+		label: "not %b",
+		scratchblocks: "< not <$1> >",
+		parameters: 1,
+		group: "Operatores"
+	    }
+	    break;
+    
+    
 	case "computeFunction:of:":
 	    return {
 		type: "number",
