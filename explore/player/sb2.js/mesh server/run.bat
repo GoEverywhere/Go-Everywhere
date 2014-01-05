@@ -1,0 +1,2 @@
+node mesh.js
+echo

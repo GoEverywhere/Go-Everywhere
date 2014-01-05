@@ -21,13 +21,17 @@ $errormessage = "";
 
 //verify that the user is an actual user
 $verified = false;
-//Get the database functions
-require_once("../../db_constants.php");
+//get the database info
+$backTicks = "";
+for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
+{
+    $backTicks .= "../";
+}
+require_once($backTicks . "db_constants.php");
 //Connect to the database
 db_connect();
 //Query the database to see if the user exists
-//I don't know why, but when using the db_query function, it doesn't work. Maybe because it isn't returning a value?
-$result = mysql_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($username) ."' AND passwd='" . crypt($password, LOGIN_SALT) . "'");
+$result = db_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($username) ."' AND passwd='" . crypt($password, LOGIN_SALT) . "'");
 if(db_num_rows($result) > 0)
 {
     //There is at least one user. There should be one, and only one.
@@ -38,7 +42,7 @@ if(db_num_rows($result) > 0)
         $errormessage .= "multipleaccounts,";
     }else{
         //There is only one user. Now for the minor details.
-        while($row = mysql_fetch_array($result))
+        while($row = db_fetch_array($result))
         {
             if($row['scratch'] == 0)
             {
