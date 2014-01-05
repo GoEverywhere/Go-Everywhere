@@ -25,7 +25,7 @@ if ($_SERVER["SERVER_PORT"] != "80") {
 //connect to the database
 db_connect();
 //query the projects table (to get project names)
-$result = db_query("SELECT * FROM projects");
+$result = mysql_query("SELECT * FROM projects");
 //see what type of data we have to echo out
 switch($_GET['type'])
 {
@@ -54,7 +54,7 @@ switch($type)
 }
 //Go through each project
 $num = 0;
-while($row = db_fetch_array($result))
+while($row = mysql_fetch_array($result))
 {
     //make sure that the project is shared before we put it up to be viewed
     if($row['shared'] == 1)

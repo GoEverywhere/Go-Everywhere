@@ -22,14 +22,14 @@ if(!$displayOwn)
     $user = $_GET['user'];
 }
 //query the user
-$result = db_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($user) . "'") or die(mysql_error());
-if(db_num_rows($result) == 0)
+$result = mysql_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($user) . "'") or die(mysql_error());
+if(mysql_num_rows($result) == 0)
 {
     //Error. No user. Should replace this with an error 404 page, when we get one
     echo "Error: No such user";
     exit;
 }
-$info = db_fetch_array($result);
+$info = mysql_fetch_array($result);
 ?>
 
 <!-- Someone add a profile picture thing and password change stuffs -->
