@@ -148,11 +148,53 @@ function loadCurrentSelectedSprite(){
 	$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
     });
     //Key drop down tags
-    $("#blocks .dropdown:contains('%k')").html(getParameterCode("key"));
+    $("#blocks .dropdown:contains('%k')").each(function(){
+	//Key drop down
+	//take out the %k
+	var dropDownText = $(this).html().replace('%k', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(getParameterCode("key"));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
     //Object drop down tags
-    $("#blocks .dropdown:contains('%o')").html(getParameterCode("object"));
+    $("#blocks .dropdown:contains('%o')").each(function(){
+	//Key drop down
+	//take out the %k
+	var dropDownText = $(this).html().replace('%o', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(getParameterCode("object"));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
     //Math drop down tags
-    $("#blocks .dropdown:contains('%m')").html(getParameterCode("math"));
+    $("#blocks .dropdown:contains('%m')").each(function(){
+	//Key drop down
+	//take out the %k
+	var dropDownText = $(this).html().replace('%m', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(getParameterCode("math"));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
     //Add sorting and dragging
     reloadEvents();
 }
@@ -167,7 +209,7 @@ function parseSpriteBlocks(sprite) {
 	    
             var currentBlock = getBlockData(sprite.scripts[i][2][0][0]);
 	    if (currentBlock.type == "hat") {
-		tmpScratchblocksText += currentBlock.scratchblocks;
+		tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][0]);
 		tmpScratchblocksText += "\n";
 	    }
 	    
@@ -203,7 +245,7 @@ function generateBlockTextWithParameters(blockToDecodeParameters)
 	for(var parameterI = 0; parameterI < getBlockData(blockToDecodeParameters[0]).parameters; parameterI++)
 	{
 	    //See if it is a block parameter
-	    if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == "unknown") {
+	    if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
 		//No. Put it straight in. That was easy ;D
 		currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
 	    }else{
@@ -255,7 +297,7 @@ function getBlockData(spec) {
                 type: "hat",
                 spec: "whenKeyPressed",
                 label: "when %k key pressed",
-		scratchblocks: "when [%k v] key pressed",
+		scratchblocks: "when [%k{$1} v] key pressed",
 		parameters: 1,
                 group: "Events"
             };
@@ -306,7 +348,7 @@ function getBlockData(spec) {
 		type: "boolean",
 		spec: "touching:",
 		label: "touching %o ?",
-		scratchblocks: "< touching [%o v]? >",
+		scratchblocks: "< touching [%o{$1} v]? >",
 		parameters: 1,
 		group: "Sensing"
 	    }
@@ -370,7 +412,7 @@ function getBlockData(spec) {
 		type: "number",
 		spec: "computeFunction:of:",
 		label: "%m of (%n)",
-		scratchblocks: "([%m v] of ($2))",
+		scratchblocks: "([%m{$1} v] of ($2))",
 		parameters: 2,
 		group: "Operators"
 	    }
@@ -382,7 +424,7 @@ function getBlockData(spec) {
 		type: "command",
 		spec: "pointTowards:",
 		label: "point towards %o",
-		scratchblocks: "point towards [%o v]",
+		scratchblocks: "point towards [%o{$1} v]",
 		parameters: 1,
 		group: "Motion"
 	    }
@@ -392,7 +434,7 @@ function getBlockData(spec) {
 		type: "command",
 		spec: "gotoSpriteOrMouse:",
 		label: "go to %o",
-		scratchblocks: "go to [%o v]",
+		scratchblocks: "go to [%o{$1} v]",
 		parameters: 1,
 		group: "Motion"
 	    };
@@ -434,11 +476,11 @@ function getBlockData(spec) {
         
         default:
             return {
-		type: "unknown",
+		type: undefined,
 		spec: spec,
-		label: spec,
-		scratchblocks: spec,
-		parameters: 0,
+		label: undefined,
+		scratchblocks: undefined,
+		parameters: undefined,
 		group: "Obsolete"
 		};
             break;
