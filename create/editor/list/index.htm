@@ -20,6 +20,10 @@ the iPhone -->
         <style>
             @import url("../scratchblocks2/build/scratchblocks2.css");
             
+            body {
+                padding-right: 10px;
+            }
+            
             #toolbar {
                 height: 50px;
                 width: 100%;
@@ -40,6 +44,9 @@ the iPhone -->
                 background-image: -webkit-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
                 background-image: -ms-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
                 background-image: linear-gradient(to bottom, #B0B0B0 0%, #FFFFFF 100%);
+            }
+            #toolbar div {
+                display: inline-block;
             }
             #toolbar #garbageBin img
             {
@@ -78,6 +85,21 @@ the iPhone -->
                 width: 40px;
                 height: 40px;
             }
+            #toolbar #spriteSelect {
+                position: absolute;
+                left: 80px;
+                top: 35px;
+            }
+            #toolbar #spriteSelect select {
+                top: 5px;
+                background: transparent;
+                font-size: 20px;
+                padding: 5px;
+                border: 0;
+                border-radius: 0;
+                height: 40px;
+                margin-top: -20px;
+            }
             
             #blocks li
             {
@@ -107,6 +129,11 @@ the iPhone -->
             </div>
             <div id="garbageBin">
                 <img src="../images/trash-bin.jpg" />
+            </div>
+            <div id="spriteSelect">
+                <select>
+                    <option name="Sprite1">Sprite1</option>
+                </select>
             </div>
         </div>
         

@@ -1,5 +1,6 @@
 //VARIABLES
-var zipFile;
+var zipFile,
+project;
 
 function reloadEvents() {
     
@@ -14,6 +15,7 @@ function reloadEvents() {
     });
     $("#blocks .script > .hat").each(function(){
 	$(this).draggable({
+	    revert: true,
 	    start: function(event, ui){
 		//Hide the new button, Show the garbage bin
 		$("#addNew").hide("slide", 50, function(){
@@ -88,6 +90,11 @@ $(document).ready(function(){
     //Hide the garbage bin
     $("#garbageBin").hide();
     
+    //Sprite Selection Event
+    $("#toolbar #spriteSelect select").change(function(){
+	loadCurrentSelectedSprite();
+    });
+    
     reloadEvents();
     loadProject("1.ge");
 });
@@ -96,48 +103,38 @@ function loadProject(url) {
     
 }
 function doneReadingZip(zip) {
-    var project;
     //Load the project JSON into the project variable
     for (var i=0;i<zipFile.entries.length;i++) {
 	if (zipFile.entries[i].name == "project.json") {
 	    project = JSON.parse(zipFile.entries[i].extract(null, true));
 	}
     }
-    //DEBUG!
-    //Put the scripts of the first sprite onto the page
-    var scratchblocksText = "";
-    if (project.children[0].scripts) {
-        //loop through each script
-        for (var i = 0; i < project.children[0].scripts.length; i++) {
-            var _isDefineBlock = false;
-	    
-            var currentBlock = getBlockData(project.children[0].scripts[i][2][0][0]);
-	    if (currentBlock.type == "hat") {
-		scratchblocksText += currentBlock.scratchblocks;
-		scratchblocksText += "\n";
-	    }
-	    
-            for (var j = 1; j < project.children[0].scripts[i][2].length; j++) {
-                //get block info
-                currentBlock = getBlockData(project.children[0].scripts[i][2][j][0]);
-		//add it to the script
-		scratchblocksText += currentBlock.scratchblocks;
-		scratchblocksText += "\n";
-		
-		if (currentBlock.type == "c") {
-		    //get the label of the blocks and add them to the script
-		    //Add in the lists for the blocks
-		    scratchblocksText += generateCShapeBlocks(project.children[0].scripts[i][2][j]);
-		    //add an end tag
-		    scratchblocksText += "end\n";
-		}
-            }
-	    
-	    if (_isDefineBlock) {
-		scratchblocksText += "end\n";
-	    }
-        }
+    
+    //Load sprites and stage into selector
+    $("#toolbar #spriteSelect select").html("<option name=\"Stage\">Stage</option>");
+    for (var i = 0; i < project.children.length; i++) {
+	var tmpSprite = $("#toolbar #spriteSelect select:last-child").append("<option name=\"" + project.children[i].objName + "\">" + project.children[i].objName + "</option>");
+	if (i == 0) {
+	    //Is first sprite. This should be loaded first.
+	    tmpSprite.children(":last").attr("selected", "true");
+	}
     }
+    
+    loadCurrentSelectedSprite();
+    
+    
+}
+function loadCurrentSelectedSprite(){
+    var scratchblocksText = "";
+    
+    for(var spriteI = 0; spriteI < project.children.length; spriteI++)
+    {
+	if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
+	    scratchblocksText += parseSpriteBlocks(project.children[spriteI]);
+	}
+    }
+    
+    
     $("#blocks").html("<pre class=\"blockCodeParse\">" + scratchblocksText + "</pre>");
     //Parse blocks
     scratchblocks2.parse("pre.blockCodeParse");
@@ -152,23 +149,75 @@ function doneReadingZip(zip) {
     });
     //Key drop down tags
     $("#blocks .dropdown:contains('%k')").html(getParameterCode("key"));
+    //Object drop down tags
+    $("#blocks .dropdown:contains('%o')").html(getParameterCode("object"));
     //Add sorting and dragging
     reloadEvents();
+}
+
+function parseSpriteBlocks(sprite) {
+    //Put the scripts of the first sprite onto the page
+    var tmpScratchblocksText = "";
+    if (sprite.scripts) {
+        //loop through each script
+        for (var i = 0; i < sprite.scripts.length; i++) {
+            var _isDefineBlock = false;
+	    
+            var currentBlock = getBlockData(sprite.scripts[i][2][0][0]);
+	    if (currentBlock.type == "hat") {
+		tmpScratchblocksText += currentBlock.scratchblocks;
+		tmpScratchblocksText += "\n";
+	    }
+	    
+            for (var j = 1; j < sprite.scripts[i][2].length; j++) {
+                //get block info
+                currentBlock = getBlockData(sprite.scripts[i][2][j][0]);
+		
+		var currentBlockText = currentBlock.scratchblocks;
+		
+		//add it to the script
+		tmpScratchblocksText += currentBlockText;
+		tmpScratchblocksText += "\n";
+		
+		if (currentBlock.type == "c") {
+		    //get the label of the blocks and add them to the script
+		    //Add in the lists for the blocks
+		    tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
+		    //add an end tag
+		    tmpScratchblocksText += "end\n";
+		}
+            }
+	    
+	    if (_isDefineBlock) {
+		tmpScratchblocksText += "end\n";
+	    }
+        }
+    }
+    return tmpScratchblocksText;
 }
 function generateCShapeBlocks(blockToDecode) {
     var totalScripts = "";
     //loop through the loop's blocks
-    for (var k = 0; k < blockToDecode.length; k++) {
-	var currentDecodingBlock = getBlockData(blockToDecode[1][k][0]);
-	
+    //window.alert(JSON.stringify(blockToDecode[1]));
+    var blockTupleOffset = getBlockData(blockToDecode[0]).parameters;
+    for (var k = 0; k < blockToDecode[1].length; k++) {
+	var currentDecodingBlock = getBlockData(blockToDecode[1 + blockTupleOffset][k][0]);
+	//add it to the scripts
 	totalScripts += currentDecodingBlock.scratchblocks;
 	totalScripts += "\n";
+	
+	if (currentDecodingBlock.type == "c") {
+	    //C-block!
+	    totalScripts += generateCShapeBlocks(blockToDecode[1 + blockTupleOffset][k]);
+	    totalScripts += "end\n";
+	}
     }
     return totalScripts;
 }
 
 function getBlockData(spec) {
     //Return an object, telling info about the block
+    //PLEASE PUT BLOCKS IN THE ORDER THEY ARE IN SCRATCH! Thank you!
     switch (spec) {
         /***EVENT BLOCKS***/
         case "whenGreenFlag":
@@ -177,6 +226,7 @@ function getBlockData(spec) {
                 spec: "whenGreenFlag",
                 label: "when green flag clicked",
 		scratchblocks: "when green flag clicked",
+		parameters: 0,
                 group: "Events"
             };
             break;
@@ -186,45 +236,60 @@ function getBlockData(spec) {
                 spec: "whenKeyPressed",
                 label: "when %k key pressed",
 		scratchblocks: "when [%k v] key pressed",
-                group: "Events",
-                params: [
-                    {
-                        type: "key",
-                        positionFromLeft: 50
-                    }
-                ]
+		parameters: 1,
+                group: "Events"
             };
             break;
         /***CONTROL BLOCKS***/
+	case "wait:elapsed:from:":
+	    return {
+		type: "command",
+		spec: "wait:elapsed:from:",
+		scratchblocks: "wait (1) secs",
+		parameters: 1,
+		group: "Control"
+	    }
+	    break;
         case "doForever":
             return {
                 type: "c",
                 spec: "doForever",
                 label: "forever",
 		scratchblocks: "forever",
+		parameters: 0,
                 group: "Control"
             };
             break;
+	case "doIf":
+	    return {
+		type: "c",
+		spec: "doIf",
+		label: "if %b then",
+		scratchblocks: "if < > then",
+		parameters: 1,
+		group: "Control"
+	    };
+	    break;
+	case "doWaitUntil":
+	    return {
+		type: "command",
+		spec: "doWaitUntil",
+		label: "wait until %b",
+		scratchblocks: "wait until < >",
+		parameters: 1,
+		group: "Control"
+	    };
+	    break;
         /***SENSING BLOCKS***/
         /***OPERATORS BLOCKS***/
-        /* Please leave these commented. They are not finished, and may or may not break the GUI up a bit.
         case "+":
             return {
                 type: "number",
                 spec: "+",
                 label: "%n + %n",
                 scratchblocks: "((10) + (10))",
-                group: "Operators",
-                params: [
-                    {
-                        type: "number",
-                        positionFromLeft: 5
-                    },
-                    {
-                        type: "number",
-                        positionFromLeft: 60
-                    }
-                ]
+                parameters: 2,
+                group: "Operators"
             }
             break;
         case "-":
@@ -232,18 +297,9 @@ function getBlockData(spec) {
                 type: "number",
                 spec: "-",
                 label: "%n - %n",
-                scratchblocks: "((10) - (10))"
-                group: "Operators",
-                params: [
-                    {
-                        type: "number",
-                        positionFromLeft: 5
-                    },
-                    {
-                        type: "number",
-                        positionFromLeft: 60
-                    }
-                ]
+                scratchblocks: "((10) - (10))",
+                parameters: 2,
+                group: "Operators"
             }
             break;
         case "*":
@@ -252,17 +308,8 @@ function getBlockData(spec) {
                 spec: "*",
                 label: "%n * %n",
                 scratchblocks: "((10) * (10))",
-                group: "Operators",
-                params: [
-                    {
-                        type: "number",
-                        positionFromLeft: 5
-                    },
-                    {
-                        type: "number",
-                        positionFromLeft: 60
-                    }
-                ]
+                parameters: 2,
+                group: "Operators"
             }
             break;
         case "/":
@@ -271,21 +318,32 @@ function getBlockData(spec) {
                 spec: "/",
                 label: "%n / %n",
                 scratchblocks: "((10) / (10))",
-                group: "Operators",
-                params: [
-                    {
-                        type: "number",
-                        positionFromLeft: 5
-                    },
-                    {
-                        type: "number",
-                        positionFromLeft: 60
-                    }
-                ]
+                parameters: 2,
+                group: "Operators"
             }
-            break;*/
+            break;
         /***MORE BLOCKS (Scratch Custom Blocks, Scratch Extension Blocks, & GE Add-ons)***/
         /***MOTION BLOCKS***/
+	case "pointTowards:":
+	    return {
+		type: "command",
+		spec: "pointTowards:",
+		label: "point towards %o",
+		scratchblocks: "point towards [%o v]",
+		parameters: 1,
+		group: "Motion"
+	    }
+	    break;
+	case "gotoSpriteOrMouse:":
+	    return {
+		type: "command",
+		spec: "gotoSpriteOrMouse:",
+		label: "go to %o",
+		scratchblocks: "go to [%o v]",
+		parameters: 1,
+		group: "Motion"
+	    };
+	    break;
         /***LOOKS BLOCKS***/
 	case "say:":
 	    return {
@@ -293,6 +351,7 @@ function getBlockData(spec) {
 		spec: "say:",
 		label: "say %s",
 		scratchblocks: "say [Hello!]",
+		parameters: 1,
 		group: "Looks"
 	    }
 	    break;
@@ -302,6 +361,7 @@ function getBlockData(spec) {
                 spec: "nextCostume",
                 label: "next costume",
 		scratchblocks: "next costume",
+		parameters: 0,
                 group: "Looks"
             };
             break;
@@ -311,6 +371,7 @@ function getBlockData(spec) {
 		spec: "setSizeTo:",
 		label: "set size to %n",
 		scratchblocks: "set size to (100) %",
+		parameters: 1,
 		group: "Looks"
 	    };
 	    break;
@@ -324,6 +385,7 @@ function getBlockData(spec) {
 		spec: spec,
 		label: spec,
 		scratchblocks: spec,
+		parameters: 0,
 		group: "Obsolete"
 		};
             break;
@@ -333,7 +395,7 @@ function getParameterCode(type) {
     //return HTML for the parameter type
     switch (type) {
         case "key":
-            return "<select class=\"background-color: transparent;\">\n" +
+            return "<select>\n" +
                     "<option value=\"up\">up arrow</option>\n" +
                     "<option value=\"down\">down arrow</option>\n" +
                     "<option value=\"right\">right arrow</option>\n" +
@@ -377,6 +439,15 @@ function getParameterCode(type) {
                     "<option value=\"9\">9</option>\n" +
                     "</select>\n";
             break;
+	case "object":
+	    var paramToReturn = "<select>\n" +
+		    "<option name=\"mouse-pointer\">mouse-pointer</option>\n";
+		$("#toolbar #spriteSelect select option:not([name='Stage'],:selected)").each(function(){
+		    paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
+		});
+		paramToReturn += "</select>\n";
+	    return paramToReturn;
+	    break;
         default:
             return "";
             break;
