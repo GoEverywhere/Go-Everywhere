@@ -1,6 +1,7 @@
 //VARIABLES
 var zipFile,
-project;
+project,
+vars;
 
 function reloadEvents() {
     
@@ -87,6 +88,15 @@ function reloadEvents() {
     
 }
 $(document).ready(function(){
+    //Load GET data
+    vars = [];
+    var hash;
+    var hashes = window.location.search.substr(1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+	hash = unescape(hashes[i]).split('=');
+	vars[hash[0]] = hash[1];
+    }
+    
     //Hide the garbage bin
     $("#garbageBin").hide();
     
@@ -95,8 +105,14 @@ $(document).ready(function(){
 	loadCurrentSelectedSprite();
     });
     
+    if (vars['project'] && vars['project'] != "") {
+	//load project
+	loadProject(vars['project']);
+    }else{
+	$("#blocks").html("<br /><br /><h3>Please provide a project in ?project=PROJECT_PATH</h3>");
+    }
+    
     reloadEvents();
-    loadProject("1.ge");
 });
 function loadProject(url) {
     zipFile = new ZipFile(url, doneReadingZip, 1);
