@@ -6,19 +6,8 @@
  * The default values for the constants are meant for local MySQL servers, but you
  * can change it to whatever best suits your needs.
  *
- * I have been reading, and found that the mysql functions are deprecated in PHP 5.5
- * If this is the case, these functions will need to be changed to mysqli
- * equivalent. I do not have the time to learn mysqli, so i am going to
- * continue writing this in mysql functions. PLEASE REMOVE THIS NOTICE IF
- * YOU CHANGE TO MYSQLI!!!!!!!!!!!!!
- *
- * Please note that the GE server uses PostgreSQL. You will have a choice to use
- * PostgreSQL or MySQL. If MySQL, make sure USING_POSTGRESQL is set to false, and
- * change the MYSQL_* info to your server's info.
- * If PostgreSQL, change USING_POSTGRESQL to true, and change the POSTGRESQL_*
- * to your server's info.
  */
-define("USING_POSTGRESQL", false);
+
 /*
  * Change this to any of the following:
  * (depending on your choice of database)
