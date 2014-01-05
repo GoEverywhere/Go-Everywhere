@@ -4,8 +4,8 @@ include_once("./includes/header.php");
 ?>
 <?php include_once("./includes/Mobile_Detect.php");
     $detect = new Mobile_Detect;
-    if (!$detect->isMobile() && !$detect->isTablet()) {
-        echo '<p style="background-color:yellow;">This website is a Scratch extension designed for mobile devices. Click <a href="http://scratch.mit.edu">here</a> to go back to the official Scratch 2.0 website, better designed for desktop computers.';
+    if ($detect->isMobile() || $detect->isTablet()) {
+        echo '<p style="background-color:yellow;">This website is a Scratch extension designed for mobile devices. Click <a href="/webapps/ios">here</a> to go to the Go Everywhere iOS site, better designed for mobile devices.';
     }
 ?>
 
