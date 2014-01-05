@@ -72,6 +72,14 @@ session_start(); //Always like to start the session, in case we use it later, an
     </head>
     
     <body>
+        <?php
+        if(isset($_GET['verified']) && $_GET['verified'] == "1")
+        {
+            ?>
+            <div style="background-color: yellow;margin: 0px;"><center><h1>Action Successful!</h1></center></div>
+            <?php
+        }
+        ?>
         <div id="header">
             <a href="<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
             <div id="menuitems">
