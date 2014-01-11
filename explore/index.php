@@ -27,15 +27,9 @@ db_connect();
 //query the projects table (to get project names)
 $result = db_query("SELECT * FROM projects");
 //see what type of data we have to echo out
-switch($_GET['type'])
-{
-    case 'xml':
-    case 'XML':
-        $type = "xml";
-        break;
-    default:
-        $type = "html";
-        break;
+$type = isset($_GET['type']) ? $_GET['type'] : "html";
+if (strtolower($type) != "xml" && strtolower($type) != "html") {
+	$type = "html";
 }
 //Echo the header
 switch($type)

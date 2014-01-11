@@ -1108,12 +1108,16 @@
   border-width: 2px;
 }
 .sb2 .reporter,
-.sb2 .embedded,
-.sb2 .boolean {
+.sb2 .embedded {
   border-radius: 2000px;
   -webkit-border-radius: 2000px;
   -moz-border-radius: 2000px;
 }
+
+.sb2 .boolean {
+  
+}
+
 .sb2 .arrow-cw,
 .sb2 .arrow-ccw {
   display: inline-block;
