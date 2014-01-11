@@ -73,6 +73,8 @@ function reloadEvents() {
 				ui.helper.remove();
 				ui.draggable.remove();
 			}
+			$(this).children().css("opacity", "0.5");
+			$(this).children().css("border-color", "black");
 			//Hide the garbage bin, Show the new button
 			$("#garbageBin").hide("fade", 100, function(){
 				$("#addNew").show("fade", 100);
@@ -80,9 +82,11 @@ function reloadEvents() {
 		},
 		over: function(){
 			$(this).children().css("opacity", "1.0");
+			$(this).children().css("border-color", "yellow");
 		},
 		out: function(){
 			$(this).children().css("opacity", "0.5");
+			$(this).children().css("border-color", "black");
 		}
     });    
 }
