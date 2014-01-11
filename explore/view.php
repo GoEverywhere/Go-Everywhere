@@ -13,7 +13,7 @@ require_once($backTicks . "db_constants.php");
 //connect to the db
 db_connect();
 //make sure that there is a project id
-$ID = mysql_real_escape_string($_GET['id']);
+$ID = db_escape($_GET['id']);
 if(empty($ID) || $ID == "")
 {
     //send them to the all projects page
@@ -21,7 +21,7 @@ if(empty($ID) || $ID == "")
     exit;
 }
 //query the database
-$result = db_query("SELECT * FROM projects WHERE id='" . $ID . "'") or die(mysql_error());
+$result = db_query("SELECT * FROM projects WHERE id=" . $ID . "");
 //see if there are any projects with that id
 if(db_num_rows($result) < 0)
 {
