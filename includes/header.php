@@ -9,9 +9,14 @@ session_start(); //Always like to start the session, in case we use it later, an
 //This is the global variable, which will hold the current domain we are using,
 //in case we ever need to change it. use it as: "http://" + $DOMAIN + "/index.php"
 
+	// Check if $_SERVER['HTTP_X_FORWARDED_PROTO'] (only on Heroku or behind load balancers) exists, and use that to determine HTTPS-ness
+	$hxfp = "";
+	if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+		$hxfp = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+	}
     //This checks for https
     //The off is only on IIS
-    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' || $_SERVER['HTTP_X_FORWARDED_PROTO'] == "https") { // ~comp500 Added Heroku HTTPS thing
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' || $hxfp == "https") {
         //SSL connection
         if ($_SERVER["SERVER_PORT"] != "80") {
             $DOMAIN = "https://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
