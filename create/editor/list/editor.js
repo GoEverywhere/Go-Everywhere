@@ -44,14 +44,14 @@ function reloadEvents() {
 		items: "li:not(.hat),.stack:not(.cstart)",
 		start: function(event, ui){
 			//Hide the new button, Show the garbage bin
-			$("#addNew").hide("slide", 50, function(){
-			$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+			$("#addNew").hide("fade", 100, function(){
+				$("#garbageBin").show("fade", 100).css("opacity", "0.5");
 			});
 		},
 		stop: function(event, ui){
 			//Hide the garbage bin, Show the new button
-			$("#garbageBin").hide("slide", 50, function(){
-			$("#addNew").show("slide", 50);
+			$("#garbageBin").hide("fade", 100, function(){
+				$("#addNew").show("fade", 100);
 			});
 		}
     });
@@ -74,8 +74,8 @@ function reloadEvents() {
 				ui.draggable.remove();
 			}
 			//Hide the garbage bin, Show the new button
-			$("#garbageBin").hide("slide", 50, function(){
-				$("#addNew").show("slide", 50);
+			$("#garbageBin").hide("fade", 100, function(){
+				$("#addNew").show("fade", 100);
 			});
 		},
 		over: function(){
