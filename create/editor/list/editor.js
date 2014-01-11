@@ -42,6 +42,7 @@ function reloadEvents() {
 		axis: "both",
 		placeholder: "block-placeholder",
 		items: "li:not(.hat),.stack:not(.cstart)",
+		connectWith: "#blocks ul",
 		start: function(event, ui){
 			//Hide the new button, Show the garbage bin
 			$("#addNew").hide("fade", 100, function(){
