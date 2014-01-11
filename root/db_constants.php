@@ -67,3 +67,7 @@ function db_disconnect()
 	global $db;
     $db = null;
 }
+function db_escape($toEsc) {
+	global $db;
+	return $db->quote($toEsc);
+}
