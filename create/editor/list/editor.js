@@ -155,11 +155,11 @@ function loadCurrentSelectedSprite(){
     //Add replace block tags with HTML input tags. PARAMETERS!!!!!!!!!!
     //Number tags
     $("#blocks .number").each(function(){
-		$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
+		$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:12px; padding: 0;\" value=\"" + $(this).text() + "\" />");
     });
     //String tags
     $("#blocks .string").each(function(){
-		$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
+		$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:12px; padding: 0;\" value=\"" + $(this).text() + "\" />");
     });
     //Key drop down tags
     $("#blocks .dropdown:contains('%k')").each(function(){
