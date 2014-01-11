@@ -8,84 +8,83 @@ function reloadEvents() {
     //SCRATCHBLOCKS2 EVENTS!!!!!!
     //Add ul and li tags around the existing scratchblocks2 tags
     $("#blocks .script").each(function(){
-	//Turn the script into a UL list
-	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() +  "</ul>");
-    });
-    $("#blocks .script > div:not(.hat)").each(function(){
-	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
-    });
-    $("#blocks .script > .hat").each(function(){
-	$(this).draggable({
-	    revert: true,
-	    start: function(event, ui){
-		//Hide the new button, Show the garbage bin
-		$("#addNew").hide("slide", 50, function(){
-		    $("#garbageBin").show("slide", 50).css("opacity", "0.5");
-		});
-	    },
-	    stop: function(event, ui){
-		//Hide the garbage bin, Show the new button
-		$("#garbageBin").hide("slide", 50, function(){
-		    $("#addNew").show("slide", 50);
-		});
-	    }
+		//Turn the script into a UL list
+		$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() +  "</ul>");
 	});
+	$("#blocks .script > div:not(.hat)").each(function(){
+		$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
+	});
+	$("#blocks .script > .hat").each(function(){
+		$(this).draggable({
+			revert: true,
+			start: function(event, ui){
+				//Hide the new button, Show the garbage bin
+				$("#addNew").hide("slide", 50, function(){
+					$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+				});
+			},
+			stop: function(event, ui){
+				//Hide the garbage bin, Show the new button
+				$("#garbageBin").hide("slide", 50, function(){
+					$("#addNew").show("slide", 50);
+				});
+			}
+		});
     });
     $("#blocks .script .cmouth").each(function(){
-	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
+		$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
     });
     /*$("#blocks .script .cmouth > .stack").each(function(){
 	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
     });*/
     //Bind the actual events
     $("#blocks ul").sortable({
-	axis: "both",
-	placeholder: "block-placeholder",
-	items: "li:not(.hat),.stack:not(.cstart)",
-	start: function(event, ui){
-	    //Hide the new button, Show the garbage bin
-	    $("#addNew").hide("slide", 50, function(){
-		$("#garbageBin").show("slide", 50).css("opacity", "0.5");
-	    });
-	},
-	stop: function(event, ui){
-	    //Hide the garbage bin, Show the new button
-	    $("#garbageBin").hide("slide", 50, function(){
-		$("#addNew").show("slide", 50);
-	    });
-	}
+		axis: "both",
+		placeholder: "block-placeholder",
+		items: "li:not(.hat),.stack:not(.cstart)",
+		start: function(event, ui){
+			//Hide the new button, Show the garbage bin
+			$("#addNew").hide("slide", 50, function(){
+			$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+			});
+		},
+		stop: function(event, ui){
+			//Hide the garbage bin, Show the new button
+			$("#garbageBin").hide("slide", 50, function(){
+			$("#addNew").show("slide", 50);
+			});
+		}
     });
     
     //PARAMETER CHANGE EVENTS!!!!!!
     $("#blocks input[type=text]").keypress(function(){
-	$(this).attr("size", $(this).val().length);
+		$(this).attr("size", $(this).val().length);
     });
     $("#blocks input[type=text][pattern]").bind("keydown keyup keypress focus unfocus", function(){
-	$(this).val($(this).val().match($(this).attr("pattern")));
+		$(this).val($(this).val().match($(this).attr("pattern")));
     });
     
     //GARBAGE BIN EVENTS!!!!!!
     $("#garbageBin").droppable({
-	drop: function(event, ui){
-	    if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
-		//code
-	    }else{
-		ui.helper.remove();
-		ui.draggable.remove();
-	    }
-	    //Hide the garbage bin, Show the new button
-	    $("#garbageBin").hide("slide", 50, function(){
-		$("#addNew").show("slide", 50);
-	    });
-	},
-	over: function(){
-	    $(this).children().css("opacity", "1.0");
-	},
-	out: function(){
-	    $(this).children().css("opacity", "0.5");
-	}
-    });
-    
+		drop: function(event, ui){
+			if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
+				//code
+			} else{
+				ui.helper.remove();
+				ui.draggable.remove();
+			}
+			//Hide the garbage bin, Show the new button
+			$("#garbageBin").hide("slide", 50, function(){
+				$("#addNew").show("slide", 50);
+			});
+		},
+		over: function(){
+			$(this).children().css("opacity", "1.0");
+		},
+		out: function(){
+			$(this).children().css("opacity", "0.5");
+		}
+    });    
 }
 $(document).ready(function(){
     //Load GET data
@@ -93,8 +92,8 @@ $(document).ready(function(){
     var hash;
     var hashes = window.location.search.substr(1).split('&');
     for (var i = 0; i < hashes.length; i++) {
-	hash = unescape(hashes[i]).split('=');
-	vars[hash[0]] = hash[1];
+		hash = unescape(hashes[i]).split('=');
+		vars[hash[0]] = hash[1];
     }
     
     //Hide the garbage bin
@@ -102,14 +101,14 @@ $(document).ready(function(){
     
     //Sprite Selection Event
     $("#toolbar #spriteSelect select").change(function(){
-	loadCurrentSelectedSprite();
+		loadCurrentSelectedSprite();
     });
     
     if (vars['project'] && vars['project'] != "") {
-	//load project
-	loadProject(vars['project']);
+		//load project
+		loadProject(vars['project']);
     }else{
-	$("#blocks").html("<br /><br /><h3>Please provide a project in ?project=PROJECT_PATH</h3>");
+		$("#blocks").html("<br /><br /><h3>Please provide a project in ?project=PROJECT_PATH</h3>");
     }
     
     reloadEvents();
@@ -121,23 +120,22 @@ function loadProject(url) {
 function doneReadingZip(zip) {
     //Load the project JSON into the project variable
     for (var i=0;i<zipFile.entries.length;i++) {
-	if (zipFile.entries[i].name == "project.json") {
-	    project = JSON.parse(zipFile.entries[i].extract(null, true));
-	}
+		if (zipFile.entries[i].name == "project.json") {
+			project = JSON.parse(zipFile.entries[i].extract(null, true));
+		}
     }
     
     //Load sprites and stage into selector
     $("#toolbar #spriteSelect select").html("<option name=\"Stage\">Stage</option>");
     for (var i = 0; i < project.children.length; i++) {
-	var tmpSprite = $("#toolbar #spriteSelect select:last-child").append("<option name=\"" + project.children[i].objName + "\">" + project.children[i].objName + "</option>");
-	if (i == 0) {
-	    //Is first sprite. This should be loaded first.
-	    tmpSprite.children(":last").attr("selected", "true");
-	}
+		var tmpSprite = $("#toolbar #spriteSelect select:last-child").append("<option name=\"" + project.children[i].objName + "\">" + project.children[i].objName + "</option>");
+		if (i == 0) {
+			//Is first sprite. This should be loaded first.
+			tmpSprite.children(":last").attr("selected", "true");
+		}
     }
     
-    loadCurrentSelectedSprite();
-    
+    loadCurrentSelectedSprite();   
     
 }
 function loadCurrentSelectedSprite(){
@@ -145,9 +143,9 @@ function loadCurrentSelectedSprite(){
     
     for(var spriteI = 0; spriteI < project.children.length; spriteI++)
     {
-	if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
-	    scratchblocksText += parseSpriteBlocks(project.children[spriteI]);
-	}
+		if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
+			scratchblocksText += parseSpriteBlocks(project.children[spriteI]);
+		}
     }
     
     
@@ -157,27 +155,27 @@ function loadCurrentSelectedSprite(){
     //Add replace block tags with HTML input tags. PARAMETERS!!!!!!!!!!
     //Number tags
     $("#blocks .number").each(function(){
-	$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
+		$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
     });
     //String tags
     $("#blocks .string").each(function(){
-	$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
+		$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:12px;\" value=\"" + $(this).text() + "\" />");
     });
     //Key drop down tags
     $("#blocks .dropdown:contains('%k')").each(function(){
-	//Key drop down
-	//take out the %k
-	var dropDownText = $(this).html().replace('%k', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(getParameterCode("key"));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
+		//Key drop down
+		//take out the %k
+		var dropDownText = $(this).html().replace('%k', '');
+		//take out the { and }
+		dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+		dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+		
+		$(this).html(getParameterCode("key"));
+		$(this).find("option").each(function(){
+			if ($(this).val() == dropDownText) {
+				$(this).attr("selected", "true");
+			}
+		});
     });
     //Object drop down tags
     $("#blocks .dropdown:contains('%o')").each(function(){
@@ -189,11 +187,11 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
 	$(this).html(getParameterCode("object"));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
+		$(this).find("option").each(function(){
+			if ($(this).val() == dropDownText) {
+			$(this).attr("selected", "true");
+			}
+		});
     });
     //Math drop down tags
     $("#blocks .dropdown:contains('%m')").each(function(){
@@ -205,11 +203,11 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
 	$(this).html(getParameterCode("math"));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
+		$(this).find("option").each(function(){
+			if ($(this).val() == dropDownText) {
+			$(this).attr("selected", "true");
+			}
+		});
     });
     //Add sorting and dragging
     reloadEvents();
@@ -224,31 +222,31 @@ function parseSpriteBlocks(sprite) {
             var _isDefineBlock = false;
 	    
             var currentBlock = getBlockData(sprite.scripts[i][2][0][0]);
-	    if (currentBlock.type == "hat") {
-		tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][0]);
-		tmpScratchblocksText += "\n";
-	    }
+			if (currentBlock.type == "hat") {
+				tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][0]);
+				tmpScratchblocksText += "\n";
+			}
 	    
             for (var j = 1; j < sprite.scripts[i][2].length; j++) {
                 //get block info
                 currentBlock = getBlockData(sprite.scripts[i][2][j][0]);
 		
-		//add it to the script
-		tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][j]);
-		tmpScratchblocksText += "\n";
-		
-		if (currentBlock.type == "c") {
-		    //get the label of the blocks and add them to the script
-		    //Add in the lists for the blocks
-		    tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
-		    //add an end tag
-		    tmpScratchblocksText += "end\n";
-		}
+				//add it to the script
+				tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][j]);
+				tmpScratchblocksText += "\n";
+				
+				if (currentBlock.type == "c") {
+					//get the label of the blocks and add them to the script
+					//Add in the lists for the blocks
+					tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
+					//add an end tag
+					tmpScratchblocksText += "end\n";
+				}
             }
 	    
-	    if (_isDefineBlock) {
-		tmpScratchblocksText += "end\n";
-	    }
+			if (_isDefineBlock) {
+				tmpScratchblocksText += "end\n";
+			}
         }
     }
     return tmpScratchblocksText;
@@ -258,17 +256,17 @@ function generateBlockTextWithParameters(blockToDecodeParameters)
     var currentBlockText = getBlockData(blockToDecodeParameters[0]).scratchblocks;
     //Go through each parameter and add blocks
     if (getBlockData(blockToDecodeParameters[0]).parameters > 0) {
-	for(var parameterI = 0; parameterI < getBlockData(blockToDecodeParameters[0]).parameters; parameterI++)
-	{
-	    //See if it is a block parameter
-	    if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
-		//No. Put it straight in. That was easy ;D
-		currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
-	    }else{
-		//Yes. Put in the block, and do parameters off of that, too.
-		currentBlockText = currentBlockText.replace(new RegExp('((\\<|\\[|\\()\\$' + (1 + parameterI) + '(\\)|\\]|\\>))',["i"]), generateBlockTextWithParameters(blockToDecodeParameters[1 + parameterI]));
-	    }
-	}
+		for(var parameterI = 0; parameterI < getBlockData(blockToDecodeParameters[0]).parameters; parameterI++)
+		{
+			//See if it is a block parameter
+			if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
+				//No. Put it straight in. That was easy ;D
+				currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
+			}else{
+				//Yes. Put in the block, and do parameters off of that, too.
+				currentBlockText = currentBlockText.replace(new RegExp('((\\<|\\[|\\()\\$' + (1 + parameterI) + '(\\)|\\]|\\>))',["i"]), generateBlockTextWithParameters(blockToDecodeParameters[1 + parameterI]));
+			}
+		}
     }
     return currentBlockText;
 }
