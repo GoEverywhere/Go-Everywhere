@@ -88,12 +88,13 @@ session_start(); //Always like to start the session, in case we use it later, an
         <div id="header">
             <a href="<?php echo $DOMAIN; ?>/"><span id="logo">Go Everywhere</span></a>
             <div id="menuitems">
-                <a href="<?php echo $DOMAIN; ?>/explore"><button class="menuitem">Explore</button></a>
+                <?php /*<a href="<?php echo $DOMAIN; ?>/explore"><button class="menuitem">Explore</button></a>*/ ?>
                 <a href="https://github.com/GoEverywhere/Go-Everywhere.git" target="_blank"><button class="menuitem">Fork us on Github!</button></a>
                 <a href="http://scratch.mit.edu/discuss/topic/11087/" target="_blank"><button class="menuitem">Discuss on Official Thread!</button></a>
                 <a href="<?php echo $DOMAIN; ?>/contribute.php"><button class="menuitem">How to contribute</button></a>
                 <!--maybe this can be changed to float on the right. I sure don't know how to do it.-->
                 <?php
+		/*
                 if(empty($_SESSION['username']))
                 {
                 ?>
@@ -101,14 +102,16 @@ session_start(); //Always like to start the session, in case we use it later, an
                 <a style="float: right" id="loginButton" href="javascript:"><button class="menuitem">Login</button></a>
                 <?php
                 }else{
-                ?>
+		?>
                 <a style="float: right" href="<?php echo $DOMAIN; ?>/profile"><button class="menuitem"><?php echo $_SESSION['username']; ?></button></a>
                 <a style="float: right" href="<?php echo $DOMAIN; ?>/logout.php"><button class="menuitem">Logout</button></a>
                 <?php
                 }
-                ?>
+                */
+		?>
             </div>
-            <div id="loginform">
+            <?php
+	    /*<div id="loginform">
                 <form method="post" action="<?php echo $DOMAIN; ?>/actions/login.php?redirect=<?php echo urlencode($DOMAIN . $_SERVER['SCRIPT_NAME']); ?>" enctype="application/x-www-form-urlencoded">
                     <label for="username">Username: </label>
                     <input type="text" length="15" maxlength="20" id="username" name="username" /><br />
@@ -117,6 +120,8 @@ session_start(); //Always like to start the session, in case we use it later, an
                     <input type="submit" value="Login!" />
                 </form>
             </div>
+            */
+            ?>
         </div>
         <div id="container"><!-- Something to help with styling -->
             <div id="content">

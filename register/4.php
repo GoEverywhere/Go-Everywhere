@@ -34,6 +34,7 @@ if($_POST['password'] != $_POST['password2'])
 	header('Location: ./3.php?error=yes');
 	exit;
 }
+/*
 //Okay, now we can begin to register them!
 db_connect();
 //See if they are already registered
@@ -62,5 +63,6 @@ if(db_num_rows($result) > 0)
     unset($_SESSION['tmp_user_code']);
     //send them on their way!
     header('Location: ../?verified=1');
-}
+}*/
+header('Location: ../?verified=0&error=READONLY');
 ?>
