@@ -8,40 +8,49 @@ function reloadEvents() {
     //SCRATCHBLOCKS2 EVENTS!!!!!!
     //Add ul and li tags around the existing scratchblocks2 tags
     $("#blocks .script").each(function(){
-		//Turn the script into a UL list
-		$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() +  "</ul>");
-	});
-	$("#blocks .script > div:not(.hat)").each(function(){
-		$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
-	});
-	$("#blocks .script > .hat").each(function(){
-		$(this).draggable({
-			revert: true,
-			start: function(event, ui){
-				//Hide the new button, Show the garbage bin
-				$("#addNew").hide("slide", 50, function(){
-					$("#garbageBin").show("slide", 50).css("opacity", "0.5");
-				});
-			},
-			stop: function(event, ui){
-				//Hide the garbage bin, Show the new button
-				$("#garbageBin").hide("slide", 50, function(){
-					$("#addNew").show("slide", 50);
-				});
-			}
-		});
+	//Turn the script into a UL list
+	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() +  "</ul>");
     });
+    //Change the block after the hat to an LI
+    $("#blocks .script > div:not(.hat)").each(function(){
+	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
+    });
+    //Change all the inner C-shapes to a list, so we can make all blocks INSIDE them sortable
     $("#blocks .script .cmouth").each(function(){
 	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
     });
-    /*$("#blocks .script .cmouth > .stack").each(function(){
-	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
-    });*/
-    //Bind the actual events
+    //Change all .number, .string, .boolean, .dropdown, to SPAN, instead of DIV
+    
+    /**
+     * DIV and LI are dedicated to stack, hat, time, and special blocks.
+     * SPAN are dedicated to parameter blocks. If they do not have more then one class, then they are fields.
+     **/
+    //$()
+    
+    //Bind the actual events!!!
+    //Make hats draggable
+    $("#blocks .script > .hat").each(function(){
+	$(this).draggable({
+		revert: true,
+		drag: function(event, ui){
+			//Hide the new button, Show the garbage bin
+			$("#addNew").hide("slide", 50, function(){
+				$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+			});
+		},
+		stop: function(event, ui){
+			//Hide the garbage bin, Show the new button
+			$("#garbageBin").hide("slide", 50, function(){
+				$("#addNew").show("slide", 50);
+			});
+		}
+	});
+    });
+    //Make the rest of the blocks sortable
     $("#blocks ul").sortable({
 		axis: "both",
 		placeholder: "block-placeholder",
-		items: "li, div:not(.cstart, .cend, .hat, .hat > *)",
+		items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .embedded)",
 		connectWith: "#blocks ul",
 		start: function(event, ui){
 		    
