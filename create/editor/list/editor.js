@@ -32,7 +32,7 @@ function reloadEvents() {
 		});
     });
     $("#blocks .script .cmouth").each(function(){
-		$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
+	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
     });
     /*$("#blocks .script .cmouth > .stack").each(function(){
 	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
@@ -41,10 +41,10 @@ function reloadEvents() {
     $("#blocks ul").sortable({
 		axis: "both",
 		placeholder: "block-placeholder",
-		items: "li:not(.hat),.stack:not(.cstart)",
+		items: "li, div:not(.cstart, .cend, .hat)",
 		connectWith: "#blocks ul",
-		items: "li, div:not(.cend)",
 		start: function(event, ui){
+		    
 			//Hide the new button, Show the garbage bin
 			$("#addNew").hide("fade", 100, function(){
 				$("#garbageBin").show("fade", 100).css("opacity", "0.5");
