@@ -41,7 +41,7 @@ function reloadEvents() {
     $("#blocks ul").sortable({
 		axis: "both",
 		placeholder: "block-placeholder",
-		items: "li, div:not(.cstart, .cend, .hat)",
+		items: "li, div:not(.cstart, .cend, .hat, .hat > *)",
 		connectWith: "#blocks ul",
 		start: function(event, ui){
 		    
