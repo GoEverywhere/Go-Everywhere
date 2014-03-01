@@ -11,7 +11,7 @@ if ($url == '/logout') {
 if (isset($_SESSION['uid'])) {
     header('Location: /'); die;
 }
-$page_title = 'Log in - Mod Share';
+$page_title = 'Log in - GoEverywhere';
 
 session_regenerate_id(); //regenerate session ID for security purposes
 if (isset($_POST['un'])) {
