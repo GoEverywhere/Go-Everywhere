@@ -1,116 +1,71 @@
 <?php
-/* This is a temporary file for testing features that log people in
- * I am trying to get jvvg to let us use the Scratch verification
- * script that they use on ModShare and Scratch Wiki. I'm sure
- * he would let us use it, as we are close to Scratch as well.
- * If not, I guess we have to do it ourselves. It probably wouldn't
- * be that hard, but it would be nice to have it on the official
- * script.
+/* Hello I got jvvg to let us use the Scratch Verification script 
+ * that they use on ModShare and Scratch Wiki.When we finish 
+ * Go Everywhere he is going into the credits section of it.
  */
-/* When using AJAX, make sure that you send the info with the GET
- * variable "returnonly=true", such like "http://localhost/Go-Everywhere/actions/login.php?returnonly=true"
- * or else the server will direct the page somewhere, where you only
- * want the data, and nothing else
- */
-//Put the HTTP variables into variables
-$username = $_POST['username'];
-$password = $_POST['password'];
-$returnonly = $_GET['returnonly'];
-//make sure if there is an error to write it to this variable. Append to it, each error having a , between them
-$errormessage = "";
-
-//verify that the user is an actual user
-$verified = false;
-//get the database info
-$backTicks = "";
-for($i = 0; $i < substr_count($_SERVER['SCRIPT_NAME'], '/') - 1; $i++)
-{
-    $backTicks .= "../";
+<?php
+if ($url == '/logout') {
+    unset($_SESSION['uid']);
+    header('Location: /'); die;
 }
-require_once($backTicks . "db_constants.php");
-//Connect to the database
-db_connect();
-//Query the database to see if the user exists
-$result = db_query("SELECT * FROM users WHERE user='" . mysql_real_escape_string($username) ."' AND passwd='" . crypt($password, LOGIN_SALT) . "'");
-if(db_num_rows($result) > 0)
-{
-    //There is at least one user. There should be one, and only one.
-    if(db_num_rows($result) > 1)
-    {
-        //This should have never happened. In a UI, you should inform the user to contact an admin ASAP
-        $verified = false;
-        $errormessage .= "multipleaccounts,";
-    }else{
-        //There is only one user. Now for the minor details.
-        while($row = db_fetch_array($result))
-        {
-            if($row['scratch'] == 0)
-            {
-                //They didn't verify their Scratch account
-                $verified = false;
-                $errormessage .= "noscratch,";
+if (isset($_SESSION['uid'])) {
+    header('Location: /'); die;
+}
+$page_title = 'Log in - Mod Share';
+
+session_regenerate_id(); //regenerate session ID for security purposes
+if (isset($_POST['un'])) {
+    $result = $db->query('SELECT id FROM users
+    WHERE LOWER(username) = LOWER(\'' . $db->escape($_POST['un']) . '\')
+    AND password_hash=\'' . $db->escape(ms_hash($_POST['pwd'])) . '\'
+    AND status=\'normal\'') or error('Failed to check user', __FILE__, __LINE__, $db->error()); //user exists?
+    if ($db->num_rows($result)) {
+        //good login, let's continue
+        $user_info = $db->fetch_assoc($result);
+        $_SESSION['uid'] = $user_info['id'];
+
+        if ($_SESSION['banneduserid'] && $ms_user['id'] != $_SESSION['banneduserid']) {
+            $db->query('INSERT INTO bans(message,user_id,ip,starts,expires)
+            VALUES(\'You have been banned for trying to use an alternate account to get around a ban. Instead of using alternate accounts, please contact us about unbanning the original account.\',' . $user_info['id'] . ',\'' . $_SERVER['REMOTE_ADDR'] . '\',' . (time() + 60 * 20) . ',' . (time() + 60 * 60 * 24 * 3) . ')') or error('Failed to ban alternate account', __FILE__, __LINE__, $db->error());
+            unset($_SESSION['banneduserid']);
+        }
+
+        addlog('User ' . $user_info['id'] . ' logged in');
+        header('Location: /'); die;
+    } else {
+        $result = $db->query('SELECT id, password_hash, status FROM users WHERE LOWER(username) = LOWER(\'' . $db->escape($_POST['un']) . '\')');
+        if ($db->num_rows($result)) {
+            $user_info = $db->fetch_assoc($result);
+            if($user_info['password_hash'] == 'reset') {
+                header('Location: /forgot'); die;
             }
-            //TODO: Improve ban (time based instead of Boolean based)
-            else if($row['banned'] == 1)
-            {
-                //User is banned. Format the time to mm/dd/yyyy (after the : character)
-                $verified = false;
-                $errormessage .= "banned:forever";
+            if ($user_info['status'] == 'disabledbyadmin') {
+                $db->query('INSERT INTO bans(user_id,ip,expires,message,type) VALUES(0,\'' . $db->escape($_SERVER['REMOTE_ADDR']) . '\',' . (time() + 60 * 60 * 24 * 7) . ',\'' . $db->escape('You have been automatically banned from logging in for attempting to log in to a disabled account.') . '\',\'login\')') or error('Failed to autoban', __FILE__, __LINE__, $db->error());
+                echo 'Your account has been disabled by the Mod Share Team.'; die;
             }
-            else
-            {
-                //Nothing else, the user can be logged in
-                $verified = true;
-            }
+            //bad login, apprise the user of the situation
+            echo '<h2>Invalid login</h2>
+            <p>Invalid username or password. Hit the back button to try again.</p>
+            <p><a href="/forgot">Forgot password?</a></p>';
         }
     }
-}else{
-    //The user is not registered, or the password was wrong.
-    $verified = false;
-    $errormessage .= "noaccounts,";
-}
-
-//Now too see what we need to do
-if($verified)
-{
-    //Log the user in
-    //start session
-    session_start();
-    //set user in the session (if they are already in, it will just restart the timer)
-    $_SESSION ['username'] = $username;
-    //set a cookie to the user
-    //this can be improved even more, but I'm not to worried about it right now,
-    //since it isn't so popular that people would hack users. But, we will improve on
-    //security soon
-    setCookie('user_id', $username);
-}
-
-//decide whether we should redirect the user or not
-switch($returnonly)
-{
-    case "true":
-    case "t":
-    case "1":
-    case "yes":
-    case "y":
-        //no, just echo data and exit
-        if($verified)
-        {
-            echo "true";
-        }else{
-            echo "false?" . $errormessage;
-        }
-        break;
-    default:
-        //yes, take us to where we were before (or the home page)
-        if(isset($_GET['redirect']) && $_GET['redirect'] != "")
-        {
-            //we have a specific page to go back to
-            header('Location: ' . $_GET['redirect'] . '?message=' . $errormessage . '&verified=' . $verified);
-        }else{
-            //we weren't given a page, go to the home page
-            header('Location: ../?message=' . $errormessage . '&verified=' . $verified);
-        }
-        break;
+} else {
+?>
+<h2>Log in</h2>
+<p>Not registered yet? <a href="/register">Sign up!</a></p>
+<form action="/login" method="post" enctype="multipart/form-data">
+    <table border="0">
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="un" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="pwd" /></td>
+        </tr>
+    </table>
+    <input type="submit" value="Log in" />
+</form>
+<?php
 }
 ?>
