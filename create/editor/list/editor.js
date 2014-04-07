@@ -1,3 +1,199 @@
+//***BLOCKS***//
+//**//EVENTS
+blocks.push({
+                type: "hat",
+                spec: "whenGreenFlag",
+                label: "when green flag clicked",
+		scratchblocks: "when green flag clicked",
+		renderLabel: "when  clicked",
+		parameters: [],
+                group: "Events"
+            });
+blocks.push({
+                type: "hat",
+                spec: "whenKeyPressed",
+                label: "when %k key pressed",
+		scratchblocks: "when [%k{$1} v] key pressed",
+		renderLabel: "when  key pressed",
+		parameters: ["dropdown"],
+                group: "Events"
+            });
+//**//CONTROL
+blocks.push({
+		type: "command",
+		spec: "wait:elapsed:from:",
+		scratchblocks: "wait ($1) secs",
+		renderLabel: "wait  secs",
+		parameters: ["number"],
+		group: "Control"
+	    });
+blocks.push({
+                type: "c",
+                spec: "doForever",
+                label: "forever",
+		scratchblocks: "forever",
+		renderLabel: "forever",
+		parameters: [],
+                group: "Control"
+            });
+blocks.push({
+		type: "c",
+		spec: "doIf",
+		label: "if %b then",
+		scratchblocks: "if <$1> then",
+		renderLabel: "if  then",
+		parameters: ["boolean"],
+		group: "Control"
+	    });
+blocks.push({
+		type: "command",
+		spec: "doWaitUntil",
+		label: "wait until %b",
+		scratchblocks: "wait until <$1>",
+		renderLabel: "wait until ",
+		parameters: ["boolean"],
+		group: "Control"
+	    });
+//**//SENSING
+blocks.push({
+		type: "boolean",
+		spec: "touching:",
+		label: "touching %o ?",
+		scratchblocks: "< touching [%o{$1} v]? >",
+		renderLabel: "touching ?",
+		parameters: ["dropdown"],
+		group: "Sensing"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "timer",
+		label: "timer",
+		scratchblocks: "(timer)",
+		renderLabel: "timer",
+		parameters: [],
+		group: "Sensing"
+	    });
+//**//OPERATORS
+blocks.push({
+                type: "number",
+                spec: "+",
+                label: "%n + %n",
+                scratchblocks: "(($1) + ($2))",
+		renderLabel: " + ",
+                parameters: ["number",
+			     "number"],
+                group: "Operators"
+            });
+blocks.push({
+                type: "number",
+                spec: "-",
+                label: "%n - %n",
+                scratchblocks: "(($1) - ($2))",
+		renderLabel: " - ",
+                parameters: ["number",
+			     "number"],
+                group: "Operators"
+            });
+blocks.push({
+                type: "number",
+                spec: "*",
+                label: "%n * %n",
+                scratchblocks: "(($1) * ($2))",
+		renderLabel: " * ",
+                parameters: ["number",
+			     "number"],
+                group: "Operators"
+            });
+blocks.push({
+                type: "number",
+                spec: "/",
+                label: "%n / %n",
+                scratchblocks: "(($1) / ($2))",
+		renderLabel: " / ",
+                parameters: ["number",
+			     "number"],
+                group: "Operators"
+            });
+blocks.push({
+		type: "boolean",
+		spec: "not",
+		label: "not %b",
+		scratchblocks: "< not <$1> >",
+		renderLabel: "not ",
+		parameters: ["boolean"],
+		group: "Operators"
+	    });
+blocks.push({
+		type: "number",
+		spec: "computeFunction:of:",
+		label: "%m of (%n)",
+		scratchblocks: "([%m{$1} v] of ($2))",
+		renderLabel: " of ",
+		parameters: ["dropdown",
+			     "number"],
+		group: "Operators"
+	    });
+//**//MOTION
+blocks.push({
+		type: "command",
+		spec: "pointTowards:",
+		label: "point towards %o",
+		scratchblocks: "point towards [%o{$1} v]",
+		renderLabel: "point towards ",
+		parameters: ["dropdown"],
+		group: "Motion"
+	    });
+blocks.push({
+		type: "command",
+		spec: "gotoX:y:",
+		label: "go to x:(%n) y:(%n)",
+		scratchblocks: "go to x:($1) y:($2)",
+		renderLabel: "go to x: y:",
+		parameters: ["number",
+			     "number"],
+		group: "Motion"
+	    });
+blocks.push({
+		type: "command",
+		spec: "gotoSpriteOrMouse:",
+		label: "go to %o",
+		scratchblocks: "go to [%o{$1} v]",
+		renderLabel: "go to ",
+		parameters: ["dropdown"],
+		group: "Motion"
+	    });
+//**//LOOKS
+blocks.push({
+		type: "command",
+		spec: "say:",
+		label: "say %s",
+		scratchblocks: "say [$1]",
+		renderLabel: "say ",
+		parameters: ["string"],
+		group: "Looks"
+	    });
+blocks.push({
+                type: "command",
+                spec: "nextCostume",
+                label: "next costume",
+		scratchblocks: "next costume",
+		renderLabel: "next costume",
+		parameters: [],
+                group: "Looks"
+            });
+blocks.push({
+		type: "command",
+		spec: "setSizeTo:",
+		label: "set size to %n",
+		scratchblocks: "set size to ($1) %",
+		renderLabel: "set size to  %",
+		parameters: ["number"],
+		group: "Looks"
+	    });
+//**//SOUND
+//**//PEN
+//**//DATA
+
 //SMALL JQUERY PLUGIN
 jQuery.fn.justtext = function() {
     return $(this).clone().children().remove().end().text();
@@ -249,11 +445,6 @@ function loadCurrentSelectedSprite(){
     });
     
     //Add parameter compilation, for project decompilation and analysis
-    /*$("#blocks .sensing").each(function(){ //THIS WAS USED FOR FINDING THE ISOLATED NAMES OF THE BLOCKS
-	if ($(this).justtext() != "") {
-	    console.log($(this).justtext());
-	}
-    });*/
     $($("#blocks .looks,.events,.control,.sensing,.operators,.motion,.looks,.sound,.pen")).each(function(){
 	var label = $(this).justtext();
 	if(label != "") {
@@ -516,239 +707,20 @@ function getBlockDataFromScratchblocks(cat, label)
     return getBlockData("");
 }
 function getBlockData(spec) {
-    //Return an object, telling info about the block
-    //PLEASE PUT BLOCKS IN THE ORDER THEY ARE IN SCRATCH! Thank you!
-    switch (spec) {
-        /***EVENT BLOCKS***/
-        case "whenGreenFlag":
-            return {
-                type: "hat",
-                spec: "whenGreenFlag",
-                label: "when green flag clicked",
-		scratchblocks: "when green flag clicked",
-		parameters: [],
-                group: "Events"
-            };
-            break;
-        case "whenKeyPressed":
-            return {
-                type: "hat",
-                spec: "whenKeyPressed",
-                label: "when %k key pressed",
-		scratchblocks: "when [%k{$1} v] key pressed",
-		parameters: ["dropdown"],
-                group: "Events"
-            };
-            break;
-        /***CONTROL BLOCKS***/
-	case "wait:elapsed:from:":
-	    return {
-		type: "command",
-		spec: "wait:elapsed:from:",
-		scratchblocks: "wait ($1) secs",
-		parameters: ["number"],
-		group: "Control"
-	    }
-	    break;
-        case "doForever":
-            return {
-                type: "c",
-                spec: "doForever",
-                label: "forever",
-		scratchblocks: "forever",
-		parameters: [],
-                group: "Control"
-            };
-            break;
-	case "doIf":
-	    return {
-		type: "c",
-		spec: "doIf",
-		label: "if %b then",
-		scratchblocks: "if <$1> then",
-		parameters: ["boolean"],
-		group: "Control"
-	    };
-	    break;
-	case "doWaitUntil":
-	    return {
-		type: "command",
-		spec: "doWaitUntil",
-		label: "wait until %b",
-		scratchblocks: "wait until <$1>",
-		parameters: ["boolean"],
-		group: "Control"
-	    };
-	    break;
-        /***SENSING BLOCKS***/
-	case "touching:":
-	    return {
-		type: "boolean",
-		spec: "touching:",
-		label: "touching %o ?",
-		scratchblocks: "< touching [%o{$1} v]? >",
-		parameters: ["dropdown"],
-		group: "Sensing"
-	    }
-	    break;
-	case "timer":
-	    return {
-		type: "reporter",
-		spec: "timer",
-		label: "timer",
-		scratchblocks: "(timer)",
-		parameters: [],
-		group: "Sensing"
-	    }
-	    break;
-        /***OPERATORS BLOCKS***/
-        case "+":
-            return {
-                type: "number",
-                spec: "+",
-                label: "%n + %n",
-                scratchblocks: "(($1) + ($2))",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            }
-            break;
-        case "-":
-            return {
-                type: "number",
-                spec: "-",
-                label: "%n - %n",
-                scratchblocks: "(($1) - ($2))",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            }
-            break;
-        case "*":
-            return {
-                type: "number",
-                spec: "*",
-                label: "%n * %n",
-                scratchblocks: "(($1) * ($2))",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            }
-            break;
-        case "/":
-            return {
-                type: "number",
-                spec: "/",
-                label: "%n / %n",
-                scratchblocks: "(($1) / ($2))",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            }
-            break;
-	    
-	case "not":
-	    return {
-		type: "boolean",
-		spec: "not",
-		label: "not %b",
-		scratchblocks: "< not <$1> >",
-		parameters: ["boolean"],
-		group: "Operators"
-	    }
-	    break;
-    
-    
-	case "computeFunction:of:":
-	    return {
-		type: "number",
-		spec: "computeFunction:of:",
-		label: "%m of (%n)",
-		scratchblocks: "([%m{$1} v] of ($2))",
-		parameters: ["dropdown",
-			     "number"],
-		group: "Operators"
-	    }
-	    break;
-        /***MORE BLOCKS (Scratch Custom Blocks, Scratch Extension Blocks, & GE Add-ons)***/
-        /***MOTION BLOCKS***/
-	case "pointTowards:":
-	    return {
-		type: "command",
-		spec: "pointTowards:",
-		label: "point towards %o",
-		scratchblocks: "point towards [%o{$1} v]",
-		parameters: ["dropdown"],
-		group: "Motion"
-	    }
-	    break;
-	case "gotoX:y:":
-	    return {
-		type: "command",
-		spec: "gotoX:y:",
-		label: "go to x:(%n) y:(%n)",
-		scratchblocks: "go to x:($1) y:($2)",
-		parameters: ["number",
-			     "number"],
-		group: "Motion"
-	    };
-	    break;
-	case "gotoSpriteOrMouse:":
-	    return {
-		type: "command",
-		spec: "gotoSpriteOrMouse:",
-		label: "go to %o",
-		scratchblocks: "go to [%o{$1} v]",
-		parameters: ["dropdown"],
-		group: "Motion"
-	    };
-	    break;
-        /***LOOKS BLOCKS***/
-	case "say:":
-	    return {
-		type: "command",
-		spec: "say:",
-		label: "say %s",
-		scratchblocks: "say [$1]",
-		parameters: ["string"],
-		group: "Looks"
-	    }
-	    break;
-        case "nextCostume":
-            return {
-                type: "command",
-                spec: "nextCostume",
-                label: "next costume",
-		scratchblocks: "next costume",
-		parameters: [],
-                group: "Looks"
-            };
-            break;
-	case "setSizeTo:":
-	    return {
-		type: "command",
-		spec: "setSizeTo:",
-		label: "set size to %n",
-		scratchblocks: "set size to ($1) %",
-		parameters: ["number"],
-		group: "Looks"
-	    };
-	    break;
-        /***SOUND BLOCKS***/
-        /***PEN BLOCKS***/
-        /***DATA BLOCKS***/
-        
-        default:
-            return {
-		type: undefined,
-		spec: spec,
-		label: undefined,
-		scratchblocks: undefined,
-		parameters: undefined,
-		group: "Obsolete"
-		};
-            break;
+    for (var i = 0; i < blocks.length; i++) {
+	if (blocks[i].spec == spec) {
+	    return blocks[i];
+	}
     }
+    
+    return {
+	type: undefined,
+	spec: spec,
+	label: undefined,
+	scratchblocks: undefined,
+	parameters: undefined,
+	group: "Obsolete"
+    };
 }
 function getParameterCode(type) {
     //return HTML for the parameter type
