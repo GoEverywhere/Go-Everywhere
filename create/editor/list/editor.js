@@ -412,12 +412,21 @@ function getBlockDataFromScratchblocks(cat, label)
 		case "forever":
 		    return getBlockData("doForever");
 		    break;
+		case "if  then":
+		    return getBlockData("doIf");
+		    break;
+		case "wait until ":
+		    return getBlockData("doWaitUntil");
+		    break;
 	    }
 	    break;
 	//BLOCKS IN THE SENSING CATAGORY
 	case "sensing":
 	    switch(label)
 	    {
+		case "touching ?":
+		    return getBlockData("touching:");
+		    break;
 		case "timer":
 		    return getBlockData("timer");
 		    break;
@@ -443,6 +452,9 @@ function getBlockDataFromScratchblocks(cat, label)
 		case " / ":
 		    return getBlockData("/");
 		    break;
+		case "not ":
+		    return getBlockData("not");
+		    break;
 	    }
 	    break;
 	//BLOCKS IN THE MORE BLOCKS CATAGORY (???)
@@ -458,6 +470,9 @@ function getBlockDataFromScratchblocks(cat, label)
 	    {
 		case "point towards ":
 		    return getBlockData("pointTowards:");
+		    break;
+		case "go to ":
+		    return getBlockData("gotoSpriteOrMouse:");
 		    break;
 	    }
 	    break;
@@ -666,6 +681,17 @@ function getBlockData(spec) {
 		parameters: ["dropdown"],
 		group: "Motion"
 	    }
+	    break;
+	case "gotoX:y:":
+	    return {
+		type: "command",
+		spec: "gotoX:y:",
+		label: "go to x:(%n) y:(%n)",
+		scratchblocks: "go to x:($1) y:($2)",
+		parameters: ["number",
+			     "number"],
+		group: "Motion"
+	    };
 	    break;
 	case "gotoSpriteOrMouse:":
 	    return {
