@@ -1,3 +1,8 @@
+//SMALL JQUERY PLUGIN
+jQuery.fn.justtext = function() {
+    return $(this).clone().children().remove().end().text();
+};
+
 //VARIABLES
 var zipFile,
 project,
@@ -31,19 +36,35 @@ function reloadEvents() {
     //Make hats draggable
     $("#blocks .script > .hat").each(function(){
 	$(this).draggable({
-		revert: true,
-		drag: function(event, ui){
-			//Hide the new button, Show the garbage bin
-			$("#addNew").hide("slide", 50, function(){
-				$("#garbageBin").show("slide", 50).css("opacity", "0.5");
-			});
-		},
-		stop: function(event, ui){
-			//Hide the garbage bin, Show the new button
-			$("#garbageBin").hide("slide", 50, function(){
-				$("#addNew").show("slide", 50);
-			});
-		}
+	    revert: true,
+	    drag: function(event, ui){
+		    //Hide the new button, Show the garbage bin
+		    $("#addNew").hide("slide", 50, function(){
+			    $("#garbageBin").show("slide", 50).css("opacity", "0.5");
+		    });
+	    },
+	    stop: function(event, ui){
+		    //Hide the garbage bin, Show the new button
+		    $("#garbageBin").hide("slide", 50, function(){
+			    $("#addNew").show("slide", 50);
+		    });
+	    }
+	});
+    });
+    //Make input blocks draggable (but not droppable, yet)
+    $(".reporter, .boolean, .embedded").each(function(){
+	$(this).draggable({
+	    revert: true,
+	    /*placeholder: "embeddedPlaceholder",*/
+	    helper: "clone",
+	    start: function(event, ui){
+		$(this).parent().prepend("<div class=\"string placeholder\">Hello!</div>");
+		$(this).hide();
+	    },
+	    stop: function(event, ui){
+		$(".placeholder").remove();
+		$(this).show();
+	    }
 	});
     });
     //Make the rest of the blocks sortable
@@ -77,28 +98,28 @@ function reloadEvents() {
     
     //GARBAGE BIN EVENTS!!!!!!
     $("#garbageBin").droppable({
-		drop: function(event, ui){
-			if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
-				//code
-			} else{
-				ui.helper.remove();
-				ui.draggable.remove();
-			}
-			$(this).children().css("opacity", "0.5");
-			$(this).children().css("border-color", "black");
-			//Hide the garbage bin, Show the new button
-			$("#garbageBin").hide("fade", 100, function(){
-				$("#addNew").show("fade", 100);
-			});
-		},
-		over: function(){
-			$(this).children().css("opacity", "1.0");
-			$(this).children().css("border-color", "yellow");
-		},
-		out: function(){
-			$(this).children().css("opacity", "0.5");
-			$(this).children().css("border-color", "black");
-		}
+	drop: function(event, ui){
+	    if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
+		    //code
+	    } else{
+		    ui.helper.remove();
+		    ui.draggable.remove();
+	    }
+	    $(this).children().css("opacity", "0.5");
+	    $(this).children().css("border-color", "black");
+	    //Hide the garbage bin, Show the new button
+	    $("#garbageBin").hide("fade", 100, function(){
+		    $("#addNew").show("fade", 100);
+	    });
+	},
+	over: function(){
+	    $(this).children().css("opacity", "1.0");
+	    $(this).children().css("border-color", "yellow");
+	},
+	out: function(){
+	    $(this).children().css("opacity", "0.5");
+	    $(this).children().css("border-color", "black");
+	}
     });    
 }
 $(document).ready(function(){
@@ -158,72 +179,132 @@ function loadCurrentSelectedSprite(){
     
     for(var spriteI = 0; spriteI < project.children.length; spriteI++)
     {
-		if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
-			scratchblocksText += parseSpriteBlocks(project.children[spriteI]);
-		}
+	if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
+	    scratchblocksText += parseSpriteBlocks(project.children[spriteI]);
+	}
     }
     
     
     $("#blocks").html("<pre class=\"blockCodeParse\">" + scratchblocksText + "</pre>");
+    
     //Parse blocks
     scratchblocks2.parse("pre.blockCodeParse");
+    
     //Add replace block tags with HTML input tags. PARAMETERS!!!!!!!!!!
     //Number tags
     $("#blocks .number").each(function(){
-		$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
+	$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
     });
     //String tags
     $("#blocks .string").each(function(){
-		$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
+	$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
     });
     //Key drop down tags
     $("#blocks .dropdown:contains('%k')").each(function(){
-		//Key drop down
-		//take out the %k
-		var dropDownText = $(this).html().replace('%k', '');
-		//take out the { and }
-		dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-		dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-		
-		$(this).html(getParameterCode("key"));
-		$(this).find("option").each(function(){
-			if ($(this).val() == dropDownText) {
-				$(this).attr("selected", "true");
-			}
-		});
+	//Key drop down
+	//take out the %k
+	var dropDownText = $(this).html().replace('%k', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(getParameterCode("key"));
+	$(this).find("option").each(function(){
+		if ($(this).val() == dropDownText) {
+			$(this).attr("selected", "true");
+		}
+	});
     });
     //Object drop down tags
     $("#blocks .dropdown:contains('%o')").each(function(){
-	//Key drop down
-	//take out the %k
+	//Object drop down
+	//take out the %o
 	var dropDownText = $(this).html().replace('%o', '');
 	//take out the { and }
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
 	$(this).html(getParameterCode("object"));
-		$(this).find("option").each(function(){
-			if ($(this).val() == dropDownText) {
-			$(this).attr("selected", "true");
-			}
-		});
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
     });
     //Math drop down tags
     $("#blocks .dropdown:contains('%m')").each(function(){
-	//Key drop down
-	//take out the %k
+	//Math drop down
+	//take out the %m
 	var dropDownText = $(this).html().replace('%m', '');
 	//take out the { and }
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
 	$(this).html(getParameterCode("math"));
-		$(this).find("option").each(function(){
-			if ($(this).val() == dropDownText) {
-			$(this).attr("selected", "true");
-			}
-		});
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
     });
+    
+    //Add parameter compilation, for project decompilation and analysis
+    /*$("#blocks .sensing").each(function(){ //THIS WAS USED FOR FINDING THE ISOLATED NAMES OF THE BLOCKS
+	if ($(this).justtext() != "") {
+	    console.log($(this).justtext());
+	}
+    });*/
+    $($("#blocks .looks,.events,.control,.sensing,.operators,.motion,.looks,.sound,.pen")).each(function(){
+	var label = $(this).justtext();
+	if(label != "") {
+	    //Find the block's catagory
+	    var catagory = "looks";
+	    if ($(this).hasClass("events")) {
+		catagory = "events";
+	    }
+	    if ($(this).hasClass("control")) {
+		catagory = "control";
+	    }
+	    if ($(this).hasClass("sensing")) {
+		catagory = "sensing";
+	    }
+	    if ($(this).hasClass("operators")) {
+		catagory = "operators";
+	    }
+	    //if ($(this).hasClass("???")) { MORE BLOCKS
+		//catagory = "???";
+	    //}
+	    if ($(this).hasClass("motion")) {
+		catagory = "motion";
+	    }
+	    if ($(this).hasClass("looks")) {
+		catagory = "looks";
+	    }
+	    if ($(this).hasClass("sound")) {
+		catagory = "sound";
+	    }
+	    if ($(this).hasClass("pen")) {
+		catagory = "pen";
+	    }
+	    
+	    var blockData = getBlockDataFromScratchblocks(catagory, label);
+	    console.log(blockData);
+	    if (blockData.type == undefined) {
+		console.error("Block label \"" + label + "\" doesn't have a cooresponding spriteblocks2 >> block data.");
+	    }else{
+		var compiledParams = "";
+		for(var i = 0; i < blockData.parameters.length; i++)
+		{
+		    if (i != 0) {
+			compiledParams += ",";
+		    }
+		    compiledParams += blockData.parameters[i];
+		}
+		$(this).attr("params", compiledParams);
+	    }
+	}
+    });
+    
     //Add sorting and dragging
     reloadEvents();
 }
@@ -270,18 +351,18 @@ function generateBlockTextWithParameters(blockToDecodeParameters)
 {
     var currentBlockText = getBlockData(blockToDecodeParameters[0]).scratchblocks;
     //Go through each parameter and add blocks
-    if (getBlockData(blockToDecodeParameters[0]).parameters > 0) {
-		for(var parameterI = 0; parameterI < getBlockData(blockToDecodeParameters[0]).parameters; parameterI++)
-		{
-			//See if it is a block parameter
-			if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
-				//No. Put it straight in. That was easy ;D
-				currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
-			}else{
-				//Yes. Put in the block, and do parameters off of that, too.
-				currentBlockText = currentBlockText.replace(new RegExp('((\\<|\\[|\\()\\$' + (1 + parameterI) + '(\\)|\\]|\\>))',["i"]), generateBlockTextWithParameters(blockToDecodeParameters[1 + parameterI]));
-			}
-		}
+    if (getBlockData(blockToDecodeParameters[0]).parameters.length > 0) {
+	for(var parameterI = 0; parameterI < getBlockData(blockToDecodeParameters[0]).parameters.length; parameterI++)
+	{
+	    //See if it is a block parameter
+	    if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
+		    //No. Put it straight in. That was easy ;D
+		    currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
+	    }else{
+		    //Yes. Put in the block, and do parameters off of that, too.
+		    currentBlockText = currentBlockText.replace(new RegExp('((\\<|\\[|\\()\\$' + (1 + parameterI) + '(\\)|\\]|\\>))',["i"]), generateBlockTextWithParameters(blockToDecodeParameters[1 + parameterI]));
+	    }
+	}
     }
     return currentBlockText;
 }
@@ -289,7 +370,7 @@ function generateCShapeBlocks(blockToDecode) {
     var totalScripts = "";
     //loop through the loop's blocks
     //window.alert(JSON.stringify(blockToDecode[1]));
-    var blockTupleOffset = getBlockData(blockToDecode[0]).parameters;
+    var blockTupleOffset = getBlockData(blockToDecode[0]).parameters.length;
     for (var k = 0; k < blockToDecode[1].length; k++) {
 	var currentDecodingBlock = getBlockData(blockToDecode[1 + blockTupleOffset][k][0]);
 	//add it to the scripts
@@ -306,6 +387,119 @@ function generateCShapeBlocks(blockToDecode) {
     return totalScripts;
 }
 
+function getBlockDataFromScratchblocks(cat, label)
+{
+    switch (cat) {
+	//BLOCKS IN THE EVENTS CATAGORY
+	case "events":
+	    switch(label)
+	    {
+		case "when  clicked":
+		    return getBlockData("whenGreenFlag");
+		    break;
+		case "when  key pressed":
+		    return getBlockData("whenKeyPressed");
+		    break;
+	    }
+	    break;
+	//BLOCKS IN THE CONTROL CATAGORY
+	case "control":
+	    switch(label)
+	    {
+		case "wait  secs":
+		    return getBlockData("wait:elapsed:from:");
+		    break;
+		case "forever":
+		    return getBlockData("doForever");
+		    break;
+	    }
+	    break;
+	//BLOCKS IN THE SENSING CATAGORY
+	case "sensing":
+	    switch(label)
+	    {
+		case "timer":
+		    return getBlockData("timer");
+		    break;
+		
+		case " of ": //THIS BLOCK IS SUPPOSED TO BE IN THE OPERATORS CATAGORY, BUT scratchblocks2 PUTS IT IN THE SENSING CATAGORY
+		    return getBlockData("computeFunction:of:");
+		    break;
+	    }
+	    break;
+	//BLOCKS IN THE OPERATORS CATAGORY
+	case "operators":
+	    switch(label)
+	    {
+		case " + ":
+		    return getBlockData("+");
+		    break;
+		case " - ":
+		    return getBlockData("-");
+		    break;
+		case " * ":
+		    return getBlockData("*");
+		    break;
+		case " / ":
+		    return getBlockData("/");
+		    break;
+	    }
+	    break;
+	//BLOCKS IN THE MORE BLOCKS CATAGORY (???)
+	//case "???":
+	//    switch(label)
+	//    {
+	//	
+	//    }
+	//    break;
+	//BLOCKS IN THE MOTION CATAGORY
+	case "motion":
+	    switch(label)
+	    {
+		case "point towards ":
+		    return getBlockData("pointTowards:");
+		    break;
+	    }
+	    break;
+	//BLOCKS IN THE LOOKS CATAGORY
+	case "looks":
+	    switch(label)
+	    {
+		case "say ":
+		    return getBlockData("say:");
+		    break;
+		case "next costume":
+		    return getBlockData("nextCostume");
+		    break;
+		case "set size to  %":
+		    return getBlockData("setSizeTo:");
+		    break;
+	    }
+	    break;
+	//BLOCKS IN THE SOUND CATAGORY
+	case "sound":
+	    switch(label)
+	    {
+		
+	    }
+	    break;
+	//BLOCKS IN THE PEN CATAGORY
+	case "pen":
+	    switch(label)
+	    {
+		
+	    }
+	    break;
+	//BLOCKS IN THE DATA CATAGORY
+	case "data":
+	    switch(label)
+	    {
+		
+	    }
+	    break;
+    }
+    return getBlockData("");
+}
 function getBlockData(spec) {
     //Return an object, telling info about the block
     //PLEASE PUT BLOCKS IN THE ORDER THEY ARE IN SCRATCH! Thank you!
@@ -317,7 +511,7 @@ function getBlockData(spec) {
                 spec: "whenGreenFlag",
                 label: "when green flag clicked",
 		scratchblocks: "when green flag clicked",
-		parameters: 0,
+		parameters: [],
                 group: "Events"
             };
             break;
@@ -327,7 +521,7 @@ function getBlockData(spec) {
                 spec: "whenKeyPressed",
                 label: "when %k key pressed",
 		scratchblocks: "when [%k{$1} v] key pressed",
-		parameters: 1,
+		parameters: ["dropdown"],
                 group: "Events"
             };
             break;
@@ -337,7 +531,7 @@ function getBlockData(spec) {
 		type: "command",
 		spec: "wait:elapsed:from:",
 		scratchblocks: "wait ($1) secs",
-		parameters: 1,
+		parameters: ["number"],
 		group: "Control"
 	    }
 	    break;
@@ -347,7 +541,7 @@ function getBlockData(spec) {
                 spec: "doForever",
                 label: "forever",
 		scratchblocks: "forever",
-		parameters: 0,
+		parameters: [],
                 group: "Control"
             };
             break;
@@ -357,7 +551,7 @@ function getBlockData(spec) {
 		spec: "doIf",
 		label: "if %b then",
 		scratchblocks: "if <$1> then",
-		parameters: 1,
+		parameters: ["boolean"],
 		group: "Control"
 	    };
 	    break;
@@ -367,7 +561,7 @@ function getBlockData(spec) {
 		spec: "doWaitUntil",
 		label: "wait until %b",
 		scratchblocks: "wait until <$1>",
-		parameters: 1,
+		parameters: ["boolean"],
 		group: "Control"
 	    };
 	    break;
@@ -378,7 +572,17 @@ function getBlockData(spec) {
 		spec: "touching:",
 		label: "touching %o ?",
 		scratchblocks: "< touching [%o{$1} v]? >",
-		parameters: 1,
+		parameters: ["dropdown"],
+		group: "Sensing"
+	    }
+	    break;
+	case "timer":
+	    return {
+		type: "reporter",
+		spec: "timer",
+		label: "timer",
+		scratchblocks: "(timer)",
+		parameters: [],
 		group: "Sensing"
 	    }
 	    break;
@@ -389,7 +593,8 @@ function getBlockData(spec) {
                 spec: "+",
                 label: "%n + %n",
                 scratchblocks: "(($1) + ($2))",
-                parameters: 2,
+                parameters: ["number",
+			     "number"],
                 group: "Operators"
             }
             break;
@@ -399,7 +604,8 @@ function getBlockData(spec) {
                 spec: "-",
                 label: "%n - %n",
                 scratchblocks: "(($1) - ($2))",
-                parameters: 2,
+                parameters: ["number",
+			     "number"],
                 group: "Operators"
             }
             break;
@@ -409,7 +615,8 @@ function getBlockData(spec) {
                 spec: "*",
                 label: "%n * %n",
                 scratchblocks: "(($1) * ($2))",
-                parameters: 2,
+                parameters: ["number",
+			     "number"],
                 group: "Operators"
             }
             break;
@@ -419,7 +626,8 @@ function getBlockData(spec) {
                 spec: "/",
                 label: "%n / %n",
                 scratchblocks: "(($1) / ($2))",
-                parameters: 2,
+                parameters: ["number",
+			     "number"],
                 group: "Operators"
             }
             break;
@@ -430,8 +638,8 @@ function getBlockData(spec) {
 		spec: "not",
 		label: "not %b",
 		scratchblocks: "< not <$1> >",
-		parameters: 1,
-		group: "Operatores"
+		parameters: ["boolean"],
+		group: "Operators"
 	    }
 	    break;
     
@@ -442,7 +650,8 @@ function getBlockData(spec) {
 		spec: "computeFunction:of:",
 		label: "%m of (%n)",
 		scratchblocks: "([%m{$1} v] of ($2))",
-		parameters: 2,
+		parameters: ["dropdown",
+			     "number"],
 		group: "Operators"
 	    }
 	    break;
@@ -454,7 +663,7 @@ function getBlockData(spec) {
 		spec: "pointTowards:",
 		label: "point towards %o",
 		scratchblocks: "point towards [%o{$1} v]",
-		parameters: 1,
+		parameters: ["dropdown"],
 		group: "Motion"
 	    }
 	    break;
@@ -464,7 +673,7 @@ function getBlockData(spec) {
 		spec: "gotoSpriteOrMouse:",
 		label: "go to %o",
 		scratchblocks: "go to [%o{$1} v]",
-		parameters: 1,
+		parameters: ["dropdown"],
 		group: "Motion"
 	    };
 	    break;
@@ -475,7 +684,7 @@ function getBlockData(spec) {
 		spec: "say:",
 		label: "say %s",
 		scratchblocks: "say [$1]",
-		parameters: 1,
+		parameters: ["string"],
 		group: "Looks"
 	    }
 	    break;
@@ -485,7 +694,7 @@ function getBlockData(spec) {
                 spec: "nextCostume",
                 label: "next costume",
 		scratchblocks: "next costume",
-		parameters: 0,
+		parameters: [],
                 group: "Looks"
             };
             break;
@@ -495,7 +704,7 @@ function getBlockData(spec) {
 		spec: "setSizeTo:",
 		label: "set size to %n",
 		scratchblocks: "set size to ($1) %",
-		parameters: 1,
+		parameters: ["number"],
 		group: "Looks"
 	    };
 	    break;
