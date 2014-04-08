@@ -248,18 +248,18 @@ function reloadEvents() {
 	});
     });
     //Make input blocks draggable (but not droppable, yet)
-    $(".reporter, .boolean, .embedded").each(function(){
+    $(".reporter, .boolean").each(function(){
 	$(this).draggable({
 	    revert: true,
 	    /*placeholder: "embeddedPlaceholder",*/
-	    helper: "clone",
+	    //helper: "clone",
 	    start: function(event, ui){
 		$(this).parent().prepend("<div class=\"string placeholder\">Hello!</div>");
-		$(this).hide();
+		//$(this).hide();
 	    },
 	    stop: function(event, ui){
-		$(".placeholder").remove();
-		$(this).show();
+		//$(".placeholder").remove();
+		//$(this).show();
 	    }
 	});
     });
@@ -507,6 +507,9 @@ function loadCurrentSelectedSprite(){
 	    }
 	}
     });
+    
+    //Change all embedded to reporter
+    $(".embedded").removeClass("embedded").addClass("reporter");
     
     //Add sorting and dragging
     reloadEvents();
