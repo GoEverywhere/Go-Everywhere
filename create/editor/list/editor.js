@@ -444,6 +444,18 @@ function loadCurrentSelectedSprite(){
 	});
     });
     
+    //Fix for the "[math] of (number)" being a sensing block
+    $("#blocks .sensing").each(function(){
+	//Find the " of " block
+	if ($(this).justtext() == " of ") {
+	    //See if this block has one dropdown and one number.
+	    //If it does, it is supposed to be an Operators block
+	    if ($(this).children().first().hasClass("dropdown") && !$(this).children().last().hasClass("dropdown")) {
+		$(this).removeClass("sensing").addClass("operators");
+	    }
+	}
+    });
+    
     //Add parameter compilation, for project decompilation and analysis
     $($("#blocks .looks,.events,.control,.sensing,.operators,.motion,.looks,.sound,.pen")).each(function(){
 	var label = $(this).justtext();
