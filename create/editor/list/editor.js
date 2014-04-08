@@ -249,21 +249,24 @@ function reloadEvents() {
     });
     //Make input blocks draggable (but not droppable, yet)
     $(".reporter, .boolean").each(function(){
-	$(this).hover(function(){
-	    //In
-	    console.log("In");
-	    //$(".param-select").length
-	}, function(){
-	    //Out
-	    console.log("Out");
-	}).draggable({
+	$(this).draggable({
 	    revert: true,
-	    /*placeholder: "embeddedPlaceholder",*/
 	    helper: "clone",
 	    start: function(event, ui){
-		$(this).parent().prepend("<div class=\"string placeholder\">Hello!</div>");
-		$(this).css({ color: "red" });
 		$(this).hide();
+		
+		var parentBlockData = getBlockData($(this).parent().attr("spec"));
+		switch (parentBlockData.parameters[$(this).index()]) {
+		    case "number":
+			$(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
+			break;
+		    case "boolean":
+			$(this).before("<div class=\"boolean empty placeholder\"></div>");
+			break;
+		    case "string":
+			$(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
+			break;
+		}
 	    },
 	    stop: function(event, ui){
 		$(".placeholder").remove();
