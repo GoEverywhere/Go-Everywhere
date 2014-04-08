@@ -249,17 +249,25 @@ function reloadEvents() {
     });
     //Make input blocks draggable (but not droppable, yet)
     $(".reporter, .boolean").each(function(){
-	$(this).draggable({
+	$(this).hover(function(){
+	    //In
+	    console.log("In");
+	    //$(".param-select").length
+	}, function(){
+	    //Out
+	    console.log("Out");
+	}).draggable({
 	    revert: true,
 	    /*placeholder: "embeddedPlaceholder",*/
-	    //helper: "clone",
+	    helper: "clone",
 	    start: function(event, ui){
 		$(this).parent().prepend("<div class=\"string placeholder\">Hello!</div>");
-		//$(this).hide();
+		$(this).css({ color: "red" });
+		$(this).hide();
 	    },
 	    stop: function(event, ui){
-		//$(".placeholder").remove();
-		//$(this).show();
+		$(".placeholder").remove();
+		$(this).show();
 	    }
 	});
     });
