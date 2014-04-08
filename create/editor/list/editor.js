@@ -491,19 +491,19 @@ function loadCurrentSelectedSprite(){
 	    }
 	    
 	    var blockData = getBlockDataFromScratchblocks(catagory, label);
-	    console.log(blockData);
 	    if (blockData.type == undefined) {
 		console.error("Block label \"" + label + "\" doesn't have a cooresponding spriteblocks2 >> block data.");
 	    }else{
-		var compiledParams = "";
-		for(var i = 0; i < blockData.parameters.length; i++)
-		{
-		    if (i != 0) {
-			compiledParams += ",";
-		    }
-		    compiledParams += blockData.parameters[i];
-		}
-		$(this).attr("params", compiledParams);
+		//var compiledParams = "";
+		//for(var i = 0; i < blockData.parameters.length; i++)
+		//{
+		//    if (i != 0) {
+		//	compiledParams += ",";
+		//    }
+		//    compiledParams += blockData.parameters[i];
+		//}
+		//$(this).attr("params", compiledParams);
+		$(this).attr("spec", blockData.spec);
 	    }
 	}
     });
