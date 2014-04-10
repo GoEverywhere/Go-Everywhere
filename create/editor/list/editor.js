@@ -247,33 +247,69 @@ function reloadEvents() {
 	    }
 	});
     });
-    //Make input blocks draggable (but not droppable, yet)
-    $(".reporter, .boolean").each(function(){
-	$(this).draggable({
-	    revert: true,
-	    helper: "clone",
-	    start: function(event, ui){
-		$(this).hide();
-		
-		var parentBlockData = getBlockData($(this).parent().attr("spec"));
-		switch (parentBlockData.parameters[$(this).index()]) {
-		    case "number":
-			$(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
-			break;
-		    case "boolean":
-			$(this).before("<div class=\"boolean empty placeholder\"></div>");
-			break;
-		    case "string":
-			$(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
-			break;
-		}
-	    },
-	    stop: function(event, ui){
+    //Make input blocks draggable
+    $(".reporter, .boolean").draggable({
+	revert: "invalid",
+	helper: "clone",
+	start: function(event, ui){
+	    $(this).hide();
+	    //Hide the new button, Show the garbage bin
+	    $("#addNew").hide("fade", 100, function(){
+		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
+	    });
+	    
+	    var parentBlockData = getBlockData($(this).parent().attr("spec"));
+	    switch (parentBlockData.parameters[$(this).index()]) {
+		case "number":
+		    $(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
+		    break;
+		case "boolean":
+		    $(this).before("<div class=\"boolean empty placeholder\"></div>");
+		    break;
+		case "string":
+		    $(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
+		    break;
+	    }
+	},
+	stop: function(event, ui){
+	    //Hide the garbage bin, Show the new button
+	    $("#garbageBin").hide("fade", 100, function(){
+		    $("#addNew").show("fade", 100);
+	    });
+	    if (!$(this).hasClass("dragged-over")) {
 		$(".placeholder").remove();
-		$(this).show();
+	    }
+	    console.log(event);
+	    $(this).show();
+	}
+    });
+    //Make fields droppable targets for reporters
+    function addFieldAcceptors(selec){
+	$(selec).droppable({
+	    accept: ".reporter, .boolean",
+	    greedy: true,
+	    over: function(e, ui){
+		$(this).css("border", "5px solid yellow");
+		ui.draggable.addClass("dragged-over");
+		
+	    },
+	    out: function(e, ui){
+		$(this).css("border", "");
+		ui.draggable.removeClass("dragged-over");
+	    },
+	    drop: function(e, ui){
+		$(this).css("border", "");
+		//Add droppable to the placeholder
+		addFieldAcceptors(".placeholder");
+		//Remove placeholder class
+		$(".placeholder").removeClass("placeholder");
+		//Put the block in place of myself
+		$(this).replaceWith(ui.draggable);
 	    }
 	});
-    });
+    }
+    addFieldAcceptors(".number, .string");
+    
     //Make the rest of the blocks sortable
     $("#blocks ul").sortable({
 		axis: "both",
@@ -281,26 +317,25 @@ function reloadEvents() {
 		items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .embedded)",
 		connectWith: "#blocks ul",
 		start: function(event, ui){
-		    
-			//Hide the new button, Show the garbage bin
-			$("#addNew").hide("fade", 100, function(){
-				$("#garbageBin").show("fade", 100).css("opacity", "0.5");
-			});
+		    //Hide the new button, Show the garbage bin
+		    $("#addNew").hide("fade", 100, function(){
+			    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
+		    });
 		},
 		stop: function(event, ui){
-			//Hide the garbage bin, Show the new button
-			$("#garbageBin").hide("fade", 100, function(){
-				$("#addNew").show("fade", 100);
-			});
+		    //Hide the garbage bin, Show the new button
+		    $("#garbageBin").hide("fade", 100, function(){
+			    $("#addNew").show("fade", 100);
+		    });
 		}
     });
     
     //PARAMETER CHANGE EVENTS!!!!!!
     $("#blocks input[type=text]").keypress(function(){
-		$(this).attr("size", $(this).val().length);
+	$(this).attr("size", $(this).val().length);
     });
     $("#blocks input[type=text][pattern]").bind("keydown keyup keypress focus unfocus", function(){
-		$(this).val($(this).val().match($(this).attr("pattern")));
+	$(this).val($(this).val().match($(this).attr("pattern")));
     });
     
     //GARBAGE BIN EVENTS!!!!!!
@@ -319,13 +354,16 @@ function reloadEvents() {
 		    $("#addNew").show("fade", 100);
 	    });
 	},
-	over: function(){
+	over: function(e, ui){
 	    $(this).children().css("opacity", "1.0");
 	    $(this).children().css("border-color", "yellow");
+	    ui.draggable.addClass("dragged-over");
+	    
 	},
-	out: function(){
+	out: function(e, ui){
 	    $(this).children().css("opacity", "0.5");
 	    $(this).children().css("border-color", "black");
+	    ui.draggable.removeClass("dragged-over");
 	}
     });    
 }
