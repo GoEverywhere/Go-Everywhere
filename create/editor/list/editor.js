@@ -289,8 +289,12 @@ function reloadEvents() {
 	    accept: ".reporter, .boolean",
 	    greedy: true,
 	    over: function(e, ui){
-		$(this).css("border", "5px solid yellow");
-		ui.draggable.addClass("dragged-over");
+		if ((($(".placeholder").hasClass("string") || $(".placeholder").hasClass("number")) && (ui.draggable.hasClass("reporter")))
+		    || ($(".placeholder").hasClass("boolean") && $(ui.draggable.hasClass("boolean")))) {
+		    //Filter out accept boxes
+		    $(this).css("border", "5px solid yellow");
+		    ui.draggable.addClass("dragged-over");
+		}
 		
 	    },
 	    out: function(e, ui){
