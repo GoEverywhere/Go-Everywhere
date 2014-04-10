@@ -52,7 +52,7 @@ function loadProject(id) {
                 var title = $(this).attr("title");
                 var description = $(this).attr("description");
                 //load the actual project
-                $("#project_viewer").attr("src", "../../explore/player/sb2.js/player.htm?project=../../../../projects/" + user + "/" + id.toString() + ".ge");
+                $("#project_viewer").attr("src", "../../explore/player/sb2.js/player.html?project=../../../../projects/" + user + "/" + id.toString() + ".ge");
                 //Update the title
                 $("#viewproject h1").text(title);
             });
