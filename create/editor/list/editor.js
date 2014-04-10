@@ -371,6 +371,20 @@ function reloadEvents() {
 	}
     });    
 }
+
+//PROJECT SAVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function generateSpriteJSON(){
+    var objName = $("#toolbar #spriteSelect select").val();
+    var scripts = [];
+    //Loop through the #blocks section to find each block stack,
+    //then decode each block into the array
+    $("#blocks .script").each(function(){
+	var stackBlocks = [];
+	
+	scripts.push([0, 0, stackBlocks]);
+    });
+}
+
 $(document).ready(function(){
     //Load GET data
     vars = [];
@@ -397,6 +411,8 @@ $(document).ready(function(){
     }
     
     reloadEvents();
+    
+    console.log(generateSpriteJSON());
 });
 function loadProject(url) {
     zipFile = new ZipFile(url, doneReadingZip, 1);
