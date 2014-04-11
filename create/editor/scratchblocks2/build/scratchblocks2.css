@@ -75,13 +75,12 @@
   background-color: #d42828;
   border-color: #da4646 #971c1c #971c1c #da4646;
 }
-.sb2 .obsolete > .dropdown,
+.sb2 .obsolete select,
 .sb2 .obsolete > .boolean.empty,
 .sb2 .obsolete > .color {
   background: #c32525;
   border-color: #96191c #ec2e34 #ec2e34 #96191c;
 }
-.sb2 .obsolete > .dropdown:after,
 .sb2 .obsolete > .boolean.empty:after,
 .sb2 .obsolete > .color:after {
   color: #5c0b0d;
@@ -121,13 +120,12 @@
   background-color: #e1a91a;
   border-color: #e5b53a #a07812 #a07812 #e5b53a;
 }
-.sb2 .control > .dropdown,
+.sb2 .control select,
 .sb2 .control > .boolean.empty,
 .sb2 .control > .color {
   background: #cf9b17;
   border-color: #7e5e0e #d4a631 #d4a631 #7e5e0e;
 }
-.sb2 .control > .dropdown:after,
 .sb2 .control > .boolean.empty:after,
 .sb2 .control > .color:after {
   color: #533e09;
@@ -166,15 +164,13 @@
 .sb2 .custom.outline {
   background-color: #632d99;
   border-color: #794aa7 #46206d #46206d #794aa7;
-}
-.sb2 .custom > .dropdown,
-.sb2 .custom > .boolean.empty,
+},
 .sb2 .custom select,
+.sb2 .custom > .boolean.empty
 .sb2 .custom > .color {
   background: #5b298c;
   border-color: #431e67 #70449a #70449a #431e67;
 }
-.sb2 .custom > .dropdown:after,
 .sb2 .custom > .boolean.empty:after,
 .sb2 .custom > .color:after {
   color: #1e0a38;
@@ -214,14 +210,12 @@
   background-color: #c88330;
   border-color: #cf944d #8e5d22 #8e5d22 #cf944d;
 }
-.sb2 .events > .dropdown,
 .sb2 .events select,
 .sb2 .events > .boolean.empty,
 .sb2 .events > .color {
   background: #b8782c;
   border-color: #70491a #c59254 #c59254 #70491a;
 }
-.sb2 .events > .dropdown:after,
 .sb2 .events > .boolean.empty:after,
 .sb2 .events > .color:after {
   color: #4a3011;
@@ -261,14 +255,12 @@
   background-color: #cc5b22;
   border-color: #d26f3d #a74a1b #a74a1b #d26f3d;
 }
-.sb2 .list > .dropdown,
 .sb2 .list select,
 .sb2 .list > .boolean.empty,
 .sb2 .list > .color {
   background: #bb531f;
   border-color: #7e3814 #c86e3f #c86e3f #7e3814;
 }
-.sb2 .list > .dropdown:after,
 .sb2 .list > .boolean.empty:after,
 .sb2 .list > .color:after {
   color: #4b210c;
@@ -308,14 +300,12 @@
   background-color: #8a55d7;
   border-color: #9a6ddc #623c99 #623c99 #9a6ddc;
 }
-.sb2 .looks > .dropdown,
 .sb2 .looks select,
 .sb2 .looks > .boolean.empty,
 .sb2 .looks > .color {
   background: #7e4ec5;
   border-color: #4c2f78 #9670d0 #9670d0 #4c2f78;
 }
-.sb2 .looks > .dropdown:after,
 .sb2 .looks > .boolean.empty:after,
 .sb2 .looks > .color:after {
   color: #1e0a38;
@@ -355,14 +345,12 @@
   background-color: #4a6cd4;
   border-color: #6380da #344d97 #344d97 #6380da;
 }
-.sb2 .motion > .dropdown,
 .sb2 .motion select,
 .sb2 .motion > .boolean.empty,
 .sb2 .motion > .color {
   background: #4463c3;
   border-color: #293c76 #6781ce #6781ce #293c76;
 }
-.sb2 .motion > .dropdown:after,
 .sb2 .motion > .boolean.empty:after,
 .sb2 .motion > .color:after {
   color: #1b274e;
@@ -402,14 +390,12 @@
   background-color: #5cb712;
   border-color: #a7ce87 #488f0e #488f0e #a7ce87;
 }
-.sb2 .operators > .dropdown,
 .sb2 .operators select,
 .sb2 .operators > .boolean.empty,
 .sb2 .operators > .color {
   background: #54a810;
   border-color: #336609 #74b83d #74b83d #336609;
 }
-.sb2 .operators > .dropdown:after,
 .sb2 .operators > .boolean.empty:after,
 .sb2 .operators > .color:after {
   color: #214306;
@@ -449,14 +435,12 @@
   background-color: #0e9a6c;
   border-color: #30a880 #0a6e4d #0a6e4d #30a880;
 }
-.sb2 .pen > .dropdown,
 .sb2 .pen select,
 .sb2 .pen > .boolean.empty,
 .sb2 .pen > .color {
   background: none;
   border-color: #395b3f #62785b #62785b #395b3f;
 }
-.sb2 .pen > .dropdown:after,
 .sb2 .pen > .boolean.empty:after,
 .sb2 .pen > .color:after {
   color: none;
@@ -496,14 +480,12 @@
   background-color: #2ca5e2;
   border-color: #49b1e6 #1f75a1 #1f75a1 #49b1e6;
 }
-.sb2 .sensing > .dropdown,
 .sb2 .sensing select,
 .sb2 .sensing > .boolean.empty,
 .sb2 .sensing > .color {
   background: #2897cf;
   border-color: #185c7e #51abd8 #51abd8 #185c7e;
 }
-.sb2 .sensing > .dropdown:after,
 .sb2 .sensing > .boolean.empty:after,
 .sb2 .sensing > .color:after {
   color: #103c53;
@@ -543,14 +525,12 @@
   background-color: #bb42c3;
   border-color: #c45ccb #852f8b #852f8b #c45ccb;
 }
-.sb2 .sound > .dropdown,
 .sb2 .sound select,
 .sb2 .sound > .boolean.empty,
 .sb2 .sound > .color {
   background: #ac3cb3;
   border-color: #68246d #bc61c1 #bc61c1 #68246d;
 }
-.sb2 .sound > .dropdown:after,
 .sb2 .sound > .boolean.empty:after,
 .sb2 .sound > .color:after {
   color: #451848;
@@ -590,14 +570,12 @@
   background-color: #ee7d16;
   border-color: #f08d33 #c36612 #c36612 #f08d33;
 }
-.sb2 .variables > .dropdown,
 .sb2 .variables select,
 .sb2 .variables > .boolean.empty,
 .sb2 .variables > .color {
   background: #da7214;
   border-color: #934d0d #e48836 #e48836 #934d0d;
 }
-.sb2 .variables > .dropdown:after,
 .sb2 .variables > .boolean.empty:after,
 .sb2 .variables > .color:after {
   color: #572d08;
@@ -637,14 +615,12 @@
   background-color: #5947b1;
   border-color: #6857b8 #423584 #423584 #6857b8;
 }
-.sb2 .custom-arg > .dropdown,
 .sb2 .custom-arg select,
 .sb2 .custom-arg > .boolean.empty,
 .sb2 .custom-arg > .color {
   background: none;
   border-color: none none none none;
 }
-.sb2 .custom-arg > .dropdown:after,
 .sb2 .custom-arg > .boolean.empty:after,
 .sb2 .custom-arg > .color:after {
   color: none;
@@ -684,14 +660,12 @@
   background-color: #4b4a60;
   border-color: #646376 #353444 #353444 #646376;
 }
-.sb2 .extension > .dropdown,
 .sb2 .extension select,
 .sb2 .extension > .boolean.empty,
 .sb2 .extension > .color {
   background: #454458;
   border-color: #2a2935 #686778 #686778 #2a2935;
 }
-.sb2 .extension > .dropdown:after,
 .sb2 .extension > .boolean.empty:after,
 .sb2 .extension > .color:after {
   color: #1b1b23;
@@ -731,14 +705,12 @@
   background-color: #969696;
   border-color: #b7b7b7 #656565 #656565 #b7b7b7;
 }
-.sb2 .grey > .dropdown,
 .sb2 .grey select,
 .sb2 .grey > .boolean.empty,
 .sb2 .grey > .color {
   background: #717171;
   border-color: #434343 #b8b8b8 #b8b8b8 #434343;
 }
-.sb2 .grey > .dropdown:after,
 .sb2 .grey > .boolean.empty:after,
 .sb2 .grey > .color:after {
   color: #393939;
@@ -804,7 +776,6 @@
 .sb2 .cap,
 .sb2 .boolean,
 .sb2 .reporter,
-.sb2 .dropdown {
   border: 2px solid;
 }
 .sb2 .stack,
@@ -1077,13 +1048,12 @@
 .sb2 .number-dropdown {
   border-radius: 10px;
 }
-.sb2 .dropdown,
 .sb2 .string {
   border-style: solid;
   border-width: 1px;
 }
-.sb2 .dropdown {
-  padding: 1px 2px;
+.sb2 select {
+  margin: 0;
 }
 /*.sb2 .dropdown:after, The arrow is messing some things up. Plus, it is very misleading.*/
 .sb2 .number-dropdown:after {
