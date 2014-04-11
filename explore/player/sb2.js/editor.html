@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>sb2.js</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" 
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+
+<link rel="apple-touch-icon-precomposed" href="editorimg/icon.png"/>  
+
+    <script type="text/javascript" src='script/ZipFile.complete.js'></script>
+
+    <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
+    <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
+
+    <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
+
+    <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="script/sb2.js"></script> 
+    <link rel="stylesheet" type="text/css" media="screen" href="css/block.css">
+
+<style type="text/css">
+
+	html, body {
+		margin: 0px; 
+		width: 100%; 
+		height: 100%;
+		font-family: Verdana, Sans-Serif;
+	}
+
+	#topBar {
+		padding-left:100px;
+		height: 30px; 
+		background-color: #FF9900;
+		background-image: url('editorimg/logo.png');
+		background-repeat: no-repeat;
+	}
+
+
+	#maincontainer {
+		padding:5px;
+	}
+
+	#baritem {
+		margin-left: 8px;
+		padding: 4px 10px;
+		font: bold 18px Verdana;
+		height: 22px;
+		color: #FFFFFF;
+		display: inline-block;
+
+		background: -moz-linear-gradient(top,  rgba(255,204,0,0.25) 0%, rgba(255,204,0,0.5) 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,204,0,0.25)), color-stop(100%,rgba(255,204,0,0.5))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  rgba(255,204,0,0.25) 0%,rgba(255,204,0,0.5) 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  rgba(255,204,0,0.25) 0%,rgba(255,204,0,0.5) 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  rgba(255,204,0,0.25) 0%,rgba(255,204,0,0.5) 100%); /* IE10+ */
+		background: linear-gradient(top,  rgba(255,204,0,0.25) 0%,rgba(255,204,0,0.5) 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffcc00', endColorstr='#80ffcc00',GradientType=0 ); /* IE6-9 */
+
+	}
+
+	#leftcontainer {
+		float:left;
+		width: 486px;
+	}
+
+	#rightcontainer {
+		margin-left: 498px;
+	}
+
+	.round {
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+	}
+
+	#spritesbox {
+		height: 75px;
+		margin-top: 12px;
+		width: 484px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: #FF9900;
+		background-color: white;
+	}
+
+	#spritescont {
+		height: 65px;
+		margin-top: 1px;
+		padding: 3px;
+		width: 354px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: #FFCC01;
+		background-image: url('editorimg/diagBG.png');
+		display: inline-block;
+		overflow: hidden;
+		position: relative;
+	}
+
+	#sprites {
+		transition: transform 1s;
+		-webkit-transition: -webkit-transform 0.66s ease-out;
+		-moz-transition: -moz-transform 0.66s ease-out;
+		-o-transition: -o-transform 0.66s ease-out;
+
+		transform: translateX(-2px);
+		-webkit-transform: translateX(-2px);
+		-moz-transform: translateX(-2px);
+		-o-transform: translateX(-2px);
+	}
+
+	#paletteContainer {
+		margin-top: 12px;
+		width: 100%;
+	}
+
+	#palettebox {
+		width: 480px;
+		padding: 2px;
+		border-style: solid;
+		border-top: none;
+		border-width: 1px;
+		border-color: #FF9900;
+		background-color: white;
+	}
+
+	#typeSpacer {
+		//border-bottom-style: solid;
+		//border-bottom-width: 1px;
+		//border-bottom-color: #FF9900;
+		background-image: url('editorimg/line.png');
+		background-repeat: repeat-x;
+		background-position: bottom;
+	}
+
+	#palette {
+		background-image: url('editorimg/scriptbg.png');
+		box-shadow: 4.5px 4.5px 13px #C44000 inset;
+	}
+
+	#scriptbox {
+		padding: 1px;
+		border-style: solid;
+		border-top: none;
+		border-width: 1px;
+		border-color: #9B9B9B;
+		background-color: white;
+	}
+
+	#scripts {
+		background-image: url('editorimg/diagBG2.png');
+		box-shadow: 2.5px 2.5px 20px #666666 inset;
+		overflow: scroll;
+		position: relative;
+	}
+
+	.bottomRound {
+		-webkit-border-bottom-right-radius: 3px;
+		-webkit-border-bottom-left-radius: 3px;
+		-moz-border-radius-bottomright: 3px;
+		-moz-border-radius-bottomleft: 3px;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+	}
+
+	.sprite {
+		padding: 5px;
+		height: 53px;
+		width: 53px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: #CCCCCC;
+		margin-right: 9px;
+		display: inline-block;
+		position: absolute;
+	}
+
+	.sprimg {
+		max-width: 53px;
+		max-height: 40px;
+		position: absolute;
+		background-color: #FFFFFF;
+		box-shadow: 0 0 6px #000000;
+	}
+
+	.sprimgcontainer {
+		width:53px;
+		height:40px;
+	}
+
+	.spritetext {
+		text-align: center;
+		font: 10px Arial;
+		width: 53px;
+		position: absolute;
+		color: #666666;
+		margin-top: 2px;
+	}
+
+
+</style>
+
+	<script>
+	autoLoad = "examples/MarioBros.sb2";
+	editorRoot = ""; // set to be relative to editor by default, ONLY AFFECTS GENERATED ELEMENTS
+
+	function generateSpriteContainers() {
+		spritesScrollX = 0;
+
+		spritesDiv = document.getElementById('sprites');
+		spritesDiv.innerHTML = "";
+
+		libraryIndex = new Array(sprites.length);
+
+		DOMlastCostumeID = new Array(sprites.length);
+
+		for (i=0; i<sprites.length; i++) {
+			libraryIndex[sprites[i].indexInLibrary] = i;
+			DOMlastCostumeID.push(-1);
+		}
+		var spacing=0
+		for (j=0; j<sprites.length; j++) {
+			i = libraryIndex[j];
+			if (sprites[i] != undefined) {
+				spritesDiv.innerHTML += '<div class="round sprite" id="sprc'+i+'" style="left:'+(3+(spacing*72))+'px" onmousedown="editorSelect('+i+');"><div class="sprimgcontainer"><img class="sprimg" id="spr'+i+'"></img></div><div class="spritetext" id="sprt'+i+'">'+sprites[i].objName+'</div></div>'
+				spacing++;
+			}
+		}
+		selectedSprite = -1;
+		setTimeout(selectFirst, 16);
+		setTimeout(updateThumbs, 16);
+		setInterval(updateThumbs, 333);
+	}
+
+	function selectFirst() {
+		editorSelect(0);
+	}
+
+	function editorSelect(spr) {
+
+		if (selectedSprite != -1) {
+
+			var elmnt = document.getElementById('sprc'+selectedSprite);
+			elmnt.style.borderColor = "";
+			var elmnt = document.getElementById('sprt'+selectedSprite);
+			elmnt.style.color = "";
+
+		}
+
+		selectedSprite = spr;
+		var elmnt = document.getElementById('sprc'+spr);
+		elmnt.style.borderColor = "#FF9A03";
+		var elmnt = document.getElementById('sprt'+spr);
+		elmnt.style.color = "#9D3F00";
+		document.getElementById('scripts').innerHTML = "";
+		generateScripts(spr);
+	}
+
+	function generateScripts(spriten) {
+
+		//BLOCK LIBRARY JSON, to become external eventually!
+
+		blockLibrary = 
+
+// tips: % is a number literal, $ is a number dropdown (specially handled), ~ is a locked dropdown (specially handled), & is anything literal (including strings), @ is bool, £ is static text eg variables, ` is colours.
+
+{
+	"englishUK": {
+
+		"functionBlocks": {
+
+			"blockNames": [
+				"whenGreenFlag",
+				"stopAll",
+				"whenIReceive",
+				"doWaitUntil",
+				"wait:elapsed:from:",
+				"broadcast:",
+				"doReturn",
+
+
+				"turnRight:",
+				"turnLeft:",
+				"heading:",
+				"forward:",
+				"pointTowards:",
+				"gotoX:y:",
+				"xpos:",
+				"ypos:",
+				"glideSecs:toX:y:elapsed:from:",
+				"changeXposBy:",
+				"changeYposBy:",
+
+				//variables
+
+				"setVar:to:",
+				"changeVar:by:",
+				"showVariable:",
+				"hideVariable:",
+
+				//lists
+
+				"append:toList:",
+				"deleteLine:ofList:",
+				"insert:at:ofList:",
+				"setLine:ofList:to:",
+
+				//pen
+
+				"clearPenTrails",
+				"putPenDown",
+				"putPenUp",
+				"penColor:",
+				"changePenHueBy:",
+				"setPenHueTo:",
+				"changePenShadeBy:",
+				"setPenShadeTo:",
+
+				"penSize:",
+				"stampCostume",
+
+				//looks
+
+				"lookLike:",
+				"nextCostume",
+				"say:duration:elapsed:from:",
+				"say:",
+				"think:duration:elapsed:from:",
+				"think:",
+				"changeGraphicEffect:by:",
+				"setGraphicEffect:to:",
+				"filterReset",
+				"changeSizeBy:",
+				"setSizeTo:",
+				"show",
+				"hide",
+				"comeToFront",
+				"goBackByLayers:",
+
+				//sound
+
+				"playSound:",
+				"doPlaySoundAndWait",
+				"stopAllSounds",
+
+				"rest:elapsed:from:",
+				"noteOn:duration:elapsed:from:",
+
+
+				"setVolumeTo:",
+				"changeTempoBy:",
+				"setTempoTo:",
+
+				//sensing
+
+				"doAsk",
+				"timerReset"
+
+
+			],
+			"blockDefinitions": [
+				"[hat]when <img class='gfimg' src='"+editorRoot+"greenflag.png'> clicked[/hat]",
+				"[block]stop all <img src='stop.png' style='margin-bottom: -5px;margin-right:-10px;'>[/block]",
+				"[hat]when I recieve ~0[/hat]",
+				"[block]wait until @0[/block]",
+				"[block]wait %0 secs[/block]",
+				"[block]broadcast ~0[/block]",
+				"[block]stop script[/block]",
+
+				"[block]turn clockwise %0 degrees[/block]",
+				"[block]turn counter-clockwise %0 degrees[/block]",
+				"[block]point in direction $0[/block]",
+				"[block]move %0 steps[/block]",
+				"[block]point towards ~0[/block]",
+				"[block]go to x: %0 y: %1[/block]",
+				"[block]set x to %0[/block]",
+				"[block]set y to %0[/block]",
+				"[block]glide %0 secs to x: %1 y: %2[/block]",
+				"[block]change x by %0[/block]",
+				"[block]change y by %0[/block]",
+
+				//variables
+
+				"[block]set ~0 to &1[/block]",
+				"[block]change ~0 by &1[/block]",
+				"[block]show variable ~0[/block]",
+				"[block]hide variable ~0[/block]",
+
+				//lists
+
+				"[block]add &0 to ~1[/block]",
+				"[block]delete $0 of ~1[/block]",
+				"[block]insert &0 at $1 of ~2[/block]",
+				"[block]replace item $0 of ~1[/block]",
+
+				//pen
+
+				"[block]clear[/block]",
+				"[block]pen down[/block]",
+				"[block]pen up[/block]",
+				"[block]set pen colour to `0[/block]",
+				"[block]change pen colour by %0[/block]",
+				"[block]set pen colour to %0[/block]",
+				"[block]change pen shade by %0[/block]",
+				"[block]set pen shade to %0[/block]",
+
+				"[block]set pen size to %0[/block]",
+				"[block]stamp[/block]",
+
+				//looks
+
+				"[block]switch to costume ~0[/block]",
+				"[block]next costume[/block]",
+				"[block]say &0 for %1 secs[/block]",
+				"[block]say &0[/block]",
+				"[block]think &0 for %1 secs[/block]",
+				"[block]think &0[/block]",
+				"[block]change ~0 effect by %1[/block]",
+				"[block]set ~0 effect to %1[/block]",
+				"[block]clear graphic effects[/block]",
+				"[block]change size by %0[/block]",
+				"[block]set size to %0 percent[/block]",
+				"[block]show[/block]",
+				"[block]hide[/block]",
+				"[block]go to front[/block]",
+				"[block]go back %0 layers[/block]",
+
+				//sound
+
+				"[block]play sound ~0[/block]",
+				"[block]play sound ~0 until done[/block]",
+				"[block]stop all sounds[/block]",
+
+				"[block]rest for %0 beats[/block]",
+				"[block]play note $0 for %1 beats[/block]",
+
+
+				"[block]set volume to %0 percent[/block]",
+				"[block]change tempo by %0[/block]",
+				"[block]set tempo to %0 bpm[/block]",
+
+				//sensing
+
+				"[block]ask &0 and wait[/block]",
+				"[block]reset timer[/block]"
+
+			],
+			"blockColors": [
+				"yellow",
+				"yellow",
+				"yellow",
+				"yellow",
+				"yellow",
+				"yellow",
+				"yellow",
+
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+				"blue",
+
+				//variables
+
+				"orange",
+				"orange",
+				"orange",
+				"orange",
+
+				//lists
+
+				"red",
+				"red",
+				"red",
+				"red",
+
+				//pen
+
+				"cyan", // it's not really cyan but whatever
+				"cyan",
+				"cyan",
+				"cyan",
+				"cyan",
+				"cyan",
+				"cyan",
+				"cyan",
+
+				"cyan",
+				"cyan",
+
+				//looks
+
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+				"purple", //are you getting the picture yet
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+				"purple",
+
+				//play
+
+				"pink",
+				"pink",
+				"pink",
+
+				"pink",
+				"pink",
+
+
+				"pink",
+				"pink",
+				"pink",
+
+				//sensing
+
+				"lblue",
+				"lblue"
+
+			]
+
+		},
+		"reporterBlocks": {
+
+			"blockNames": [
+				"+",
+				"-",
+				"*",
+				"\/",
+				"randomFrom:to:",
+				"<",
+				"=",
+				">",
+				"&",
+				"|",
+				"not",
+				"concatenate:with:",
+				"letter:of:",
+				"stringLength:",
+				"\\\\",
+				"rounded",
+				"computeFunction:of:",
+
+				//variables
+
+				"readVariable",
+
+				//lists
+
+				"getLine:ofList:",
+				"lineCountOfList:",
+				"list:contains:",
+
+				//sensing
+
+				"touching:",
+				"touchingColor:",
+				"color:sees:",
+				"answer",
+				"mouseX",
+				"mouseY",
+				"mousePressed",
+				"keyPressed:",
+				"distanceTo:",
+				"timer",
+				"getAttribute:of:",
+
+				//motion
+
+				"xpos",
+				"ypos",
+				"heading",
+
+				//looks
+
+				"costumeIndex",
+				"scale"
+
+			],
+			"blockDefinitions": [
+				"[rep]%0 + %1[/rep]",
+				"[rep]%0 - %1[/rep]",
+				"[rep]%0 * %1[/rep]",
+				"[rep]%0 / %1[/rep]",
+				"[rep]pick random %0 to %1[/rep]",
+				"[bool]&0 < &1[/bool]",
+				"[bool]&0 = &1[/bool]",
+				"[bool]&0 > &1[/bool]",
+				"[bool]@0 and @1[/bool]",
+				"[bool]@0 or @1[/bool]",
+				"[bool]not @0[/bool]",
+				"[rep]join &0 &1[/rep]",
+				"[rep]letter %0 of &1[/rep]",
+				"[rep]length of &0[/rep]",
+				"[rep]%0 mod %1[/rep]",
+				"[rep]round &0[/rep]",
+				"[rep]~0 of %1[/rep]",
+
+				//variables
+
+				"[rep]£0[/rep]",
+
+				//lists
+
+				"[rep]item $0 of ~1[/rep]",
+				"[rep]length of ~0[/rep]",
+				"[bool]~0 contains &1[/bool]",
+
+				//sensing
+				"[bool]touching ~0 ?[/bool]",
+				"[bool]touching colour `0 ?[/bool]",
+				"[bool]colour `0 is touching `1 ?[/bool]",
+				"[rep]answer[/rep]",
+				"[rep]mouse x[/rep]",
+				"[rep]mouse y[/rep]",
+				"[bool]mouse down?[/bool]",
+				"[bool]key ~0 pressed?[/bool]",
+				"[rep]distance to ~0[/rep]",
+				"[rep]timer[/rep]",
+				"[rep]~0 of ~1[/rep]",
+
+				//motion
+
+				"[rep]x position[/rep]",
+				"[rep]y position[/rep]",
+				"[rep]direction[/rep]",
+
+
+				//looks
+
+				"[rep]costume #[/rep]",
+				"[rep]size[/rep]"
+
+			],
+			"blockColors": [
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+				"green",
+
+				//variables
+
+				"orange",
+
+				//lists
+
+				"red",
+				"red",
+				"red",
+
+				//sensing
+
+				"lblue", //light blue
+				"lblue", 
+				"lblue", 
+				"lblue", 
+				"lblue", 
+				"lblue", 
+				"lblue",
+				"lblue",
+				"lblue",
+				"lblue",
+				"lblue",
+
+				//motion
+
+				"blue",
+				"blue",
+				"blue",
+
+				//looks
+
+				"purple",
+				"purple"
+
+			]
+
+		}
+	
+	}
+};
+
+		//END BLOCK LIBRARY JSON
+
+		blockDef = blockLibrary.englishUK;
+
+		for (i=0; i<sprites[spriten].scripts.length; i++) {
+			var finalTransform = "translate("+sprites[spriten].scripts[i][0]+"px, "+sprites[spriten].scripts[i][1]+"px)"
+			scripttext = "<div id='scriptc"+i+"' style='-webkit-transform:"+finalTransform+"; -moz-transform:"+finalTransform+"; -o-transform:"+finalTransform+"; position:absolute; width:10000px;' >";
+			for (j=0; j<sprites[spriten].scripts[i][2].length; j++) {
+				wrapperStack = new Array();
+				editorBlock(sprites[spriten].scripts[i][2][j], false, true);
+			}
+			scripttext += "</div>";
+			document.getElementById('scripts').innerHTML += scripttext;
+		}
+	}
+
+	function editorBlock(block, reporter, topblock) {
+
+		if ((topblock != undefined) && (blockDef.reporterBlocks.blockNames.indexOf(block[0]) != -1)) reporter = true;
+
+		if (!reporter) {
+			if (!(Object.prototype.toString.call( block ) === '[object Array]')) { //; //if it's not a list then it's not a block, it's actually a string
+				block = [block];
+			}
+		}
+
+
+		if (!reporter || (Object.prototype.toString.call( block ) === '[object Array]')){
+
+
+			if (!reporter) {
+
+				if (block[0] == "doForever") {
+					scripttext += blockGen.wrapperTop();
+					scripttext += "forever"
+					scripttext += blockGen.wrapperOpen();
+					if (block[1] != undefined) {
+					for (w=0; w<block[1].length; w++) {
+						wrapperStack.push(w);
+						editorBlock(block[1][w], false);
+						w = wrapperStack.pop();
+					}
+					}
+					scripttext += blockGen.wrapperClose(true);
+					return;
+				} else if (block[0] == "doIf") {
+					scripttext += blockGen.wrapperTop();
+					scripttext += "if <div style='width:15px;height:1px;display:inline-block;'></div>"
+					reporterType = "@";
+					editorBlock(block[1], true);				
+					scripttext += blockGen.wrapperOpen();
+					if (block[2] != undefined) {
+					for (w=0; w<block[2].length; w++) {
+						wrapperStack.push(w);
+						editorBlock(block[2][w], false);
+						w = wrapperStack.pop();
+					}
+					}
+					scripttext += blockGen.wrapperClose(true);
+					return;
+				} else if (block[0] == "doIfElse") {
+					scripttext += blockGen.wrapperTop();
+					scripttext += "if <span width='15px'></span>"
+					reporterType = "@";
+					editorBlock(block[1], true);				
+					scripttext += blockGen.wrapperOpen();
+					if (block[2] != undefined) {
+					for (w=0; w<block[2].length; w++) {
+						wrapperStack.push(w);
+						editorBlock(block[2][w], false);
+						w = wrapperStack.pop();
+					}
+					}
+					scripttext += "</div><div class='wbtmedge'></div>"
+					scripttext += blockGen.wrapperTop();
+					scripttext += "else";
+					scripttext += blockGen.wrapperOpen();
+					if (block[3] != undefined) {
+					for (w=0; w<block[3].length; w++) {
+						wrapperStack.push(w);
+						editorBlock(block[3][w], false);
+						w = wrapperStack.pop();
+					}
+					}
+					scripttext += blockGen.wrapperClose(true);
+					return;
+				} else if (block[0] == "doRepeat") {
+					scripttext += blockGen.wrapperTop();
+					scripttext += "repeat "
+					reporterType = "%";
+					editorBlock(block[1], true);				
+					scripttext += blockGen.wrapperOpen();
+					if (block[2] != undefined) {
+					for (w=0; w<block[2].length; w++) {
+						wrapperStack.push(w);
+						editorBlock(block[2][w], false);
+						w = wrapperStack.pop();
+					}
+					}
+					scripttext += blockGen.wrapperClose(true);
+					return;
+
+				} else if (block[0] == "doUntil") {
+					scripttext += blockGen.wrapperTop();
+					scripttext += "repeat until "
+					reporterType = "@";
+					editorBlock(block[1], true);				
+					scripttext += blockGen.wrapperOpen();
+					if (block[2] != undefined) {
+					for (w=0; w<block[2].length; w++) {
+						wrapperStack.push(w);
+						editorBlock(block[2][w], false);
+						w = wrapperStack.pop();
+					}
+					}
+					scripttext += blockGen.wrapperClose(true);
+					return;
+				}
+
+				blockLibIndex = blockDef.functionBlocks.blockNames.indexOf(block[0]);
+				if (blockLibIndex > -1) {
+					var thisDef = blockDef.functionBlocks.blockDefinitions[blockLibIndex];
+					var thisColor = blockDef.functionBlocks.blockColors[blockLibIndex];
+					blockGen.processDefinition(block, thisDef, thisColor);
+					
+				} else {
+					if (block[0] == "undefined") return;
+					scripttext += blockGen.blockOpen("yellow");
+					scripttext += block[0];
+					scripttext += blockGen.blockClose("yellow");
+				}
+			} else {
+				blockLibIndex = blockDef.reporterBlocks.blockNames.indexOf(block[0]);
+				if (blockLibIndex > -1) {
+					var thisDef = blockDef.reporterBlocks.blockDefinitions[blockLibIndex];
+					var thisColor = blockDef.reporterBlocks.blockColors[blockLibIndex];
+					blockGen.processDefinition(block, thisDef, thisColor);
+				} else {
+					scripttext += blockGen.reporterOpen("green");
+					scripttext += block[0];
+					scripttext += blockGen.reporterClose("green");
+				}
+			}
+
+		} else {
+
+			if (reporterType == "£") {
+
+				scripttext += block;
+
+			} else if (reporterType == "~") {
+
+				scripttext += blockGen.lockdropOpen();
+				scripttext += block;
+				scripttext += blockGen.lockdropClose();
+
+			} else if (reporterType == "`") { //color type
+			
+				scripttext += blockGen.colorOpen();
+
+ 				block = (16777216 + block).toString(16);
+
+				while (0<(6-block.length)) {
+					block = "0"+block;
+				}
+
+				block = "#"+block;
+
+				scripttext += block;
+
+				scripttext += blockGen.colorClose();
+			
+			} else {
+
+				scripttext += blockGen.literalOpen();
+				scripttext += block;
+				scripttext += blockGen.literalClose();
+
+			}
+		}
+	}
+
+	blockGen = new Object();
+
+	blockGen.scanVariables = function (processTxt) {
+
+		prindex = processTxt.indexOf("%");
+		anindex = processTxt.indexOf("&");
+		doindex = processTxt.indexOf("$");
+		sqindex = processTxt.indexOf("~");
+		poindex = processTxt.indexOf("£");
+		atindex = processTxt.indexOf("@");
+		thindex = processTxt.indexOf("`"); //th for thing because i don't know what it is :I
+
+
+		min = 100000000
+		if ((prindex < min) && (prindex != -1)) { min = prindex; reporterType = "%" }
+		if ((anindex < min) && (anindex != -1)) { min = anindex; reporterType = "&" }
+		if ((doindex < min) && (doindex != -1)) { min = doindex; reporterType = "$" }
+		if ((sqindex < min) && (sqindex != -1)) { min = sqindex; reporterType = "~" }
+		if ((poindex < min) && (poindex != -1)) { min = poindex; reporterType = "£" }
+		if ((atindex < min) && (atindex != -1)) { min = atindex; reporterType = "@" }
+		if ((thindex < min) && (thindex != -1)) { min = thindex; reporterType = "`" }
+	}
+
+	blockGen.processDefinition = function (block, thatDef, thatColor) {
+		thatDef = thatDef.replace("[block]", blockGen.blockOpen(thatColor))
+		thatDef = thatDef.replace("[/block]", blockGen.blockClose(thatColor))
+		thatDef = thatDef.replace("[hat]", blockGen.hatOpen(thatColor))
+		thatDef = thatDef.replace("[/hat]", blockGen.hatClose(thatColor))
+		thatDef = thatDef.replace("[rep]", blockGen.reporterOpen(thatColor))
+		thatDef = thatDef.replace("[/rep]", blockGen.reporterClose())
+		thatDef = thatDef.replace("[bool]", blockGen.reporterOpen(thatColor))
+		thatDef = thatDef.replace("[/bool]", blockGen.reporterClose())
+		var charcopyPosition = 0;
+
+		blockGen.scanVariables(thatDef);
+
+		while (min != 100000000) {
+			scripttext += thatDef.substr(charcopyPosition, min-charcopyPosition);
+			charcopyPosition = min;
+			var fieldNum = Number(thatDef.charAt(charcopyPosition+1))+1;
+			editorBlock(block[fieldNum], true);
+			thatDef = thatDef.slice(0, charcopyPosition)+thatDef.slice(charcopyPosition+2);
+
+			blockGen.scanVariables(thatDef);
+
+		}
+
+		scripttext += thatDef.substr(charcopyPosition, thatDef.length-charcopyPosition)
+	}
+
+	blockGen.hatOpen = function () {
+		return "<div class='hat'><div class='hatText'>";
+	}
+
+	blockGen.hatClose = function () {
+		return "</div></div><div class='hate'></div><div class='yellowb blockTab'></div><br>";
+	}
+
+	blockGen.literalOpen = function () {
+		return "<input class='scratchInput' value='";
+	}
+	blockGen.literalClose = function () {
+		return "'></input>";
+	}
+
+	blockGen.lockdropOpen = function () {
+		return "<div class='lockDrop'>";
+	}
+	blockGen.lockdropClose = function () {
+		return "</div><img src='editorimg/blk/dropdown.png' width='7' height='13' class='dropArrow'>";
+	}
+
+	blockGen.colorOpen = function () {
+		return "<div class='colorBox' style='background-color: ";
+	}
+	blockGen.colorClose = function () {
+		return "'></div>";
+	}
+
+	blockGen.wrapperTop = function() {
+
+		return "<div class='yellowblock mainBlock'><div class='yellowbg bContent' style='min-width:50px'>"
+
+	}
+
+	blockGen.wrapperOpen = function () {
+		return "</div></div><div class='wtopedge'></div><div class='wrapper'><div class='yellowb blockTab'></div>";
+	}
+
+	blockGen.wrapperClose = function (repeatIcon) {
+		var completeCode = "</div><div class='wbtmedge'></div><div class='wrapperbtm'><div class='wbtmbg'>";
+		completeCode += "</div></div><br><div class='yellowb blockTab'></div>";
+		return completeCode;
+	}
+
+	blockGen.blockOpen = function (bColor) {
+		return "<div class='"+bColor+"block mainBlock'><div class='"+bColor+"bg bContent'>";
+	}
+
+	blockGen.blockClose = function (bColor) {
+		return "</div></div><div class='"+bColor+"b blockTab'></div><br>";
+	}
+
+	blockGen.reporterOpen = function (bColor) {
+		return "<div class='"+bColor+"Reporter reporterBase'>"
+	}
+
+	blockGen.reporterClose = function () { 
+		return "</div>";
+	}
+
+	function updateThumbs() {
+		for (j=0; j<libraryIndex.length; j++) {
+			i = libraryIndex[j];
+			if (sprites[i] != undefined) {
+			var DOMcostume = sprites[i].costumes[sprites[i].currentCostumeIndex].baseLayerID;
+			if (DOMcostume != DOMlastCostumeID[i]) {
+				DOMlastCostumeID[i] = DOMcostume;
+				var elmnt = document.getElementById('spr'+i)
+				elmnt.src = images[DOMcostume].src;
+				var ratio1 = Math.min(1, 53/images[DOMcostume].width);
+				var ratio2 = Math.min(1, 40/images[DOMcostume].height);
+				var calcwidth = images[DOMcostume].width*Math.min(ratio1, ratio2);
+				var calcheight = images[DOMcostume].height*Math.min(ratio1, ratio2);
+				var finalTransform = "translate("+(26.5-calcwidth/2)+"px, "+(20-calcheight/2)+"px)" //urghhh standardize this please
+				elmnt.style.webkitTransform = finalTransform;
+				elmnt.style.MozTransform = finalTransform;
+				elmnt.style.oTransform = finalTransform;
+			}
+			}
+		}
+	}
+
+	function editorInit() {
+
+		generateSpriteContainers();
+		
+	}
+
+	function moveSprites(increment) {
+		spritesScrollX = Math.max(0, Math.min(spritesScrollX+increment, sprites.length-5));
+
+		var finalTranslation = "translateX("+((spritesScrollX*(-72))-2)+"px)" //not standardized yet so i have to set like 12 different properties
+		spritesDiv.style.webkitTransform = finalTranslation;
+		spritesDiv.style.MozTransform = finalTranslation;
+		spritesDiv.style.oTransform = finalTranslation;
+	}
+
+	function fixHeights() {
+		var hfixer = document.getElementById('palette')
+		hfixer.style.height = (window.innerHeight-588)+"px";
+		var hfixer = document.getElementById('scripts')
+		hfixer.style.height = (window.innerHeight-65)+"px";
+	}
+
+	function pTabChange(tabNum) {
+
+		var element = document.getElementById('ptab'+activeTab);
+		element.src = "editorimg/placeholderTypeNA.png";
+
+		var element = document.getElementById('ptab'+tabNum);
+		element.src = "editorimg/placeholderTypeA.png";
+
+		var element = document.getElementById('pcont'+activeTab);
+		element.style.display = "none";
+
+		var element = document.getElementById('pcont'+tabNum);
+		element.style.display = "";
+
+		activeTab = tabNum;
+
+	}
+
+	//document.addEventListener('touchstart', function(e){ }); 
+
+	window.onresize = function(event) {
+		fixHeights();
+	}
+
+	function generatePalette() {
+		activeTab = 0;
+		var contengen = "";
+		for (i=0;i<8;i++) {
+			contengen += "<div id='pcont"+i+"' style='display:none'></div>";
+		}
+		document.getElementById('palette').innerHTML = contengen;
+	}
+
+	document.addEventListener("DOMContentLoaded", fixHeights); 
+	document.addEventListener("DOMContentLoaded", generatePalette); 
+
+
+	</script>
+
+  </head>
+
+<body>
+
+<div id="topBar">
+
+<div id="baritem">File</div><div id="baritem">Options</div><div id="baritem">Share</div>
+
+</div>
+
+	<div id="maincontainer">
+
+	<div id="leftcontainer">
+
+		<canvas id='scratch' width='486' height='391' tabindex='1'></canvas>
+
+		<div id="spritesbox" class="round">
+		
+			<img src="editorimg/leftArrow.png" onClick="moveSprites(-1);"><div id="spritescont" class="round"><div id="sprites">			
+
+			</div></div><img src="editorimg/rightArrow.png" onClick="moveSprites(1);">
+
+		</div>
+
+		<div id="paletteContainer">
+			<div id="typeSpacer"><img src="editorimg/placeholderTypeA.png" id="ptab0" onclick="pTabChange(0);"><img src="editorimg/placeholderTypeNA.png" id="ptab1" onclick="pTabChange(1);"><img src="editorimg/placeholderTypeNA.png" id="ptab2" onclick="pTabChange(2);"><img src="editorimg/placeholderTypeNA.png" id="ptab3" onclick="pTabChange(3);"><img src="editorimg/placeholderTypeNA.png" id="ptab4" onclick="pTabChange(4);"><img src="editorimg/placeholderTypeNA.png" id="ptab5" onclick="pTabChange(5);"><img src="editorimg/placeholderTypeNA.png" id="ptab6" onclick="pTabChange(6);"><img src="editorimg/placeholderTypeNA.png" id="ptab7" onclick="pTabChange(7);"></div>
+			<div id="palettebox" class="bottomRound">
+				<div id="palette"></div>				
+			</div>
+		</div>
+
+	</div>
+
+	<div id="rightcontainer">
+
+	<div id="typeSpacer" style="background-image: url('editorimg/line2.png');"><img src="editorimg/scriptTabA.png"><img src="editorimg/costumeTabNA.png"><img src="editorimg/soundTabNA.png"></div>
+
+	<div id="scriptbox" class="bottomRound">
+	<div id="scripts"> </div>
+	</div>
+
+	</div>
+
+	</div>
+
+
+</body>
+
+</html>
+
+
