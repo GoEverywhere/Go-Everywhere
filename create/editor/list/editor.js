@@ -431,7 +431,6 @@ function loadCurrentSelectedSprite(){
 	    if (!$(this).hasClass("dragged-over")) {
 		$(".placeholder").remove();
 	    }
-	    console.log(event);
 	    $(this).show();
 	}
     });
@@ -496,6 +495,7 @@ function loadCurrentSelectedSprite(){
     
     //GARBAGE BIN EVENTS!!!!!!
     $("#garbageBin").droppable({
+	greedy: true,
 	drop: function(event, ui){
 	    if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
 		    //code
