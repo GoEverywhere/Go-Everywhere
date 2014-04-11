@@ -379,10 +379,31 @@ function generateSpriteJSON(){
     //Loop through the #blocks section to find each block stack,
     //then decode each block into the array
     $("#blocks .script").each(function(){
-	var stackBlocks = [];
 	
-	scripts.push([0, 0, stackBlocks]);
+	//Function so we can inifinitally find blocks
+	function findBlocks(el){
+	    var miniStack = [];
+	    //Loop through this parent's
+	    $(el).children(".hat,.stack,.cwrap").each(function(){
+		//If it is a stack or hat, just stick it in the array
+		if ($(this).hasClass("hat") || $(this).hasClass("stack")) {
+		    miniStack.push([$(this).attr("spec")]);
+		}
+		//If it is a cwrap, we get data from cstart, and blocks from cmouth
+		if ($(this).hasClass("cwrap")) {
+		    //["spec", params?, [inner blocks (find blocks(el)]]
+		    miniStack.push([$(this).children(".cstart").attr("spec"), findBlocks($(this).children(".cmouth"))])
+		}
+	    });
+	    return miniStack;
+	}
+	
+	scripts.push([0, 0, findBlocks(this)]);
     });
+    return {
+	objName: objName,
+	scripts: scripts
+    };
 }
 
 $(document).ready(function(){
@@ -412,7 +433,9 @@ $(document).ready(function(){
     
     reloadEvents();
     
-    console.log(generateSpriteJSON());
+    $("body").click(function(){
+	console.log(generateSpriteJSON());
+    });
 });
 function loadProject(url) {
     zipFile = new ZipFile(url, doneReadingZip, 1);
