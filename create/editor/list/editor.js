@@ -380,6 +380,58 @@ function generateSpriteJSON(){
     //then decode each block into the array
     $("#blocks .script").each(function(){
 	
+	//Function so we can keep parameter code the same
+	function findParameterArray(el) {
+	    var miniParams = [];
+	    
+	    $.each(getBlockData($(el).attr("spec")).parameters, function(index, spec){
+		console.log("Spec: " + getBlockData($(el).attr("spec")).spec + " at index: " + index);
+		if (($($(el).children("div")[index]).hasClass("reporter") || $($(el).children("div")[index]).hasClass("boolean"))) {
+		    console.log("This block has an inside! (of course, at " + index + ")");
+		    var myEmbeddedBlocks = findEmbeddedBlocks($(el).children("div")[index]);
+		    for(var e = 0; e < myEmbeddedBlocks.length; e++)
+		    {
+			miniParams.push(myEmbeddedBlocks[e]);
+		    }
+		}else{
+		    console.log($($(el).children("div")[index]).attr("class"));
+		    switch(getBlockData($(el).attr("spec")).parameters[index])
+		    {
+			case "dropdown":
+			    miniParams.push("");
+			    break;
+			case "boolean":
+			    miniParams.push("[]");
+			    break;
+			case "number":
+			    miniParams.push("10");
+			    break;
+			case "string":
+			    miniParams.push("Hello!");
+			    break;
+		    }
+		}
+	    });
+	    
+	    return miniParams;
+	}
+	//Function so we can infinitally find embedded blocks
+	function findEmbeddedBlocks(el){
+	    var miniEmbedded = [];
+	    //Embedded blocks are essentially the same format as stack blocks
+	    var myBlockData = getBlockData($(el).attr("spec"));
+		
+	    var myTotal = [myBlockData.spec];
+	    
+	    var myParams = findParameterArray(el);
+	    for(var p = 0; p < myParams.length; p++)
+	    {
+		myTotal.push(myParams[p]);
+	    }
+	    
+	    miniEmbedded.push(myTotal);
+	    return miniEmbedded;
+	}
 	//Function so we can inifinitally find blocks
 	function findBlocks(el){
 	    var miniStack = [];
@@ -391,31 +443,29 @@ function generateSpriteJSON(){
 		    
 		    var myTotal = [myBlockData.spec];
 		    
-		    for(var p = 0; p < myBlockData.parameters.length; p++)
+		    var myParams = findParameterArray(this);
+		    for(var p = 0; p < myParams.length; p++)
 		    {
-			switch(myBlockData.parameters[p])
-			{
-			    case "dropdown":
-				myTotal.push("");
-				break;
-			    case "boolean":
-				myTotal.push("[]");
-				break;
-			    case "number":
-				myTotal.push("10");
-				break;
-			    case "string":
-				myTotal.push("Hello!");
-				break;
-			}
+			myTotal.push(myParams[p]);
 		    }
 		    
 		    miniStack.push(myTotal);
 		}
 		//If it is a cwrap, we get data from cstart, and blocks from cmouth
 		if ($(this).hasClass("cwrap")) {
-		    //["spec", params?, [inner blocks (find blocks(el)]]
-		    miniStack.push([$(this).children(".cstart").attr("spec"), findBlocks($(this).children(".cmouth"))])
+		    var myBlockData = getBlockData($(this).children(".cstart").attr("spec"));
+		    
+		    var myTotal = [myBlockData.spec];
+		    
+		    var myParams = findParameterArray($(this).children(".cstart"));
+		    for(var p = 0; p < myParams.length; p++)
+		    {
+			myTotal.push(myParams[p]);
+		    }
+		    
+		    myTotal.push(findBlocks($(this).children(".cmouth")));
+		    
+		    miniStack.push(myTotal);
 		}
 	    });
 	    return miniStack;
