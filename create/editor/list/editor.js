@@ -374,29 +374,30 @@ function generateSpriteJSON(){
 	    var miniParams = [];
 	    
 	    $.each(getBlockData($(el).attr("spec")).parameters, function(index, spec){
-		console.log("Spec: " + getBlockData($(el).attr("spec")).spec + " at index: " + index);
 		if (($($(el).children("div")[index]).hasClass("reporter") || $($(el).children("div")[index]).hasClass("boolean"))) {
-		    console.log("This block has an inside! (of course, at " + index + ")");
 		    var myEmbeddedBlocks = findEmbeddedBlocks($(el).children("div")[index]);
 		    for(var e = 0; e < myEmbeddedBlocks.length; e++)
 		    {
 			miniParams.push(myEmbeddedBlocks[e]);
 		    }
 		}else{
-		    console.log($($(el).children("div")[index]).attr("class"));
 		    switch(getBlockData($(el).attr("spec")).parameters[index])
 		    {
 			case "dropdown":
-			    miniParams.push("");
+			    //Text value of "select" field
+			    miniParams.push($($(el).children("div")[index]).children("select").val());
 			    break;
 			case "boolean":
+			    //If it doesn't have a block inside it, it is blank
 			    miniParams.push("[]");
 			    break;
 			case "number":
-			    miniParams.push("10");
+			    //Has to be turned into a float
+			    miniParams.push(parseFloat($($(el).children("div")[index]).children("input").val()));
 			    break;
 			case "string":
-			    miniParams.push("Hello!");
+			    //Straight up text
+			    miniParams.push($($(el).children("div")[index]).children("input").val());
 			    break;
 		    }
 		}
