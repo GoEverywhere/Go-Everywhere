@@ -1,204 +1,3 @@
-//***BLOCKS***//
-//**//EVENTS
-blocks.push({
-                type: "hat",
-                spec: "whenGreenFlag",
-                label: "when green flag clicked",
-		scratchblocks: "when green flag clicked",
-		renderLabel: "when  clicked",
-		parameters: [],
-                group: "Events"
-            });
-blocks.push({
-                type: "hat",
-                spec: "whenKeyPressed",
-                label: "when %k key pressed",
-		scratchblocks: "when [%k{$1} v] key pressed",
-		renderLabel: "when  key pressed",
-		parameters: ["dropdown"],
-                group: "Events"
-            });
-//**//CONTROL
-blocks.push({
-		type: "command",
-		spec: "wait:elapsed:from:",
-		scratchblocks: "wait ($1) secs",
-		renderLabel: "wait  secs",
-		parameters: ["number"],
-		group: "Control"
-	    });
-blocks.push({
-                type: "c",
-                spec: "doForever",
-                label: "forever",
-		scratchblocks: "forever",
-		renderLabel: "forever",
-		parameters: [],
-                group: "Control"
-            });
-blocks.push({
-		type: "c",
-		spec: "doIf",
-		label: "if %b then",
-		scratchblocks: "if <$1> then",
-		renderLabel: "if  then",
-		parameters: ["boolean"],
-		group: "Control"
-	    });
-blocks.push({
-		type: "command",
-		spec: "doWaitUntil",
-		label: "wait until %b",
-		scratchblocks: "wait until <$1>",
-		renderLabel: "wait until ",
-		parameters: ["boolean"],
-		group: "Control"
-	    });
-//**//SENSING
-blocks.push({
-		type: "boolean",
-		spec: "touching:",
-		label: "touching %o ?",
-		scratchblocks: "< touching [%o{$1} v]? >",
-		renderLabel: "touching ?",
-		parameters: ["dropdown"],
-		group: "Sensing"
-	    });
-blocks.push({
-		type: "reporter",
-		spec: "timer",
-		label: "timer",
-		scratchblocks: "(timer)",
-		renderLabel: "timer",
-		parameters: [],
-		group: "Sensing"
-	    });
-//**//OPERATORS
-blocks.push({
-                type: "number",
-                spec: "+",
-                label: "%n + %n",
-                scratchblocks: "(($1) + ($2))",
-		renderLabel: " + ",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            });
-blocks.push({
-                type: "number",
-                spec: "-",
-                label: "%n - %n",
-                scratchblocks: "(($1) - ($2))",
-		renderLabel: " - ",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            });
-blocks.push({
-                type: "number",
-                spec: "*",
-                label: "%n * %n",
-                scratchblocks: "(($1) * ($2))",
-		renderLabel: " * ",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            });
-blocks.push({
-                type: "number",
-                spec: "/",
-                label: "%n / %n",
-                scratchblocks: "(($1) / ($2))",
-		renderLabel: " / ",
-                parameters: ["number",
-			     "number"],
-                group: "Operators"
-            });
-blocks.push({
-		type: "boolean",
-		spec: "not",
-		label: "not %b",
-		scratchblocks: "< not <$1> >",
-		renderLabel: "not ",
-		parameters: ["boolean"],
-		group: "Operators"
-	    });
-blocks.push({
-		type: "number",
-		spec: "computeFunction:of:",
-		label: "%m of (%n)",
-		scratchblocks: "([%m{$1} v] of ($2))",
-		renderLabel: " of ",
-		parameters: ["dropdown",
-			     "number"],
-		group: "Operators"
-	    });
-//**//MOTION
-blocks.push({
-		type: "command",
-		spec: "pointTowards:",
-		label: "point towards %o",
-		scratchblocks: "point towards [%o{$1} v]",
-		renderLabel: "point towards ",
-		parameters: ["dropdown"],
-		group: "Motion"
-	    });
-blocks.push({
-		type: "command",
-		spec: "gotoX:y:",
-		label: "go to x:(%n) y:(%n)",
-		scratchblocks: "go to x:($1) y:($2)",
-		renderLabel: "go to x: y:",
-		parameters: ["number",
-			     "number"],
-		group: "Motion"
-	    });
-blocks.push({
-		type: "command",
-		spec: "gotoSpriteOrMouse:",
-		label: "go to %o",
-		scratchblocks: "go to [%o{$1} v]",
-		renderLabel: "go to ",
-		parameters: ["dropdown"],
-		group: "Motion"
-	    });
-//**//LOOKS
-blocks.push({
-		type: "command",
-		spec: "say:",
-		label: "say %s",
-		scratchblocks: "say [$1]",
-		renderLabel: "say ",
-		parameters: ["string"],
-		group: "Looks"
-	    });
-blocks.push({
-                type: "command",
-                spec: "nextCostume",
-                label: "next costume",
-		scratchblocks: "next costume",
-		renderLabel: "next costume",
-		parameters: [],
-                group: "Looks"
-            });
-blocks.push({
-		type: "command",
-		spec: "setSizeTo:",
-		label: "set size to %n",
-		scratchblocks: "set size to ($1) %",
-		renderLabel: "set size to  %",
-		parameters: ["number"],
-		group: "Looks"
-	    });
-//**//SOUND
-//**//PEN
-//**//DATA
-
-//SMALL JQUERY PLUGIN
-jQuery.fn.justtext = function() {
-    return $(this).clone().children().remove().end().text();
-};
-
 //VARIABLES
 var zipFile,
 project,
@@ -206,7 +5,6 @@ vars;
 
 function reloadEvents() {
     
-    //SCRATCHBLOCKS2 EVENTS!!!!!!
     //Add ul and li tags around the existing scratchblocks2 tags
     $("#blocks .script").each(function(){
 	//Turn the script into a UL list
@@ -219,22 +17,20 @@ function reloadEvents() {
     
     //Bind the actual events!!!
     //Make hats draggable
-    $("#blocks .script > .hat").each(function(){
-	$(this).draggable({
-	    revert: true,
-	    drag: function(event, ui){
-		    //Hide the new button, Show the garbage bin
-		    $("#addNew").hide("slide", 50, function(){
-			    $("#garbageBin").show("slide", 50).css("opacity", "0.5");
-		    });
-	    },
-	    stop: function(event, ui){
-		    //Hide the garbage bin, Show the new button
-		    $("#garbageBin").hide("slide", 50, function(){
-			    $("#addNew").show("slide", 50);
-		    });
-	    }
-	});
+    $("#blocks .script > .hat").draggable({
+	revert: true,
+	drag: function(event, ui){
+		//Hide the new button, Show the garbage bin
+		$("#addNew").hide("slide", 50, function(){
+			$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+		});
+	},
+	stop: function(event, ui){
+		//Hide the garbage bin, Show the new button
+		$("#garbageBin").hide("slide", 50, function(){
+			$("#addNew").show("slide", 50);
+		});
+	}
     });
     //Make input blocks draggable
     $(".reporter, .boolean").draggable({
@@ -247,7 +43,7 @@ function reloadEvents() {
 		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
 	    });
 	    
-	    var parentBlockData = getBlockData($(this).parent().attr("spec"));
+	    var parentBlockData = EditorTools.getBlockData($(this).parent().attr("spec"));
 	    switch (parentBlockData.parameters[$(this).index()]) {
 		case "number":
 		    $(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
@@ -305,22 +101,22 @@ function reloadEvents() {
     
     //Make the rest of the blocks sortable
     $("#blocks ul").sortable({
-		axis: "both",
-		placeholder: "block-placeholder",
-		items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .embedded)",
-		connectWith: "#blocks ul",
-		start: function(event, ui){
-		    //Hide the new button, Show the garbage bin
-		    $("#addNew").hide("fade", 100, function(){
-			    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
-		    });
-		},
-		stop: function(event, ui){
-		    //Hide the garbage bin, Show the new button
-		    $("#garbageBin").hide("fade", 100, function(){
-			    $("#addNew").show("fade", 100);
-		    });
-		}
+	axis: "both",
+	placeholder: "block-placeholder",
+	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .embedded)",
+	connectWith: "#blocks ul",
+	start: function(event, ui){
+	    //Hide the new button, Show the garbage bin
+	    $("#addNew").hide("fade", 100, function(){
+		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
+	    });
+	},
+	stop: function(event, ui){
+	    //Hide the garbage bin, Show the new button
+	    $("#garbageBin").hide("fade", 100, function(){
+		    $("#addNew").show("fade", 100);
+	    });
+	}
     });
     
     //PARAMETER CHANGE EVENTS!!!!!!
@@ -373,7 +169,7 @@ function generateSpriteJSON(){
 	function findParameterArray(el) {
 	    var miniParams = [];
 	    
-	    $.each(getBlockData($(el).attr("spec")).parameters, function(index, spec){
+	    $.each(EditorTools.getBlockData($(el).attr("spec")).parameters, function(index, spec){
 		if (($($(el).children("div")[index]).hasClass("reporter") || $($(el).children("div")[index]).hasClass("boolean"))) {
 		    var myEmbeddedBlocks = findEmbeddedBlocks($(el).children("div")[index]);
 		    for(var e = 0; e < myEmbeddedBlocks.length; e++)
@@ -381,7 +177,7 @@ function generateSpriteJSON(){
 			miniParams.push(myEmbeddedBlocks[e]);
 		    }
 		}else{
-		    switch(getBlockData($(el).attr("spec")).parameters[index])
+		    switch(EditorTools.getBlockData($(el).attr("spec")).parameters[index])
 		    {
 			case "dropdown":
 			    //Text value of "select" field
@@ -409,7 +205,7 @@ function generateSpriteJSON(){
 	function findEmbeddedBlocks(el){
 	    var miniEmbedded = [];
 	    //Embedded blocks are essentially the same format as stack blocks
-	    var myBlockData = getBlockData($(el).attr("spec"));
+	    var myBlockData = EditorTools.getBlockData($(el).attr("spec"));
 		
 	    var myTotal = [myBlockData.spec];
 	    
@@ -429,7 +225,7 @@ function generateSpriteJSON(){
 	    $(el).children(".hat,.stack,.cwrap").each(function(){
 		//If it is a stack or hat, just stick it in the array
 		if ($(this).hasClass("hat") || $(this).hasClass("stack")) {
-		    var myBlockData = getBlockData($(this).attr("spec"));
+		    var myBlockData = EditorTools.getBlockData($(this).attr("spec"));
 		    
 		    var myTotal = [myBlockData.spec];
 		    
@@ -443,7 +239,7 @@ function generateSpriteJSON(){
 		}
 		//If it is a cwrap, we get data from cstart, and blocks from cmouth
 		if ($(this).hasClass("cwrap")) {
-		    var myBlockData = getBlockData($(this).children(".cstart").attr("spec"));
+		    var myBlockData = EditorTools.getBlockData($(this).children(".cstart").attr("spec"));
 		    
 		    var myTotal = [myBlockData.spec];
 		    
@@ -559,7 +355,7 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
-	$(this).html(getParameterCode("key"));
+	$(this).html(EditorTools.getParameterCode("key"));
 	$(this).find("option").each(function(){
 		if ($(this).val() == dropDownText) {
 			$(this).attr("selected", "true");
@@ -575,7 +371,7 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
-	$(this).html(getParameterCode("object"));
+	$(this).html(EditorTools.getParameterCode("object"));
 	$(this).find("option").each(function(){
 	    if ($(this).val() == dropDownText) {
 		$(this).attr("selected", "true");
@@ -591,7 +387,7 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
-	$(this).html(getParameterCode("math"));
+	$(this).html(EditorTools.getParameterCode("math"));
 	$(this).find("option").each(function(){
 	    if ($(this).val() == dropDownText) {
 		$(this).attr("selected", "true");
@@ -645,19 +441,10 @@ function loadCurrentSelectedSprite(){
 		catagory = "pen";
 	    }
 	    
-	    var blockData = getBlockDataFromScratchblocks(catagory, label);
+	    var blockData = EditorTools.getBlockDataFromScratchblocks(catagory, label);
 	    if (blockData.type == undefined) {
 		console.error("Block label \"" + label + "\" doesn't have a cooresponding spriteblocks2 >> block data.");
 	    }else{
-		//var compiledParams = "";
-		//for(var i = 0; i < blockData.parameters.length; i++)
-		//{
-		//    if (i != 0) {
-		//	compiledParams += ",";
-		//    }
-		//    compiledParams += blockData.parameters[i];
-		//}
-		//$(this).attr("params", compiledParams);
 		$(this).attr("spec", blockData.spec);
 	    }
 	}
@@ -678,7 +465,7 @@ function parseSpriteBlocks(sprite) {
         for (var i = 0; i < sprite.scripts.length; i++) {
             var _isDefineBlock = false;
 	    
-            var currentBlock = getBlockData(sprite.scripts[i][2][0][0]);
+            var currentBlock = EditorTools.getBlockData(sprite.scripts[i][2][0][0]);
 			if (currentBlock.type == "hat") {
 				tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][0]);
 				tmpScratchblocksText += "\n";
@@ -686,7 +473,7 @@ function parseSpriteBlocks(sprite) {
 	    
             for (var j = 1; j < sprite.scripts[i][2].length; j++) {
                 //get block info
-                currentBlock = getBlockData(sprite.scripts[i][2][j][0]);
+                currentBlock = EditorTools.getBlockData(sprite.scripts[i][2][j][0]);
 		
 				//add it to the script
 				tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][j]);
@@ -710,13 +497,13 @@ function parseSpriteBlocks(sprite) {
 }
 function generateBlockTextWithParameters(blockToDecodeParameters)
 {
-    var currentBlockText = getBlockData(blockToDecodeParameters[0]).scratchblocks;
+    var currentBlockText = EditorTools.getBlockData(blockToDecodeParameters[0]).scratchblocks;
     //Go through each parameter and add blocks
-    if (getBlockData(blockToDecodeParameters[0]).parameters.length > 0) {
-	for(var parameterI = 0; parameterI < getBlockData(blockToDecodeParameters[0]).parameters.length; parameterI++)
+    if (EditorTools.getBlockData(blockToDecodeParameters[0]).parameters.length > 0) {
+	for(var parameterI = 0; parameterI < EditorTools.getBlockData(blockToDecodeParameters[0]).parameters.length; parameterI++)
 	{
 	    //See if it is a block parameter
-	    if (getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
+	    if (EditorTools.getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
 		    //No. Put it straight in. That was easy ;D
 		    currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
 	    }else{
@@ -731,9 +518,9 @@ function generateCShapeBlocks(blockToDecode) {
     var totalScripts = "";
     //loop through the loop's blocks
     //window.alert(JSON.stringify(blockToDecode[1]));
-    var blockTupleOffset = getBlockData(blockToDecode[0]).parameters.length;
+    var blockTupleOffset = EditorTools.getBlockData(blockToDecode[0]).parameters.length;
     for (var k = 0; k < blockToDecode[1].length; k++) {
-	var currentDecodingBlock = getBlockData(blockToDecode[1 + blockTupleOffset][k][0]);
+	var currentDecodingBlock = EditorTools.getBlockData(blockToDecode[1 + blockTupleOffset][k][0]);
 	//add it to the scripts
 	//totalScripts += currentDecodingBlock.scratchblocks;
 	totalScripts += generateBlockTextWithParameters(blockToDecode[1 + blockTupleOffset][k]);
@@ -746,111 +533,4 @@ function generateCShapeBlocks(blockToDecode) {
 	}
     }
     return totalScripts;
-}
-
-function getBlockDataFromScratchblocks(cat, label)
-{
-    for(var i = 0; i < blocks.length; i++)
-    {
-	if (blocks[i].group.toLowerCase() == cat && blocks[i].renderLabel == label) {
-	    return blocks[i];
-	}
-    }
-    return getBlockData("");
-}
-function getBlockData(spec) {
-    for (var i = 0; i < blocks.length; i++) {
-	if (blocks[i].spec == spec) {
-	    return blocks[i];
-	}
-    }
-    
-    return {
-	type: undefined,
-	spec: spec,
-	label: undefined,
-	scratchblocks: undefined,
-	parameters: undefined,
-	group: "Obsolete"
-    };
-}
-function getParameterCode(type) {
-    //return HTML for the parameter type
-    switch (type) {
-        case "key":
-            return "<select>\n" +
-                    "<option value=\"up\">up arrow</option>\n" +
-                    "<option value=\"down\">down arrow</option>\n" +
-                    "<option value=\"right\">right arrow</option>\n" +
-                    "<option value=\"left\">left arrow</option>\n" +
-                    "<option value=\"space\">space</option>\n" +
-                    "<option value=\"a\">a</option>\n" +
-                    "<option value=\"b\">b</option>\n" +
-                    "<option value=\"c\">c</option>\n" +
-                    "<option value=\"d\">d</option>\n" +
-                    "<option value=\"e\">e</option>\n" +
-                    "<option value=\"f\">f</option>\n" +
-                    "<option value=\"g\">g</option>\n" +
-                    "<option value=\"h\">h</option>\n" +
-                    "<option value=\"i\">i</option>\n" +
-                    "<option value=\"j\">j</option>\n" +
-                    "<option value=\"k\">k</option>\n" +
-                    "<option value=\"l\">l</option>\n" +
-                    "<option value=\"m\">m</option>\n" +
-                    "<option value=\"n\">n</option>\n" +
-                    "<option value=\"o\">o</option>\n" +
-                    "<option value=\"p\">p</option>\n" +
-                    "<option value=\"q\">q</option>\n" +
-                    "<option value=\"r\">r</option>\n" +
-                    "<option value=\"s\">s</option>\n" +
-                    "<option value=\"t\">t</option>\n" +
-                    "<option value=\"u\">u</option>\n" +
-                    "<option value=\"v\">v</option>\n" +
-                    "<option value=\"w\">w</option>\n" +
-                    "<option value=\"x\">x</option>\n" +
-                    "<option value=\"y\">y</option>\n" +
-                    "<option value=\"z\">z</option>\n" +
-                    "<option value=\"0\">0</option>\n" +
-                    "<option value=\"1\">1</option>\n" +
-                    "<option value=\"2\">2</option>\n" +
-                    "<option value=\"3\">3</option>\n" +
-                    "<option value=\"4\">4</option>\n" +
-                    "<option value=\"5\">5</option>\n" +
-                    "<option value=\"6\">6</option>\n" +
-                    "<option value=\"7\">7</option>\n" +
-                    "<option value=\"8\">8</option>\n" +
-                    "<option value=\"9\">9</option>\n" +
-                    "</select>\n";
-            break;
-	case "object":
-	    var paramToReturn = "<select>\n" +
-		    "<option name=\"mouse-pointer\">mouse-pointer</option>\n";
-		$("#toolbar #spriteSelect select option:not([name='Stage'],:selected)").each(function(){
-		    paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
-		});
-		paramToReturn += "</select>\n";
-	    return paramToReturn;
-	    break;
-	case "math":
-	    return "<select>\n" +
-		    "<option value=\"abs\">abs</option>\n" +
-		    "<option value=\"floor\">floot</option>\n" +
-		    "<option value=\"ceiling\">ceiling</option>\n" +
-		    "<option value=\"sqrt\">sqrt</option>\n" +
-		    "<option value=\"sin\">sin</option>\n" +
-		    "<option value=\"cos\">cos</option>\n" +
-		    "<option value=\"tan\">tan</option>\n" +
-		    "<option value=\"asin\">asin</option>\n" +
-		    "<option value=\"acos\">acos</option>\n" +
-		    "<option value=\"atan\">atan</option>\n" +
-		    "<option value=\"ln\">ln</option>\n" +
-		    "<option value=\"log\">log</option>\n" +
-		    "<option value=\"e ^\">e ^</option>\n" +
-		    "<option value=\"10 ^\">10 ^</option>\n" +
-		    "</select>\n";
-	    break;
-        default:
-            return "";
-            break;
-    }
 }

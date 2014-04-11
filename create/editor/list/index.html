@@ -9,6 +9,12 @@ the iPhone -->
             //Little bit of global stuff
             var blocks = [];
         </script>
+        <script src="./blocks.js">
+            //Load Scratch blocks.
+        </script>
+        <script src="./tools.js">
+            //Load tools for the editor
+        </script>
         <!-- include JavaScript libraries and plugins -->
         <script src="../../../scripts/jquery.min.js">//jQuery</script>
         <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
@@ -17,9 +23,12 @@ the iPhone -->
         <script src="../../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>
         <script src="../ZipFile.complete.js">//To unzip the sb2 format</script>
         <script src="../scratchblocks2/build/scratchblocks2.js">//Better block image generation</script>
+        <script src="../../../scripts/justtext.jquery.js">//justtext for block label extraction</script>
         <!-- Go Everywhere Add-ons below this comment!! -->
         <!-- Go Everywhere Add-ons above this comment!! -->
-        <script src="./editor.js"></script>
+        <script src="./editor.js">
+            //Editor goes last so that extensions can get ready for the events
+        </script>
         
         <style>
             @import url("../scratchblocks2/build/scratchblocks2.css");
