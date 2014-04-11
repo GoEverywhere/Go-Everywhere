@@ -213,9 +213,9 @@ function reloadEvents() {
 	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() +  "</ul>");
     });
     //Change the block after the hat to an LI
-    $("#blocks .script > div:not(.hat)").each(function(){
+    /*$("#blocks .script > div:not(.hat)").each(function(){
 	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
-    });
+    });*/
     //Change all the inner C-shapes to a list, so we can make all blocks INSIDE them sortable
     $("#blocks .script .cmouth").each(function(){
 	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
@@ -387,7 +387,30 @@ function generateSpriteJSON(){
 	    $(el).children(".hat,.stack,.cwrap").each(function(){
 		//If it is a stack or hat, just stick it in the array
 		if ($(this).hasClass("hat") || $(this).hasClass("stack")) {
-		    miniStack.push([$(this).attr("spec")]);
+		    var myBlockData = getBlockData($(this).attr("spec"));
+		    
+		    var myTotal = [myBlockData.spec];
+		    
+		    for(var p = 0; p < myBlockData.parameters.length; p++)
+		    {
+			switch(myBlockData.parameters[p])
+			{
+			    case "dropdown":
+				myTotal.push("");
+				break;
+			    case "boolean":
+				myTotal.push("[]");
+				break;
+			    case "number":
+				myTotal.push("10");
+				break;
+			    case "string":
+				myTotal.push("Hello!");
+				break;
+			}
+		    }
+		    
+		    miniStack.push(myTotal);
 		}
 		//If it is a cwrap, we get data from cstart, and blocks from cmouth
 		if ($(this).hasClass("cwrap")) {
