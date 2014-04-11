@@ -164,9 +164,9 @@
 .sb2 .custom.outline {
   background-color: #632d99;
   border-color: #794aa7 #46206d #46206d #794aa7;
-}
+},
 .sb2 .custom select,
-.sb2 .custom > .boolean.empty,
+.sb2 .custom > .boolean.empty
 .sb2 .custom > .color {
   background: #5b298c;
   border-color: #431e67 #70449a #70449a #431e67;
