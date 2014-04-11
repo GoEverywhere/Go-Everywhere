@@ -212,21 +212,10 @@ function reloadEvents() {
 	//Turn the script into a UL list
 	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() +  "</ul>");
     });
-    //Change the block after the hat to an LI
-    /*$("#blocks .script > div:not(.hat)").each(function(){
-	$(this).replaceWith("<li class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</li>");
-    });*/
     //Change all the inner C-shapes to a list, so we can make all blocks INSIDE them sortable
     $("#blocks .script .cmouth").each(function(){
 	$(this).replaceWith("<ul class=\"" + $(this).attr("class") + "\">" + $(this).html() + "</ul>");
     });
-    //Change all .number, .string, .boolean, .dropdown, to SPAN, instead of DIV
-    
-    /**
-     * DIV and LI are dedicated to stack, hat, time, and special blocks.
-     * SPAN are dedicated to parameter blocks. If they do not have more then one class, then they are fields.
-     **/
-    //$()
     
     //Bind the actual events!!!
     //Make hats draggable
