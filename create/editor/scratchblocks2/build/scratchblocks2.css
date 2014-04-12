@@ -14,17 +14,18 @@
  *   - flag.png
  *
  * in the block_images/ directory, in the same folder as this file.
- *
  */
+
 /*
-    bg:    background colour for entire block
-    btop:  top border for entire block
-    bbot:  bottom border for entire block
-    itop:  top border for inserts (eg. dropdown menus)
-    ibot:  bottom border for inserts (eg. dropdown menus)
-    inset: background colour for dropdown menus
-    arrow: colour of the "▼" dropdown arrow
+ * bg:    background colour for entire block
+ * btop:  top border for entire block
+ * bbot:  bottom border for entire block
+ * itop:  top border for inserts (eg. dropdown menus)
+ * ibot:  bottom border for inserts (eg. dropdown menus)
+ * inset: background colour for dropdown menus
+ * arrow: colour of the "▼" dropdown arrow
 */
+
 .box-sizing_content-box {
   box-sizing: content-box;
   -moz-box-sizing: content-box;
