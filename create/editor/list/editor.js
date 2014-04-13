@@ -1,11 +1,12 @@
 //VARIABLES
 var zipFile,
-project,
+project = {},
+currentObj = {},
 vars;
 
 //PROJECT SAVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function generateSpriteJSON(){
-    var objName = $("#toolbar #spriteSelect select").val();
+function generateObjectJSON(){
+    var objName = currentObj.objName;
     var scripts = [];
     //Loop through the #blocks section to find each block stack,
     //then decode each block into the array
@@ -105,10 +106,10 @@ function generateSpriteJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
-    return {
+    return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts
-    };
+    });
 }
 
 $(document).ready(function(){
@@ -126,6 +127,19 @@ $(document).ready(function(){
     
     //Sprite Selection Event
     $("#toolbar #spriteSelect select").change(function(){
+	//Save the current sprite, then change to the next
+	var tmpJSON = generateObjectJSON();
+	if (tmpJSON.objName == "Stage") {
+	    project = tmpJSON;
+	}else{
+	    $.each(project.children, function(index, value){
+		if (project.children[index].objName == tmpJSON.objName) {
+		    project.children[index] = tmpJSON;
+		    return false; //jQuery's way of breaking
+		}
+	    });
+	}
+	
 	loadCurrentSelectedSprite();
     });
     
@@ -242,10 +256,16 @@ function loadCurrentSelectedSprite(){
 	return totalScripts;
     }
     
-    for(var spriteI = 0; spriteI < project.children.length; spriteI++)
-    {
-	if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
-	    scratchblocksText += parseSpriteBlocks(project.children[spriteI]);
+    if ($("#toolbar #spriteSelect select").val() == project.objName) {
+	currentObj = project;
+	scratchblocksText += parseSpriteBlocks(currentObj);
+    }else{
+	for(var spriteI = 0; spriteI < project.children.length; spriteI++)
+	{
+	    if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
+		currentObj = project.children[spriteI];
+		scratchblocksText += parseSpriteBlocks(currentObj);
+	    }
 	}
     }
     
