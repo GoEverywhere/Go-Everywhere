@@ -18,6 +18,15 @@ blocks.push({
 		parameters: ["dropdown"],
                 group: "Events"
             });
+blocks.push({
+                type: "hat",
+                spec: "whenClicked",
+                label: "when this sprite clicked",
+                scratchblocks: "when this sprite clicked",
+                renderLabel: "when this sprite clicked",
+                parameters: [],
+                groups: "Events"
+})
 //**//CONTROL
 blocks.push({
 		type: "command",
