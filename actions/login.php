@@ -41,7 +41,7 @@ if (isset($_POST['un'])) {
             }
             if ($user_info['status'] == 'disabledbyadmin') {
                 $db->query('INSERT INTO bans(user_id,ip,expires,message,type) VALUES(0,\'' . $db->escape($_SERVER['REMOTE_ADDR']) . '\',' . (time() + 60 * 60 * 24 * 7) . ',\'' . $db->escape('You have been automatically banned from logging in for attempting to log in to a disabled account.') . '\',\'login\')') or error('Failed to autoban', __FILE__, __LINE__, $db->error());
-                echo 'Your account has been disabled by the Mod Share Team.'; die;
+                echo 'Your account has been disabled by the Go Everywhere Team!.'; die;
             }
             //bad login, apprise the user of the situation
             echo '<h2>Invalid login</h2>
