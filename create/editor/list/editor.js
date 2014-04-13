@@ -187,6 +187,9 @@ function loadCurrentSelectedSprite(){
 		var _isDefineBlock = false;
 		
 		var currentBlock = EditorTools.getBlockData(sprite.scripts[i][2][0][0]);
+		if (currentBlock.type == undefined) {
+		    console.error("Block with spec: " + currentBlock.spec + " doesn't have any block data!");
+		}
 		    if (currentBlock.type == "hat") {
 			tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][0]);
 			tmpScratchblocksText += "\n";
@@ -195,6 +198,9 @@ function loadCurrentSelectedSprite(){
 		for (var j = 1; j < sprite.scripts[i][2].length; j++) {
 		    //get block info
 		    currentBlock = EditorTools.getBlockData(sprite.scripts[i][2][j][0]);
+		    if (currentBlock.type == undefined) {
+			console.error("Block with spec: " + currentBlock.spec + " doesn't have any block data!");
+		    }
 		    
 		    //add it to the script
 		    tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][j]);
