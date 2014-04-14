@@ -26,10 +26,10 @@ var EditorTools = {
         return this.getBlockData("");
     },
         
-    getParameterCode : function(type) {
+    getParameterCode : function(type, project) {
         //return HTML for the parameter type
         switch (type) {
-            case "key":
+            case "key": //%k
                 return "<select>\n" +
                         "<option value=\"up\">up arrow</option>\n" +
                         "<option value=\"down\">down arrow</option>\n" +
@@ -74,7 +74,7 @@ var EditorTools = {
                         "<option value=\"9\">9</option>\n" +
                         "</select>\n";
                 break;
-            case "object":
+            case "object": //%o
                 var paramToReturn = "<select>\n" +
                         "<option name=\"mouse-pointer\">mouse-pointer</option>\n";
                     $("#toolbar #spriteSelect select option:not([name='Stage'],:selected)").each(function(){
@@ -83,7 +83,7 @@ var EditorTools = {
                     paramToReturn += "</select>\n";
                 return paramToReturn;
                 break;
-            case "math":
+            case "math": //%m
                 return "<select>\n" +
                         "<option value=\"abs\">abs</option>\n" +
                         "<option value=\"floor\">floot</option>\n" +
@@ -101,6 +101,27 @@ var EditorTools = {
                         "<option value=\"10 ^\">10 ^</option>\n" +
                         "</select>\n";
                 break;
+            case "backdrops": //%b
+                var myTotalSelector = "<select>\n";
+                $.each(project.costumes, function(index, value){
+                    myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>\n";
+                });
+                myTotalSelector += "</select>\n";
+                break;
+            case "sensor": //%s
+                return "<select>\n" +
+                        "<option value=\"loudness\">loudness</option>\n" +
+                        "<option value=\"timer\">timer</option>\n" +
+                        "<option value=\"video motion\">video motion</option>\n" +
+                        "</select>\n";
+                break;
+            /*case "broadcast": //%r
+                var myTotalSelector = "<select>\n";
+                $.each(project.costumes, function(index, value){
+                    myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>\n";
+                });
+                myTotalSelector += "</select>\n";
+                break;*/
         }
         return "";
     }

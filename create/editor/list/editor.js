@@ -299,7 +299,7 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
-	$(this).html(EditorTools.getParameterCode("key"));
+	$(this).html(EditorTools.getParameterCode("key", project));
 	$(this).find("option").each(function(){
 		if ($(this).val() == dropDownText) {
 			$(this).attr("selected", "true");
@@ -315,7 +315,7 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
-	$(this).html(EditorTools.getParameterCode("object"));
+	$(this).html(EditorTools.getParameterCode("object", project));
 	$(this).find("option").each(function(){
 	    if ($(this).val() == dropDownText) {
 		$(this).attr("selected", "true");
@@ -331,7 +331,39 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
-	$(this).html(EditorTools.getParameterCode("math"));
+	$(this).html(EditorTools.getParameterCode("math", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //Backdrop drop down tags
+    $("#blocks .dropdown:contains('%b')").each(function(){
+	//Backdrop drop down
+	//take out the %b
+	var dropDownText = $(this).html().replace('%b', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("backdrop", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //Sensor drop down tags
+    $("#blocks .dropdown:contains('%s')").each(function(){
+	//Sensor drop down
+	//take out the %s
+	var dropDownText = $(this).html().replace('%s', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("sensor", project));
 	$(this).find("option").each(function(){
 	    if ($(this).val() == dropDownText) {
 		$(this).attr("selected", "true");

@@ -3,7 +3,6 @@
 blocks.push({
                 type: "hat",
                 spec: "whenGreenFlag",
-                label: "when green flag clicked",
 		scratchblocks: "when green flag clicked",
 		renderLabel: "when  clicked",
 		parameters: [],
@@ -12,7 +11,6 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenKeyPressed",
-                label: "when %k key pressed",
 		scratchblocks: "when [%k{$1} v] key pressed",
 		renderLabel: "when  key pressed",
 		parameters: ["dropdown"],
@@ -21,12 +19,33 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenClicked",
-                label: "when this sprite clicked",
                 scratchblocks: "when this sprite clicked",
                 renderLabel: "when this sprite clicked",
                 parameters: [],
                 groups: "Events"
-})
+});
+blocks.push({
+                type: "hat",
+                spec: "whenSceneStarts",
+                scratchblocks: "when backdrop switches to [%b{$1} v]",
+                renderLabel: "when backdrop switches to ",
+                parameters: ["dropdown"],
+                group: "Events"
+});
+blocks.push({
+                type: "hat",
+                spec: "whenSensorGreaterThan",
+                scratchblocks: "when [%s{$1} v] > ($2)",
+                renderLabel: "when  > ",
+                parameters: ["dropdown",
+                             "number"],
+                group: "Events"
+});
+/*blocks.push({
+                type: "hat",
+                spec: "",
+                scratchblocks: "when I recieve [%r v]"
+});*/
 //**//CONTROL
 blocks.push({
 		type: "command",
@@ -39,7 +58,6 @@ blocks.push({
 blocks.push({
                 type: "c",
                 spec: "doForever",
-                label: "forever",
 		scratchblocks: "forever",
 		renderLabel: "forever",
 		parameters: [],
@@ -48,7 +66,6 @@ blocks.push({
 blocks.push({
 		type: "c",
 		spec: "doIf",
-		label: "if %b then",
 		scratchblocks: "if <$1> then",
 		renderLabel: "if  then",
 		parameters: ["boolean"],
@@ -57,7 +74,6 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "doWaitUntil",
-		label: "wait until %b",
 		scratchblocks: "wait until <$1>",
 		renderLabel: "wait until ",
 		parameters: ["boolean"],
@@ -67,7 +83,6 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "touching:",
-		label: "touching %o ?",
 		scratchblocks: "< touching [%o{$1} v]? >",
 		renderLabel: "touching ?",
 		parameters: ["dropdown"],
@@ -76,7 +91,6 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "timer",
-		label: "timer",
 		scratchblocks: "(timer)",
 		renderLabel: "timer",
 		parameters: [],
@@ -86,7 +100,6 @@ blocks.push({
 blocks.push({
                 type: "number",
                 spec: "+",
-                label: "%n + %n",
                 scratchblocks: "(($1) + ($2))",
 		renderLabel: " + ",
                 parameters: ["number",
@@ -96,7 +109,6 @@ blocks.push({
 blocks.push({
                 type: "number",
                 spec: "-",
-                label: "%n - %n",
                 scratchblocks: "(($1) - ($2))",
 		renderLabel: " - ",
                 parameters: ["number",
@@ -106,7 +118,6 @@ blocks.push({
 blocks.push({
                 type: "number",
                 spec: "*",
-                label: "%n * %n",
                 scratchblocks: "(($1) * ($2))",
 		renderLabel: " * ",
                 parameters: ["number",
@@ -116,7 +127,6 @@ blocks.push({
 blocks.push({
                 type: "number",
                 spec: "/",
-                label: "%n / %n",
                 scratchblocks: "(($1) / ($2))",
 		renderLabel: " / ",
                 parameters: ["number",
@@ -126,7 +136,6 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "not",
-		label: "not %b",
 		scratchblocks: "< not <$1> >",
 		renderLabel: "not ",
 		parameters: ["boolean"],
@@ -135,7 +144,6 @@ blocks.push({
 blocks.push({
 		type: "number",
 		spec: "computeFunction:of:",
-		label: "%m of (%n)",
 		scratchblocks: "([%m{$1} v] of ($2))",
 		renderLabel: " of ",
 		parameters: ["dropdown",
@@ -146,7 +154,6 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "pointTowards:",
-		label: "point towards %o",
 		scratchblocks: "point towards [%o{$1} v]",
 		renderLabel: "point towards ",
 		parameters: ["dropdown"],
@@ -155,7 +162,6 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "gotoX:y:",
-		label: "go to x:(%n) y:(%n)",
 		scratchblocks: "go to x:($1) y:($2)",
 		renderLabel: "go to x: y:",
 		parameters: ["number",
@@ -165,7 +171,6 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "gotoSpriteOrMouse:",
-		label: "go to %o",
 		scratchblocks: "go to [%o{$1} v]",
 		renderLabel: "go to ",
 		parameters: ["dropdown"],
@@ -175,7 +180,6 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "say:",
-		label: "say %s",
 		scratchblocks: "say [$1]",
 		renderLabel: "say ",
 		parameters: ["string"],
@@ -184,7 +188,6 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "nextCostume",
-                label: "next costume",
 		scratchblocks: "next costume",
 		renderLabel: "next costume",
 		parameters: [],
@@ -193,7 +196,6 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "setSizeTo:",
-		label: "set size to %n",
 		scratchblocks: "set size to ($1) %",
 		renderLabel: "set size to  %",
 		parameters: ["number"],
