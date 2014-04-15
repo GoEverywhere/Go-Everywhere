@@ -9,7 +9,7 @@ var EditorTools = {
         return {
             type: undefined,
             spec: spec,
-            label: undefined,
+            renderLabel: spec,
             scratchblocks: undefined,
             parameters: undefined,
             group: "Obsolete"
@@ -17,13 +17,17 @@ var EditorTools = {
     },
     getBlockDataFromScratchblocks : function(cat, label)
     {
-        for(var i = 0; i < blocks.length; i++)
-        {
-            if (blocks[i].group.toLowerCase() == cat && blocks[i].renderLabel == label) {
-                return blocks[i];
+        var rightBlock = this.getBlockData("");
+        $.each(blocks, function(index, currentBlock){
+            if (currentBlock.group == undefined) {
+                console.warn("Warning: label: \"" + label + "\" has something wrong");
             }
-        }
-        return this.getBlockData("");
+            if (currentBlock.group.toLowerCase() == cat && currentBlock.renderLabel == label) {
+                rightBlock = currentBlock;
+                return false;
+            }
+        });
+        return rightBlock;
     },
         
     getParameterCode : function(type, project) {
@@ -115,13 +119,14 @@ var EditorTools = {
                         "<option value=\"video motion\">video motion</option>\n" +
                         "</select>\n";
                 break;
-            /*case "broadcast": //%r
+            case "broadcast": //%r
                 var myTotalSelector = "<select>\n";
-                $.each(project.costumes, function(index, value){
-                    myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>\n";
+                $.each(broadcasts, function(index, value){
+                    myTotalSelector += "<option value=\"" + value + "\">" + value + "</option>\n";
                 });
+                myTotalSelector += "<option value=\"message1\">message1</option>\n";
                 myTotalSelector += "</select>\n";
-                break;*/
+                break;
         }
         return "";
     }

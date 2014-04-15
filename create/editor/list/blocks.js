@@ -20,15 +20,15 @@ blocks.push({
                 type: "hat",
                 spec: "whenClicked",
                 scratchblocks: "when this sprite clicked",
-                renderLabel: "when this sprite clicked",
+                renderLabel: "",
                 parameters: [],
-                groups: "Events"
+                group: "Events"
 });
 blocks.push({
                 type: "hat",
                 spec: "whenSceneStarts",
                 scratchblocks: "when backdrop switches to [%b{$1} v]",
-                renderLabel: "when backdrop switches to ",
+                renderLabel: "",
                 parameters: ["dropdown"],
                 group: "Events"
 });
@@ -36,22 +36,49 @@ blocks.push({
                 type: "hat",
                 spec: "whenSensorGreaterThan",
                 scratchblocks: "when [%s{$1} v] > ($2)",
-                renderLabel: "when  > ",
+                renderLabel: "",
                 parameters: ["dropdown",
                              "number"],
                 group: "Events"
 });
-/*blocks.push({
+blocks.push({
                 type: "hat",
-                spec: "",
-                scratchblocks: "when I recieve [%r v]"
-});*/
+                spec: "whenIReceive",
+                scratchblocks: "when I recieve [%r{$1} v]",
+                renderLabel: "",
+                parameters: ["dropdown"],
+                group: "Events"
+});
+blocks.push({
+                type: "command",
+                spec: "broadcast:",
+                scratchblocks: "broadcast [%r{$1} v]",
+                renderLabel: "",
+                parameters: ["dropdown"],
+                group: "Events"
+});
+blocks.push({
+                type: "command",
+                spec: "doBroadcastAndWait",
+                scratchblocks: "broadcast [%r{$1} v] and wait",
+                renderLabel: "",
+                parameters: ["dropdown"],
+                group: "Events"
+});
 //**//CONTROL
 blocks.push({
 		type: "command",
 		spec: "wait:elapsed:from:",
 		scratchblocks: "wait ($1) secs",
 		renderLabel: "wait  secs",
+		parameters: ["number"],
+		group: "Control"
+	    });
+blocks.push({
+		type: "c",
+		spec: "doRepeat",
+		scratchblocks: "repeat ($1)",
+		renderLabel: "",
 		parameters: ["number"],
 		group: "Control"
 	    });
@@ -94,6 +121,22 @@ blocks.push({
 		scratchblocks: "(timer)",
 		renderLabel: "timer",
 		parameters: [],
+		group: "Sensing"
+	    });
+blocks.push({
+		type: "command",
+		spec: "timerReset",
+		scratchblocks: "reset timer",
+		renderLabel: "",
+		parameters: [],
+		group: "Sensing"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "setVideoTransparency",
+		scratchblocks: "set video transparency to ($1) %",
+		renderLabel: "",
+		parameters: ["number"],
 		group: "Sensing"
 	    });
 //**//OPERATORS

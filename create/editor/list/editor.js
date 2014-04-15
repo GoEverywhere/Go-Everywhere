@@ -213,6 +213,15 @@ function loadCurrentSelectedSprite(){
 			//add an end tag
 			tmpScratchblocksText += "end\n";
 		    }
+		    if (currentBlock.type == "special") {
+			//special blocks are similar to "c" blocks,
+			//but can have more than one mouth.
+			//The scratchblocks2 code from block data will be:
+			//first;second
+			//Just split the ; out, and find the C shape within each of the split
+			
+			//MAJOR TO DO!
+		    }
 		}
 		
 		if (_isDefineBlock) {
@@ -364,6 +373,22 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
 	$(this).html(EditorTools.getParameterCode("sensor", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //Broadcast drop down tags
+    $("#blocks .dropdown:contains('%r')").each(function(){
+	//Sensor drop down
+	//take out the %r
+	var dropDownText = $(this).html().replace('%r', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("broadcast", project));
 	$(this).find("option").each(function(){
 	    if ($(this).val() == dropDownText) {
 		$(this).attr("selected", "true");
