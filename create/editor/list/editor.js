@@ -220,7 +220,20 @@ function loadCurrentSelectedSprite(){
 			//first;second
 			//Just split the ; out, and find the C shape within each of the split
 			
-			//MAJOR TO DO!
+			//The first one is already in text, we need to get the blocks from it
+			tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
+			//Loop through each after the ; and i != 0, put down name and get blocks
+			$.each(currentBlock.scratchblocks.split(";"), function(index, value){
+			    if (index == 0) {
+				return true;
+			    }
+			    tmpScratchblocksText += value + "\n";
+			    //tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
+			    
+			});
+			//add an end tag
+			tmpScratchblocksText += "end\n";
+			//MUST BE FIXED!!!
 		    }
 		}
 		
@@ -234,6 +247,9 @@ function loadCurrentSelectedSprite(){
     function generateBlockTextWithParameters(blockToDecodeParameters)
     {
 	var currentBlockText = EditorTools.getBlockData(blockToDecodeParameters[0]).scratchblocks;
+	if (EditorTools.getBlockData(blockToDecodeParameters[0]).type == "special") {
+	    currentBlockText = currentBlockText.split(";")[0];
+	}
 	//Go through each parameter and add blocks
 	if (EditorTools.getBlockData(blockToDecodeParameters[0]).parameters.length > 0) {
 	    for(var parameterI = 0; parameterI < EditorTools.getBlockData(blockToDecodeParameters[0]).parameters.length; parameterI++)
@@ -381,7 +397,7 @@ function loadCurrentSelectedSprite(){
     });
     //Broadcast drop down tags
     $("#blocks .dropdown:contains('%r')").each(function(){
-	//Sensor drop down
+	//broadcast drop down
 	//take out the %r
 	var dropDownText = $(this).html().replace('%r', '');
 	//take out the { and }
@@ -389,6 +405,38 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
 	$(this).html(EditorTools.getParameterCode("broadcast", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //stopScripts drop down tags
+    $("#blocks .dropdown:contains('%a')").each(function(){
+	//stopScripts drop down
+	//take out the %a
+	var dropDownText = $(this).html().replace('%a', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("stopScripts", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //sprites drop down tags
+    $("#blocks .dropdown:contains('%p')").each(function(){
+	//sprites drop down
+	//take out the %p
+	var dropDownText = $(this).html().replace('%p', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("sprites", project));
 	$(this).find("option").each(function(){
 	    if ($(this).val() == dropDownText) {
 		$(this).attr("selected", "true");

@@ -99,6 +99,14 @@ blocks.push({
 		group: "Control"
 	    });
 blocks.push({
+                type: "special",
+                spec: "doIfElse",
+                scratchblocks: "if <$1> then;else",
+                renderLabel: "",
+                parameters: ["boolean"],
+                group: "Control"
+});
+blocks.push({
 		type: "command",
 		spec: "doWaitUntil",
 		scratchblocks: "wait until <$1>",
@@ -106,6 +114,46 @@ blocks.push({
 		parameters: ["boolean"],
 		group: "Control"
 	    });
+blocks.push({
+                type: "c",
+                spec: "doUntil",
+                scratchblocks: "repeat until <$1>",
+                renderLabel: "",
+                parameters: ["boolean"],
+                group: "Control"
+});
+blocks.push({
+                type: "command",
+                spec: "stopScripts",
+                scratchblocks: "stop [%a{$1} v]",
+                renderLabel: "",
+                parameters: ["dropdown"],
+                group: "Control"
+});
+blocks.push({
+                type: "hat",
+                spec: "whenCloned",
+                scratchblocks: "when I start as a clone",
+                renderLabel: "",
+                parameters: [],
+                group: "Control"
+});
+blocks.push({
+                type: "command",
+                spec: "createCloneOf",
+                scratchblocks: "create clone of [%p{$1} v]",
+                renderLabel: "",
+                parameters: ["dropdown"],
+                group: "Control"
+});
+blocks.push({
+                type: "command",
+                spec: "deleteClone",
+                scratchblocks: "delete this clone",
+                renderLabel: "",
+                parameters: [],
+                group: "Control"
+});
 //**//SENSING
 blocks.push({
 		type: "boolean",
@@ -115,6 +163,14 @@ blocks.push({
 		parameters: ["dropdown"],
 		group: "Sensing"
 	    });
+/*blocks.push({
+		type: "boolean",
+		spec: "touchingColor:",
+		scratchblocks: "< touching color ? >",
+		renderLabel: "touching ?",
+		parameters: ["dropdown"],
+		group: "Sensing"
+	    });*/
 blocks.push({
 		type: "reporter",
 		spec: "timer",

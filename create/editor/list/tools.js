@@ -126,6 +126,23 @@ var EditorTools = {
                 });
                 myTotalSelector += "<option value=\"message1\">message1</option>\n";
                 myTotalSelector += "</select>\n";
+                return myTotalSelector;
+                break;
+            case "stopScripts": //%a
+                return "<select>\n" +
+                        "<option value=\"all\">all</option>\n" +
+                        "<option value=\"this script\">this script</option>\n" +
+                        "<option value=\"other scripts in sprite\">other scripts in sprite</option>\n" +
+                        "</select>\n";
+                break;
+            case "sprites": //%p
+                var paramToReturn = "<select>\n" +
+                        "<option name=\"myself\">myself</option>\n";
+                    $("#toolbar #spriteSelect select option:not([name='Stage'])").each(function(){
+                        paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
+                    });
+                    paramToReturn += "</select>\n";
+                return paramToReturn;
                 break;
         }
         return "";
