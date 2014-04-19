@@ -600,7 +600,7 @@ function loadCurrentSelectedSprite(){
     $("#blocks ul").sortable({
 	axis: "both",
 	placeholder: "block-placeholder",
-	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .embedded)",
+	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .reporter)",
 	connectWith: "#blocks ul",
 	start: function(event, ui){
 	    //Hide the new button, Show the garbage bin
