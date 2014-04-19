@@ -90,7 +90,7 @@ var EditorTools = {
             case "math": //%m
                 return "<select>\n" +
                         "<option value=\"abs\">abs</option>\n" +
-                        "<option value=\"floor\">floot</option>\n" +
+                        "<option value=\"floor\">floor</option>\n" +
                         "<option value=\"ceiling\">ceiling</option>\n" +
                         "<option value=\"sqrt\">sqrt</option>\n" +
                         "<option value=\"sin\">sin</option>\n" +
