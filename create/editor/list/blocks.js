@@ -20,7 +20,7 @@ blocks.push({
                 type: "hat",
                 spec: "whenClicked",
                 scratchblocks: "when this sprite clicked",
-                renderLabel: "",
+                renderLabel: "when this sprite clicked",
                 parameters: [],
                 group: "Events"
 });
@@ -28,7 +28,7 @@ blocks.push({
                 type: "hat",
                 spec: "whenSceneStarts",
                 scratchblocks: "when backdrop switches to [%b{$1} v]",
-                renderLabel: "",
+                renderLabel: "when backdrop switches to ",
                 parameters: ["dropdown"],
                 group: "Events"
 });
@@ -36,7 +36,7 @@ blocks.push({
                 type: "hat",
                 spec: "whenSensorGreaterThan",
                 scratchblocks: "when [%s{$1} v] > ($2)",
-                renderLabel: "",
+                renderLabel: "when  > ",
                 parameters: ["dropdown",
                              "number"],
                 group: "Events"
@@ -110,7 +110,7 @@ blocks.push({
 		type: "command",
 		spec: "doWaitUntil",
 		scratchblocks: "wait until <$1>",
-		renderLabel: "wait until ",
+		renderLabel: "wait until",
 		parameters: ["boolean"],
 		group: "Control"
 	    });
@@ -118,7 +118,7 @@ blocks.push({
                 type: "c",
                 spec: "doUntil",
                 scratchblocks: "repeat until <$1>",
-                renderLabel: "",
+                renderLabel: "repeat until",
                 parameters: ["boolean"],
                 group: "Control"
 });
@@ -134,7 +134,7 @@ blocks.push({
                 type: "hat",
                 spec: "whenCloned",
                 scratchblocks: "when I start as a clone",
-                renderLabel: "",
+                renderLabel: "when I start as a clone",
                 parameters: [],
                 group: "Control"
 });
@@ -142,7 +142,7 @@ blocks.push({
                 type: "command",
                 spec: "createCloneOf",
                 scratchblocks: "create clone of [%p{$1} v]",
-                renderLabel: "",
+                renderLabel: "create clone of ",
                 parameters: ["dropdown"],
                 group: "Control"
 });
@@ -150,7 +150,7 @@ blocks.push({
                 type: "command",
                 spec: "deleteClone",
                 scratchblocks: "delete this clone",
-                renderLabel: "",
+                renderLabel: "delete this clone",
                 parameters: [],
                 group: "Control"
 });
@@ -158,7 +158,7 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "touching:",
-		scratchblocks: "< touching [%o{$1} v]? >",
+		scratchblocks: "<touching [%o{$1} v]?>",
 		renderLabel: "touching ?",
 		parameters: ["dropdown"],
 		group: "Sensing"
@@ -166,9 +166,9 @@ blocks.push({
 /*blocks.push({
 		type: "boolean",
 		spec: "touchingColor:",
-		scratchblocks: "< touching color ? >",
+		scratchblocks: "<touching color [#$1]?>",
 		renderLabel: "touching ?",
-		parameters: ["dropdown"],
+		parameters: ["color"],
 		group: "Sensing"
 	    });*/
 blocks.push({
@@ -183,7 +183,7 @@ blocks.push({
 		type: "command",
 		spec: "timerReset",
 		scratchblocks: "reset timer",
-		renderLabel: "",
+		renderLabel: "reset timer",
 		parameters: [],
 		group: "Sensing"
 	    });
@@ -191,13 +191,13 @@ blocks.push({
 		type: "reporter",
 		spec: "setVideoTransparency",
 		scratchblocks: "set video transparency to ($1) %",
-		renderLabel: "",
+		renderLabel: "set video transparency to  %",
 		parameters: ["number"],
 		group: "Sensing"
 	    });
 //**//OPERATORS
 blocks.push({
-                type: "number",
+                type: "reporter",
                 spec: "+",
                 scratchblocks: "(($1) + ($2))",
 		renderLabel: " + ",
@@ -206,7 +206,7 @@ blocks.push({
                 group: "Operators"
             });
 blocks.push({
-                type: "number",
+                type: "reporter",
                 spec: "-",
                 scratchblocks: "(($1) - ($2))",
 		renderLabel: " - ",
@@ -215,7 +215,7 @@ blocks.push({
                 group: "Operators"
             });
 blocks.push({
-                type: "number",
+                type: "reporter",
                 spec: "*",
                 scratchblocks: "(($1) * ($2))",
 		renderLabel: " * ",
@@ -224,7 +224,7 @@ blocks.push({
                 group: "Operators"
             });
 blocks.push({
-                type: "number",
+                type: "reporter",
                 spec: "/",
                 scratchblocks: "(($1) / ($2))",
 		renderLabel: " / ",
@@ -241,7 +241,7 @@ blocks.push({
 		group: "Operators"
 	    });
 blocks.push({
-		type: "number",
+		type: "reporter",
 		spec: "computeFunction:of:",
 		scratchblocks: "([%m{$1} v] of ($2))",
 		renderLabel: " of ",

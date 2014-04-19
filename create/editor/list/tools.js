@@ -111,6 +111,7 @@ var EditorTools = {
                     myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>\n";
                 });
                 myTotalSelector += "</select>\n";
+                return myTotalSelector;
                 break;
             case "sensor": //%s
                 return "<select>\n" +

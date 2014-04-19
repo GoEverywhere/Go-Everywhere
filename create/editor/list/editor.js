@@ -178,124 +178,91 @@ function doneReadingZip(zip) {
 function loadCurrentSelectedSprite(){
     var scratchblocksText = "";
     
-    function parseSpriteBlocks(sprite) {
-	//Put the scripts of the first sprite onto the page
-	var tmpScratchblocksText = "";
-	if (sprite.scripts) {
-	    //loop through each script
-	    for (var i = 0; i < sprite.scripts.length; i++) {
-		var _isDefineBlock = false;
-		
-		var currentBlock = EditorTools.getBlockData(sprite.scripts[i][2][0][0]);
-		if (currentBlock.type == undefined) {
-		    console.error("Block with spec: " + currentBlock.spec + " doesn't have any block data!");
-		}
-		    if (currentBlock.type == "hat") {
-			tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][0]);
-			tmpScratchblocksText += "\n";
-		    }
-		
-		for (var j = 1; j < sprite.scripts[i][2].length; j++) {
-		    //get block info
-		    currentBlock = EditorTools.getBlockData(sprite.scripts[i][2][j][0]);
-		    if (currentBlock.type == undefined) {
-			console.error("Block with spec: " + currentBlock.spec + " doesn't have any block data!");
-		    }
-		    
-		    //add it to the script
-		    tmpScratchblocksText += generateBlockTextWithParameters(sprite.scripts[i][2][j]);
-		    tmpScratchblocksText += "\n";
-		    
-		    if (currentBlock.type == "c") {
-			//get the label of the blocks and add them to the script
-			//Add in the lists for the blocks
-			tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
-			//add an end tag
-			tmpScratchblocksText += "end\n";
-		    }
-		    if (currentBlock.type == "special") {
-			//special blocks are similar to "c" blocks,
-			//but can have more than one mouth.
-			//The scratchblocks2 code from block data will be:
-			//first;second
-			//Just split the ; out, and find the C shape within each of the split
-			
-			//The first one is already in text, we need to get the blocks from it
-			tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
-			//Loop through each after the ; and i != 0, put down name and get blocks
-			$.each(currentBlock.scratchblocks.split(";"), function(index, value){
-			    if (index == 0) {
-				return true;
-			    }
-			    tmpScratchblocksText += value + "\n";
-			    //tmpScratchblocksText += generateCShapeBlocks(sprite.scripts[i][2][j]);
-			    
-			});
-			//add an end tag
-			tmpScratchblocksText += "end\n";
-			//MUST BE FIXED!!!
-		    }
-		}
-		
-		if (_isDefineBlock) {
-		    tmpScratchblocksText += "end\n";
-		}
-	    }
-	}
-	return tmpScratchblocksText;
+    function findScratchBlocksFromStack(stackArray) {
+	var totalStackText = "";
+	
+	$.each(stackArray, function(index, value){
+	    totalStackText += findScratchBlocksFromBlockArray(value);
+	});
+	
+	return totalStackText;
     }
-    function generateBlockTextWithParameters(blockToDecodeParameters)
-    {
-	var currentBlockText = EditorTools.getBlockData(blockToDecodeParameters[0]).scratchblocks;
-	if (EditorTools.getBlockData(blockToDecodeParameters[0]).type == "special") {
-	    currentBlockText = currentBlockText.split(";")[0];
+    function findScratchBlocksFromBlockArray(singleBlockArray) {
+	var myScratchBlocks = "";
+	//Store the block's data (first item in any block is it's label, except custom blocks?);
+	var myBlockData = EditorTools.getBlockData(singleBlockArray[0]);
+	if (myBlockData.type == undefined) {
+	    console.error("Block with spec: " + myBlockData.spec + " doesn't have any block data!");
 	}
-	//Go through each parameter and add blocks
-	if (EditorTools.getBlockData(blockToDecodeParameters[0]).parameters.length > 0) {
-	    for(var parameterI = 0; parameterI < EditorTools.getBlockData(blockToDecodeParameters[0]).parameters.length; parameterI++)
-	    {
-		//See if it is a block parameter
-		if (EditorTools.getBlockData(blockToDecodeParameters[1 + parameterI][0]).type == undefined) {
-			//No. Put it straight in. That was easy ;D
-			currentBlockText = currentBlockText.replace("$" + (parameterI + 1), blockToDecodeParameters[1 + parameterI]);
-		}else{
-			//Yes. Put in the block, and do parameters off of that, too.
-			currentBlockText = currentBlockText.replace(new RegExp('((\\<|\\[|\\()\\$' + (1 + parameterI) + '(\\)|\\]|\\>))',["i"]), generateBlockTextWithParameters(blockToDecodeParameters[1 + parameterI]));
+	//Switch the type of it
+	switch(myBlockData.type)
+	{
+	    case "hat":
+		//A hat block is as follows:
+		//The first item in the blockArray is the label.
+		//Then, come the parameters.
+		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
+		break;
+	    case "command":
+	    case "stack":
+		//A stack block is as follows:
+		//The first item in the blockArray is the label.
+		//Then, come the parameters.
+		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
+		break;
+	    case "c":
+		//A normal C-shape is as follows:
+		//The first item in the blockArray is the label.
+		//Then, come the parameters.
+		//After parameters (parameter-offset) is a stack of blocks inside the C-shape.
+		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
+		//If the parameter-offset is null, that means that
+		//there are no blocks in the C-shape.
+		if (singleBlockArray[1 + myBlockData.parameters.length] !== null) {
+		    //Loop through the mini-stack
+		    myScratchBlocks += findScratchBlocksFromStack(singleBlockArray[1 + myBlockData.parameters.length]);
 		}
-	    }
-	}
-	return currentBlockText;
-    }
-    function generateCShapeBlocks(blockToDecode) {
-	var totalScripts = "";
-	//loop through the loop's blocks
-	//window.alert(JSON.stringify(blockToDecode[1]));
-	var blockTupleOffset = EditorTools.getBlockData(blockToDecode[0]).parameters.length;
-	for (var k = 0; k < blockToDecode[1].length; k++) {
-	    var currentDecodingBlock = EditorTools.getBlockData(blockToDecode[1 + blockTupleOffset][k][0]);
-	    //add it to the scripts
-	    //totalScripts += currentDecodingBlock.scratchblocks;
-	    totalScripts += generateBlockTextWithParameters(blockToDecode[1 + blockTupleOffset][k]);
-	    totalScripts += "\n";
+		myScratchBlocks += "end\n";
+		break;
+	    case "reporter":
+	    case "boolean":
+		//A reporter/boolean is as follows:
+		//The first item in the blockArray is the label.
+		//Then, come the parameters.
+		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray);
+		break;
 	    
-	    if (currentDecodingBlock.type == "c") {
-		//C-block!
-		totalScripts += generateCShapeBlocks(blockToDecode[1 + blockTupleOffset][k]);
-		totalScripts += "end\n";
-	    }
 	}
-	return totalScripts;
+	return myScratchBlocks;
+    }
+    function replaceTextWithParameters(blockData, blockArray) {
+	var myScratchBlocks = blockData.scratchblocks;
+	$.each(blockData.parameters, function(index, value){
+	    if (EditorTools.getBlockData(blockArray[1 + index][0]).type == undefined) {
+		//Just the default value. Replace the $i's with their parameter value.
+		myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), blockArray[1 + index]);
+	    }else{
+		//That's a block in there!
+		myScratchBlocks = myScratchBlocks.replace(new RegExp('((\\<|\\[|\\()\\$' + (index + 1) + '(\\)|\\]|\\>))',["i"]), findScratchBlocksFromBlockArray(blockArray[1 + index]));
+	    }
+	});
+	return myScratchBlocks;
     }
     
     if ($("#toolbar #spriteSelect select").val() == project.objName) {
 	currentObj = project;
-	scratchblocksText += parseSpriteBlocks(currentObj);
+	//scratchblocksText += parseSpriteBlocks(currentObj);
+	$.each(currentObj.scripts, function(index, value){
+	    scratchblocksText += findScratchBlocksFromStack(value[2]) + "\n";
+	});
     }else{
 	for(var spriteI = 0; spriteI < project.children.length; spriteI++)
 	{
 	    if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
 		currentObj = project.children[spriteI];
-		scratchblocksText += parseSpriteBlocks(currentObj);
+		$.each(currentObj.scripts, function(index, value){
+		    scratchblocksText += findScratchBlocksFromStack(value[2]) + "\n";
+		});
 	    }
 	}
     }
@@ -372,7 +339,7 @@ function loadCurrentSelectedSprite(){
 	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
 	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
 	
-	$(this).html(EditorTools.getParameterCode("backdrop", project));
+	$(this).html(EditorTools.getParameterCode("backdrops", project));
 	$(this).find("option").each(function(){
 	    if ($(this).val() == dropDownText) {
 		$(this).attr("selected", "true");
