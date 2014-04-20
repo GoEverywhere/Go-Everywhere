@@ -209,228 +209,25 @@ function loadCurrentSelectedSprite(){
     $("#blocks .string").each(function(){
 	$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
     });
-    //Key drop down tags
-    $("#blocks .dropdown:contains('%k')").each(function(){
-	//Key drop down
-	//take out the %k
-	var dropDownText = $(this).html().replace('%k', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("key", project));
-	$(this).find("option").each(function(){
+    //Dropdown menus
+    $.each(params, function(index, value){
+	$("#blocks .dropdown:contains('%m." + value.name + "')").each(function(){
+	    var mySelf = this;
+	    //take out %m.[menuName]
+	    var dropDownText = $(mySelf).html().replace('%m.' + value.name, '');
+	    //take out the { and }
+	    dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	    dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	    //Put in the parameter code
+	    $(mySelf).html(value.getCode({
+		currentObj: currentObj,
+		project: project
+	    }));
+	    $(mySelf).find("option").each(function(){
 		if ($(this).val() == dropDownText) {
-			$(this).attr("selected", "true");
+		    $(this).attr("selected", "true");
 		}
-	});
-    });
-    //Object drop down tags
-    $("#blocks .dropdown:contains('%o')").each(function(){
-	//Object drop down
-	//take out the %o
-	var dropDownText = $(this).html().replace('%o', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("object", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //Math drop down tags
-    $("#blocks .dropdown:contains('%m')").each(function(){
-	//Math drop down
-	//take out the %m
-	var dropDownText = $(this).html().replace('%m', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("math", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //Backdrop drop down tags
-    $("#blocks .dropdown:contains('%b')").each(function(){
-	//Backdrop drop down
-	//take out the %b
-	var dropDownText = $(this).html().replace('%b', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("backdrops", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //Sensor drop down tags
-    $("#blocks .dropdown:contains('%s')").each(function(){
-	//Sensor drop down
-	//take out the %s
-	var dropDownText = $(this).html().replace('%s', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("sensor", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //Broadcast drop down tags
-    $("#blocks .dropdown:contains('%r')").each(function(){
-	//broadcast drop down
-	//take out the %r
-	var dropDownText = $(this).html().replace('%r', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("broadcast", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //stopScripts drop down tags
-    $("#blocks .dropdown:contains('%a')").each(function(){
-	//stopScripts drop down
-	//take out the %a
-	var dropDownText = $(this).html().replace('%a', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("stopScripts", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //sprites drop down tags
-    $("#blocks .dropdown:contains('%p')").each(function(){
-	//sprites drop down
-	//take out the %p
-	var dropDownText = $(this).html().replace('%p', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("sprites", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //videoSensing drop down tags
-    $("#blocks .dropdown:contains('%v')").each(function(){
-	//videoSensing drop down
-	//take out the %v
-	var dropDownText = $(this).html().replace('%v', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("videoSensing", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //thisAndStage drop down tags
-    $("#blocks .dropdown:contains('%t')").each(function(){
-	//thisAndStage drop down
-	//take out the %t
-	var dropDownText = $(this).html().replace('%t', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("thisAndStage", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //videoState drop down tags
-    $("#blocks .dropdown:contains('%e')").each(function(){
-	//videoState drop down
-	//take out the %e
-	var dropDownText = $(this).html().replace('%e', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("videoState", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //sensingInfo drop down tags
-    $("#blocks .dropdown:contains('%i')").each(function(){
-	//sensingInfo drop down
-	//take out the %i
-	var dropDownText = $(this).html().replace('%i', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("sensingInfo", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //notMySprite drop down tags
-    $("#blocks .dropdown:contains('%n')").each(function(){
-	//notMySprite drop down
-	//take out the %n
-	var dropDownText = $(this).html().replace('%n', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("notMySprite", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
-	});
-    });
-    //date drop down tags
-    $("#blocks .dropdown:contains('%d')").each(function(){
-	//date drop down
-	//take out the %d
-	var dropDownText = $(this).html().replace('%d', '');
-	//take out the { and }
-	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	
-	$(this).html(EditorTools.getParameterCode("date", project));
-	$(this).find("option").each(function(){
-	    if ($(this).val() == dropDownText) {
-		$(this).attr("selected", "true");
-	    }
+	    });
 	});
     });
     

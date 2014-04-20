@@ -11,7 +11,7 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenKeyPressed",
-		scratchblocks: "when [%k{$1} v] key pressed",
+		scratchblocks: "when [%m.key{$1} v] key pressed",
 		renderLabel: "when  key pressed",
 		parameters: ["dropdown"],
                 group: "Events"
@@ -27,7 +27,7 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenSceneStarts",
-                scratchblocks: "when backdrop switches to [%b{$1} v]",
+                scratchblocks: "when backdrop switches to [%m.backdrop{$1} v]",
                 renderLabel: "when backdrop switches to ",
                 parameters: ["dropdown"],
                 group: "Events"
@@ -35,7 +35,7 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenSensorGreaterThan",
-                scratchblocks: "when [%s{$1} v] > ($2)",
+                scratchblocks: "when [%m.triggerSensor{$1} v] > ($2)",
                 renderLabel: "when  > ",
                 parameters: ["dropdown",
                              "number"],
@@ -44,7 +44,7 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenIReceive",
-                scratchblocks: "when I receive [%r{$1} v]",
+                scratchblocks: "when I receive [%m.broadcast{$1} v]",
                 renderLabel: "when I receive ",
                 parameters: ["dropdown"],
                 group: "Events"
@@ -52,7 +52,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "broadcast:",
-                scratchblocks: "broadcast [%r{$1} v]",
+                scratchblocks: "broadcast [%m.broadcast{$1} v]",
                 renderLabel: "broadcast ",
                 parameters: ["dropdown"],
                 group: "Events"
@@ -60,7 +60,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "doBroadcastAndWait",
-                scratchblocks: "broadcast [%r{$1} v] and wait",
+                scratchblocks: "broadcast [%m.broadcast{$1} v] and wait",
                 renderLabel: "broadcast  and wait",
                 parameters: ["dropdown"],
                 group: "Events"
@@ -126,7 +126,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "stopScripts",
-                scratchblocks: "stop [%a{$1} v]",
+                scratchblocks: "stop [%m.stop{$1} v]",
                 renderLabel: "stop ",
                 parameters: ["dropdown"],
                 group: "Control"
@@ -142,7 +142,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "createCloneOf",
-                scratchblocks: "create clone of [%p{$1} v]",
+                scratchblocks: "create clone of [%m.spriteOnly{$1} v]",
                 renderLabel: "create clone of ",
                 parameters: ["dropdown"],
                 group: "Control"
@@ -159,7 +159,7 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "touching:",
-		scratchblocks: "< touching [%o{$1} v]? >",
+		scratchblocks: "< touching [%m.touching{$1} v]? >",
 		renderLabel: "touching ?",
 		parameters: ["dropdown"],
 		group: "Sensing"
@@ -184,7 +184,7 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "distanceTo:",
-                scratchblocks: "( distance to [%o{$1} v] )",
+                scratchblocks: "( distance to [%m.spriteOrMouse{$1} v] )",
                 renderLabel: "distance to ",
                 parameters: ["dropdown"],
                 group: "Sensing"
@@ -208,7 +208,7 @@ blocks.push({
 blocks.push({
                 type: "boolean",
                 spec: "keyPressed:",
-                scratchblocks: "< key [%k{$1} v] pressed? >",
+                scratchblocks: "< key [%m.key{$1} v] pressed? >",
                 renderLabel: "key  pressed?",
                 parameters: ["dropdown"],
                 group: "Sensing"
@@ -264,7 +264,7 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "senseVideoMotion",
-                scratchblocks: "( video [%v{$1} v] on [%t{$2} v] )",
+                scratchblocks: "( video [%m.videoMotionType{$1} v] on [%m.stageOrThis{$2} v] )",
                 renderLabel: "video  on ",
                 parameters: ["dropdown",
                              "dropdown"],
@@ -273,7 +273,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "setVideoState",
-                scratchblocks: "turn video [%e{$1} v]",
+                scratchblocks: "turn video [%m.videoState{$1} v]",
                 renderLabel: "turn video ",
                 parameters: ["dropdown"],
                 group: "Sensing"
@@ -289,7 +289,7 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "getAttribute:of:",
-		scratchblocks: "( [%i{$1} v] of [%n{$2} v] )",
+		scratchblocks: "( [%m.sensor{$1} v] of [%m.spriteOrStage{$2} v] )",
 		renderLabel: " of ",
 		parameters: ["dropdown",
                              "dropdown"],
@@ -298,7 +298,7 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "timeAndDate",
-		scratchblocks: "( current [%d{$1} v] )",
+		scratchblocks: "( current [%m.timeAndDate{$1} v] )",
 		renderLabel: "current ",
 		parameters: ["dropdown"],
 		group: "Sensing"
@@ -464,7 +464,7 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "computeFunction:of:",
-		scratchblocks: "([%m{$1} v] of ($2))",
+		scratchblocks: "([%m.mathOp{$1} v] of ($2))",
 		renderLabel: " of ",
 		parameters: ["dropdown",
 			     "number"],
@@ -482,7 +482,7 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "pointTowards:",
-		scratchblocks: "point towards [%o{$1} v]",
+		scratchblocks: "point towards [%m.mathOp.spriteOrMouse{$1} v]",
 		renderLabel: "point towards ",
 		parameters: ["dropdown"],
 		group: "Motion"
@@ -499,7 +499,7 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "gotoSpriteOrMouse:",
-		scratchblocks: "go to [%o{$1} v]",
+		scratchblocks: "go to [%m.mathOp.spriteOrMouse{$1} v]",
 		renderLabel: "go to ",
 		parameters: ["dropdown"],
 		group: "Motion"
