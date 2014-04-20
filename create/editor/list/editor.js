@@ -16,7 +16,7 @@ function generateObjectJSON(){
 	    var miniParams = [];
 	    
 	    $.each(EditorTools.getBlockData($(el).attr("spec")).parameters, function(index, spec){
-		if (($($(el).children("div")[index]).hasClass("reporter") || $($(el).children("div")[index]).hasClass("boolean"))) {
+		if (($($(el).children("div")[index]).hasClass("reporter") || ($($(el).children("div")[index]).hasClass("boolean") && !$($(el).children("div")[index]).hasClass("empty")))) {
 		    var myEmbeddedBlocks = findEmbeddedBlocks($(el).children("div")[index]);
 		    for(var e = 0; e < myEmbeddedBlocks.length; e++)
 		    {
@@ -68,7 +68,7 @@ function generateObjectJSON(){
 	function findBlocks(el){
 	    var miniStack = [];
 	    //Loop through this parent's
-	    $(el).children(".hat,.stack,.cwrap,.reporter,.boolean").each(function(){
+	    $(el).children(".hat,.stack:not(.cstart,.cend,.celse),.cwrap,.reporter,.boolean").each(function(){
 		//If it is a stack or hat, just stick it in the array
 		if ($(this).hasClass("hat") || $(this).hasClass("stack") || $(this).hasClass("reporter") || $(this).hasClass("boolean")) {
 		    var myBlockData = EditorTools.getBlockData($(this).attr("spec"));
@@ -95,7 +95,9 @@ function generateObjectJSON(){
 			myTotal.push(myParams[p]);
 		    }
 		    
-		    myTotal.push(findBlocks($(this).children(".cmouth")));
+		    $(this).children(".cmouth").each(function(){
+			myTotal.push(findBlocks($(this)));
+		    });
 		    
 		    miniStack.push(myTotal);
 		}
