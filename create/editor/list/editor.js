@@ -435,7 +435,7 @@ function loadCurrentSelectedSprite(){
 	}
     });
     //Make input blocks draggable
-    $(".reporter, .boolean").draggable({
+    $(".reporter, .boolean:not(.empty)").draggable({
 	revert: "invalid",
 	helper: "clone",
 	start: function(event, ui){
