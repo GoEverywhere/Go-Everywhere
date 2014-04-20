@@ -105,7 +105,6 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
-    console.log(scripts);
     return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts

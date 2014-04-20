@@ -111,7 +111,7 @@ blocks.push({
 		type: "command",
 		spec: "doWaitUntil",
 		scratchblocks: "wait until <$1>",
-		renderLabel: "wait until",
+		renderLabel: "wait until ",
 		parameters: ["boolean"],
 		group: "Control"
 	    });
@@ -160,7 +160,7 @@ blocks.push({
 		type: "boolean",
 		spec: "touching:",
 		scratchblocks: "<touching [%o{$1} v]?>",
-		renderLabel: "touching ?",
+		renderLabel: "",
 		parameters: ["dropdown"],
 		group: "Sensing"
 	    });
@@ -172,6 +172,14 @@ blocks.push({
 		parameters: ["color"],
 		group: "Sensing"
 	    });*/
+blocks.push({
+                type: "boolean",
+                spec: "mousePressed",
+                scratchblocks: "<mouse down?>",
+                renderLabel: "",
+                parameters: [],
+                group: "Sensing"
+});
 blocks.push({
 		type: "reporter",
 		spec: "timer",

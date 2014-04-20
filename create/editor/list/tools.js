@@ -29,7 +29,7 @@ var EditorTools = {
         });
         return rightBlock;
     },
-    
+    /********************************************************************************************************************/
     findScratchBlocksFromStack: function(stackArray) {
 	var totalStackText = "";
 	
@@ -117,7 +117,7 @@ var EditorTools = {
 	    var myScratchBlocks = blockData.scratchblocks;
 	}
 	$.each(blockData.parameters, function(index, value){
-	    if (EditorTools.getBlockData(blockArray[1 + index][0]).type == undefined) {
+	    if (EditorTools.getBlockData(blockArray[1 + index][0]).type === undefined) {
 		if (blockArray[1 + index] === false) {
 		    //A blank boolean. Just remove the $[i]
 		    myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), "");
@@ -127,12 +127,12 @@ var EditorTools = {
 		}
 	    }else{
 		//That's a block in there!
-		myScratchBlocks = myScratchBlocks.replace(new RegExp('((\\<|\\[|\\()\\$' + (index + 1) + '(\\)|\\]|\\>))',["i"]), EditorTools.findScratchBlocksFromBlockArray(blockArray[1 + index]));
+		myScratchBlocks = myScratchBlocks.replace(new RegExp('((\\<|\\[|\\()\\$' + (index + 1) + '(\\)|\\]|\\>))',["i"]), EditorTools.logAndReturn(EditorTools.findScratchBlocksFromBlockArray(blockArray[1 + index])));
 	    }
 	});
 	return myScratchBlocks;
     },
-    
+    /********************************************************************************************************************/
     getParameterCode : function(type, project) {
         //return HTML for the parameter type
         switch (type) {
@@ -250,5 +250,11 @@ var EditorTools = {
                 break;
         }
         return "";
+    },
+    /********************************************************************************************************************/
+    logAndReturn: function(obj)
+    {
+        console.log(obj);
+        return obj;
     }
 }
