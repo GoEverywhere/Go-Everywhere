@@ -258,6 +258,55 @@ var EditorTools = {
                     paramToReturn += "</select>\n";
                 return paramToReturn;
                 break;
+            case "videoSensing": //%v
+                return "<select>\n" +
+                        "<option value=\"motion\">motion</option>\n" +
+                        "<option value=\"direction\">direction</option>\n" +
+                        "</select>\n";
+                break;
+            case "thisAndStage": //%t
+                return "<select>\n" +
+                        "<option value=\"Stage\">Stage</option>\n" +
+                        "<option value=\"this sprite\">this sprite</option>\n" +
+                        "</select>\n";
+                break;
+            case "videoState": //%e
+                return "<select>\n" +
+                        "<option value=\"off\">off</option>\n" +
+                        "<option value=\"on\">on</option>\n" +
+                        "<option value=\"on-flipped\">on-flipped</option>\n" +
+                        "</select>\n";
+                break;
+            case "sensingInfo": //%i
+                return "<select>\n" +
+                        "<option value=\"x position\">x position</option>\n" +
+                        "<option value=\"y position\">y position</option>\n" +
+                        "<option value=\"direction\">direction</option>\n" +
+                        "<option value=\"costume #\">costume #</option>\n" +
+                        "<option value=\"costume name\">costume name</option>\n" +
+                        "<option value=\"size\">size</option>\n" +
+                        "<option value=\"volume\">volume</option>\n" +
+                        "</select>\n";
+                break;
+            case "notMySprite": //%n
+                var paramToReturn = "<select>\n";
+                    $("#toolbar #spriteSelect select option:not(:selected)").each(function(){
+                        paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
+                    });
+                    paramToReturn += "</select>\n";
+                return paramToReturn;
+                break;
+            case "date": //%d
+                return "<select>\n" +
+                        "<option value=\"year\">year</option>\n" +
+                        "<option value=\"month\">month</option>\n" +
+                        "<option value=\"date\">date</option>\n" +
+                        "<option value=\"day of week\">day of week</option>\n" +
+                        "<option value=\"hour\">hour</option>\n" +
+                        "<option value=\"minute\">minute</option>\n" +
+                        "<option value=\"second\">second</option>\n" +
+                        "</select>\n";
+                break;
         }
         return "";
     },

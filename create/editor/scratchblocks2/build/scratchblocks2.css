@@ -123,6 +123,7 @@
 }
 .sb2 .control > .dropdown,
 .sb2 .control > .boolean.empty,
+.sb2 .control select,
 .sb2 .control > .color {
   background: #cf9b17;
   border-color: #7e5e0e #d4a631 #d4a631 #7e5e0e;

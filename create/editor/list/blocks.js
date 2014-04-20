@@ -44,8 +44,8 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenIReceive",
-                scratchblocks: "when I recieve [%r{$1} v]",
-                renderLabel: "",
+                scratchblocks: "when I receive [%r{$1} v]",
+                renderLabel: "when I receive ",
                 parameters: ["dropdown"],
                 group: "Events"
 });
@@ -53,7 +53,7 @@ blocks.push({
                 type: "command",
                 spec: "broadcast:",
                 scratchblocks: "broadcast [%r{$1} v]",
-                renderLabel: "",
+                renderLabel: "broadcast ",
                 parameters: ["dropdown"],
                 group: "Events"
 });
@@ -61,7 +61,7 @@ blocks.push({
                 type: "command",
                 spec: "doBroadcastAndWait",
                 scratchblocks: "broadcast [%r{$1} v] and wait",
-                renderLabel: "",
+                renderLabel: "broadcast  and wait",
                 parameters: ["dropdown"],
                 group: "Events"
 });
@@ -78,7 +78,7 @@ blocks.push({
 		type: "c",
 		spec: "doRepeat",
 		scratchblocks: "repeat ($1)",
-		renderLabel: "",
+		renderLabel: "repeat ",
 		parameters: ["number"],
 		group: "Control"
 	    });
@@ -119,7 +119,7 @@ blocks.push({
                 type: "c",
                 spec: "doUntil",
                 scratchblocks: "repeat until <$1>",
-                renderLabel: "repeat until",
+                renderLabel: "repeat until ",
                 parameters: ["boolean"],
                 group: "Control"
 });
@@ -127,7 +127,7 @@ blocks.push({
                 type: "command",
                 spec: "stopScripts",
                 scratchblocks: "stop [%a{$1} v]",
-                renderLabel: "",
+                renderLabel: "stop ",
                 parameters: ["dropdown"],
                 group: "Control"
 });
@@ -168,15 +168,80 @@ blocks.push({
 		type: "boolean",
 		spec: "touchingColor:",
 		scratchblocks: "< touching color [#$1]? >",
-		renderLabel: "",
+		renderLabel: "touching color ?",
 		parameters: ["color"],
 		group: "Sensing"
 	    });
 blocks.push({
+		type: "boolean",
+		spec: "color:sees:",
+		scratchblocks: "< color [#$1] is touching [#$2]? >",
+		renderLabel: "color  is touching ?",
+		parameters: ["color",
+                             "color"],
+		group: "Sensing"
+	    });
+blocks.push({
+                type: "reporter",
+                spec: "distanceTo:",
+                scratchblocks: "( distance to [%o{$1} v] )",
+                renderLabel: "distance to ",
+                parameters: ["dropdown"],
+                group: "Sensing"
+});
+blocks.push({
+                type: "command",
+                spec: "doAsk",
+                scratchblocks: "ask [$1] and wait",
+                renderLabel: "ask  and wait",
+                parameters: ["string"],
+                group: "Sensing"
+});
+blocks.push({
+                type: "reporter",
+                spec: "answer",
+                scratchblocks: "( answer )",
+                renderLabel: "answer",
+                parameters: [],
+                group: "Sensing"
+});
+blocks.push({
+                type: "boolean",
+                spec: "keyPressed:",
+                scratchblocks: "< key [%k{$1} v] pressed? >",
+                renderLabel: "key  pressed?",
+                parameters: ["dropdown"],
+                group: "Sensing"
+});
+blocks.push({
                 type: "boolean",
                 spec: "mousePressed",
                 scratchblocks: "< mouse down? >",
-                renderLabel: "",
+                renderLabel: "mouse down?",
+                parameters: [],
+                group: "Sensing"
+});
+blocks.push({
+                type: "reporter",
+                spec: "mouseX",
+                scratchblocks: "( mouse x )",
+                renderLabel: "mouse x",
+                parameters: [],
+                group: "Sensing"
+});
+blocks.push({
+                type: "reporter",
+                spec: "mouseY",
+                scratchblocks: "( mouse y )",
+                renderLabel: "mouse y",
+                parameters: [],
+                group: "Sensing"
+});
+blocks.push({
+                type: "reporter",
+                spec: "soundLevel",
+                scratchblocks: "( loudness )",
+                renderLabel: "loudness",
                 parameters: [],
                 group: "Sensing"
 });
@@ -197,13 +262,63 @@ blocks.push({
 		group: "Sensing"
 	    });
 blocks.push({
-		type: "reporter",
+                type: "reporter",
+                spec: "senseVideoMotion",
+                scratchblocks: "( video [%v{$1} v] on [%t{$2} v] )",
+                renderLabel: "video  on ",
+                parameters: ["dropdown",
+                             "dropdown"],
+                group: "Sensing"
+});
+blocks.push({
+                type: "command",
+                spec: "setVideoState",
+                scratchblocks: "turn video [%e{$1} v]",
+                renderLabel: "turn video ",
+                parameters: ["dropdown"],
+                group: "Sensing"
+});
+blocks.push({
+		type: "command",
 		spec: "setVideoTransparency",
 		scratchblocks: "set video transparency to ($1) %",
 		renderLabel: "set video transparency to  %",
 		parameters: ["number"],
 		group: "Sensing"
 	    });
+blocks.push({
+		type: "reporter",
+		spec: "getAttribute:of:",
+		scratchblocks: "( [%i{$1} v] of [%n{$2} v] )",
+		renderLabel: " of ",
+		parameters: ["dropdown",
+                             "dropdown"],
+		group: "Sensing"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "timeAndDate",
+		scratchblocks: "( current [%d{$1} v] )",
+		renderLabel: "current ",
+		parameters: ["dropdown"],
+		group: "Sensing"
+	    });
+blocks.push({
+                type: "reporter",
+                spec: "timestamp",
+                scratchblocks: "( days since 2000 )",
+                renderLabel: "days since 2000",
+                parameters: [],
+                group: "Sensing"
+});
+blocks.push({
+                type: "reporter",
+                spec: "getUserName",
+                scratchblocks: "( username )",
+                renderLabel: "username",
+                parameters: [],
+                group: "Sensing"
+});
 //**//OPERATORS
 blocks.push({
                 type: "reporter",

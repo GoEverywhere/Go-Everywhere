@@ -337,6 +337,102 @@ function loadCurrentSelectedSprite(){
 	    }
 	});
     });
+    //videoSensing drop down tags
+    $("#blocks .dropdown:contains('%v')").each(function(){
+	//videoSensing drop down
+	//take out the %v
+	var dropDownText = $(this).html().replace('%v', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("videoSensing", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //thisAndStage drop down tags
+    $("#blocks .dropdown:contains('%t')").each(function(){
+	//thisAndStage drop down
+	//take out the %t
+	var dropDownText = $(this).html().replace('%t', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("thisAndStage", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //videoState drop down tags
+    $("#blocks .dropdown:contains('%e')").each(function(){
+	//videoState drop down
+	//take out the %e
+	var dropDownText = $(this).html().replace('%e', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("videoState", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //sensingInfo drop down tags
+    $("#blocks .dropdown:contains('%i')").each(function(){
+	//sensingInfo drop down
+	//take out the %i
+	var dropDownText = $(this).html().replace('%i', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("sensingInfo", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //notMySprite drop down tags
+    $("#blocks .dropdown:contains('%n')").each(function(){
+	//notMySprite drop down
+	//take out the %n
+	var dropDownText = $(this).html().replace('%n', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("notMySprite", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
+    //date drop down tags
+    $("#blocks .dropdown:contains('%d')").each(function(){
+	//date drop down
+	//take out the %d
+	var dropDownText = $(this).html().replace('%d', '');
+	//take out the { and }
+	dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
+	dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
+	
+	$(this).html(EditorTools.getParameterCode("date", project));
+	$(this).find("option").each(function(){
+	    if ($(this).val() == dropDownText) {
+		$(this).attr("selected", "true");
+	    }
+	});
+    });
     
     //Fix for the "[math] of (number)" being a sensing block
     $("#blocks .sensing").each(function(){
