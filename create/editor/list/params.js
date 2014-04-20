@@ -214,3 +214,17 @@ params.push({
         return paramToReturn;
     }
 });
+params.push({
+    name: "effect",
+    getCode: function(info){
+        return "<select>\n" +
+                "<option value=\"color\">color</option>\n" +
+                "<option value=\"fisheye\">fisheye</option>\n" +
+                "<option value=\"whirl\">whirl</option>\n" +
+                "<option value=\"pixelate\">pixelate</option>\n" +
+                "<option value=\"mosaic\">mosaic</option>\n" +
+                "<option value=\"brightness\">brightness</option>\n" +
+                "<option value=\"ghost\">ghost</option>\n" +
+                "</select>\n";
+    }
+});

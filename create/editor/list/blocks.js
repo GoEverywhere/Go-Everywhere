@@ -522,11 +522,78 @@ blocks.push({
                 group: "Looks"
             });
 blocks.push({
+                type: "command",
+                spec: "changeGraphicEffect:by:",
+		scratchblocks: "change [%m.effect{$1} v] effect by (25)",
+		renderLabel: "change  effect by ",
+		parameters: ["dropdown",
+                             "number"],
+                group: "Looks"
+            });
+blocks.push({
+                type: "command",
+                spec: "setGraphicEffect:to:",
+		scratchblocks: "set [%m.effect{$1} v] effect to (25)",
+		renderLabel: "set  effect to ",
+		parameters: ["dropdown",
+                             "number"],
+                group: "Looks"
+            });
+blocks.push({
+                type: "command",
+                spec: "filterReset",
+		scratchblocks: "clear graphic effects",
+		renderLabel: "clear graphic effects",
+		parameters: [],
+                group: "Looks"
+            });
+blocks.push({
 		type: "command",
 		spec: "setSizeTo:",
 		scratchblocks: "set size to ($1) %",
 		renderLabel: "set size to  %",
 		parameters: ["number"],
+		group: "Looks"
+	    });
+//Stage-only blocks
+blocks.push({
+		type: "command",
+		spec: "startScene",
+		scratchblocks: "switch backdrop to [%m.backdrop{$1} v]",
+		renderLabel: "switch backdrop to ",
+		parameters: ["dropdown"],
+		group: "Looks"
+	    });
+blocks.push({
+		type: "command",
+		spec: "startSceneAndWait",
+		scratchblocks: "switch backdrop to [%m.backdrop{$1} v] and wait",
+		renderLabel: "switch backdrop to  and wait",
+		parameters: ["dropdown"],
+		group: "Looks"
+	    });
+blocks.push({
+		type: "command",
+		spec: "nextScene",
+		scratchblocks: "next backdrop",
+		renderLabel: "next backdrop",
+		parameters: [],
+		group: "Looks"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "sceneName",
+		scratchblocks: "backdrop name",
+		renderLabel: "backdrop name",
+		parameters: [],
+		group: "Looks"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "backgroundIndex",
+		scratchblocks: "backdrop #",
+		renderLabel: "backdrop #",
+		parameters: [],
 		group: "Looks"
 	    });
 //**//SOUND

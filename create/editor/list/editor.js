@@ -41,6 +41,10 @@ function generateObjectJSON(){
 			    //Straight up text
 			    miniParams.push($($(el).children("div")[index]).children("input").val());
 			    break;
+			case "color":
+			    //NEEDS CONVERSION!!
+			    miniParams.push(0);
+			    break;
 		    }
 		}
 	    });
@@ -107,6 +111,7 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
+    console.log(scripts);
     return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts
