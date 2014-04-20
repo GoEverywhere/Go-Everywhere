@@ -11,7 +11,6 @@ function generateObjectJSON(){
     //Loop through the #blocks section to find each block stack,
     //then decode each block into the array
     $("#blocks .script").each(function(){
-	
 	//Function so we can keep parameter code the same
 	function findParameterArray(el) {
 	    var miniParams = [];
@@ -36,7 +35,7 @@ function generateObjectJSON(){
 			    break;
 			case "number":
 			    //Has to be turned into a float
-			    miniParams.push(parseFloat($($(el).children("div")[index]).children("input").val()));
+			    miniParams.push(parseFloat($($(el).children("div")[index]).children("input").val()) | 10);
 			    break;
 			case "string":
 			    //Straight up text
@@ -69,9 +68,9 @@ function generateObjectJSON(){
 	function findBlocks(el){
 	    var miniStack = [];
 	    //Loop through this parent's
-	    $(el).children(".hat,.stack,.cwrap").each(function(){
+	    $(el).children(".hat,.stack,.cwrap,.reporter,.boolean").each(function(){
 		//If it is a stack or hat, just stick it in the array
-		if ($(this).hasClass("hat") || $(this).hasClass("stack")) {
+		if ($(this).hasClass("hat") || $(this).hasClass("stack") || $(this).hasClass("reporter") || $(this).hasClass("boolean")) {
 		    var myBlockData = EditorTools.getBlockData($(this).attr("spec"));
 		    
 		    var myTotal = [myBlockData.spec];
@@ -106,6 +105,7 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
+    console.log(scripts);
     return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts
@@ -178,95 +178,21 @@ function doneReadingZip(zip) {
 function loadCurrentSelectedSprite(){
     var scratchblocksText = "";
     
-    function findScratchBlocksFromStack(stackArray) {
-	var totalStackText = "";
-	
-	$.each(stackArray, function(index, value){
-	    totalStackText += findScratchBlocksFromBlockArray(value);
-	});
-	
-	return totalStackText;
-    }
-    function findScratchBlocksFromBlockArray(singleBlockArray) {
-	var myScratchBlocks = "";
-	//Store the block's data (first item in any block is it's label, except custom blocks?);
-	var myBlockData = EditorTools.getBlockData(singleBlockArray[0]);
-	if (myBlockData.type == undefined) {
-	    console.error("Block with spec: " + myBlockData.spec + " doesn't have any block data!");
-	}
-	//Switch the type of it
-	switch(myBlockData.type)
-	{
-	    case "hat":
-		//A hat block is as follows:
-		//The first item in the blockArray is the label.
-		//Then, come the parameters.
-		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
-		break;
-	    case "command":
-	    case "stack":
-		//A stack block is as follows:
-		//The first item in the blockArray is the label.
-		//Then, come the parameters.
-		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
-		break;
-	    case "c":
-		//A normal C-shape is as follows:
-		//The first item in the blockArray is the label.
-		//Then, come the parameters.
-		//After parameters (parameter-offset) is a stack of blocks inside the C-shape.
-		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
-		//If the parameter-offset is null, that means that
-		//there are no blocks in the C-shape.
-		if (singleBlockArray[1 + myBlockData.parameters.length] !== null) {
-		    //Loop through the mini-stack
-		    myScratchBlocks += findScratchBlocksFromStack(singleBlockArray[1 + myBlockData.parameters.length]);
-		}
-		myScratchBlocks += "end\n";
-		break;
-	    case "reporter":
-	    case "boolean":
-		//A reporter/boolean is as follows:
-		//The first item in the blockArray is the label.
-		//Then, come the parameters.
-		myScratchBlocks += replaceTextWithParameters(myBlockData, singleBlockArray);
-		break;
-	    
-	}
-	return myScratchBlocks;
-    }
-    function replaceTextWithParameters(blockData, blockArray) {
-	var myScratchBlocks = blockData.scratchblocks;
-	$.each(blockData.parameters, function(index, value){
-	    if (EditorTools.getBlockData(blockArray[1 + index][0]).type == undefined) {
-		//Just the default value. Replace the $i's with their parameter value.
-		myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), blockArray[1 + index]);
-	    }else{
-		//That's a block in there!
-		myScratchBlocks = myScratchBlocks.replace(new RegExp('((\\<|\\[|\\()\\$' + (index + 1) + '(\\)|\\]|\\>))',["i"]), findScratchBlocksFromBlockArray(blockArray[1 + index]));
-	    }
-	});
-	return myScratchBlocks;
-    }
-    
     if ($("#toolbar #spriteSelect select").val() == project.objName) {
 	currentObj = project;
-	//scratchblocksText += parseSpriteBlocks(currentObj);
-	$.each(currentObj.scripts, function(index, value){
-	    scratchblocksText += findScratchBlocksFromStack(value[2]) + "\n";
-	});
     }else{
 	for(var spriteI = 0; spriteI < project.children.length; spriteI++)
 	{
 	    if ($("#toolbar #spriteSelect select").val() == project.children[spriteI].objName) {
 		currentObj = project.children[spriteI];
-		$.each(currentObj.scripts, function(index, value){
-		    scratchblocksText += findScratchBlocksFromStack(value[2]) + "\n";
-		});
 	    }
 	}
     }
-    
+    if (currentObj.scripts) {
+	$.each(currentObj.scripts, function(index, value){
+	    scratchblocksText += EditorTools.findScratchBlocksFromStack(value[2]) + "\n";
+	});
+    }
     
     $("#blocks").html("<pre class=\"blockCodeParse\">" + scratchblocksText + "</pre>");
     
@@ -426,7 +352,17 @@ function loadCurrentSelectedSprite(){
     //Add parameter compilation, for project decompilation and analysis
     $($("#blocks .looks,.events,.control,.sensing,.operators,.motion,.looks,.sound,.pen")).each(function(){
 	var label = $(this).justtext();
-	if(label != "") {
+	//Specials have a unique block data
+	if ($(this).parent().hasClass("cwrap") && $(this).hasClass("cstart")) {
+	    if ($(this).parent().children(".stack").length > 2) {
+		$(this).parent().children(".stack").not(":first").not(":last").addClass("skip-block-for-conversion");
+		$(this).parent().children(".stack").not(":first").not(":last").each(function(){
+		    label += "\n" + $(this).justtext();
+		});
+	    }
+	}
+	
+	if(label != "" && !$(this).hasClass("skip-block-for-conversion")) {
 	    //Find the block's catagory
 	    var catagory = "looks";
 	    if ($(this).hasClass("events")) {
@@ -487,13 +423,13 @@ function loadCurrentSelectedSprite(){
 	drag: function(event, ui){
 		//Hide the new button, Show the garbage bin
 		$("#addNew").hide("slide", 50, function(){
-			$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+		    $("#garbageBin").show("slide", 50).css("opacity", "0.5");
 		});
 	},
 	stop: function(event, ui){
 		//Hide the garbage bin, Show the new button
 		$("#garbageBin").hide("slide", 50, function(){
-			$("#addNew").show("slide", 50);
+		    $("#addNew").show("slide", 50);
 		});
 	}
     });
@@ -505,20 +441,22 @@ function loadCurrentSelectedSprite(){
 	    $(this).hide();
 	    //Hide the new button, Show the garbage bin
 	    $("#addNew").hide("fade", 100, function(){
-		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
+		$("#garbageBin").show("fade", 100).css("opacity", "0.5");
 	    });
 	    
-	    var parentBlockData = EditorTools.getBlockData($(this).parent().attr("spec"));
-	    switch (parentBlockData.parameters[$(this).index()]) {
-		case "number":
-		    $(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
-		    break;
-		case "boolean":
-		    $(this).before("<div class=\"boolean empty placeholder\"></div>");
-		    break;
-		case "string":
-		    $(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
-		    break;
+	    if (!$(this).parent().hasClass("script")) {
+		var parentBlockData = EditorTools.getBlockData($(this).parent().attr("spec"));
+		switch (parentBlockData.parameters[$(this).index()]) {
+		    case "number":
+			$(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
+			break;
+		    case "boolean":
+			$(this).before("<div class=\"boolean empty placeholder\"></div>");
+			break;
+		    case "string":
+			$(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
+			break;
+		}
 	    }
 	},
 	stop: function(event, ui){
@@ -530,6 +468,7 @@ function loadCurrentSelectedSprite(){
 		$(".placeholder").remove();
 	    }
 	    $(this).show();
+	    $(this).removeAttr("style");
 	}
     });
     //Make fields droppable targets for reporters
@@ -538,8 +477,9 @@ function loadCurrentSelectedSprite(){
 	    accept: ".reporter, .boolean",
 	    greedy: true,
 	    over: function(e, ui){
-		if ((($(".placeholder").hasClass("string") || $(".placeholder").hasClass("number")) && (ui.draggable.hasClass("reporter")))
-		    || ($(".placeholder").hasClass("boolean") && $(ui.draggable.hasClass("boolean")))) {
+		if (((($(".placeholder").hasClass("string") || $(".placeholder").hasClass("number")) && (ui.draggable.hasClass("reporter")))
+		    || ($(".placeholder").hasClass("boolean") && $(ui.draggable).hasClass("boolean")))
+		    || ($(ui.draggable).parent().hasClass("script"))) {
 		    //Filter out accept boxes
 		    $(this).css("border", "5px solid yellow");
 		    ui.draggable.addClass("dragged-over");
@@ -556,8 +496,20 @@ function loadCurrentSelectedSprite(){
 		addFieldAcceptors(".placeholder");
 		//Remove placeholder class
 		$(".placeholder").removeClass("placeholder");
+		//Remove the "dragged-over" class
+		$(".dragged-over").removeClass("dragged-over");
+		//The block MIGHT have the dragged-over class...
+		//If the block was by itself in a script
+		var parent = null;
+		if (ui.draggable.parent().hasClass("script")) {
+		    parent = ui.draggable.parent();
+		}
 		//Put the block in place of myself
 		$(this).replaceWith(ui.draggable);
+		//Remove the parent script, if any
+		if (parent !== null) {
+		    parent.remove();
+		}
 	    }
 	});
     }

@@ -101,8 +101,9 @@ blocks.push({
 blocks.push({
                 type: "special",
                 spec: "doIfElse",
-                scratchblocks: "if <$1> then;else",
-                renderLabel: "",
+                scratchblocks: ["if <$1> then",
+                                "else"],
+                renderLabel: "if  then\nelse",
                 parameters: ["boolean"],
                 group: "Control"
 });
@@ -250,6 +251,14 @@ blocks.push({
 		group: "Operators"
 	    });
 //**//MOTION
+blocks.push({
+                type: "command",
+                spec: "forward:",
+                scratchblocks: "move ($1) steps",
+                renderLabel: "move  steps",
+                parameters: ["number"],
+                group: "Motion"
+})
 blocks.push({
 		type: "command",
 		spec: "pointTowards:",
