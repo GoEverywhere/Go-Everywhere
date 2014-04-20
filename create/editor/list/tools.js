@@ -127,7 +127,7 @@ var EditorTools = {
 		}
 	    }else{
 		//That's a block in there!
-		myScratchBlocks = myScratchBlocks.replace(new RegExp('((\\<|\\[|\\()\\$' + (index + 1) + '(\\)|\\]|\\>))',["i"]), EditorTools.logAndReturn(EditorTools.findScratchBlocksFromBlockArray(blockArray[1 + index])));
+		myScratchBlocks = myScratchBlocks.replace(new RegExp('((\\<|\\[|\\()\\$' + (index + 1) + '(\\)|\\]|\\>))',["i"]), EditorTools.findScratchBlocksFromBlockArray(blockArray[1 + index]));
 	    }
 	});
 	return myScratchBlocks;

@@ -159,8 +159,8 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "touching:",
-		scratchblocks: "<touching [%o{$1} v]?>",
-		renderLabel: "",
+		scratchblocks: "< touching [%o{$1} v]? >",
+		renderLabel: "touching ?",
 		parameters: ["dropdown"],
 		group: "Sensing"
 	    });
@@ -168,14 +168,14 @@ blocks.push({
 		type: "boolean",
 		spec: "touchingColor:",
 		scratchblocks: "<touching color [#$1]?>",
-		renderLabel: "touching ?",
+		renderLabel: "",
 		parameters: ["color"],
 		group: "Sensing"
 	    });*/
 blocks.push({
                 type: "boolean",
                 spec: "mousePressed",
-                scratchblocks: "<mouse down?>",
+                scratchblocks: "< mouse down? >",
                 renderLabel: "",
                 parameters: [],
                 group: "Sensing"
