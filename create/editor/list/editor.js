@@ -30,8 +30,8 @@ function generateObjectJSON(){
 			    miniParams.push($($(el).children("div")[index]).children("select").val());
 			    break;
 			case "boolean":
-			    //If it doesn't have a block inside it, it is blank
-			    miniParams.push("[]");
+			    //If it doesn't have a block inside it, it is false
+			    miniParams.push(false);
 			    break;
 			case "number":
 			    //Has to be turned into a float
