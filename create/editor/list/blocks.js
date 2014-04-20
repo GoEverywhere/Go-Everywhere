@@ -164,14 +164,14 @@ blocks.push({
 		parameters: ["dropdown"],
 		group: "Sensing"
 	    });
-/*blocks.push({
+blocks.push({
 		type: "boolean",
 		spec: "touchingColor:",
-		scratchblocks: "<touching color [#$1]?>",
+		scratchblocks: "< touching color [#$1]? >",
 		renderLabel: "",
 		parameters: ["color"],
 		group: "Sensing"
-	    });*/
+	    });
 blocks.push({
                 type: "boolean",
                 spec: "mousePressed",

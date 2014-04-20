@@ -123,7 +123,17 @@ var EditorTools = {
 		    myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), "");
 		}else{
 		    //Just the default value. Replace the $i's with their parameter value.
-		    myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), blockArray[1 + index]);
+                    var myParameterValue = blockArray[1 + index];
+                    if (blockData.parameters[index] == "color") {
+                        //Color value needs to be converted into HEX (credit to blob8108 for this conversion)
+                        myParameterValue = (myParameterValue >>> 0) & 0xffffff;
+                        var myHex = parseInt(myParameterValue).toString(16);
+                        while(myHex.length < 6) {
+                            myHex = "0" + myHex
+                        }
+                        myParameterValue = myHex;
+                    }
+		    myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), myParameterValue);
 		}
 	    }else{
 		//That's a block in there!
