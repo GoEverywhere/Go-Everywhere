@@ -357,11 +357,108 @@ blocks.push({
                 group: "Operators"
             });
 blocks.push({
+                type: "reporter",
+                spec: "randomFrom:to:",
+                scratchblocks: "( pick random ($1) to ($2) )",
+		renderLabel: "pick random  to ",
+                parameters: ["number",
+			     "number"],
+                group: "Operators"
+            });
+blocks.push({
+                type: "boolean",
+                spec: "<",
+                scratchblocks: "< [$1] < [$2] >",
+		renderLabel: " < ",
+                parameters: ["string",
+			     "string"],
+                group: "Operators"
+            });
+blocks.push({
+                type: "boolean",
+                spec: "=",
+                scratchblocks: "< [$1] = [$2] >",
+		renderLabel: " = ",
+                parameters: ["string",
+			     "string"],
+                group: "Operators"
+            });
+blocks.push({
+                type: "boolean",
+                spec: ">",
+                scratchblocks: "< [$1] > [$2] >",
+		renderLabel: " > ",
+                parameters: ["string",
+			     "string"],
+                group: "Operators"
+            });
+blocks.push({
+		type: "boolean",
+		spec: "&",
+		scratchblocks: "< <$1> and <$2> >",
+		renderLabel: " and ",
+		parameters: ["boolean",
+                             "boolean"],
+		group: "Operators"
+	    });
+blocks.push({
+		type: "boolean",
+		spec: "|",
+		scratchblocks: "< <$1> or <$2> >",
+		renderLabel: " or ",
+		parameters: ["boolean",
+                             "boolean"],
+		group: "Operators"
+	    });
+blocks.push({
 		type: "boolean",
 		spec: "not",
 		scratchblocks: "< not <$1> >",
 		renderLabel: "not ",
 		parameters: ["boolean"],
+		group: "Operators"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "concatenate:with:",
+		scratchblocks: "( join [$1] [$2] )",
+		renderLabel: "join  ",
+		parameters: ["string",
+                             "string"],
+		group: "Operators"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "letter:of:",
+		scratchblocks: "( letter ($1) of [$2] )",
+		renderLabel: "letter  of ",
+		parameters: ["number",
+                             "string"],
+		group: "Operators"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "stringLength:",
+		scratchblocks: "( length of [$1] )",
+		renderLabel: "length of ",
+		parameters: ["string"],
+		group: "Operators"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "%",
+		scratchblocks: "( ($1) mod ($2) )",
+		renderLabel: " mod ",
+		parameters: ["number",
+                             "number"],
+		group: "Operators"
+	    });
+blocks.push({
+		type: "reporter",
+		spec: "rounded",
+		scratchblocks: "( round ($1) )",
+		renderLabel: "round ",
+		parameters: ["number"],
 		group: "Operators"
 	    });
 blocks.push({
