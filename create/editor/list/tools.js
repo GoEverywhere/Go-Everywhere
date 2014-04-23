@@ -134,7 +134,11 @@ var EditorTools = {
                         }
                         myParameterValue = myHex;
                     }
-		    myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), myParameterValue);
+                    try{
+                        myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), myParameterValue);
+                    }catch(e){
+                        console.error("[replaceTextWithParameters:] There was an error with this block: " + blockArray[0]);
+                    }
 		}
 	    }else{
 		//That's a block in there!

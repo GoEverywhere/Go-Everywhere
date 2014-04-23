@@ -42,12 +42,16 @@ function generateObjectJSON(){
 			    miniParams.push($($(el).children("div")[index]).children("input").val());
 			    break;
 			case "color":
-			    var tmpColorText = $($(el).children("div")[index]).attr("style");
-			    tmpColorText = tmpColorText.replace("background-color: rgb(", "");
-			    tmpColorText = tmpColorText.replace(");", "");
-			    tmpColorText = tmpColorText.replace(" ", "");
-			    tmpColorText = tmpColorText.replace(" ", "");
-			    var tmpColorArray = tmpColorText.split(","); //R: [0], G: [1], B: [2]
+			    try{
+				var tmpColorText = $($(el).children("div")[index]).attr("style");
+				tmpColorText = tmpColorText.replace("background-color: rgb(", "");
+				tmpColorText = tmpColorText.replace(");", "");
+				tmpColorText = tmpColorText.replace(" ", "");
+				tmpColorText = tmpColorText.replace(" ", "");
+				var tmpColorArray = tmpColorText.split(","); //R: [0], G: [1], B: [2]
+			    }catch(e){
+			    	console.warn("[findParameterArray:] Trouble reading color values from this block: " + $(el).attr("spec") + ", using black (0) instead.");
+			    }
 			    
 			    
 			    miniParams.push(0);
@@ -254,6 +258,17 @@ function loadCurrentSelectedSprite(){
 	    }
 	}
     });
+    //Fix for the Scratch block [set pen color to: ] having a double unique label
+    $("#blocks .pen").each(function(){
+	//See if the block has a number input.
+	//If number, set the spec to "setPenHueTo:"
+	//(and add the class "processed", so it won't be processed by the label analyzer)
+	if ($(this).justtext() == "set pen color to ") {
+	    if ($(this).children().hasClass("number")) {
+		$(this).attr("spec", "setPenHueTo:").addClass("processed");
+	    }
+	}
+    });
     
     //Add parameter compilation, for project decompilation and analysis
     $($("#blocks .looks,.events,.control,.sensing,.operators,.motion,.looks,.sound,.pen")).each(function(){
@@ -268,7 +283,7 @@ function loadCurrentSelectedSprite(){
 	    }
 	}
 	
-	if(label != "" && !$(this).hasClass("skip-block-for-conversion")) {
+	if(label != "" && !$(this).hasClass("skip-block-for-conversion") && !$(this).hasClass("processed")) {
 	    //Find the block's catagory
 	    var catagory = "looks";
 	    if ($(this).hasClass("events")) {

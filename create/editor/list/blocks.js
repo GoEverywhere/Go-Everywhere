@@ -506,6 +506,15 @@ blocks.push({
 	    });
 //**//LOOKS
 blocks.push({
+                type: "command",
+                spec: "say:duration:elapsed:from:",
+                scratchblocks: "say [$1] for ($2) secs",
+                renderLabel: "say  for  secs",
+                parameters: ["text",
+                             "number"],
+                group: "Looks"
+});
+blocks.push({
 		type: "command",
 		spec: "say:",
 		scratchblocks: "say [$1]",
@@ -513,6 +522,47 @@ blocks.push({
 		parameters: ["string"],
 		group: "Looks"
 	    });
+blocks.push({
+                type: "command",
+                spec: "think:duration:elapsed:from:",
+                scratchblocks: "think [$1] for ($2) secs",
+                renderLabel: "think  for  secs",
+                parameters: ["text",
+                             "number"],
+                group: "Looks"
+});
+blocks.push({
+		type: "command",
+		spec: "think:",
+		scratchblocks: "think [$1]",
+		renderLabel: "think ",
+		parameters: ["string"],
+		group: "Looks"
+	    });
+blocks.push({
+                type: "command",
+                spec: "show",
+		scratchblocks: "show",
+		renderLabel: "show",
+		parameters: [],
+                group: "Looks"
+            });
+blocks.push({
+                type: "command",
+                spec: "hide",
+		scratchblocks: "hide",
+		renderLabel: "hide",
+		parameters: [],
+                group: "Looks"
+            });
+blocks.push({
+                type: "command",
+                spec: "lookLike:",
+                scratchblocks: "switch costume to [%m.costume{$1} v]",
+                renderLabel: "switch costume to ",
+                parameters: ["dropdown"],
+                group: "Looks"
+});
 blocks.push({
                 type: "command",
                 spec: "nextCostume",
@@ -548,6 +598,14 @@ blocks.push({
                 group: "Looks"
             });
 blocks.push({
+                type: "command",
+                spec: "changeSizeBy:",
+                scratchblocks: "change size by ($1)",
+                renderLabel: "change size by ",
+                parameters: ["number"],
+                group: "Looks"
+});
+blocks.push({
 		type: "command",
 		spec: "setSizeTo:",
 		scratchblocks: "set size to ($1) %",
@@ -555,6 +613,38 @@ blocks.push({
 		parameters: ["number"],
 		group: "Looks"
 	    });
+blocks.push({
+                type: "command",
+                spec: "comeToFront",
+                scratchblocks: "go to front",
+                renderLabel: "go to front",
+                parameters: [],
+                group: "Looks"
+});
+blocks.push({
+                type: "command",
+                spec: "goBackByLayers:",
+                scratchblocks: "go back ($1) layers",
+                renderLabel: "go back  layers",
+                parameters: ["number"],
+                group: "Looks"
+});
+blocks.push({
+                type: "reporter",
+                spec: "costumeIndex",
+                scratchblocks: "costume #",
+                renderLabel: "costume #",
+                parameters: [],
+                group: "Looks"
+});
+blocks.push({
+                type: "reporter",
+                spec: "scale",
+                scratchblocks: "( size )",
+                renderLabel: "size",
+                parameters: [],
+                group: "Looks"
+});
 //Stage-only blocks
 blocks.push({
 		type: "command",
@@ -597,5 +687,199 @@ blocks.push({
 		group: "Looks"
 	    });
 //**//SOUND
+blocks.push({
+                type: "command",
+                spec: "playSound:",
+                scratchblocks: "play sound [%m.sound{$1} v]",
+                renderLabel: "play sound ",
+                parameters: ["dropdown"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "doPlaySoundAndWait",
+                scratchblocks: "play sound [%m.sound{$1} v] until done",
+                renderLabel: "play sound  until done",
+                parameters: ["dropdown"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "stopAllSounds",
+                scratchblocks: "stop all sounds",
+                renderLabel: "stop all sounds",
+                parameters: [],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "playDrum",
+                scratchblocks: "play drum ($1) for ($2) beats",
+                renderLabel: "play drum  for  beats",
+                parameters: ["number",
+                             "number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "rest:elapsed:from:",
+                scratchblocks: "rest for ($1) beats",
+                renderLabel: "rest for  beats",
+                parameters: ["number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "noteOn:duration:elapsed:from:",
+                scratchblocks: "play note ($1) for ($2) beats",
+                renderLabel: "play note  for  beats",
+                parameters: ["number",
+                             "number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "instrument:",
+                scratchblocks: "set instrument to ($1)",
+                renderLabel: "set instrument to ",
+                parameters: ["number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "changeVolumeBy:",
+                scratchblocks: "change volume by ($1)",
+                renderLabel: "change volume by ",
+                parameters: ["number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "setVolumeTo:",
+                scratchblocks: "set volume to ($1) %",
+                renderLabel: "set volume to  %",
+                parameters: ["number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "reporter",
+                spec: "volume",
+                scratchblocks: "( volume )",
+                renderLabel: "volume",
+                parameters: [],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "changeTempoBy:",
+                scratchblocks: "change tempo by ($1)",
+                renderLabel: "change tempo by ",
+                parameters: ["number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "command",
+                spec: "setTempoTo:",
+                scratchblocks: "set tempo to ($1) bpm",
+                renderLabel: "set tempo to  bpm",
+                parameters: ["number"],
+                group: "Sound"
+});
+blocks.push({
+                type: "reporter",
+                spec: "tempo",
+                scratchblocks: "( tempo )",
+                renderLabel: "tempo",
+                parameters: [],
+                group: "Sound"
+});
 //**//PEN
+blocks.push({
+                type: "command",
+                spec: "clearPenTrails",
+                scratchblocks: "clear",
+                renderLabel: "clear",
+                parameters: [],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "stampCostume",
+                scratchblocks: "stamp",
+                renderLabel: "stamp",
+                parameters: [],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "putPenDown",
+                scratchblocks: "pen down",
+                renderLabel: "pen down",
+                parameters: [],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "putPenUp",
+                scratchblocks: "pen up",
+                renderLabel: "pen up",
+                parameters: [],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "penColor:",
+                scratchblocks: "set pen color to [#$1]",
+                renderLabel: "set pen color to ",
+                parameters: ["color"],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "changePenHueBy:",
+                scratchblocks: "change pen color by ($1)",
+                renderLabel: "change pen color by ",
+                parameters: ["number"],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "setPenHueTo:",
+                scratchblocks: "set pen color to ($1)",
+                renderLabel: "set pen color to ",
+                parameters: ["number"],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "setPenShadeTo:",
+                scratchblocks: "set pen shade to ($1)",
+                renderLabel: "set pen shade to ",
+                parameters: ["number"],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "changePenShadeBy:",
+                scratchblocks: "change pen shade by ($1)",
+                renderLabel: "change pen shade by ",
+                parameters: ["number"],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "changePenSizeBy:",
+                scratchblocks: "change pen size by ($1)",
+                renderLabel: "change pen size by ",
+                parameters: ["number"],
+                group: "Pen"
+});
+blocks.push({
+                type: "command",
+                spec: "penSize:",
+                scratchblocks: "set pen size to ($1)",
+                renderLabel: "set pen size to ",
+                parameters: ["number"],
+                group: "Pen"
+});
 //**//DATA

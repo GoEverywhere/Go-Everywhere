@@ -228,3 +228,25 @@ params.push({
                 "</select>\n";
     }
 });
+params.push({
+    name: "sound",
+    getCode: function(info){
+        var myTotalSelector = "<select>\n";
+            $.each(info.currentObj.sounds, function(index, value){
+                myTotalSelector += "<option value=\"" + value.soundName + "\">" + value.soundName + "</option>\n";
+            });
+            myTotalSelector += "</select>\n";
+        return myTotalSelector;
+    }
+});
+params.push({
+    name: "costume",
+    getCode: function(info){
+        var myTotalSelector = "<select>\n";
+            $.each(info.currentObj.costumes, function(index, value){
+                myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>\n";
+            });
+            myTotalSelector += "</select>\n";
+        return myTotalSelector;
+    }
+});
