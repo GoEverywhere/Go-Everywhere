@@ -97,6 +97,54 @@ var EditorTools = {
                 myScratchBlocks += myCustomBlockSpec + "\n";
                 
                 break;
+            case "call":
+                //A call block is a special stack.
+                //It is a custom block, with a corresponding "define" block.
+                //Since it is special, we need to make a fake block data for the parameter parser.
+                var myCustomBlockSpec = singleBlockArray[1];
+                var myCustomBlockSpecArray = myCustomBlockSpec.split('');
+                var myParameterOffset = 1;
+                var myParameterData = [];
+                $.each(myCustomBlockSpecArray, function(index, value){
+                    if (index + 1 < myCustomBlockSpecArray.length) {
+                        if (value == "%") {
+                            switch(myCustomBlockSpecArray[index + 1]){
+                                case "n":
+                                    myCustomBlockSpecArray.splice(index + 1, 1);
+                                    myCustomBlockSpecArray[index] = "($" + myParameterOffset + ")";
+                                    myParameterData.push("number");
+                                    break;
+                                case "b":
+                                    myCustomBlockSpecArray.splice(index + 1, 1);
+                                    myCustomBlockSpecArray[index] = "<$" + myParameterOffset + ">";
+                                    myParameterData.push("boolean");
+                                    break;
+                                case "s":
+                                    myCustomBlockSpecArray.splice(index + 1, 1);
+                                    myCustomBlockSpecArray[index] = "[$" + myParameterOffset + "]";
+                                    myParameterData.push("string");
+                                    break;
+                            }
+                            myParameterOffset++;
+                        }
+                    }
+                });
+                //Stick it all back together
+                myCustomBlockSpec = "";
+                $.each(myCustomBlockSpecArray, function(index, value){
+                    myCustomBlockSpec += value;
+                });
+                //Make fake block data
+                var myFakeBlockData = {
+                    type: "call",
+                    spec: undefined,
+                    scratchblocks: myCustomBlockSpec,
+                    parameters: myParameterData,
+                    group: "More Blocks"
+                };
+                //Stick it in the scratchblocks text
+                myScratchBlocks += this.replaceTextWithParameters(myFakeBlockData, singleBlockArray) + "\n";
+                break;
 	    case "command":
 	    case "stack":
 		//A stack block is as follows:
@@ -159,13 +207,18 @@ var EditorTools = {
 	    var myScratchBlocks = blockData.scratchblocks;
 	}
 	$.each(blockData.parameters, function(index, value){
-	    if (EditorTools.getBlockData(blockArray[1 + index][0]).type === undefined) {
-		if (blockArray[1 + index] === false) {
+            var arrayOffset = 1;
+            if (blockData.type == "call") {
+                //There is an extra offset to where the parameters are called
+                arrayOffset = 2;
+            }
+	    if (EditorTools.getBlockData(blockArray[arrayOffset + index][0]).type === undefined) {
+		if (blockArray[arrayOffset + index] === false) {
 		    //A blank boolean. Just remove the $[i]
 		    myScratchBlocks = myScratchBlocks.replace("$" + (index + 1), "");
 		}else{
 		    //Just the default value. Replace the $i's with their parameter value.
-                    var myParameterValue = blockArray[1 + index];
+                    var myParameterValue = blockArray[arrayOffset + index];
                     if (blockData.parameters[index] == "color") {
                         //Color value needs to be converted into HEX (credit to blob8108 for this conversion)
                         console.log("COLOR CONVERSION: " + myParameterValue);

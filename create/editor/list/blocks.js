@@ -496,7 +496,15 @@ blocks.push({
                 spec: "procDef",
                 scratchblocks: undefined,
                 renderLabel: undefined,
-                parameters: [],
+                parameters: undefined,
+                group: "More Blocks"
+});
+blocks.push({
+                type: "call",
+                spec: "call",
+                scratchblocks: undefined,
+                renderLabel: undefined,
+                parameters: undefined,
                 group: "More Blocks"
 });
 
