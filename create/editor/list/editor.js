@@ -42,7 +42,14 @@ function generateObjectJSON(){
 			    miniParams.push($($(el).children("div")[index]).children("input").val());
 			    break;
 			case "color":
-			    //NEEDS CONVERSION!!
+			    var tmpColorText = $($(el).children("div")[index]).attr("style");
+			    tmpColorText = tmpColorText.replace("background-color: rgb(", "");
+			    tmpColorText = tmpColorText.replace(");", "");
+			    tmpColorText = tmpColorText.replace(" ", "");
+			    tmpColorText = tmpColorText.replace(" ", "");
+			    var tmpColorArray = tmpColorText.split(","); //R: [0], G: [1], B: [2]
+			    
+			    
 			    miniParams.push(0);
 			    break;
 		    }

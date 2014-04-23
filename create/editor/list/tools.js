@@ -126,6 +126,7 @@ var EditorTools = {
                     var myParameterValue = blockArray[1 + index];
                     if (blockData.parameters[index] == "color") {
                         //Color value needs to be converted into HEX (credit to blob8108 for this conversion)
+                        console.log("COLOR CONVERSION: " + myParameterValue);
                         myParameterValue = (myParameterValue >>> 0) & 0xffffff;
                         var myHex = parseInt(myParameterValue).toString(16);
                         while(myHex.length < 6) {
@@ -144,7 +145,14 @@ var EditorTools = {
     },
     
     /********************************************************************************************************************/
-    
+    hexToRgb: function(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    },
     logAndReturn: function(obj)
     {
         console.log(obj);
