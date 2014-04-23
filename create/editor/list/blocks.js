@@ -470,6 +470,36 @@ blocks.push({
 			     "number"],
 		group: "Operators"
 	    });
+//**//MORE BLOCKS
+/*
+This is going to need some explaining:
+The "More Blocks" section holds three types of blocks:
+1) Custom Blocks (Scratch supported)
+2) Extension Blocks (Scratch supported)
+3) GE Add-on Blocks (GE supported, no Scratch support. For future use.)
+Add-on blocks haven't been implemented yet, but will probably be
+the same as Extension blocks.
+
+Extension blocks are not supported in GE yet, as they do not
+currently have render code in scratchblocks2 or programming code
+in the player.
+
+Custom blocks work as so:
+1) There will be a unique block data so that the GE code parser can
+tell when to declare a special block.
+2) When GE gets to a define block, it will parse it like a special hat block,
+with an "end" at the end of the define. The block that is defined will then be pushed into the
+blocks array, with the type "call:command"
+*/
+blocks.push({
+                type: "define",
+                spec: "procDef",
+                scratchblocks: undefined,
+                renderLabel: undefined,
+                parameters: [],
+                group: "More Blocks"
+});
+
 //**//MOTION
 blocks.push({
                 type: "command",

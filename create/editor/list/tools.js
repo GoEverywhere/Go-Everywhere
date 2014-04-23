@@ -37,7 +37,7 @@ var EditorTools = {
 	    totalStackText += EditorTools.findScratchBlocksFromBlockArray(value);
 	});
 	
-	return totalStackText;
+	return totalStackText + "\n";
     },
     findScratchBlocksFromBlockArray: function(singleBlockArray) {
 	var myScratchBlocks = "";
@@ -55,6 +55,48 @@ var EditorTools = {
 		//Then, come the parameters.
 		myScratchBlocks += this.replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
 		break;
+            case "define":
+                //This block is special. It is the define block, which is as follows:
+                //The first item is the block spec: always "procDef"
+                //The second item is the spec (following http://goo.gl/mjFG1s).
+                //Currently, only %n, %b, and %s are supported (number, boolean, and string)
+                //The third item is going to hold an array, naming each of the inputs.
+                //The inputs will need to be changed accordingly, then set the their names.
+                myScratchBlocks += "define ";
+                var myCustomBlockSpec = singleBlockArray[1];
+                var myCustomBlockSpecArray = myCustomBlockSpec.split('');
+                var myParameterIndex = 0;
+                $.each(myCustomBlockSpecArray, function(index, value){
+                    if (index + 1 < myCustomBlockSpecArray.length) {
+                        if (value == "%") {
+                            switch(myCustomBlockSpecArray[index + 1]){
+                                case "n":
+                                case "s":
+                                    myCustomBlockSpecArray.splice(index + 1, 1);
+                                    myCustomBlockSpecArray[index] = "( $" + myParameterIndex + " )";
+                                    break;
+                                case "b":
+                                    myCustomBlockSpecArray.splice(index + 1, 1);
+                                    myCustomBlockSpecArray[index] = "< $" + myParameterIndex + " >";
+                                    break;
+                            }
+                            myParameterIndex++;
+                        }
+                    }
+                });
+                //Stick it all back together
+                myCustomBlockSpec = "";
+                $.each(myCustomBlockSpecArray, function(index, value){
+                    myCustomBlockSpec += value;
+                });
+                //Loop through parameter names, and
+                //replace $[index] with the parameter name
+                $.each(singleBlockArray[2], function(index, value){
+                    myCustomBlockSpec = myCustomBlockSpec.replace("$" + index, value);
+                });
+                myScratchBlocks += myCustomBlockSpec + "\n";
+                
+                break;
 	    case "command":
 	    case "stack":
 		//A stack block is as follows:
