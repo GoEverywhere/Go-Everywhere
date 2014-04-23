@@ -240,7 +240,8 @@ var scratchblocks2 = function ($) {
             blockids.push(spec);
             var info = {
                 blockid: spec,
-                category: category
+                category: category,
+                spec: spec
             };
             while (flags.length) {
                 var flag = flags.pop();
@@ -481,6 +482,7 @@ var scratchblocks2 = function ($) {
                 return {
                     shape: "define-hat",
                     category: "custom",
+                    spec: code,
                     pieces: [code.slice(0, define_text.length), {
                         shape: "outline",
                         pieces: pieces
@@ -658,7 +660,6 @@ var scratchblocks2 = function ($) {
             return "embedded";
         case "<":
             return "boolean";
-        case "{":
         default:
             return "stack"
         }
@@ -929,7 +930,7 @@ var scratchblocks2 = function ($) {
     function render_stack_item(info) {
         switch (info.type) {
         case "cwrap":
-            var $cwrap = render_stack(info.contents).addClass("cwrap").addClass(info.category);
+            var $cwrap = render_stack(info.contents).addClass("cwrap").addClass(info.category).attr("sbSpec", info.spec);
             if (info.shape === "cap") $cwrap.addClass(info.shape);
             return $cwrap;
         case "cmouth":
