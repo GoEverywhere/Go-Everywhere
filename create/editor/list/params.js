@@ -1,252 +1,252 @@
 params.push({
     name: "key",
     getCode: function(info){
-        return "<select>\n" +
-                        "<option value=\"up\">up arrow</option>\n" +
-                        "<option value=\"down\">down arrow</option>\n" +
-                        "<option value=\"right\">right arrow</option>\n" +
-                        "<option value=\"left\">left arrow</option>\n" +
-                        "<option value=\"space\">space</option>\n" +
-                        "<option value=\"a\">a</option>\n" +
-                        "<option value=\"b\">b</option>\n" +
-                        "<option value=\"c\">c</option>\n" +
-                        "<option value=\"d\">d</option>\n" +
-                        "<option value=\"e\">e</option>\n" +
-                        "<option value=\"f\">f</option>\n" +
-                        "<option value=\"g\">g</option>\n" +
-                        "<option value=\"h\">h</option>\n" +
-                        "<option value=\"i\">i</option>\n" +
-                        "<option value=\"j\">j</option>\n" +
-                        "<option value=\"k\">k</option>\n" +
-                        "<option value=\"l\">l</option>\n" +
-                        "<option value=\"m\">m</option>\n" +
-                        "<option value=\"n\">n</option>\n" +
-                        "<option value=\"o\">o</option>\n" +
-                        "<option value=\"p\">p</option>\n" +
-                        "<option value=\"q\">q</option>\n" +
-                        "<option value=\"r\">r</option>\n" +
-                        "<option value=\"s\">s</option>\n" +
-                        "<option value=\"t\">t</option>\n" +
-                        "<option value=\"u\">u</option>\n" +
-                        "<option value=\"v\">v</option>\n" +
-                        "<option value=\"w\">w</option>\n" +
-                        "<option value=\"x\">x</option>\n" +
-                        "<option value=\"y\">y</option>\n" +
-                        "<option value=\"z\">z</option>\n" +
-                        "<option value=\"0\">0</option>\n" +
-                        "<option value=\"1\">1</option>\n" +
-                        "<option value=\"2\">2</option>\n" +
-                        "<option value=\"3\">3</option>\n" +
-                        "<option value=\"4\">4</option>\n" +
-                        "<option value=\"5\">5</option>\n" +
-                        "<option value=\"6\">6</option>\n" +
-                        "<option value=\"7\">7</option>\n" +
-                        "<option value=\"8\">8</option>\n" +
-                        "<option value=\"9\">9</option>\n" +
-                        "</select>\n";
+        return "<select>" +
+                        "<option value=\"up\">up arrow</option>" +
+                        "<option value=\"down\">down arrow</option>" +
+                        "<option value=\"right\">right arrow</option>" +
+                        "<option value=\"left\">left arrow</option>" +
+                        "<option value=\"space\">space</option>" +
+                        "<option value=\"a\">a</option>" +
+                        "<option value=\"b\">b</option>" +
+                        "<option value=\"c\">c</option>" +
+                        "<option value=\"d\">d</option>" +
+                        "<option value=\"e\">e</option>" +
+                        "<option value=\"f\">f</option>" +
+                        "<option value=\"g\">g</option>" +
+                        "<option value=\"h\">h</option>" +
+                        "<option value=\"i\">i</option>" +
+                        "<option value=\"j\">j</option>" +
+                        "<option value=\"k\">k</option>" +
+                        "<option value=\"l\">l</option>" +
+                        "<option value=\"m\">m</option>" +
+                        "<option value=\"n\">n</option>" +
+                        "<option value=\"o\">o</option>" +
+                        "<option value=\"p\">p</option>" +
+                        "<option value=\"q\">q</option>" +
+                        "<option value=\"r\">r</option>" +
+                        "<option value=\"s\">s</option>" +
+                        "<option value=\"t\">t</option>" +
+                        "<option value=\"u\">u</option>" +
+                        "<option value=\"v\">v</option>" +
+                        "<option value=\"w\">w</option>" +
+                        "<option value=\"x\">x</option>" +
+                        "<option value=\"y\">y</option>" +
+                        "<option value=\"z\">z</option>" +
+                        "<option value=\"0\">0</option>" +
+                        "<option value=\"1\">1</option>" +
+                        "<option value=\"2\">2</option>" +
+                        "<option value=\"3\">3</option>" +
+                        "<option value=\"4\">4</option>" +
+                        "<option value=\"5\">5</option>" +
+                        "<option value=\"6\">6</option>" +
+                        "<option value=\"7\">7</option>" +
+                        "<option value=\"8\">8</option>" +
+                        "<option value=\"9\">9</option>" +
+                        "</select>";
     }
 });
 params.push({
     name: "spriteOrMouse",
     getCode: function(info){
-        var paramToReturn = "<select>\n" +
-                        "<option name=\"mouse-pointer\">mouse-pointer</option>\n";
+        var paramToReturn = "<select>" +
+                        "<option name=\"mouse-pointer\">mouse-pointer</option>";
                         $("#toolbar #spriteSelect select option:not([name='Stage'],:selected)").each(function(){
-                            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
+                            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>";
                         });
-            paramToReturn += "</select>\n";
+            paramToReturn += "</select>";
         return paramToReturn;
     }
 });
 params.push({
     name: "mathOp",
     getCode: function(info){
-        return "<select>\n" +
-                        "<option value=\"abs\">abs</option>\n" +
-                        "<option value=\"floor\">floor</option>\n" +
-                        "<option value=\"ceiling\">ceiling</option>\n" +
-                        "<option value=\"sqrt\">sqrt</option>\n" +
-                        "<option value=\"sin\">sin</option>\n" +
-                        "<option value=\"cos\">cos</option>\n" +
-                        "<option value=\"tan\">tan</option>\n" +
-                        "<option value=\"asin\">asin</option>\n" +
-                        "<option value=\"acos\">acos</option>\n" +
-                        "<option value=\"atan\">atan</option>\n" +
-                        "<option value=\"ln\">ln</option>\n" +
-                        "<option value=\"log\">log</option>\n" +
-                        "<option value=\"e ^\">e ^</option>\n" +
-                        "<option value=\"10 ^\">10 ^</option>\n" +
-                        "</select>\n";
+        return "<select>" +
+                        "<option value=\"abs\">abs</option>" +
+                        "<option value=\"floor\">floor</option>" +
+                        "<option value=\"ceiling\">ceiling</option>" +
+                        "<option value=\"sqrt\">sqrt</option>" +
+                        "<option value=\"sin\">sin</option>" +
+                        "<option value=\"cos\">cos</option>" +
+                        "<option value=\"tan\">tan</option>" +
+                        "<option value=\"asin\">asin</option>" +
+                        "<option value=\"acos\">acos</option>" +
+                        "<option value=\"atan\">atan</option>" +
+                        "<option value=\"ln\">ln</option>" +
+                        "<option value=\"log\">log</option>" +
+                        "<option value=\"e ^\">e ^</option>" +
+                        "<option value=\"10 ^\">10 ^</option>" +
+                        "</select>";
     }
 });
 params.push({
     name: "backdrop",
     getCode: function(info){
-        var myTotalSelector = "<select>\n";
+        var myTotalSelector = "<select>";
             $.each(info.project.costumes, function(index, value){
-                myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>\n";
+                myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>";
             });
-            myTotalSelector += "</select>\n";
+            myTotalSelector += "</select>";
         return myTotalSelector;
     }
 });
 params.push({
     name: "triggerSensor",
     getCode: function(info){
-        return "<select>\n" +
-                        "<option value=\"loudness\">loudness</option>\n" +
-                        "<option value=\"timer\">timer</option>\n" +
-                        "<option value=\"video motion\">video motion</option>\n" +
-                        "</select>\n";
+        return "<select>" +
+                        "<option value=\"loudness\">loudness</option>" +
+                        "<option value=\"timer\">timer</option>" +
+                        "<option value=\"video motion\">video motion</option>" +
+                        "</select>";
     }
 });
 params.push({
     name: "broadcast",
     getCode: function(info){
-        var myTotalSelector = "<select>\n";
+        var myTotalSelector = "<select>";
         $.each(broadcasts, function(index, value){
-            myTotalSelector += "<option value=\"" + value + "\">" + value + "</option>\n";
+            myTotalSelector += "<option value=\"" + value + "\">" + value + "</option>";
         });
-        myTotalSelector += "<option value=\"message1\">message1</option>\n";
-        myTotalSelector += "</select>\n";
+        myTotalSelector += "<option value=\"message1\">message1</option>";
+        myTotalSelector += "</select>";
         return myTotalSelector;
     }
 });
 params.push({
     name: "stop",
     getCode: function(info){
-        return "<select>\n" +
-                "<option value=\"all\">all</option>\n" +
-                "<option value=\"this script\">this script</option>\n" +
-                "<option value=\"other scripts in sprite\">other scripts in sprite</option>\n" +
-                "</select>\n";
+        return "<select>" +
+                "<option value=\"all\">all</option>" +
+                "<option value=\"this script\">this script</option>" +
+                "<option value=\"other scripts in sprite\">other scripts in sprite</option>" +
+                "</select>";
     }
 });
 params.push({
     name: "spriteOnly",
     getCode: function(info){
-        var paramToReturn = "<select>\n" +
-                        "<option name=\"myself\">myself</option>\n";
+        var paramToReturn = "<select>" +
+                        "<option name=\"myself\">myself</option>";
         $("#toolbar #spriteSelect select option:not([name='Stage'],:selected)").each(function(){
-            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
+            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>";
         });
-        paramToReturn += "</select>\n";
+        paramToReturn += "</select>";
         return paramToReturn;
     }
 });
 params.push({
     name: "videoMotionType",
     getCode: function(info){
-        return "<select>\n" +
-                "<option value=\"motion\">motion</option>\n" +
-                "<option value=\"direction\">direction</option>\n" +
-                "</select>\n";
+        return "<select>" +
+                "<option value=\"motion\">motion</option>" +
+                "<option value=\"direction\">direction</option>" +
+                "</select>";
     }
 });
 params.push({
     name: "stageOrThis",
     getCode: function(info){
-        return "<select>\n" +
-                "<option value=\"Stage\">Stage</option>\n" +
-                "<option value=\"this sprite\">this sprite</option>\n" +
-                "</select>\n";
+        return "<select>" +
+                "<option value=\"Stage\">Stage</option>" +
+                "<option value=\"this sprite\">this sprite</option>" +
+                "</select>";
     }
 });
 params.push({
     name: "videoState",
     getCode: function(info){
-        return "<select>\n" +
-                "<option value=\"off\">off</option>\n" +
-                "<option value=\"on\">on</option>\n" +
-                "<option value=\"on-flipped\">on-flipped</option>\n" +
-                "</select>\n";
+        return "<select>" +
+                "<option value=\"off\">off</option>" +
+                "<option value=\"on\">on</option>" +
+                "<option value=\"on-flipped\">on-flipped</option>" +
+                "</select>";
     }
 });
 params.push({
     name: "sensor",
     getCode: function(info){
-        return "<select>\n" +
-                "<option value=\"x position\">x position</option>\n" +
-                "<option value=\"y position\">y position</option>\n" +
-                "<option value=\"direction\">direction</option>\n" +
-                "<option value=\"costume #\">costume #</option>\n" +
-                "<option value=\"costume name\">costume name</option>\n" +
-                "<option value=\"size\">size</option>\n" +
-                "<option value=\"volume\">volume</option>\n" +
-                "</select>\n";
+        return "<select>" +
+                "<option value=\"x position\">x position</option>" +
+                "<option value=\"y position\">y position</option>" +
+                "<option value=\"direction\">direction</option>" +
+                "<option value=\"costume #\">costume #</option>" +
+                "<option value=\"costume name\">costume name</option>" +
+                "<option value=\"size\">size</option>" +
+                "<option value=\"volume\">volume</option>" +
+                "</select>";
     }
 });
 params.push({
     name: "spriteOrStage",
     getCode: function(info){
-        var paramToReturn = "<select>\n";
+        var paramToReturn = "<select>";
         $("#toolbar #spriteSelect select option:not(:selected)").each(function(){
-            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
+            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>";
         });
-        paramToReturn += "</select>\n";
+        paramToReturn += "</select>";
         return paramToReturn;
     }
 });
 params.push({
     name: "timeAndDate",
     getCode: function(info){
-        return "<select>\n" +
-                "<option value=\"year\">year</option>\n" +
-                "<option value=\"month\">month</option>\n" +
-                "<option value=\"date\">date</option>\n" +
-                "<option value=\"day of week\">day of week</option>\n" +
-                "<option value=\"hour\">hour</option>\n" +
-                "<option value=\"minute\">minute</option>\n" +
-                "<option value=\"second\">second</option>\n" +
-                "</select>\n";
+        return "<select>" +
+                "<option value=\"year\">year</option>" +
+                "<option value=\"month\">month</option>" +
+                "<option value=\"date\">date</option>" +
+                "<option value=\"day of week\">day of week</option>" +
+                "<option value=\"hour\">hour</option>" +
+                "<option value=\"minute\">minute</option>" +
+                "<option value=\"second\">second</option>" +
+                "</select>";
     }
 });
 params.push({
     name: "touching",
     getCode: function(info){
-        var paramToReturn = "<select>\n" +
-                        "<option name=\"mouse-pointer\">mouse-pointer</option>\n" +
-                        "<option name=\"edge\">edge</option>\n";
+        var paramToReturn = "<select>" +
+                        "<option name=\"mouse-pointer\">mouse-pointer</option>" +
+                        "<option name=\"edge\">edge</option>";
                         $("#toolbar #spriteSelect select option:not([name='Stage'],:selected)").each(function(){
-                            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>\n";
+                            paramToReturn += "<option name=\"" + $(this).attr("name") + "\">" + $(this).attr("name") + "</option>";
                         });
-            paramToReturn += "</select>\n";
+            paramToReturn += "</select>";
         return paramToReturn;
     }
 });
 params.push({
     name: "effect",
     getCode: function(info){
-        return "<select>\n" +
-                "<option value=\"color\">color</option>\n" +
-                "<option value=\"fisheye\">fisheye</option>\n" +
-                "<option value=\"whirl\">whirl</option>\n" +
-                "<option value=\"pixelate\">pixelate</option>\n" +
-                "<option value=\"mosaic\">mosaic</option>\n" +
-                "<option value=\"brightness\">brightness</option>\n" +
-                "<option value=\"ghost\">ghost</option>\n" +
-                "</select>\n";
+        return "<select>" +
+                "<option value=\"color\">color</option>" +
+                "<option value=\"fisheye\">fisheye</option>" +
+                "<option value=\"whirl\">whirl</option>" +
+                "<option value=\"pixelate\">pixelate</option>" +
+                "<option value=\"mosaic\">mosaic</option>" +
+                "<option value=\"brightness\">brightness</option>" +
+                "<option value=\"ghost\">ghost</option>" +
+                "</select>";
     }
 });
 params.push({
     name: "sound",
     getCode: function(info){
-        var myTotalSelector = "<select>\n";
+        var myTotalSelector = "<select>";
             $.each(info.currentObj.sounds, function(index, value){
-                myTotalSelector += "<option value=\"" + value.soundName + "\">" + value.soundName + "</option>\n";
+                myTotalSelector += "<option value=\"" + value.soundName + "\">" + value.soundName + "</option>";
             });
-            myTotalSelector += "</select>\n";
+            myTotalSelector += "</select>";
         return myTotalSelector;
     }
 });
 params.push({
     name: "costume",
     getCode: function(info){
-        var myTotalSelector = "<select>\n";
+        var myTotalSelector = "<select>";
             $.each(info.currentObj.costumes, function(index, value){
-                myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>\n";
+                myTotalSelector += "<option value=\"" + value.costumeName + "\">" + value.costumeName + "</option>";
             });
-            myTotalSelector += "</select>\n";
+            myTotalSelector += "</select>";
         return myTotalSelector;
     }
 });

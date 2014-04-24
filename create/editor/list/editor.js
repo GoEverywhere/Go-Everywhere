@@ -193,7 +193,7 @@ function doneReadingZip(zip) {
     
 }
 function loadCurrentSelectedSprite(){
-    var scratchblocksText = "";
+    var blockCode = "";
     
     if ($("#toolbar #spriteSelect select").val() == project.objName) {
 	currentObj = project;
@@ -207,18 +207,23 @@ function loadCurrentSelectedSprite(){
     }
     if (currentObj.scripts) {
 	$.each(currentObj.scripts, function(index, value){
-	    scratchblocksText += EditorTools.findScratchBlocksFromStack(value[2]) + "\n";
+	    blockCode += "<div class=\"script\">\n";
+	    blockCode += EditorTools.findBlocksFromStack(value[2], {
+		project: project,
+		currentObj: currentObj
+	    });
+	    blockCode += "</div>\n";
 	});
     }
     
-    $("#blocks").html("<pre class=\"blockCodeParse\">" + scratchblocksText + "</pre>");
+    $("#blocks").html("<pre class=\"blockCodeParse\">\n<div class=\"sb2\">\n" + blockCode + "</div>\n</pre>");
     
     //Parse blocks
-    scratchblocks2.parse("pre.blockCodeParse");
+    //scratchblocks2.parse("pre.blockCodeParse");
     
     //Add replace block tags with HTML input tags. PARAMETERS!!!!!!!!!!
     //Number tags
-    $("#blocks .number").each(function(){
+    /*$("#blocks .number").each(function(){
 	$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
     });
     //String tags
@@ -492,7 +497,7 @@ function loadCurrentSelectedSprite(){
 	    $(this).children().css("border-color", "black");
 	    ui.draggable.removeClass("dragged-over");
 	}
-    });
+    });*/
     
 }
 

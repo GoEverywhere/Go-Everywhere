@@ -3,40 +3,35 @@
 blocks.push({
                 type: "hat",
                 spec: "whenGreenFlag",
-		scratchblocks: "when green flag clicked",
-		renderLabel: "when  clicked",
+		label: "when @greenFlag clicked",
 		parameters: [],
                 group: "Events"
             });
 blocks.push({
                 type: "hat",
                 spec: "whenKeyPressed",
-		scratchblocks: "when [%m.key{$1} v] key pressed",
-		renderLabel: "when  key pressed",
+		label: "when %m.key key pressed",
 		parameters: ["dropdown"],
                 group: "Events"
             });
 blocks.push({
                 type: "hat",
                 spec: "whenClicked",
-                scratchblocks: "when this sprite clicked",
-                renderLabel: "when this sprite clicked",
+                label: "when this sprite clicked",
                 parameters: [],
                 group: "Events"
 });
 blocks.push({
                 type: "hat",
                 spec: "whenSceneStarts",
-                scratchblocks: "when backdrop switches to [%m.backdrop{$1} v]",
-                renderLabel: "when backdrop switches to ",
+                label: "when backdrop switches to %m.backdrop",
                 parameters: ["dropdown"],
                 group: "Events"
 });
 blocks.push({
                 type: "hat",
                 spec: "whenSensorGreaterThan",
-                scratchblocks: "when [%m.triggerSensor{$1} v] > ($2)",
-                renderLabel: "when  > ",
+                label: "when %m.triggerSensor > %n",
                 parameters: ["dropdown",
                              "number"],
                 group: "Events"
@@ -44,24 +39,21 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenIReceive",
-                scratchblocks: "when I receive [%m.broadcast{$1} v]",
-                renderLabel: "when I receive ",
+                label: "when I receive %m.broadcast",
                 parameters: ["dropdown"],
                 group: "Events"
 });
 blocks.push({
                 type: "command",
                 spec: "broadcast:",
-                scratchblocks: "broadcast [%m.broadcast{$1} v]",
-                renderLabel: "broadcast ",
+                label: "broadcast %m.broadcast",
                 parameters: ["dropdown"],
                 group: "Events"
 });
 blocks.push({
                 type: "command",
                 spec: "doBroadcastAndWait",
-                scratchblocks: "broadcast [%m.broadcast{$1} v] and wait",
-                renderLabel: "broadcast  and wait",
+                label: "broadcast %m.broadcast and wait",
                 parameters: ["dropdown"],
                 group: "Events"
 });
@@ -69,89 +61,78 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "wait:elapsed:from:",
-		scratchblocks: "wait ($1) secs",
-		renderLabel: "wait  secs",
+		label: "wait %n secs",
 		parameters: ["number"],
 		group: "Control"
 	    });
 blocks.push({
 		type: "c",
 		spec: "doRepeat",
-		scratchblocks: "repeat ($1)",
-		renderLabel: "repeat ",
+		label: "repeat %n",
 		parameters: ["number"],
 		group: "Control"
 	    });
 blocks.push({
                 type: "c",
                 spec: "doForever",
-		scratchblocks: "forever",
-		renderLabel: "forever",
+		label: "forever",
 		parameters: [],
                 group: "Control"
             });
 blocks.push({
 		type: "c",
 		spec: "doIf",
-		scratchblocks: "if <$1> then",
-		renderLabel: "if  then",
+		label: "if %b then",
 		parameters: ["boolean"],
 		group: "Control"
 	    });
 blocks.push({
                 type: "special",
                 spec: "doIfElse",
-                scratchblocks: ["if <$1> then",
+                label: ["if %b then",
                                 "else"],
-                renderLabel: "if  then\nelse",
                 parameters: ["boolean"],
                 group: "Control"
 });
 blocks.push({
 		type: "command",
 		spec: "doWaitUntil",
-		scratchblocks: "wait until <$1>",
-		renderLabel: "wait until ",
+		label: "wait until %b",
 		parameters: ["boolean"],
 		group: "Control"
 	    });
 blocks.push({
                 type: "c",
                 spec: "doUntil",
-                scratchblocks: "repeat until <$1>",
-                renderLabel: "repeat until ",
+                label: "repeat until %b",
                 parameters: ["boolean"],
                 group: "Control"
 });
 blocks.push({
                 type: "command",
                 spec: "stopScripts",
-                scratchblocks: "stop [%m.stop{$1} v]",
-                renderLabel: "stop ",
+                label: "stop %m.stop",
                 parameters: ["dropdown"],
                 group: "Control"
 });
 blocks.push({
                 type: "hat",
                 spec: "whenCloned",
-                scratchblocks: "when I start as a clone",
-                renderLabel: "when I start as a clone",
+                label: "when I start as a clone",
                 parameters: [],
                 group: "Control"
 });
 blocks.push({
                 type: "command",
                 spec: "createCloneOf",
-                scratchblocks: "create clone of [%m.spriteOnly{$1} v]",
-                renderLabel: "create clone of ",
+                label: "create clone of %m.spriteOnly",
                 parameters: ["dropdown"],
                 group: "Control"
 });
 blocks.push({
                 type: "command",
                 spec: "deleteClone",
-                scratchblocks: "delete this clone",
-                renderLabel: "delete this clone",
+                label: "delete this clone",
                 parameters: [],
                 group: "Control"
 });
@@ -159,24 +140,21 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "touching:",
-		scratchblocks: "< touching [%m.touching{$1} v]? >",
-		renderLabel: "touching ?",
+		label: "touching %m.touching?",
 		parameters: ["dropdown"],
 		group: "Sensing"
 	    });
 blocks.push({
 		type: "boolean",
 		spec: "touchingColor:",
-		scratchblocks: "< touching color [#$1]? >",
-		renderLabel: "touching color ?",
+		label: "touching color %c?",
 		parameters: ["color"],
 		group: "Sensing"
 	    });
 blocks.push({
 		type: "boolean",
 		spec: "color:sees:",
-		scratchblocks: "< color [#$1] is touching [#$2]? >",
-		renderLabel: "color  is touching ?",
+		label: "color %c is touching %c?",
 		parameters: ["color",
                              "color"],
 		group: "Sensing"
@@ -184,88 +162,77 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "distanceTo:",
-                scratchblocks: "( distance to [%m.spriteOrMouse{$1} v] )",
-                renderLabel: "distance to ",
+                label: "distance to %m.spriteOrMouse",
                 parameters: ["dropdown"],
                 group: "Sensing"
 });
 blocks.push({
                 type: "command",
                 spec: "doAsk",
-                scratchblocks: "ask [$1] and wait",
-                renderLabel: "ask  and wait",
+                label: "ask %s and wait",
                 parameters: ["string"],
                 group: "Sensing"
 });
 blocks.push({
                 type: "reporter",
                 spec: "answer",
-                scratchblocks: "( answer )",
-                renderLabel: "answer",
+                label: "answer",
                 parameters: [],
                 group: "Sensing"
 });
 blocks.push({
                 type: "boolean",
                 spec: "keyPressed:",
-                scratchblocks: "< key [%m.key{$1} v] pressed? >",
-                renderLabel: "key  pressed?",
+                label: "key %m.key pressed?",
                 parameters: ["dropdown"],
                 group: "Sensing"
 });
 blocks.push({
                 type: "boolean",
                 spec: "mousePressed",
-                scratchblocks: "< mouse down? >",
-                renderLabel: "mouse down?",
+                label: "mouse down?",
                 parameters: [],
                 group: "Sensing"
 });
 blocks.push({
                 type: "reporter",
                 spec: "mouseX",
-                scratchblocks: "( mouse x )",
-                renderLabel: "mouse x",
+                label: "mouse x",
                 parameters: [],
                 group: "Sensing"
 });
 blocks.push({
                 type: "reporter",
                 spec: "mouseY",
-                scratchblocks: "( mouse y )",
-                renderLabel: "mouse y",
+                label: "mouse y",
                 parameters: [],
                 group: "Sensing"
 });
 blocks.push({
                 type: "reporter",
                 spec: "soundLevel",
-                scratchblocks: "( loudness )",
-                renderLabel: "loudness",
+                label: "loudness",
                 parameters: [],
                 group: "Sensing"
 });
 blocks.push({
 		type: "reporter",
 		spec: "timer",
-		scratchblocks: "(timer)",
-		renderLabel: "timer",
+		label: "timer",
 		parameters: [],
 		group: "Sensing"
 	    });
 blocks.push({
 		type: "command",
 		spec: "timerReset",
-		scratchblocks: "reset timer",
-		renderLabel: "reset timer",
+		label: "reset timer",
 		parameters: [],
 		group: "Sensing"
 	    });
 blocks.push({
                 type: "reporter",
                 spec: "senseVideoMotion",
-                scratchblocks: "( video [%m.videoMotionType{$1} v] on [%m.stageOrThis{$2} v] )",
-                renderLabel: "video  on ",
+                label: "video %m.videoMotionType on %m.stageOrThis",
                 parameters: ["dropdown",
                              "dropdown"],
                 group: "Sensing"
@@ -273,24 +240,21 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "setVideoState",
-                scratchblocks: "turn video [%m.videoState{$1} v]",
-                renderLabel: "turn video ",
+                label: "turn video %m.videoState",
                 parameters: ["dropdown"],
                 group: "Sensing"
 });
 blocks.push({
 		type: "command",
 		spec: "setVideoTransparency",
-		scratchblocks: "set video transparency to ($1) %",
-		renderLabel: "set video transparency to  %",
+		label: "set video transparency to %n %",
 		parameters: ["number"],
 		group: "Sensing"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "getAttribute:of:",
-		scratchblocks: "( [%m.sensor{$1} v] of [%m.spriteOrStage{$2} v] )",
-		renderLabel: " of ",
+		label: "%m.sensor of %m.spriteOrStage",
 		parameters: ["dropdown",
                              "dropdown"],
 		group: "Sensing"
@@ -298,24 +262,21 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "timeAndDate",
-		scratchblocks: "( current [%m.timeAndDate{$1} v] )",
-		renderLabel: "current ",
+		label: "current %m.timeAndDate",
 		parameters: ["dropdown"],
 		group: "Sensing"
 	    });
 blocks.push({
                 type: "reporter",
                 spec: "timestamp",
-                scratchblocks: "( days since 2000 )",
-                renderLabel: "days since 2000",
+                label: "days since 2000",
                 parameters: [],
                 group: "Sensing"
 });
 blocks.push({
                 type: "reporter",
                 spec: "getUserName",
-                scratchblocks: "( username )",
-                renderLabel: "username",
+                label: "username",
                 parameters: [],
                 group: "Sensing"
 });
@@ -323,8 +284,7 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "+",
-                scratchblocks: "(($1) + ($2))",
-		renderLabel: " + ",
+                label: "%n + %n",
                 parameters: ["number",
 			     "number"],
                 group: "Operators"
@@ -332,8 +292,7 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "-",
-                scratchblocks: "(($1) - ($2))",
-		renderLabel: " - ",
+                label: "%n - %n",
                 parameters: ["number",
 			     "number"],
                 group: "Operators"
@@ -341,8 +300,7 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "*",
-                scratchblocks: "(($1) * ($2))",
-		renderLabel: " * ",
+                label: "%n * %n",
                 parameters: ["number",
 			     "number"],
                 group: "Operators"
@@ -350,8 +308,7 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "/",
-                scratchblocks: "(($1) / ($2))",
-		renderLabel: " / ",
+                label: "%n / %n",
                 parameters: ["number",
 			     "number"],
                 group: "Operators"
@@ -359,8 +316,7 @@ blocks.push({
 blocks.push({
                 type: "reporter",
                 spec: "randomFrom:to:",
-                scratchblocks: "( pick random ($1) to ($2) )",
-		renderLabel: "pick random  to ",
+                label: "pick random %n to %n",
                 parameters: ["number",
 			     "number"],
                 group: "Operators"
@@ -368,8 +324,7 @@ blocks.push({
 blocks.push({
                 type: "boolean",
                 spec: "<",
-                scratchblocks: "< [$1] < [$2] >",
-		renderLabel: " < ",
+                label: "%s < %s",
                 parameters: ["string",
 			     "string"],
                 group: "Operators"
@@ -377,8 +332,7 @@ blocks.push({
 blocks.push({
                 type: "boolean",
                 spec: "=",
-                scratchblocks: "< [$1] = [$2] >",
-		renderLabel: " = ",
+                label: "%s = %s",
                 parameters: ["string",
 			     "string"],
                 group: "Operators"
@@ -386,8 +340,7 @@ blocks.push({
 blocks.push({
                 type: "boolean",
                 spec: ">",
-                scratchblocks: "< [$1] > [$2] >",
-		renderLabel: " > ",
+                label: "%s > %s",
                 parameters: ["string",
 			     "string"],
                 group: "Operators"
@@ -395,8 +348,7 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "&",
-		scratchblocks: "< <$1> and <$2> >",
-		renderLabel: " and ",
+		label: "%b and %b",
 		parameters: ["boolean",
                              "boolean"],
 		group: "Operators"
@@ -404,8 +356,7 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "|",
-		scratchblocks: "< <$1> or <$2> >",
-		renderLabel: " or ",
+		label: "%b or %b",
 		parameters: ["boolean",
                              "boolean"],
 		group: "Operators"
@@ -413,16 +364,14 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "not",
-		scratchblocks: "< not <$1> >",
-		renderLabel: "not ",
+		label: "not %b",
 		parameters: ["boolean"],
 		group: "Operators"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "concatenate:with:",
-		scratchblocks: "( join [$1] [$2] )",
-		renderLabel: "join  ",
+		label: "join %s %s",
 		parameters: ["string",
                              "string"],
 		group: "Operators"
@@ -430,8 +379,7 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "letter:of:",
-		scratchblocks: "( letter ($1) of [$2] )",
-		renderLabel: "letter  of ",
+		label: "letter %n of %s",
 		parameters: ["number",
                              "string"],
 		group: "Operators"
@@ -439,16 +387,14 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "stringLength:",
-		scratchblocks: "( length of [$1] )",
-		renderLabel: "length of ",
+		label: "length of %s",
 		parameters: ["string"],
 		group: "Operators"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "%",
-		scratchblocks: "( ($1) mod ($2) )",
-		renderLabel: " mod ",
+		label: "%n mod %n",
 		parameters: ["number",
                              "number"],
 		group: "Operators"
@@ -456,21 +402,19 @@ blocks.push({
 blocks.push({
 		type: "reporter",
 		spec: "rounded",
-		scratchblocks: "( round ($1) )",
-		renderLabel: "round ",
+		label: "round %n",
 		parameters: ["number"],
 		group: "Operators"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "computeFunction:of:",
-		scratchblocks: "([%m.mathOp{$1} v] of ($2))",
-		renderLabel: " of ",
+		label: "%m.mathOp of %n",
 		parameters: ["dropdown",
 			     "number"],
 		group: "Operators"
 	    });
-//**//MORE BLOCKS
+//**//CUSTOM
 /*
 The "More Blocks" section is special;
 there should only be two blocks in it at once.
@@ -480,42 +424,37 @@ The second is the "call" block (the actual custom block)
 blocks.push({
                 type: "define",
                 spec: "procDef",
-                scratchblocks: undefined,
-                renderLabel: undefined,
+                label: undefined,
                 parameters: undefined,
-                group: "More Blocks"
+                group: "Custom"
 });
 blocks.push({
                 type: "call",
                 spec: "call",
-                scratchblocks: undefined,
-                renderLabel: undefined,
+                label: undefined,
                 parameters: undefined,
-                group: "More Blocks"
+                group: "Custom"
 });
 
 //**//MOTION
 blocks.push({
                 type: "command",
                 spec: "forward:",
-                scratchblocks: "move ($1) steps",
-                renderLabel: "move  steps",
+                label: "move %n steps",
                 parameters: ["number"],
                 group: "Motion"
 })
 blocks.push({
 		type: "command",
 		spec: "pointTowards:",
-		scratchblocks: "point towards [%m.mathOp.spriteOrMouse{$1} v]",
-		renderLabel: "point towards ",
+		label: "point towards %m.mathOp.spriteOrMouse",
 		parameters: ["dropdown"],
 		group: "Motion"
 	    });
 blocks.push({
 		type: "command",
 		spec: "gotoX:y:",
-		scratchblocks: "go to x:($1) y:($2)",
-		renderLabel: "go to x: y:",
+		label: "go to x:%n y:%n",
 		parameters: ["number",
 			     "number"],
 		group: "Motion"
@@ -523,8 +462,7 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "gotoSpriteOrMouse:",
-		scratchblocks: "go to [%m.mathOp.spriteOrMouse{$1} v]",
-		renderLabel: "go to ",
+		label: "go to %m.mathOp.spriteOrMouse",
 		parameters: ["dropdown"],
 		group: "Motion"
 	    });
@@ -532,8 +470,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "say:duration:elapsed:from:",
-                scratchblocks: "say [$1] for ($2) secs",
-                renderLabel: "say  for  secs",
+                label: "say %s for %n secs",
                 parameters: ["text",
                              "number"],
                 group: "Looks"
@@ -541,16 +478,14 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "say:",
-		scratchblocks: "say [$1]",
-		renderLabel: "say ",
+		label: "say %s",
 		parameters: ["string"],
 		group: "Looks"
 	    });
 blocks.push({
                 type: "command",
                 spec: "think:duration:elapsed:from:",
-                scratchblocks: "think [$1] for ($2) secs",
-                renderLabel: "think  for  secs",
+                label: "think %s for %n secs",
                 parameters: ["text",
                              "number"],
                 group: "Looks"
@@ -558,48 +493,42 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "think:",
-		scratchblocks: "think [$1]",
-		renderLabel: "think ",
+		label: "think %s",
 		parameters: ["string"],
 		group: "Looks"
 	    });
 blocks.push({
                 type: "command",
                 spec: "show",
-		scratchblocks: "show",
-		renderLabel: "show",
+		label: "show",
 		parameters: [],
                 group: "Looks"
             });
 blocks.push({
                 type: "command",
                 spec: "hide",
-		scratchblocks: "hide",
-		renderLabel: "hide",
+		label: "hide",
 		parameters: [],
                 group: "Looks"
             });
 blocks.push({
                 type: "command",
                 spec: "lookLike:",
-                scratchblocks: "switch costume to [%m.costume{$1} v]",
-                renderLabel: "switch costume to ",
+                label: "switch costume to %m.costume",
                 parameters: ["dropdown"],
                 group: "Looks"
 });
 blocks.push({
                 type: "command",
                 spec: "nextCostume",
-		scratchblocks: "next costume",
-		renderLabel: "next costume",
+		label: "next costume",
 		parameters: [],
                 group: "Looks"
             });
 blocks.push({
                 type: "command",
                 spec: "changeGraphicEffect:by:",
-		scratchblocks: "change [%m.effect{$1} v] effect by (25)",
-		renderLabel: "change  effect by ",
+		label: "change %m.effect effect by %n",
 		parameters: ["dropdown",
                              "number"],
                 group: "Looks"
@@ -607,8 +536,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "setGraphicEffect:to:",
-		scratchblocks: "set [%m.effect{$1} v] effect to (25)",
-		renderLabel: "set  effect to ",
+		label: "set %m.effect effect to %n",
 		parameters: ["dropdown",
                              "number"],
                 group: "Looks"
@@ -616,56 +544,49 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "filterReset",
-		scratchblocks: "clear graphic effects",
-		renderLabel: "clear graphic effects",
+		label: "clear graphic effects",
 		parameters: [],
                 group: "Looks"
             });
 blocks.push({
                 type: "command",
                 spec: "changeSizeBy:",
-                scratchblocks: "change size by ($1)",
-                renderLabel: "change size by ",
+                label: "change size by %n",
                 parameters: ["number"],
                 group: "Looks"
 });
 blocks.push({
 		type: "command",
 		spec: "setSizeTo:",
-		scratchblocks: "set size to ($1) %",
-		renderLabel: "set size to  %",
+		label: "set size to %n %",
 		parameters: ["number"],
 		group: "Looks"
 	    });
 blocks.push({
                 type: "command",
                 spec: "comeToFront",
-                scratchblocks: "go to front",
-                renderLabel: "go to front",
+                label: "go to front",
                 parameters: [],
                 group: "Looks"
 });
 blocks.push({
                 type: "command",
                 spec: "goBackByLayers:",
-                scratchblocks: "go back ($1) layers",
-                renderLabel: "go back  layers",
+                label: "go back %n layers",
                 parameters: ["number"],
                 group: "Looks"
 });
 blocks.push({
                 type: "reporter",
                 spec: "costumeIndex",
-                scratchblocks: "costume #",
-                renderLabel: "costume #",
+                label: "costume #",
                 parameters: [],
                 group: "Looks"
 });
 blocks.push({
                 type: "reporter",
                 spec: "scale",
-                scratchblocks: "( size )",
-                renderLabel: "size",
+                label: "size",
                 parameters: [],
                 group: "Looks"
 });
@@ -673,40 +594,35 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "startScene",
-		scratchblocks: "switch backdrop to [%m.backdrop{$1} v]",
-		renderLabel: "switch backdrop to ",
+		label: "switch backdrop to %m.backdrop",
 		parameters: ["dropdown"],
 		group: "Looks"
 	    });
 blocks.push({
 		type: "command",
 		spec: "startSceneAndWait",
-		scratchblocks: "switch backdrop to [%m.backdrop{$1} v] and wait",
-		renderLabel: "switch backdrop to  and wait",
+		label: "switch backdrop to %m.backdrop and wait",
 		parameters: ["dropdown"],
 		group: "Looks"
 	    });
 blocks.push({
 		type: "command",
 		spec: "nextScene",
-		scratchblocks: "next backdrop",
-		renderLabel: "next backdrop",
+		label: "next backdrop",
 		parameters: [],
 		group: "Looks"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "sceneName",
-		scratchblocks: "backdrop name",
-		renderLabel: "backdrop name",
+		label: "backdrop name",
 		parameters: [],
 		group: "Looks"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "backgroundIndex",
-		scratchblocks: "backdrop #",
-		renderLabel: "backdrop #",
+		label: "backdrop #",
 		parameters: [],
 		group: "Looks"
 	    });
@@ -714,32 +630,28 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "playSound:",
-                scratchblocks: "play sound [%m.sound{$1} v]",
-                renderLabel: "play sound ",
+                label: "play sound %m.sound",
                 parameters: ["dropdown"],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "doPlaySoundAndWait",
-                scratchblocks: "play sound [%m.sound{$1} v] until done",
-                renderLabel: "play sound  until done",
+                label: "play sound %m.sound until done",
                 parameters: ["dropdown"],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "stopAllSounds",
-                scratchblocks: "stop all sounds",
-                renderLabel: "stop all sounds",
+                label: "stop all sounds",
                 parameters: [],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "playDrum",
-                scratchblocks: "play drum ($1) for ($2) beats",
-                renderLabel: "play drum  for  beats",
+                label: "play drum %n for %n beats",
                 parameters: ["number",
                              "number"],
                 group: "Sound"
@@ -747,16 +659,14 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "rest:elapsed:from:",
-                scratchblocks: "rest for ($1) beats",
-                renderLabel: "rest for  beats",
+                label: "rest for %n beats",
                 parameters: ["number"],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "noteOn:duration:elapsed:from:",
-                scratchblocks: "play note ($1) for ($2) beats",
-                renderLabel: "play note  for  beats",
+                label: "play note %n for %n beats",
                 parameters: ["number",
                              "number"],
                 group: "Sound"
@@ -764,56 +674,49 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "instrument:",
-                scratchblocks: "set instrument to ($1)",
-                renderLabel: "set instrument to ",
+                label: "set instrument to %n",
                 parameters: ["number"],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "changeVolumeBy:",
-                scratchblocks: "change volume by ($1)",
-                renderLabel: "change volume by ",
+                label: "change volume by %n",
                 parameters: ["number"],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "setVolumeTo:",
-                scratchblocks: "set volume to ($1) %",
-                renderLabel: "set volume to  %",
+                label: "set volume to %n %",
                 parameters: ["number"],
                 group: "Sound"
 });
 blocks.push({
                 type: "reporter",
                 spec: "volume",
-                scratchblocks: "( volume )",
-                renderLabel: "volume",
+                label: "volume",
                 parameters: [],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "changeTempoBy:",
-                scratchblocks: "change tempo by ($1)",
-                renderLabel: "change tempo by ",
+                label: "change tempo by %n",
                 parameters: ["number"],
                 group: "Sound"
 });
 blocks.push({
                 type: "command",
                 spec: "setTempoTo:",
-                scratchblocks: "set tempo to ($1) bpm",
-                renderLabel: "set tempo to  bpm",
+                label: "set tempo to %n bpm",
                 parameters: ["number"],
                 group: "Sound"
 });
 blocks.push({
                 type: "reporter",
                 spec: "tempo",
-                scratchblocks: "( tempo )",
-                renderLabel: "tempo",
+                label: "tempo",
                 parameters: [],
                 group: "Sound"
 });
@@ -821,88 +724,77 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "clearPenTrails",
-                scratchblocks: "clear",
-                renderLabel: "clear",
+                label: "clear",
                 parameters: [],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "stampCostume",
-                scratchblocks: "stamp",
-                renderLabel: "stamp",
+                label: "stamp",
                 parameters: [],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "putPenDown",
-                scratchblocks: "pen down",
-                renderLabel: "pen down",
+                label: "pen down",
                 parameters: [],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "putPenUp",
-                scratchblocks: "pen up",
-                renderLabel: "pen up",
+                label: "pen up",
                 parameters: [],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "penColor:",
-                scratchblocks: "set pen color to [#$1]",
-                renderLabel: "set pen color to ",
+                label: "set pen color to %c",
                 parameters: ["color"],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "changePenHueBy:",
-                scratchblocks: "change pen color by ($1)",
-                renderLabel: "change pen color by ",
+                label: "change pen color by %n",
                 parameters: ["number"],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "setPenHueTo:",
-                scratchblocks: "set pen color to ($1)",
-                renderLabel: "set pen color to ",
+                label: "set pen color to %n",
                 parameters: ["number"],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "setPenShadeTo:",
-                scratchblocks: "set pen shade to ($1)",
-                renderLabel: "set pen shade to ",
+                label: "set pen shade to %n",
                 parameters: ["number"],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "changePenShadeBy:",
-                scratchblocks: "change pen shade by ($1)",
-                renderLabel: "change pen shade by ",
+                label: "change pen shade by %n",
                 parameters: ["number"],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "changePenSizeBy:",
-                scratchblocks: "change pen size by ($1)",
-                renderLabel: "change pen size by ",
+                label: "change pen size by %n",
                 parameters: ["number"],
                 group: "Pen"
 });
 blocks.push({
                 type: "command",
                 spec: "penSize:",
-                scratchblocks: "set pen size to ($1)",
-                renderLabel: "set pen size to ",
+                label: "set pen size to %n",
                 parameters: ["number"],
                 group: "Pen"
 });
