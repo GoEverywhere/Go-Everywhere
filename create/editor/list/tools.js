@@ -60,96 +60,59 @@ var EditorTools = {
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
 		break;
-//            case "define":
-//                //This block is special. It is the define block, which is as follows:
-//                //The first item is the block spec: always "procDef"
-//                //The second item is the spec (following http://goo.gl/mjFG1s).
-//                //Currently, only %n, %b, and %s are supported (number, boolean, and string)
-//                //The third item is going to hold an array, naming each of the inputs.
-//                //The inputs will need to be changed accordingly, then set the their names.
-//                myScratchBlocks += "define ";
-//                var myCustomBlockSpec = singleBlockArray[1];
-//                var myCustomBlockSpecArray = myCustomBlockSpec.split('');
-//                var myParameterIndex = 0;
-//                $.each(myCustomBlockSpecArray, function(index, value){
-//                    if (index + 1 < myCustomBlockSpecArray.length) {
-//                        if (value == "%") {
-//                            switch(myCustomBlockSpecArray[index + 1]){
-//                                case "n":
-//                                case "s":
-//                                    myCustomBlockSpecArray.splice(index + 1, 1);
-//                                    myCustomBlockSpecArray[index] = "( $" + myParameterIndex + " )";
-//                                    break;
-//                                case "b":
-//                                    myCustomBlockSpecArray.splice(index + 1, 1);
-//                                    myCustomBlockSpecArray[index] = "< $" + myParameterIndex + " >";
-//                                    break;
-//                            }
-//                            myParameterIndex++;
-//                        }
-//                    }
-//                });
-//                //Stick it all back together
-//                myCustomBlockSpec = "";
-//                $.each(myCustomBlockSpecArray, function(index, value){
-//                    myCustomBlockSpec += value;
-//                });
-//                //Loop through parameter names, and
-//                //replace $[index] with the parameter name
-//                $.each(singleBlockArray[2], function(index, value){
-//                    myCustomBlockSpec = myCustomBlockSpec.replace("$" + index, value);
-//                });
-//                myScratchBlocks += myCustomBlockSpec + "\n";
-//                
-//                break;
-//            case "call":
-//                //A call block is a special stack.
-//                //It is a custom block, with a corresponding "define" block.
-//                //Since it is special, we need to make a fake block data for the parameter parser.
-//                var myCustomBlockSpec = singleBlockArray[1];
-//                var myCustomBlockSpecArray = myCustomBlockSpec.split('');
-//                var myParameterOffset = 1;
-//                var myParameterData = [];
-//                $.each(myCustomBlockSpecArray, function(index, value){
-//                    if (index + 1 < myCustomBlockSpecArray.length) {
-//                        if (value == "%") {
-//                            switch(myCustomBlockSpecArray[index + 1]){
-//                                case "n":
-//                                    myCustomBlockSpecArray.splice(index + 1, 1);
-//                                    myCustomBlockSpecArray[index] = "($" + myParameterOffset + ")";
-//                                    myParameterData.push("number");
-//                                    break;
-//                                case "b":
-//                                    myCustomBlockSpecArray.splice(index + 1, 1);
-//                                    myCustomBlockSpecArray[index] = "<$" + myParameterOffset + ">";
-//                                    myParameterData.push("boolean");
-//                                    break;
-//                                case "s":
-//                                    myCustomBlockSpecArray.splice(index + 1, 1);
-//                                    myCustomBlockSpecArray[index] = "[$" + myParameterOffset + "]";
-//                                    myParameterData.push("string");
-//                                    break;
-//                            }
-//                            myParameterOffset++;
-//                        }
-//                    }
-//                });
-//                //Stick it all back together
-//                myCustomBlockSpec = "";
-//                $.each(myCustomBlockSpecArray, function(index, value){
-//                    myCustomBlockSpec += value;
-//                });
-//                //Make fake block data
-//                var myFakeBlockData = {
-//                    type: "call",
-//                    spec: undefined,
-//                    scratchblocks: myCustomBlockSpec,
-//                    parameters: myParameterData,
-//                    group: "More Blocks"
-//                };
-//                //Stick it in the scratchblocks text
-//                myScratchBlocks += this.replaceTextWithParameters(myFakeBlockData, singleBlockArray) + "\n";
-//                break;
+            case "define":
+                //The define block. Is like a hat block, except has a block inside it as well.
+                myBlockCode += "<div class=\"define-hat " + myBlockData.group.toLowerCase() + "\">";
+                
+                var tmpCharacters = singleBlockArray[1].split("");
+                var parameterOffset = 0;
+                $.each(tmpCharacters, function(index, value){
+                    if (index + 1 < tmpCharacters.length) {
+                        if (value == "%") {
+                            switch(tmpCharacters[index + 1])
+                            {
+                                case "n":
+                                case "s":
+                                    tmpCharacters.splice(index + 1, 1);
+                                    tmpCharacters[index] = "<div class=\"reporter custom-arg\">" + singleBlockArray[2][parameterOffset] + "</div>";
+                                    parameterOffset++;
+                                    break;
+                                case "b":
+                                    tmpCharacters.splice(index + 1, 1);
+                                    tmpCharacters[index] = "<div class=\"boolean custom-arg\">" + singleBlockArray[2][parameterOffset] + "</div>";
+                                    parameterOffset++;
+                                    break;
+                            }
+                        }
+                    }
+                });
+                //Put it back together
+                var myCustomBlockLabel = "";
+                $.each(tmpCharacters, function(index, value){
+                    myCustomBlockLabel += value;
+                });
+                //Stick it in the define block
+                myBlockCode += "<div class=\"outline\">";
+                myBlockCode += myCustomBlockLabel;
+                myBlockCode += "</div>";
+                
+                myBlockCode += "</div>";
+                break;
+            case "call":
+                //A call block is a special stack block.
+                //The only difference is that the parameters are
+                //offset by 1 in the block array from the JSON.
+                myBlockCode += "<div class=\"stack " + myBlockData.group.toLowerCase() + "\">";
+                //Since this block is made up on the spot, we need to make some fake block data
+                var myFakeBlockData = {
+                    type: "call",
+                    label: singleBlockArray[1],
+                    group: "Custom"
+                };
+                myBlockCode += EditorTools.replaceTextWithParameters(myFakeBlockData, singleBlockArray, info);
+                
+                myBlockCode += "</div>";
+                break;
 	    case "command":
 	    case "stack":
 		//A stack block is as follows:
