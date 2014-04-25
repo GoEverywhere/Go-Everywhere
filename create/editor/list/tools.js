@@ -185,6 +185,21 @@ var EditorTools = {
 		myBlockCode += this.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
 		break;
+            case "getParam":
+                //This is like a variable,
+                //but is purple.
+                switch(singleBlockArray[2])
+                {
+                    case "r":
+                        myBlockCode += "<div class=\"reporter custom-arg\">";
+                        break;
+                    case "b":
+                        myBlockCode += "<div class=\"boolean custom-arg\">";
+                        break;
+                }
+                myBlockCode += singleBlockArray[1];
+                myBlockCode += "</div>";
+                break;
 	    
 	}
 	return myBlockCode;

@@ -425,14 +425,18 @@ blocks.push({
                 type: "define",
                 spec: "procDef",
                 label: undefined,
-                parameters: undefined,
                 group: "Custom"
 });
 blocks.push({
                 type: "call",
                 spec: "call",
                 label: undefined,
-                parameters: undefined,
+                group: "Custom"
+});
+blocks.push({
+                type: "getParam",
+                spec: "getParam",
+                label: undefined,
                 group: "Custom"
 });
 
