@@ -70,25 +70,30 @@ function generateObjectJSON(){
 	    var myBlockData = EditorTools.getBlockData($(el).attr("spec"));
 		
 	    var myTotal = [myBlockData.spec];
+	    if (myBlockData.type === "getParam") {
+		myTotal.push($(this).attr("label"));
+	    }
 	    
 	    var myParamSelectors = [];
-	    $.each(myBlockData.label.split(""), function(index, value){
-		if (index + 1 < myBlockData.label.split("").length) {
-		    if (value === "%") {
-			switch(myBlockData.label.split("")[index + 1])
-			{
-			    case "b":
-			    case "c":
-			    case "d":
-			    case "m":
-			    case "n":
-			    case "s":
-				myParamSelectors.push(myBlockData.label.split("")[index + 1]);
-				break;
+	    if (myBlockData.type !== "getParam") {
+		$.each(myBlockData.label.split(""), function(index, value){
+		    if (index + 1 < myBlockData.label.split("").length) {
+			if (value === "%") {
+			    switch(myBlockData.label.split("")[index + 1])
+			    {
+				case "b":
+				case "c":
+				case "d":
+				case "m":
+				case "n":
+				case "s":
+				    myParamSelectors.push(myBlockData.label.split("")[index + 1]);
+				    break;
+			    }
 			}
 		    }
-		}
-	    });
+		});
+	    }
 	    
 	    var myParams = findParameterArray(el, myParamSelectors);
 	    for(var p = 0; p < myParams.length; p++)
@@ -109,29 +114,31 @@ function generateObjectJSON(){
 		    var myBlockData = EditorTools.getBlockData($(this).attr("spec"));
 		    
 		    var myTotal = [myBlockData.spec];
-		    if (myBlockData.type === "call") {
+		    if (myBlockData.type === "call" || myBlockData.type === "getParam") {
 			myTotal.push($(this).attr("label"));
 		    }
 		    
-		    var tmpLabel = myBlockData.label === undefined ? $(this).attr("label") : myBlockData.label;
 		    var myParamSelectors = [];
-		    $.each(tmpLabel.split(""), function(index, value){
-			if (index + 1 < tmpLabel.split("").length) {
-			    if (value === "%") {
-				switch(tmpLabel.split("")[index + 1])
-				{
-				    case "b":
-				    case "c":
-				    case "d":
-				    case "m":
-				    case "n":
-				    case "s":
-					myParamSelectors.push(tmpLabel.split("")[index + 1]);
-					break;
+		    if (myBlockData.type !== "getParam") {
+			var tmpLabel = myBlockData.label === undefined ? $(this).attr("label") : myBlockData.label;
+			$.each(tmpLabel.split(""), function(index, value){
+			    if (index + 1 < tmpLabel.split("").length) {
+				if (value === "%") {
+				    switch(tmpLabel.split("")[index + 1])
+				    {
+					case "b":
+					case "c":
+					case "d":
+					case "m":
+					case "n":
+					case "s":
+					    myParamSelectors.push(tmpLabel.split("")[index + 1]);
+					    break;
+				    }
 				}
 			    }
-			}
-		    });
+			});
+		    }
 		    
 		    var myParams = findParameterArray(this, myParamSelectors);
 		    for(var p = 0; p < myParams.length; p++)
