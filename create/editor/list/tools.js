@@ -273,9 +273,10 @@ var EditorTools = {
                     switch(tmpCharacters[index + 1])
                     {
                         case "n":
+                        case "d": //Is here for now, until the element needed is added
                             tmpCharacters.splice(index + 1, 1);
                             
-                            if (typeof blockArray[parameterOffset + arrayOffset] === "number") {
+                            if (typeof blockArray[parameterOffset + arrayOffset] !== "object") {
                                 //Number
                                 tmpCharacters[index] = "<div class=\"number\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height: 13px;padding: 0;border: none;\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\" /></div>";
                             }else{
@@ -309,6 +310,21 @@ var EditorTools = {
                             parameterOffset++;
                             break;
                         case "c":
+                            tmpCharacters.splice(index + 1, 1);
+                            
+                            if (typeof blockArray[parameterOffset + arrayOffset] !== "object") {
+                                //Color
+                                var a = blockArray[parameterOffset + arrayOffset] >> 24 & 0xFF; //a value is unused
+                                var r = blockArray[parameterOffset + arrayOffset] >> 16 & 0xFF;
+                                var g = blockArray[parameterOffset + arrayOffset] >> 8 & 0xFF;
+                                var b = blockArray[parameterOffset + arrayOffset] & 0xFF;
+                                
+                                tmpCharacters[index] = "<div class=\"color\" style=\"background-color: rgb(" + r + ", " + g + ", " + b + ");\"> </div>";
+                            }else{
+                                //Must be a block inside of me
+                                tmpCharacters[index] = EditorTools.findBlocksFromBlockArray(blockArray[parameterOffset + arrayOffset], info);
+                            }
+                            
                             parameterOffset++;
                             break;
                         case "m":
