@@ -53,16 +53,13 @@ var EditorTools = {
 		//A hat block is as follows:
 		//The first item in the blockArray is the label.
 		//Then, come the parameters.
-		//myScratchBlocks += this.replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
-                //myBlockCode += "<div class=\"hat " + myBlockData.group.toLowerCase() + "\">when <span class=\"green-flag\"></span> clicked\n</div>";
                 myBlockCode += "<div class=\"hat " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
-                //myBlockCode += myBlockData.label.replace("@greenFlag", "<span class=\"green-flag\"></span>");
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
 		break;
             case "define":
                 //The define block. Is like a hat block, except has a block inside it as well.
-                myBlockCode += "<div class=\"define-hat " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"define-hat " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\" label=\"" + singleBlockArray[1] + "\" varnames=\"" + singleBlockArray[2] + "\" defaults=\"" + singleBlockArray[3] + "\">";
                 
                 var tmpCharacters = singleBlockArray[1].split("");
                 var parameterOffset = 0;
@@ -102,7 +99,7 @@ var EditorTools = {
                 //A call block is a special stack block.
                 //The only difference is that the parameters are
                 //offset by 1 in the block array from the JSON.
-                myBlockCode += "<div class=\"stack " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"stack " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\" label=\"" + singleBlockArray[1] + "\">";
                 //Since this block is made up on the spot, we need to make some fake block data
                 var myFakeBlockData = {
                     type: "call",
@@ -245,7 +242,7 @@ var EditorTools = {
             case "readVariable":
                 //This is like a "getParam",
                 //just doesn't have the extra selector.
-                myBlockCode += "<div class=\"reporter " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
+                myBlockCode += "<div class=\"reporter " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\" variable=\"true\">";
                 myBlockCode += singleBlockArray[1];
                 myBlockCode += "</div>";
                 break;
