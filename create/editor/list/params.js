@@ -275,3 +275,18 @@ params.push({
         return myTotalSelector;
     }
 });
+params.push({
+    name: "list",
+    getCode: function(info){
+        var myTotalSelector = "<select>";
+        $.each(info.project.lists, function(index, value){
+            myTotalSelector += "<option value=\"" + value.listName + "\">" + value.listName + "</option>";
+        });
+        $.each(info.currentObj.lists, function(index, value){
+            myTotalSelector += "<option value=\"" + value.listName + "\">" + value.listName + "</option>";
+        });
+        myTotalSelector += "</select>";
+        
+        return myTotalSelector;
+    }
+});

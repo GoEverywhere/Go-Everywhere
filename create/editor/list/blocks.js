@@ -752,6 +752,7 @@ blocks.push({
                 group: "Pen"
 });
 //**//DATA
+//Variables blocks
 blocks.push({
                 type: "command",
                 spec: "setVar:to:",
@@ -782,4 +783,59 @@ blocks.push({
                 spec: "readVariable",
                 label: undefined,
                 group: "Variables"
+});
+//List blocks
+blocks.push({
+                type: "command",
+                spec: "append:toList:",
+                label: "add %s to %m.list",
+                group: "List"
+});
+blocks.push({
+                type: "command",
+                spec: "deleteLine:ofList:",
+                label: "delete %n of %m.list",
+                group: "List"
+});
+blocks.push({
+                type: "command",
+                spec: "insert:at:ofList:",
+                label: "insert %s at %n of %m.list",
+                group: "List"
+});
+blocks.push({
+                type: "command",
+                spec: "setLine:ofList:to:",
+                label: "replace item %n of %m.list with %s",
+                group: "List"
+});
+blocks.push({
+                type: "command",
+                spec: "showList:",
+                label: "show list %m.list",
+                group: "List"
+});
+blocks.push({
+                type: "command",
+                spec: "hideList:",
+                label: "hide list %m.list",
+                group: "List"
+});
+blocks.push({
+                type: "reporter",
+                spec: "getLine:ofList:",
+                label: "item %n of %m.list",
+                group: "List"
+});
+blocks.push({
+                type: "reporter",
+                spec: "lineCountOfList:",
+                label: "length of %m.list",
+                group: "List"
+});
+blocks.push({
+                type: "boolean",
+                spec: "list:contains:",
+                label: "%m.list contains %s",
+                group: "List"
 });

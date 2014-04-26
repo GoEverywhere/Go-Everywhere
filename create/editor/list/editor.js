@@ -182,10 +182,12 @@ function doneReadingZip(zip) {
     //Load sprites and stage into selector
     $("#toolbar #spriteSelect select").html("<option name=\"Stage\">Stage</option>");
     for (var i = 0; i < project.children.length; i++) {
-	var tmpSprite = $("#toolbar #spriteSelect select:last-child").append("<option name=\"" + project.children[i].objName + "\">" + project.children[i].objName + "</option>");
-	if (i == 0) {
-	    //Is first sprite. This should be loaded first.
-	    tmpSprite.children(":last").attr("selected", "true");
+	if (project.children[i].objName !== undefined) {
+	    var tmpSprite = $("#toolbar #spriteSelect select:last-child").append("<option name=\"" + project.children[i].objName + "\">" + project.children[i].objName + "</option>");
+	    if (i == 0) {
+		//Is first sprite. This should be loaded first.
+		tmpSprite.children(":last").attr("selected", "true");
+	    }
 	}
     }
     
