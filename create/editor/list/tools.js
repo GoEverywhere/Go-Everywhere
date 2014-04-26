@@ -44,7 +44,7 @@ var EditorTools = {
 	//Store the block's data (first item in any block is it's label, except custom blocks?);
 	var myBlockData = this.getBlockData(singleBlockArray[0]);
 	if (myBlockData.type == undefined) {
-	    console.error("Block with spec: " + myBlockData.spec + " doesn't have any block data!");
+	    console.error("Block with spec: " + singleBlockArray[0] + " doesn't have any block data!");
 	}
 	//Switch the type of it
 	switch(myBlockData.type)
@@ -242,6 +242,13 @@ var EditorTools = {
                 myBlockCode += singleBlockArray[1];
                 myBlockCode += "</div>";
                 break;
+            case "readVariable":
+                //This is like a "getParam",
+                //just doesn't have the extra selector.
+                myBlockCode += "<div class=\"reporter " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += singleBlockArray[1];
+                myBlockCode += "</div>";
+                break;
 	    
 	}
 	return myBlockCode;
@@ -280,7 +287,7 @@ var EditorTools = {
                         case "s":
                             tmpCharacters.splice(index + 1, 1);
                             
-                            if (typeof blockArray[parameterOffset + arrayOffset] === "string") {
+                            if (typeof blockArray[parameterOffset + arrayOffset] !== "object") {
                                 //String
                                 tmpCharacters[index] = "<div class=\"string\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\" /></div>";
                             }else{

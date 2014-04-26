@@ -752,3 +752,34 @@ blocks.push({
                 group: "Pen"
 });
 //**//DATA
+blocks.push({
+                type: "command",
+                spec: "setVar:to:",
+                label: "set %m.var to %s",
+                group: "Variables"
+});
+blocks.push({
+                type: "command",
+                spec: "changeVar:by:",
+                label: "change %m.var by %n",
+                group: "Variables"
+});
+blocks.push({
+                type: "command",
+                spec: "showVariable:",
+                label: "show variable %m.var",
+                group: "Variables"
+});
+blocks.push({
+                type: "command",
+                spec: "hideVariable:",
+                label: "hide variable %m.var",
+                group: "Variables"
+});
+//Variable block placeholder
+blocks.push({
+                type: "readVariable",
+                spec: "readVariable",
+                label: undefined,
+                group: "Variables"
+});

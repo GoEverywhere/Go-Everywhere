@@ -260,3 +260,18 @@ params.push({
                 "</select>";
     }
 });
+params.push({
+    name: "var",
+    getCode: function(info){
+        var myTotalSelector = "<select>";
+        $.each(info.project.variables, function(index, value){
+            myTotalSelector += "<option value=\"" + value.name + "\">" + value.name + "</option>";
+        });
+        $.each(info.currentObj.variables, function(index, value){
+            myTotalSelector += "<option value=\"" + value.name + "\">" + value.name + "</option>";
+        });
+        myTotalSelector += "</select>";
+        
+        return myTotalSelector;
+    }
+});
