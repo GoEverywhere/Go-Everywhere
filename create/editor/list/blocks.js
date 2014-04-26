@@ -65,7 +65,8 @@ blocks.push({
                 type: "c",
                 spec: "doForever",
 		label: "forever",
-                group: "Control"
+                group: "Control",
+                cap: true
             });
 blocks.push({
 		type: "c",
@@ -96,7 +97,8 @@ blocks.push({
                 type: "command",
                 spec: "stopScripts",
                 label: "stop %m.stop",
-                group: "Control"
+                group: "Control",
+                cap: true
 });
 blocks.push({
                 type: "hat",
@@ -114,7 +116,8 @@ blocks.push({
                 type: "command",
                 spec: "deleteClone",
                 label: "delete this clone",
-                group: "Control"
+                group: "Control",
+                cap: true
 });
 //**//SENSING
 blocks.push({

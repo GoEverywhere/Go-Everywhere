@@ -115,7 +115,7 @@ var EditorTools = {
 		//A stack block is as follows:
 		//The first item in the blockArray is the label.
 		//Then, come the parameters.
-                myBlockCode += "<div class=\"stack " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
+                myBlockCode += "<div class=\"stack " + myBlockData.group.toLowerCase() + (myBlockData.cap ? " cap" : "") + "\" spec=\"" + myBlockData.spec + "\">";
 		myBlockCode += this.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
 		break;
@@ -124,7 +124,7 @@ var EditorTools = {
 		//The first item in the blockArray is the label.
 		//Then, come the parameters.
 		//After parameters (parameter-offset) is a stack of blocks inside the C-shape.
-                myBlockCode += "<div class=\"cwrap\">";
+                myBlockCode += "<div class=\"cwrap " + (myBlockData.cap ? " cap" : "") + "\">";
                 
                 myBlockCode += "<div class=\"stack cstart " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
@@ -170,7 +170,7 @@ var EditorTools = {
 		//The first item in the blockArray is an array of labels.
 		//Then, come parameters. Parameters are only supported in the first label so far.
 		//Then, come the blocks. For every mouth, there are a stack of blocks, or null if no blocks.
-		myBlockCode += "<div class=\"cwrap\">";
+		myBlockCode += "<div class=\"cwrap" + (myBlockData.cap ? " cap" : "") + "\">";
                 
                 myBlockCode += "<div class=\"stack cstart " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
