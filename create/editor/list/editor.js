@@ -70,12 +70,15 @@ function generateObjectJSON(){
 	    var myBlockData = EditorTools.getBlockData($(el).attr("spec"));
 		
 	    var myTotal = [myBlockData.spec];
-	    if (myBlockData.type === "getParam") {
-		myTotal.push($(this).attr("label"));
+	    if (myBlockData.type === "getParam" || myBlockData.type === "readVariable") {
+		myTotal.push($(el).attr("label"));
+		if (myBlockData.type === "getParam") {
+		    myTotal.push($(el).attr("type"));
+		}
 	    }
 	    
 	    var myParamSelectors = [];
-	    if (myBlockData.type !== "getParam") {
+	    if (myBlockData.type !== "getParam" && myBlockData.type !== "readVariable") {
 		$.each(myBlockData.label.split(""), function(index, value){
 		    if (index + 1 < myBlockData.label.split("").length) {
 			if (value === "%") {
@@ -110,16 +113,19 @@ function generateObjectJSON(){
 	    //Loop through this parent's
 	    $(el).children(".hat,.define-hat,.stack:not(.cstart,.cend,.celse),.cwrap,.reporter,.boolean").each(function(){
 		//If it is a stack or hat, just stick it in the array
-		if ($(this).hasClass("hat") || $(this).hasClass("stack") || ($(this).hasClass("reporter") && $(this).attr("variable") !== "true") || $(this).hasClass("boolean")) {
+		if ($(this).hasClass("hat") || $(this).hasClass("stack") || ($(this).hasClass("reporter")) || $(this).hasClass("boolean")) {
 		    var myBlockData = EditorTools.getBlockData($(this).attr("spec"));
 		    
 		    var myTotal = [myBlockData.spec];
-		    if (myBlockData.type === "call" || myBlockData.type === "getParam") {
+		    if (myBlockData.type === "call" || myBlockData.type === "getParam" || myBlockData.type === "readVariable") {
 			myTotal.push($(this).attr("label"));
+			if (myBlockData.type === "getParam") {
+			    myTotal.push($(this).attr("type"));
+			}
 		    }
 		    
 		    var myParamSelectors = [];
-		    if (myBlockData.type !== "getParam") {
+		    if (myBlockData.type !== "getParam" && myBlockData.type !== "readVariable") {
 			var tmpLabel = myBlockData.label === undefined ? $(this).attr("label") : myBlockData.label;
 			$.each(tmpLabel.split(""), function(index, value){
 			    if (index + 1 < tmpLabel.split("").length) {

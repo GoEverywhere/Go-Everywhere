@@ -230,10 +230,10 @@ var EditorTools = {
                 switch(singleBlockArray[2])
                 {
                     case "r":
-                        myBlockCode += "<div class=\"reporter custom-arg\">";
+                        myBlockCode += "<div class=\"reporter custom-arg\" spec=\"" + myBlockData.spec + "\" label=\"" + singleBlockArray[1] + "\" type=\"" + singleBlockArray[2] + "\">";
                         break;
                     case "b":
-                        myBlockCode += "<div class=\"boolean custom-arg\">";
+                        myBlockCode += "<div class=\"boolean custom-arg\" spec=\"" + myBlockData.spec + "\" label=\"" + singleBlockArray[1] + "\" type=\"" + singleBlockArray[2] + "\">";
                         break;
                 }
                 myBlockCode += singleBlockArray[1];
@@ -242,7 +242,7 @@ var EditorTools = {
             case "readVariable":
                 //This is like a "getParam",
                 //just doesn't have the extra selector.
-                myBlockCode += "<div class=\"reporter " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\" variable=\"true\">";
+                myBlockCode += "<div class=\"reporter " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\" label=\"" + singleBlockArray[1] + "\">";
                 myBlockCode += singleBlockArray[1];
                 myBlockCode += "</div>";
                 break;
