@@ -103,7 +103,7 @@ function generateObjectJSON(){
 	function findBlocks(el){
 	    var miniStack = [];
 	    //Loop through this parent's
-	    $(el).children(".hat,.stack:not(.cstart,.cend,.celse,.custom),.cwrap,.reporter,.boolean").each(function(){
+	    $(el).children(".hat,.define-hat,.stack:not(.cstart,.cend,.celse,.custom),.cwrap,.reporter,.boolean").each(function(){
 		//If it is a stack or hat, just stick it in the array
 		if ($(this).hasClass("hat") || $(this).hasClass("stack") || ($(this).hasClass("reporter") && $(this).attr("variable") !== "true") || $(this).hasClass("boolean")) {
 		    var myBlockData = EditorTools.getBlockData($(this).attr("spec"));
@@ -137,8 +137,21 @@ function generateObjectJSON(){
 		    
 		    miniStack.push(myTotal);
 		}
+		//If it is a define block, get the spec, names, and defaults
+		else if ($(this).hasClass("define-hat")) {
+		    var myCustomLabel = $(this).attr("label");
+		    
+		    var myParamNames = $(this).attr("varnames").split(",");
+		    var myDefaultString = $(this).attr("defaults").split(",");
+		    var myDefaults = [];
+		    $.each(myDefaultString, function(index, value){
+			myDefaults.push((value === "false" ? false : (value === "" ? "" : (parseFloat(value) | value))));
+		    });
+		    
+		    miniStack.push(["procDef", myCustomLabel, myParamNames, myDefaults]);
+		}
 		//If it is a cwrap, we get data from cstart, and blocks from cmouth
-		if ($(this).hasClass("cwrap")) {
+		else if ($(this).hasClass("cwrap")) {
 		    var myBlockData = EditorTools.getBlockData($(this).children(".cstart").attr("spec"));
 		    
 		    var myTotal = [myBlockData.spec];
@@ -173,7 +186,11 @@ function generateObjectJSON(){
 		    }
 		    
 		    $(this).children(".cmouth").each(function(){
-			myTotal.push(findBlocks($(this)));
+			if ($(this).children().length > 0) {
+			    myTotal.push(findBlocks($(this)));
+			}else{
+			    myTotal.push(null);
+			}
 		    });
 		    
 		    miniStack.push(myTotal);
@@ -184,7 +201,7 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
-    
+    console.log(scripts);
     return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts
