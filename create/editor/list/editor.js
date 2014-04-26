@@ -36,7 +36,7 @@ function generateObjectJSON(){
 			case "n":
 			case "d":
 			    //Has to be turned into a float
-			    miniParams.push(parseFloat($($(el).children("div")[index]).children("input").val()) | 10);
+			    miniParams.push(parseFloat($($(el).children("div")[index]).children("input").val()) === null ? 10 : parseFloat($($(el).children("div")[index]).children("input").val()));
 			    break;
 			case "s":
 			    //Straight up text
@@ -103,18 +103,22 @@ function generateObjectJSON(){
 	function findBlocks(el){
 	    var miniStack = [];
 	    //Loop through this parent's
-	    $(el).children(".hat,.define-hat,.stack:not(.cstart,.cend,.celse,.custom),.cwrap,.reporter,.boolean").each(function(){
+	    $(el).children(".hat,.define-hat,.stack:not(.cstart,.cend,.celse),.cwrap,.reporter,.boolean").each(function(){
 		//If it is a stack or hat, just stick it in the array
 		if ($(this).hasClass("hat") || $(this).hasClass("stack") || ($(this).hasClass("reporter") && $(this).attr("variable") !== "true") || $(this).hasClass("boolean")) {
 		    var myBlockData = EditorTools.getBlockData($(this).attr("spec"));
 		    
 		    var myTotal = [myBlockData.spec];
+		    if (myBlockData.type === "call") {
+			myTotal.push($(this).attr("label"));
+		    }
 		    
+		    var tmpLabel = myBlockData.label === undefined ? $(this).attr("label") : myBlockData.label;
 		    var myParamSelectors = [];
-		    $.each(myBlockData.label.split(""), function(index, value){
-			if (index + 1 < myBlockData.label.split("").length) {
+		    $.each(tmpLabel.split(""), function(index, value){
+			if (index + 1 < tmpLabel.split("").length) {
 			    if (value === "%") {
-				switch(myBlockData.label.split("")[index + 1])
+				switch(tmpLabel.split("")[index + 1])
 				{
 				    case "b":
 				    case "c":
@@ -122,7 +126,7 @@ function generateObjectJSON(){
 				    case "m":
 				    case "n":
 				    case "s":
-					myParamSelectors.push(myBlockData.label.split("")[index + 1]);
+					myParamSelectors.push(tmpLabel.split("")[index + 1]);
 					break;
 				}
 			    }
