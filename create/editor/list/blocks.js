@@ -372,11 +372,29 @@ blocks.push({
                 spec: "forward:",
                 label: "move %n steps",
                 group: "Motion"
-})
+});
+blocks.push({
+                type: "command",
+                spec: "turnRight:",
+                label: "turn @turnRight %n degrees",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "turnLeft:",
+                label: "turn @turnLeft %n degrees",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "heading:",
+                label: "point in direction %n",
+                group: "Motion"
+});
 blocks.push({
 		type: "command",
 		spec: "pointTowards:",
-		label: "point towards %m.mathOp.spriteOrMouse",
+		label: "point towards %m.spriteOrMouse",
 		group: "Motion"
 	    });
 blocks.push({
@@ -391,6 +409,66 @@ blocks.push({
 		label: "go to %m.mathOp.spriteOrMouse",
 		group: "Motion"
 	    });
+blocks.push({
+                type: "command",
+                spec: "glideSecs:toX:y:elapsed:from:",
+                label: "glide %n secs to x: %n y: %n",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "changeXposBy:",
+                label: "change x by %n",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "xpos:",
+                label: "set x to %n",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "changeYposBy:",
+                label: "change y by %n",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "ypos:",
+                label: "set y to %n",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "bounceOffEdge",
+                label: "if on edge, bounce",
+                group: "Motion"
+});
+blocks.push({
+                type: "command",
+                spec: "setRotationStyle",
+                label: "set rotation style %m.rotationStyle",
+                group: "Motion"
+});
+blocks.push({
+                type: "reporter",
+                spec: "xpos",
+                label: "x position",
+                group: "Motion"
+});
+blocks.push({
+                type: "reporter",
+                spec: "ypos",
+                label: "y position",
+                group: "Motion"
+});
+blocks.push({
+                type: "reporter",
+                spec: "heading",
+                label: "direction",
+                group: "Motion"
+});
 //**//LOOKS
 blocks.push({
                 type: "command",

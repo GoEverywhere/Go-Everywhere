@@ -250,3 +250,13 @@ params.push({
         return myTotalSelector;
     }
 });
+params.push({
+    name: "rotationStyle",
+    getCode: function(info){
+        return "<select>" +
+                "<option value=\"left-right\">left-right</option>" +
+                "<option value=\"don't rotate\">don't rotate</option>" +
+                "<option value=\"all around\">all around</option>" +
+                "</select>";
+    }
+});

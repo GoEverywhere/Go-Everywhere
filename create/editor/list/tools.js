@@ -342,7 +342,7 @@ var EditorTools = {
             myBlockCode += value;
         });
 
-	return myBlockCode.replace("@greenFlag", "<span class=\"green-flag\"></span>");
+	return ((myBlockCode.replace("@greenFlag", "<span class=\"green-flag\"></span>")).replace("@turnRight", "<span class=\"arrow-cw\"></span>")).replace("@turnLeft", "<span class=\"arrow-ccw\"></span>");
     },
     
     /********************************************************************************************************************/
