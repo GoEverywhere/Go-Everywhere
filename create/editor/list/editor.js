@@ -12,10 +12,10 @@ function generateObjectJSON(){
     //then decode each block into the array
     $("#blocks .script").each(function(){
 	//Function so we can keep parameter code the same
-	function findParameterArray(el) {
+	function findParameterArray(el, paramSelectors) {
 	    var miniParams = [];
 	    
-	    $.each(EditorTools.getBlockData($(el).attr("spec")).parameters, function(index, spec){
+	    $.each(paramSelectors, function(index, value){
 		if (($($(el).children("div")[index]).hasClass("reporter") || ($($(el).children("div")[index]).hasClass("boolean") && !$($(el).children("div")[index]).hasClass("empty")))) {
 		    var myEmbeddedBlocks = findEmbeddedBlocks($(el).children("div")[index]);
 		    for(var e = 0; e < myEmbeddedBlocks.length; e++)
@@ -23,25 +23,26 @@ function generateObjectJSON(){
 			miniParams.push(myEmbeddedBlocks[e]);
 		    }
 		}else{
-		    switch(EditorTools.getBlockData($(el).attr("spec")).parameters[index])
+		    switch(value)
 		    {
-			case "dropdown":
+			case "m":
 			    //Text value of "select" field
 			    miniParams.push($($(el).children("div")[index]).children("select").val());
 			    break;
-			case "boolean":
+			case "b":
 			    //If it doesn't have a block inside it, it is false
 			    miniParams.push(false);
 			    break;
-			case "number":
+			case "n":
+			case "d":
 			    //Has to be turned into a float
 			    miniParams.push(parseFloat($($(el).children("div")[index]).children("input").val()) | 10);
 			    break;
-			case "string":
+			case "s":
 			    //Straight up text
 			    miniParams.push($($(el).children("div")[index]).children("input").val());
 			    break;
-			case "color":
+			case "c":
 			    try{
 				var tmpColorText = $($(el).children("div")[index]).attr("style");
 				tmpColorText = tmpColorText.replace("background-color: rgb(", "");
@@ -70,7 +71,26 @@ function generateObjectJSON(){
 		
 	    var myTotal = [myBlockData.spec];
 	    
-	    var myParams = findParameterArray(el);
+	    var myParamSelectors = [];
+	    $.each(myBlockData.label.split(""), function(index, value){
+		if (index + 1 < myBlockData.label.split("").length) {
+		    if (value === "%") {
+			switch(myBlockData.label.split("")[index + 1])
+			{
+			    case "b":
+			    case "c":
+			    case "d":
+			    case "m":
+			    case "n":
+			    case "s":
+				myParamSelectors.push(myBlockData.label.split("")[index + 1]);
+				break;
+			}
+		    }
+		}
+	    });
+	    
+	    var myParams = findParameterArray(el, myParamSelectors);
 	    for(var p = 0; p < myParams.length; p++)
 	    {
 		myTotal.push(myParams[p]);
@@ -90,7 +110,26 @@ function generateObjectJSON(){
 		    
 		    var myTotal = [myBlockData.spec];
 		    
-		    var myParams = findParameterArray(this);
+		    var myParamSelectors = [];
+		    $.each(myBlockData.label.split(""), function(index, value){
+			if (index + 1 < myBlockData.label.split("").length) {
+			    if (value === "%") {
+				switch(myBlockData.label.split("")[index + 1])
+				{
+				    case "b":
+				    case "c":
+				    case "d":
+				    case "m":
+				    case "n":
+				    case "s":
+					myParamSelectors.push(myBlockData.label.split("")[index + 1]);
+					break;
+				}
+			    }
+			}
+		    });
+		    
+		    var myParams = findParameterArray(this, myParamSelectors);
 		    for(var p = 0; p < myParams.length; p++)
 		    {
 			myTotal.push(myParams[p]);
@@ -104,7 +143,26 @@ function generateObjectJSON(){
 		    
 		    var myTotal = [myBlockData.spec];
 		    
-		    var myParams = findParameterArray($(this).children(".cstart"));
+		    var myParamSelectors = [];
+		    $.each(myBlockData.label.split(""), function(index, value){
+			if (index + 1 < myBlockData.label.split("").length) {
+			    if (value === "%") {
+				switch(myBlockData.label.split("")[index + 1])
+				{
+				    case "b":
+				    case "c":
+				    case "d":
+				    case "m":
+				    case "n":
+				    case "s":
+					myParamSelectors.push(myBlockData.label.split("")[index + 1]);
+					break;
+				}
+			    }
+			}
+		    });
+		    
+		    var myParams = findParameterArray($(this).children(".cstart"), myParamSelectors);
 		    for(var p = 0; p < myParams.length; p++)
 		    {
 			myTotal.push(myParams[p]);
@@ -122,7 +180,7 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
-    console.log(scripts);
+    
     return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts

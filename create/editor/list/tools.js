@@ -55,7 +55,7 @@ var EditorTools = {
 		//Then, come the parameters.
 		//myScratchBlocks += this.replaceTextWithParameters(myBlockData, singleBlockArray) + "\n";
                 //myBlockCode += "<div class=\"hat " + myBlockData.group.toLowerCase() + "\">when <span class=\"green-flag\"></span> clicked\n</div>";
-                myBlockCode += "<div class=\"hat " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"hat " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
                 //myBlockCode += myBlockData.label.replace("@greenFlag", "<span class=\"green-flag\"></span>");
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
@@ -118,7 +118,7 @@ var EditorTools = {
 		//A stack block is as follows:
 		//The first item in the blockArray is the label.
 		//Then, come the parameters.
-                myBlockCode += "<div class=\"stack " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"stack " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
 		myBlockCode += this.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
 		break;
@@ -129,7 +129,7 @@ var EditorTools = {
 		//After parameters (parameter-offset) is a stack of blocks inside the C-shape.
                 myBlockCode += "<div class=\"cwrap\">";
                 
-                myBlockCode += "<div class=\"stack cstart " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"stack cstart " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
                 
@@ -175,7 +175,7 @@ var EditorTools = {
 		//Then, come the blocks. For every mouth, there are a stack of blocks, or null if no blocks.
 		myBlockCode += "<div class=\"cwrap\">";
                 
-                myBlockCode += "<div class=\"stack cstart " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"stack cstart " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
                 
@@ -223,7 +223,7 @@ var EditorTools = {
 		//A reporter/boolean is as follows:
 		//The first item in the blockArray is the label.
 		//Then, come the parameters.
-                myBlockCode += "<div class=\"" + myBlockData.type.toLowerCase() + " " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"" + myBlockData.type.toLowerCase() + " " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
 		myBlockCode += this.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
 		break;
@@ -245,7 +245,7 @@ var EditorTools = {
             case "readVariable":
                 //This is like a "getParam",
                 //just doesn't have the extra selector.
-                myBlockCode += "<div class=\"reporter " + myBlockData.group.toLowerCase() + "\">";
+                myBlockCode += "<div class=\"reporter " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\">";
                 myBlockCode += singleBlockArray[1];
                 myBlockCode += "</div>";
                 break;

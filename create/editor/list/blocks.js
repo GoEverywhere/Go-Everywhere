@@ -120,7 +120,7 @@ blocks.push({
 blocks.push({
 		type: "boolean",
 		spec: "touching:",
-		label: "touching %m.touching?",
+		label: "touching %m.touching ?",
 		group: "Sensing"
 	    });
 blocks.push({
@@ -406,7 +406,7 @@ blocks.push({
 blocks.push({
 		type: "command",
 		spec: "gotoSpriteOrMouse:",
-		label: "go to %m.mathOp.spriteOrMouse",
+		label: "go to %m.spriteOrMouse",
 		group: "Motion"
 	    });
 blocks.push({
