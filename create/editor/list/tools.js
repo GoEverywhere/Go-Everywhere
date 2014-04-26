@@ -133,10 +133,31 @@ var EditorTools = {
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
                 
+                //Count the parameters:
+                var myParamCount = 0;
+                var tmpCharacters = myBlockData.label.split("");
+                $.each(tmpCharacters, function(index, value){
+                    if (index + 1 < tmpCharacters.length) {
+                        if (value === "%") {
+                            switch(tmpCharacters[index + 1])
+                            {
+                                case "b":
+                                case "c":
+                                case "d":
+                                case "m":
+                                case "n":
+                                case "s":
+                                    myParamCount++;
+                                    break;
+                            }
+                        }
+                    }
+                });
+                
                 myBlockCode += "<div class=\"cmouth " + myBlockData.group.toLowerCase() + "\">";
-                if (singleBlockArray[1 + myBlockData.parameters.length] !== null) {
+                if (singleBlockArray[1 + myParamCount] !== null) {
 		    //Loop through the mini-stack
-		    myBlockCode += EditorTools.findBlocksFromStack(singleBlockArray[1 + myBlockData.parameters.length], info);
+		    myBlockCode += EditorTools.findBlocksFromStack(singleBlockArray[1 + myParamCount], info);
 		}
                 myBlockCode += "</div>";
                 
@@ -158,6 +179,27 @@ var EditorTools = {
                 myBlockCode += EditorTools.replaceTextWithParameters(myBlockData, singleBlockArray, info);
                 myBlockCode += "</div>";
                 
+                //Count the parameters:
+                var myParamCount = 0;
+                var tmpCharacters = myBlockData.label[0].split("");
+                $.each(tmpCharacters, function(index, value){
+                    if (index + 1 < tmpCharacters.length) {
+                        if (value === "%") {
+                            switch(tmpCharacters[index + 1])
+                            {
+                                case "b":
+                                case "c":
+                                case "d":
+                                case "m":
+                                case "n":
+                                case "s":
+                                    myParamCount++;
+                                    break;
+                            }
+                        }
+                    }
+                });
+                
                 $.each(myBlockData.label, function(index, value){
                     if (index != 0) {
                         myBlockCode += "<div class=\"stack celse " + myBlockData.group.toLowerCase() + "\">" + value + "</div>";
@@ -165,9 +207,9 @@ var EditorTools = {
                     //If the parameter-offset is null, that means that
 		    //there are no blocks in the C-shape.
                     myBlockCode += "<div class=\"cmouth " + myBlockData.group.toLowerCase() + "\">";
-		    if (singleBlockArray[1 + myBlockData.parameters.length] !== null) {
+		    if (singleBlockArray[1 + myParamCount] !== null) {
 		        //Loop through the mini-stack
-		        myBlockCode += EditorTools.findScratchBlocksFromStack(singleBlockArray[1 + (index) + myBlockData.parameters.length], info);
+		        myBlockCode += EditorTools.findScratchBlocksFromStack(singleBlockArray[1 + (index) + myParamCount], info);
 		    }
                     myBlockCode += "</div>";
                 });
