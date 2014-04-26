@@ -264,12 +264,16 @@ params.push({
     name: "var",
     getCode: function(info){
         var myTotalSelector = "<select>";
-        $.each(info.project.variables, function(index, value){
-            myTotalSelector += "<option value=\"" + value.name + "\">" + value.name + "</option>";
-        });
-        $.each(info.currentObj.variables, function(index, value){
-            myTotalSelector += "<option value=\"" + value.name + "\">" + value.name + "</option>";
-        });
+        if (info.project.variables) {
+            $.each(info.project.variables, function(index, value){
+                myTotalSelector += "<option value=\"" + value.name + "\">" + value.name + "</option>";
+            });
+        }
+        if (info.currentObj.variables && info.currentObj.name !== "Stage") {
+            $.each(info.currentObj.variables, function(index, value){
+                myTotalSelector += "<option value=\"" + value.name + "\">" + value.name + "</option>";
+            });
+        }
         myTotalSelector += "</select>";
         
         return myTotalSelector;
@@ -279,12 +283,16 @@ params.push({
     name: "list",
     getCode: function(info){
         var myTotalSelector = "<select>";
-        $.each(info.project.lists, function(index, value){
-            myTotalSelector += "<option value=\"" + value.listName + "\">" + value.listName + "</option>";
-        });
-        $.each(info.currentObj.lists, function(index, value){
-            myTotalSelector += "<option value=\"" + value.listName + "\">" + value.listName + "</option>";
-        });
+        if (info.project.lists) {
+            $.each(info.project.lists, function(index, value){
+                myTotalSelector += "<option value=\"" + value.listName + "\">" + value.listName + "</option>";
+            });
+        }
+        if (info.currentObj.lists && info.currentObj.name !== "Stage") {
+            $.each(info.currentObj.lists, function(index, value){
+                myTotalSelector += "<option value=\"" + value.listName + "\">" + value.listName + "</option>";
+            });
+        }
         myTotalSelector += "</select>";
         
         return myTotalSelector;
