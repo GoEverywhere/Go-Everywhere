@@ -428,7 +428,10 @@ function loadCurrentSelectedSprite(){
 		if (($(this).hasClass("empty") && ui.draggable.hasClass("boolean")) ||
 		    (($(this).hasClass("string") || $(this).hasClass("number")) && ui.draggable.hasClass("reporter"))){
 		    //Filter out accept boxes
-		    $(this).css("border", "5px solid yellow");
+		    $(this).css({
+			"border": "5px solid yellow",
+			
+		    });
 		    ui.draggable.addClass("dragged-over");
 		}
 		
@@ -506,6 +509,8 @@ function loadCurrentSelectedSprite(){
 		    ui.helper.remove();
 		    ui.draggable.remove();
 	    }
+	    addFieldAcceptors($(".placeholder").removeClass("placeholder"));
+	    
 	    $(this).children().css("opacity", "0.5");
 	    $(this).children().css("border-color", "black");
 	    //Hide the garbage bin, Show the new button
