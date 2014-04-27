@@ -50,12 +50,11 @@ function generateObjectJSON(){
 				tmpColorText = tmpColorText.replace(" ", "");
 				tmpColorText = tmpColorText.replace(" ", "");
 				var tmpColorArray = tmpColorText.split(","); //R: [0], G: [1], B: [2]
+				miniParams.push(((65536 * parseInt(tmpColorArray[0])) + (256 * parseInt(tmpColorArray[1]))) + parseInt(tmpColorArray[2]));
 			    }catch(e){
 			    	console.warn("[findParameterArray:] Trouble reading color values from this block: " + $(el).attr("spec") + ", using black (0) instead.");
+				miniParams.push(0);
 			    }
-			    
-			    
-			    miniParams.push(0);
 			    break;
 		    }
 		}
