@@ -361,6 +361,8 @@ function loadCurrentSelectedSprite(){
 		$("#addNew").hide("fade", 100, function(){
 		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
 		});
+		//Change my Z-index to 1000
+		$(this).add(ui.helper).css("z-index", 1000);
 		
 		if (!$(this).parent().hasClass("script")) {
 		    var parentBlockData = EditorTools.getBlockData($(this).parent().attr("spec"));
@@ -386,8 +388,10 @@ function loadCurrentSelectedSprite(){
 		    $(".placeholder").remove();
 		}
 		var $parent = $(this).parent();
-		$(this).show().parent().html($(this).parent().html()).children().last().remove();
-		makeReporterDraggable($parent.children());
+		if ($parent.hasClass("script")) {
+		    $(this).show().parent().html($(this).parent().html()).children().last().remove();
+		    makeReporterDraggable($parent.children());
+		}
 	    }
 	});
     }
@@ -426,6 +430,8 @@ function loadCurrentSelectedSprite(){
 		if (ui.draggable.parent().hasClass("script")) {
 		    parent = ui.draggable.parent();
 		}
+		//Show the draggable
+		ui.draggable.removeAttr("style");
 		//Put the block in place of myself
 		$(this).replaceWith(ui.draggable);
 		//Remove the parent script, if any
