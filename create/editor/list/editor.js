@@ -430,14 +430,19 @@ function loadCurrentSelectedSprite(){
 		    //Filter out accept boxes
 		    $(this).css({
 			"border": "5px solid yellow",
-			
+			"width": ui.draggable.css("width"),
+			"height": ui.draggable.css("height")
 		    });
 		    ui.draggable.addClass("dragged-over");
 		}
 		
 	    },
 	    out: function(e, ui){
-		$(this).css("border", "");
+		$(this).css({
+		    "border": "",
+		    "width": "",
+		    "height": ""
+		});
 		ui.draggable.removeClass("dragged-over");
 	    },
 	    drop: function(e, ui){
