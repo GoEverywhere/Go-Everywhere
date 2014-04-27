@@ -366,14 +366,35 @@ function loadCurrentSelectedSprite(){
 		
 		if (!$(this).parent().hasClass("script")) {
 		    var parentBlockData = EditorTools.getBlockData($(this).parent().attr("spec"));
-		    switch (parentBlockData.parameters[$(this).index()]) {
-			case "number":
+		    
+		    var myParentParams = [];
+		    var myParentLabel = parentBlockData.label === undefined ? $(this).parent().attr("label") : parentBlockData.label;
+		    $.each(myParentLabel.split(""), function(index, value){
+			if (index + 1 < myParentLabel.split("").length) {
+			    if (value === "%") {
+				switch(myParentLabel.split("")[index + 1])
+				{
+				    case "b":
+				    case "c":
+				    case "d":
+				    case "m":
+				    case "n":
+				    case "s":
+					myParentParams.push(myParentLabel.split("")[index + 1]);
+					break;
+				}
+			    }
+			}
+		    });
+		    
+		    switch (myParentParams[$(this).index()]) {
+			case "n":
 			    $(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
 			    break;
-			case "boolean":
+			case "b":
 			    $(this).before("<div class=\"boolean empty placeholder\"></div>");
 			    break;
-			case "string":
+			case "s":
 			    $(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
 			    break;
 		    }
@@ -387,6 +408,7 @@ function loadCurrentSelectedSprite(){
 		if (!$(this).hasClass("dragged-over") && !$(this).parent().hasClass("script")) {
 		    $(".placeholder").remove();
 		}
+		$(this).removeAttr("style");
 		var $parent = $(this).parent();
 		if ($parent.hasClass("script")) {
 		    $(this).show().parent().html($(this).parent().html()).children().last().remove();
