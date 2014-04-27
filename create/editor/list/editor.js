@@ -44,8 +44,8 @@ function generateObjectJSON(){
 			    break;
 			case "c":
 			    try{
-				var tmpColorText = $($(el).children("div")[index]).attr("style");
-				tmpColorText = tmpColorText.replace("background-color: rgb(", "");
+				var tmpColorText = $($(el).children("div")[index]).css("background-color");
+				tmpColorText = tmpColorText.replace("rgb(", "");
 				tmpColorText = tmpColorText.replace(");", "");
 				tmpColorText = tmpColorText.replace(" ", "");
 				tmpColorText = tmpColorText.replace(" ", "");
