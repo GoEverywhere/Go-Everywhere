@@ -425,9 +425,8 @@ function loadCurrentSelectedSprite(){
 	    accept: ".reporter, .boolean",
 	    greedy: true,
 	    over: function(e, ui){
-		if (((($(".placeholder").hasClass("string") || $(".placeholder").hasClass("number")) && (ui.draggable.hasClass("reporter")))
-		    || ($(".placeholder").hasClass("boolean") && $(ui.draggable).hasClass("boolean")))
-		    || ($(ui.draggable).parent().hasClass("script"))) {
+		if (($(this).hasClass("empty") && ui.draggable.hasClass("boolean")) ||
+		    (($(this).hasClass("string") || $(this).hasClass("number")) && ui.draggable.hasClass("reporter"))){
 		    //Filter out accept boxes
 		    $(this).css("border", "5px solid yellow");
 		    ui.draggable.addClass("dragged-over");
@@ -463,7 +462,7 @@ function loadCurrentSelectedSprite(){
 	    }
 	});
     }
-    addFieldAcceptors(".number, .string");
+    addFieldAcceptors(".number, .string, .empty");
     
     //Make the rest of the blocks sortable
     $("#blocks ul").sortable({
