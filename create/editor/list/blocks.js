@@ -27,7 +27,7 @@ blocks.push({
 blocks.push({
                 type: "hat",
                 spec: "whenSensorGreaterThan",
-                label: "when %m.triggerSensor > %n",
+                label: "when %m.triggerSensor &gt; %n",
                 group: "Events"
 });
 blocks.push({
@@ -274,7 +274,7 @@ blocks.push({
 blocks.push({
                 type: "boolean",
                 spec: "<",
-                label: "%s < %s",
+                label: "%s &lt; %s",
                 group: "Operators"
             });
 blocks.push({
@@ -286,7 +286,7 @@ blocks.push({
 blocks.push({
                 type: "boolean",
                 spec: ">",
-                label: "%s > %s",
+                label: "%s &gt; %s",
                 group: "Operators"
             });
 blocks.push({
