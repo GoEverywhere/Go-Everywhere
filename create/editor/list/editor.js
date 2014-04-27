@@ -351,43 +351,48 @@ function loadCurrentSelectedSprite(){
 	}
     });
     //Make input blocks draggable
-    $(".reporter, .boolean:not(.empty)").draggable({
-	revert: "invalid",
-	helper: "clone",
-	start: function(event, ui){
-	    $(this).hide();
-	    //Hide the new button, Show the garbage bin
-	    $("#addNew").hide("fade", 100, function(){
-		$("#garbageBin").show("fade", 100).css("opacity", "0.5");
-	    });
-	    
-	    if (!$(this).parent().hasClass("script")) {
-		var parentBlockData = EditorTools.getBlockData($(this).parent().attr("spec"));
-		switch (parentBlockData.parameters[$(this).index()]) {
-		    case "number":
-			$(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
-			break;
-		    case "boolean":
-			$(this).before("<div class=\"boolean empty placeholder\"></div>");
-			break;
-		    case "string":
-			$(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
-			break;
+    function makeReporterDraggable(selec){
+	$(selec).draggable({
+	    revert: "invalid",
+	    helper: "clone",
+	    start: function(event, ui){
+		$(this).hide();
+		//Hide the new button, Show the garbage bin
+		$("#addNew").hide("fade", 100, function(){
+		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
+		});
+		
+		if (!$(this).parent().hasClass("script")) {
+		    var parentBlockData = EditorTools.getBlockData($(this).parent().attr("spec"));
+		    switch (parentBlockData.parameters[$(this).index()]) {
+			case "number":
+			    $(this).before("<div class=\"number placeholder\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"10\"></div>");
+			    break;
+			case "boolean":
+			    $(this).before("<div class=\"boolean empty placeholder\"></div>");
+			    break;
+			case "string":
+			    $(this).before("<div class=\"string placeholder\"><input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"Hello!\"></div>");
+			    break;
+		    }
 		}
-	    }
-	},
-	stop: function(event, ui){
-	    //Hide the garbage bin, Show the new button
-	    $("#garbageBin").hide("fade", 100, function(){
+	    },
+	    stop: function(event, ui){
+		//Hide the garbage bin, Show the new button
+		$("#garbageBin").hide("fade", 100, function(){
 		    $("#addNew").show("fade", 100);
-	    });
-	    if (!$(this).hasClass("dragged-over")) {
-		$(".placeholder").remove();
+		});
+		if (!$(this).hasClass("dragged-over") && !$(this).parent().hasClass("script")) {
+		    $(".placeholder").remove();
+		}
+		var $parent = $(this).parent();
+		$(this).show().parent().html($(this).parent().html()).children().last().remove();
+		makeReporterDraggable($parent.children());
 	    }
-	    $(this).show();
-	    $(this).removeAttr("style");
-	}
-    });
+	});
+    }
+    makeReporterDraggable(".reporter, .boolean:not(.empty)");
+    
     //Make fields droppable targets for reporters
     function addFieldAcceptors(selec){
 	$(selec).droppable({
@@ -493,7 +498,6 @@ function loadCurrentSelectedSprite(){
 	    ui.draggable.removeClass("dragged-over");
 	}
     });
-    
 }
 
 
