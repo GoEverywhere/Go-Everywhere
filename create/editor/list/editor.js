@@ -417,7 +417,7 @@ function loadCurrentSelectedSprite(){
 	    }
 	});
     }
-    makeReporterDraggable(".reporter, .boolean:not(.empty)");
+    makeReporterDraggable(".reporter:not(.custom-arg), .boolean:not(.empty,.custom-arg)");
     
     //Make fields droppable targets for reporters
     function addFieldAcceptors(selec){
@@ -469,7 +469,7 @@ function loadCurrentSelectedSprite(){
     $("#blocks ul").sortable({
 	axis: "both",
 	placeholder: "block-placeholder",
-	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .reporter)",
+	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .reporter, .outline)",
 	connectWith: "#blocks ul",
 	start: function(event, ui){
 	    //Hide the new button, Show the garbage bin
