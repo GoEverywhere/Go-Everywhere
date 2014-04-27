@@ -217,12 +217,19 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
-    console.log(scripts);
     return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts
     });
 }
+
+function generateAndDownloadZIP(){
+    //Make sure that our currentObj is saved
+    generateObjectJSON();
+    //Make a new ZIP using jszip
+    var myZip = new JSZip();
+}
+/*********************************************************************/
 
 $(document).ready(function(){
     //Load GET data
@@ -263,16 +270,22 @@ $(document).ready(function(){
     }
 });
 function loadProject(url) {
-    zipFile = new ZipFile(url, doneReadingZip, 1);
-    
+    JSZipUtils.getBinaryContent(url, function(err, data){
+	if (err) {
+	    throw err;
+	}
+	
+	zipFile = new JSZip(data);
+	doneReadingZip(zipFile);
+    });
 }
 function doneReadingZip(zip) {
     //Load the project JSON into the project variable
-    for (var i=0;i<zipFile.entries.length;i++) {
-	if (zipFile.entries[i].name == "project.json") {
-	    project = JSON.parse(zipFile.entries[i].extract(null, true));
+    $.each(zipFile.files, function(index, value){
+	if (value.name == "project.json") {
+	    project = JSON.parse(value.asText());
 	}
-    }
+    });
     
     //Load sprites and stage into selector
     $("#toolbar #spriteSelect select").html("<option name=\"Stage\">Stage</option>");
