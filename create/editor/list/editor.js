@@ -313,120 +313,14 @@ function loadCurrentSelectedSprite(){
 	});
     }
     
-    $("#blocks").html("<pre class=\"blockCodeParse\">\n<div class=\"sb2\">\n" + blockCode + "</div>\n</pre>");
+    $("#blocks").html("<pre class=\"blockCodeParse\"><div class=\"sb2\">" + blockCode + "</div></pre>");
     
-    //Parse blocks
-    //scratchblocks2.parse("pre.blockCodeParse");
-    
-    //Add replace block tags with HTML input tags. PARAMETERS!!!!!!!!!!
-    //Number tags
-    /*$("#blocks .number").each(function(){
-	$(this).html("<input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
-    });
-    //String tags
-    $("#blocks .string").each(function(){
-	$(this).html("<input type=\"text\" size=\"4\" style=\"font-size: 10px;height:13px; padding: 0; border: none;\" value=\"" + $(this).text() + "\" />");
-    });
-    //Dropdown menus
-    $.each(params, function(index, value){
-	$("#blocks .dropdown:contains('%m." + value.name + "')").each(function(){
-	    var mySelf = this;
-	    //take out %m.[menuName]
-	    var dropDownText = $(mySelf).html().replace('%m.' + value.name, '');
-	    //take out the { and }
-	    dropDownText = dropDownText.replace(new RegExp('(\\{)',["i"]), '');
-	    dropDownText = dropDownText.replace(new RegExp('(\\})',["i"]), '');
-	    //Put in the parameter code
-	    $(mySelf).html(value.getCode({
-		currentObj: currentObj,
-		project: project
-	    }));
-	    $(mySelf).find("option").each(function(){
-		if ($(this).val() == dropDownText) {
-		    $(this).attr("selected", "true");
-		}
-	    });
-	});
-    });
-    
-    //Fix for the "[math] of (number)" being a sensing block
-    $("#blocks .sensing").each(function(){
-	//Find the " of " block
-	if ($(this).justtext() == " of ") {
-	    //See if this block has one dropdown and one number.
-	    //If it does, it is supposed to be an Operators block
-	    if ($(this).children().first().hasClass("dropdown") && !$(this).children().last().hasClass("dropdown")) {
-		$(this).removeClass("sensing").addClass("operators");
-	    }
+    //When dragging blocks, they somethings loop themselves into a new line (jQuery bug)
+    $("#blocks .stack").each(function(){
+	if ($(this).html().split("")[$(this).html().split("").length - 1] === ">") {
+	    $(this).html($(this).html() + " ");
 	}
     });
-    //Fix for the Scratch block [set pen color to: ] having a double unique label
-    $("#blocks .pen").each(function(){
-	//See if the block has a number input.
-	//If number, set the spec to "setPenHueTo:"
-	//(and add the class "processed", so it won't be processed by the label analyzer)
-	if ($(this).justtext() == "set pen color to ") {
-	    if ($(this).children().hasClass("number")) {
-		$(this).attr("spec", "setPenHueTo:").addClass("processed");
-	    }
-	}
-    });
-    
-    //Add parameter compilation, for project decompilation and analysis
-    $($("#blocks .looks,.events,.control,.sensing,.operators,.motion,.looks,.sound,.pen")).each(function(){
-	var label = $(this).justtext();
-	//Specials have a unique block data
-	if ($(this).parent().hasClass("cwrap") && $(this).hasClass("cstart")) {
-	    if ($(this).parent().children(".stack").length > 2) {
-		$(this).parent().children(".stack").not(":first").not(":last").addClass("skip-block-for-conversion");
-		$(this).parent().children(".stack").not(":first").not(":last").each(function(){
-		    label += "\n" + $(this).justtext();
-		});
-	    }
-	}
-	
-	if(label != "" && !$(this).hasClass("skip-block-for-conversion") && !$(this).hasClass("processed")) {
-	    //Find the block's catagory
-	    var catagory = "looks";
-	    if ($(this).hasClass("events")) {
-		catagory = "events";
-	    }
-	    if ($(this).hasClass("control")) {
-		catagory = "control";
-	    }
-	    if ($(this).hasClass("sensing")) {
-		catagory = "sensing";
-	    }
-	    if ($(this).hasClass("operators")) {
-		catagory = "operators";
-	    }
-	    //if ($(this).hasClass("???")) { MORE BLOCKS
-		//catagory = "???";
-	    //}
-	    if ($(this).hasClass("motion")) {
-		catagory = "motion";
-	    }
-	    if ($(this).hasClass("looks")) {
-		catagory = "looks";
-	    }
-	    if ($(this).hasClass("sound")) {
-		catagory = "sound";
-	    }
-	    if ($(this).hasClass("pen")) {
-		catagory = "pen";
-	    }
-	    
-	    var blockData = EditorTools.getBlockDataFromScratchblocks(catagory, label);
-	    if (blockData.type == undefined) {
-		console.error("Block label \"" + label + "\" doesn't have a cooresponding spriteblocks2 >> block data.");
-	    }else{
-		$(this).attr("spec", blockData.spec);
-	    }
-	}
-    });
-    
-    //Change all embedded to reporter
-    $(".embedded").removeClass("embedded").addClass("reporter");
     
     //ADD SORTING AND DRAGGING!!!!!!!!!!
     //Add ul and li tags around the existing scratchblocks2 tags
@@ -547,19 +441,23 @@ function loadCurrentSelectedSprite(){
 	start: function(event, ui){
 	    //Hide the new button, Show the garbage bin
 	    $("#addNew").hide("fade", 100, function(){
-		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
+		$("#garbageBin").show("fade", 100).css("opacity", "0.5");
 	    });
+	},
+	sort: function(event, ui){
+	    //Width changing issues
+	    $(this).css("width", "auto");
 	},
 	stop: function(event, ui){
 	    //Hide the garbage bin, Show the new button
 	    $("#garbageBin").hide("fade", 100, function(){
-		    $("#addNew").show("fade", 100);
+		$("#addNew").show("fade", 100);
 	    });
 	}
     });
     
     //PARAMETER CHANGE EVENTS!!!!!!
-    $("#blocks input[type=text]").keypress(function(){
+    $("#blocks input[type=text]").bind("load ready keypress", function(){
 	$(this).attr("size", $(this).val().length);
     });
     $("#blocks input[type=text][pattern]").bind("keydown keyup keypress focus unfocus", function(){
@@ -571,7 +469,7 @@ function loadCurrentSelectedSprite(){
 	greedy: true,
 	drop: function(event, ui){
 	    if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
-		    //code
+		    ui.draggable.parent().remove();
 	    } else{
 		    ui.helper.remove();
 		    ui.draggable.remove();
@@ -594,7 +492,7 @@ function loadCurrentSelectedSprite(){
 	    $(this).children().css("border-color", "black");
 	    ui.draggable.removeClass("dragged-over");
 	}
-    });*/
+    });
     
 }
 
