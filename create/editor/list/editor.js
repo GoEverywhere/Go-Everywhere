@@ -2,6 +2,7 @@
 var zipFile,
 project = {},
 currentObj = {},
+projectName = "",
 vars;
 
 //PROJECT SAVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -226,8 +227,11 @@ function generateObjectJSON(){
 function generateAndDownloadZIP(){
     //Make sure that our currentObj is saved
     generateObjectJSON();
-    //Make a new ZIP using jszip
-    var myZip = new JSZip();
+    //ONLY SAVES THE JSON!!!!!
+    zipFile.file("project.json", JSON.stringify(project));
+    
+    //Compress the zip and give it to the user!
+    saveAs(zipFile.generate({ type: "blob" }), "project.sb2");
 }
 /*********************************************************************/
 
@@ -260,6 +264,10 @@ $(document).ready(function(){
 	}
 	
 	loadCurrentSelectedSprite();
+    });
+    $(this).bind("contextmenu", function(e){
+	e.preventDefault();
+	generateAndDownloadZIP();
     });
     
     if (vars['project'] && vars['project'] != "") {
