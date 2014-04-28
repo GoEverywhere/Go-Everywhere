@@ -444,6 +444,7 @@ function loadCurrentSelectedSprite(){
 	$(selec).droppable({
 	    accept: ".reporter, .boolean",
 	    greedy: true,
+	    tolerance: "pointer",
 	    over: function(e, ui){
 		if (($(this).hasClass("empty") && ui.draggable.hasClass("boolean")) ||
 		    (($(this).hasClass("string") || $(this).hasClass("number")) && ui.draggable.hasClass("reporter"))){
@@ -527,6 +528,7 @@ function loadCurrentSelectedSprite(){
     //GARBAGE BIN EVENTS!!!!!!
     $("#garbageBin").droppable({
 	greedy: true,
+	tolerance: "pointer",
 	drop: function(event, ui){
 	    if (ui.draggable.parent().hasClass("script") && ui.draggable.is(":only-child")) {
 		    ui.draggable.parent().remove();
