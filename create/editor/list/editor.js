@@ -304,6 +304,11 @@ function doneReadingZip(zip) {
 	    $("#costumes").html($("#costumes").html() + myImageTag);
 	    return true;
 	}
+	if(value.name.indexOf("wav") > -1){
+	    var myAudioTag = "<audio src=\"data:audio/wav;base64," + EditorTools.base64Encode(value.asUint8Array()) + "\" />";
+	    $("#sounds").html($("#sounds").html() + myAudioTag);
+	    return true;
+	}
     });
     
     //Load sprites and stage into selector
