@@ -265,8 +265,7 @@ $(document).ready(function(){
 	
 	loadCurrentSelectedSprite();
     });
-    $(this).bind("contextmenu", function(e){
-	e.preventDefault();
+    $("#saveProject").bind("click touchend", function(e){
 	generateAndDownloadZIP();
     });
     
