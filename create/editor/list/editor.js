@@ -289,8 +289,20 @@ function loadProject(url) {
 function doneReadingZip(zip) {
     //Load the project JSON into the project variable
     $.each(zipFile.files, function(index, value){
+	console.log(value);
 	if (value.name == "project.json") {
 	    project = JSON.parse(value.asText());
+	    return true;
+	}
+	if(value.name.indexOf("png") > -1){
+	    var myImageTag = "<img src=\"data:image/png;base64," + EditorTools.base64Encode(value.asUint8Array()) + "\" />";
+	    $("#costumes").html($("#costumes").html() + myImageTag);
+	    return true;
+	}
+	if(value.name.indexOf("jpg") > -1){
+	    var myImageTag = "<img src=\"data:image/jpeg;base64," + EditorTools.base64Encode(value.asUint8Array()) + "\" />";
+	    $("#costumes").html($("#costumes").html() + myImageTag);
+	    return true;
 	}
     });
     
@@ -358,16 +370,16 @@ function loadCurrentSelectedSprite(){
     $("#blocks .script > .hat").draggable({
 	revert: true,
 	drag: function(event, ui){
-		//Hide the new button, Show the garbage bin
-		$("#addNew").hide("slide", 50, function(){
-		    $("#garbageBin").show("slide", 50).css("opacity", "0.5");
-		});
+	    //Hide the new button, Show the garbage bin
+	    $("#addNew").hide("slide", 50, function(){
+		$("#garbageBin").show("slide", 50).css("opacity", "0.5");
+	    });
 	},
 	stop: function(event, ui){
-		//Hide the garbage bin, Show the new button
-		$("#garbageBin").hide("slide", 50, function(){
-		    $("#addNew").show("slide", 50);
-		});
+	    //Hide the garbage bin, Show the new button
+	    $("#garbageBin").hide("slide", 50, function(){
+		$("#addNew").show("slide", 50);
+	    });
 	}
     });
     //Make input blocks draggable
