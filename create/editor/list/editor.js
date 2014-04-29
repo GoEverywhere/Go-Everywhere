@@ -248,6 +248,20 @@ $(document).ready(function(){
     //Hide the garbage bin
     $("#garbageBin").hide();
     
+    //Add blocks to the palette (all that have a defined label, at least)
+    $.each(blocks, function(index, value){
+	if (value.label !== undefined) {
+	    switch(value.type)
+	    {
+		case "command":
+		case "stack":
+		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"stack " + value.group.toLowerCase() + (value.cap === undefined ? "" : " cap") + "\" spec=\"" + value.spec + "\">" + value.label + "</div></div>");
+		    break;
+	    }
+	}
+	console.log(value);
+    });
+    
     //Sprite Selection Event
     $("#toolbar #spriteSelect select").change(function(){
 	//Save the current sprite, then change to the next
