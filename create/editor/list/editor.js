@@ -364,7 +364,7 @@ function loadCurrentSelectedSprite(){
 	});
     }
     
-    $("#blocks").html("<pre class=\"blockCodeParse\"><div class=\"sb2\">" + blockCode + "</div></pre>");
+    $("#blocks").html("<div class=\"sb2\">" + blockCode + "</div>");
     
     //When dragging blocks, they somethings loop themselves into a new line (jQuery bug)
     $("#blocks .stack").each(function(){
@@ -468,7 +468,7 @@ function loadCurrentSelectedSprite(){
 	    }
 	});
     }
-    makeReporterDraggable(".reporter:not(.custom-arg), .boolean:not(.empty,.custom-arg)");
+    makeReporterDraggable($("#blocks").find(".reporter:not(.custom-arg), .boolean:not(.empty,.custom-arg)"));
     
     //Make fields droppable targets for reporters
     function addFieldAcceptors(selec){
@@ -522,7 +522,7 @@ function loadCurrentSelectedSprite(){
 	    }
 	});
     }
-    addFieldAcceptors(".number, .string, .empty");
+    addFieldAcceptors($("#blocks").find(".number, .string, .empty"));
     
     //Make the rest of the blocks sortable
     $("#blocks ul").sortable({
