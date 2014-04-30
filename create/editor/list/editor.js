@@ -556,8 +556,20 @@ function loadCurrentSelectedSprite(){
     $("#blocks input[type=text]").bind("load ready keypress", function(){
 	$(this).attr("size", $(this).val().length);
     });
-    $("#blocks input[type=text][pattern]").bind("keydown keyup keypress focus unfocus", function(){
-	$(this).val($(this).val().match($(this).attr("pattern")));
+    $("#blocks input[type=text][pattern]").keyup(function(){
+	$(this).val($(this).val().replace(new RegExp(/([^0-9.\-])/g), ""));
+    });
+    
+    //NUMBER-DROPDOWN STYLE!!!!!!
+    $("#blocks .number-dropdown").children("select").css({
+	"overflow": "hidden",
+	"width": "18px",
+	"margin-left": "2px",
+	"margin-right": "2px",
+	"background": "transparent",
+	"color": "black"
+    }).change(function(){
+	$(this).prev().val($(this).val());
     });
     
     //GARBAGE BIN EVENTS!!!!!!

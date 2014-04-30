@@ -391,7 +391,7 @@ blocks.push({
 blocks.push({
                 type: "command",
                 spec: "heading:",
-                label: "point in direction %n",
+                label: "point in direction %d.direction",
                 group: "Motion"
 });
 blocks.push({

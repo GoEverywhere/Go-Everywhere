@@ -298,3 +298,14 @@ params.push({
         return myTotalSelector;
     }
 });
+params.push({
+    name: "direction",
+    getCode: function(info){
+        return "<select>" +
+                "<option value=\"90\">(90) right</option>" +
+                "<option value=\"-90\">(-90) left</option>" +
+                "<option value=\"0\">(0) up</option>" +
+                "<option value=\"180\">(180) down</option>" +
+                "</select>";
+    }
+});

@@ -270,12 +270,11 @@ var EditorTools = {
                     switch(tmpCharacters[index + 1])
                     {
                         case "n":
-                        case "d": //Is here for now, until the element needed is added
                             tmpCharacters.splice(index + 1, 1);
                             
                             if (typeof blockArray[parameterOffset + arrayOffset] !== "object") {
                                 //Number
-                                tmpCharacters[index] = "<div class=\"number\"><input type=\"text\" pattern=\"-?([0-9.]+)\" size=\"4\" style=\"font-size: 10px;height: 13px;padding: 0;border: none;\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\" /></div>";
+                                tmpCharacters[index] = "<div class=\"number\"><input type=\"text\" pattern=\"([^(0-9.\-)])\" size=\"4\" style=\"font-size: 10px;height: 13px;padding: 0;border: none;\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\" /></div>";
                             }else{
                                 //Must be a block inside of me
                                 tmpCharacters[index] = EditorTools.findBlocksFromBlockArray(blockArray[parameterOffset + arrayOffset], info);
@@ -349,6 +348,39 @@ var EditorTools = {
                             tmpMenuCode = tmpMenuCode.replace("value=\"" + blockArray[parameterOffset + arrayOffset] + "\"", "selected=\"true\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\"");
                             
                             tmpCharacters[index] = "<div class=\"dropdown\">" + tmpMenuCode + "</div>";
+                            
+                            parameterOffset++;
+                            break;
+                        case "d":
+                            tmpCharacters.splice(index + 1, 2);
+                            var lengthToSplice = 0;
+                            var menuName = "";
+                            for(var myI = index + 1; myI < tmpCharacters.length; myI++)
+                            {
+                                if (tmpCharacters[myI] === " ") {
+                                    break;
+                                }
+                                lengthToSplice++;
+                                menuName += tmpCharacters[myI];
+                            }
+                            tmpCharacters.splice(index + 1, lengthToSplice);
+                            
+                            var tmpMenuCode = "";
+                            $.each(params, function(index, value){
+                                if (value.name == menuName) {
+                                    tmpMenuCode = value.getCode(info);
+                                    
+                                    return false;
+                                }
+                            });
+                            
+                            if (typeof blockArray[parameterOffset + arrayOffset] !== "object") {
+                                //Number-dropdown
+                                tmpCharacters[index] = "<div class=\"number-dropdown\"><input type=\"text\" pattern=\"([^(0-9.\-)])\" size=\"4\" style=\"font-size: 10px;height: 13px;padding: 0;border: none;\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\" />" + tmpMenuCode + "</div>";
+                            }else{
+                                //Must be a block inside of me
+                                tmpCharacters[index] = EditorTools.findBlocksFromBlockArray(blockArray[parameterOffset + arrayOffset], info);
+                            }
                             
                             parameterOffset++;
                             break;
