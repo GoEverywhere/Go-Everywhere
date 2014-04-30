@@ -261,6 +261,14 @@ $(document).ready(function(){
 	}
 	console.log(value);
     });
+    //Make the palette animate in and out
+    var paletteSlideUp = function(){
+	$("#palette").slideUp();
+    };
+    $("#palette").slideUp();
+    $("#addNew").click(function(){
+	$("#palette").slideDown();
+    });
     
     //Sprite Selection Event
     $("#toolbar #spriteSelect select").change(function(){
