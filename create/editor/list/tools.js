@@ -275,7 +275,7 @@ var EditorTools = {
                             
                             if (typeof blockArray[parameterOffset + arrayOffset] !== "object") {
                                 //Number
-                                tmpCharacters[index] = "<div class=\"number\"><input type=\"text\" pattern=\"[0-9.]+\" size=\"4\" style=\"font-size: 10px;height: 13px;padding: 0;border: none;\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\" /></div>";
+                                tmpCharacters[index] = "<div class=\"number\"><input type=\"text\" pattern=\"-?([0-9.]+)\" size=\"4\" style=\"font-size: 10px;height: 13px;padding: 0;border: none;\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\" /></div>";
                             }else{
                                 //Must be a block inside of me
                                 tmpCharacters[index] = EditorTools.findBlocksFromBlockArray(blockArray[parameterOffset + arrayOffset], info);
