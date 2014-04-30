@@ -1088,7 +1088,7 @@
 }
 /*.sb2 .dropdown:after, The arrow is messing some things up. Plus, it is very misleading.*/
 .sb2 .number-dropdown:after {
-  content: "▼";
+  /*content: "▼";*/
   font-size: 8px;
   padding: 0 0 0 4px;
   border-radius: 2px;
