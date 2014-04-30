@@ -231,7 +231,7 @@ function generateAndDownloadZIP(){
     zipFile.file("project.json", JSON.stringify(project));
     
     //Compress the zip and give it to the user!
-    saveAs(zipFile.generate({ type: "blob" }), "project.sb2");
+    saveAs(zipFile.generate({ type: "blob" }), projectName + ".ge");
 }
 /*********************************************************************/
 
@@ -297,6 +297,10 @@ function loadProject(url) {
 	}
 	
 	zipFile = new JSZip(data);
+	
+	//Save the project's filename
+	projectName = (url.substring(url.lastIndexOf('/')+1)).replace(/.[^.]+$/g, "");
+	
 	doneReadingZip(zipFile);
     });
 }
