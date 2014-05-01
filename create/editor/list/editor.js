@@ -319,6 +319,7 @@ $(document).ready(function(){
 	    $("#palette").show("blind", 400);
 	});
     });
+    $(".blockPalette").isolatedScroll();
     
     //Sprite Selection Event
     $("#toolbar #spriteSelect select").change(function(){
@@ -365,7 +366,6 @@ function loadProject(url) {
 function doneReadingZip(zip) {
     //Load the project JSON into the project variable
     $.each(zipFile.files, function(index, value){
-	console.log(value);
 	if (value.name == "project.json") {
 	    project = JSON.parse(value.asText());
 	    return true;
