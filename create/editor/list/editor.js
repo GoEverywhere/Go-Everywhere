@@ -235,6 +235,24 @@ function generateAndDownloadZIP(){
 }
 /*********************************************************************/
 
+function populatePaletteWithBlocks(extraBlocks){
+    var processingBlocks = blocks;
+    if (extraBlocks !== undefined) {
+	processingBlocks = extraBlocks;
+    }
+    
+    $.each(blocks, function(index, value){
+	if (value.label !== undefined) {
+	    switch(value.type)
+	    {
+		case "command":
+		case "stack":
+		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"stack " + value.group.toLowerCase() + (value.cap === undefined ? "" : " cap") + "\" spec=\"" + value.spec + "\">" + value.label + "</div></div>");
+		    break;
+	    }
+	}
+    });
+};
 $(document).ready(function(){
     //Load GET data
     vars = [];
@@ -249,18 +267,8 @@ $(document).ready(function(){
     $("#garbageBin").hide();
     
     //Add blocks to the palette (all that have a defined label, at least)
-    $.each(blocks, function(index, value){
-	if (value.label !== undefined) {
-	    switch(value.type)
-	    {
-		case "command":
-		case "stack":
-		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"stack " + value.group.toLowerCase() + (value.cap === undefined ? "" : " cap") + "\" spec=\"" + value.spec + "\">" + value.label + "</div></div>");
-		    break;
-	    }
-	}
-	console.log(value);
-    });
+    populatePaletteWithBlocks();
+    
     //Make the palette animate in and out
     $("#palette").hide();
     $("#addNew").click(function(){
