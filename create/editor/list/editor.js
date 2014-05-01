@@ -247,7 +247,39 @@ function populatePaletteWithBlocks(extraBlocks){
 	    {
 		case "command":
 		case "stack":
-		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"stack " + value.group.toLowerCase() + (value.cap === undefined ? "" : " cap") + "\" spec=\"" + value.spec + "\">" + value.label + "</div></div>");
+		    //Create some fake block array
+		    var myFakeBlockArray = [value.spec];
+		    
+		    var tmpCharacters = value.label.split("");
+		    $.each(tmpCharacters, function(index, value){
+			if (index + 1 < tmpCharacters.length) {
+			    if (value === "%") {
+				switch(tmpCharacters[index + 1])
+				{
+				    case "n":
+					myFakeBlockArray.push(10);
+					break;
+				    case "d":
+					myFakeBlockArray.push(0);
+					break;
+				    case "s":
+					myFakeBlockArray.push("Hello");
+					break;
+				    case "b":
+					myFakeBlockArray.push(false);
+					break;
+				    case "c":
+					myFakeBlockArray.push(0); //SHOULD BE CHANGED TO A RANDOM NUMBER!!
+					break;
+				    case "m":
+					myFakeBlockArray.push("");
+					break;
+				}
+			    }
+			}
+		    });
+		    
+		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"stack " + value.group.toLowerCase() + (value.cap === undefined ? "" : " cap") + "\" spec=\"" + value.spec + "\">" + EditorTools.replaceTextWithParameters(value, myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div></div>");
 		    break;
 	    }
 	}
@@ -265,9 +297,6 @@ $(document).ready(function(){
     
     //Hide the garbage bin
     $("#garbageBin").hide();
-    
-    //Add blocks to the palette (all that have a defined label, at least)
-    populatePaletteWithBlocks();
     
     //Make the palette animate in and out
     $("#palette").hide();
@@ -398,6 +427,9 @@ function loadCurrentSelectedSprite(){
     }
     
     $("#blocks").html("<div class=\"sb2\">" + blockCode + "</div>");
+    
+    //Add blocks to the palette (all that have a defined label, at least)
+    populatePaletteWithBlocks();
     
     //When dragging blocks, they somethings loop themselves into a new line (jQuery bug)
     $("#blocks .stack").each(function(){
@@ -590,7 +622,7 @@ function loadCurrentSelectedSprite(){
     });
     
     //NUMBER-DROPDOWN STYLE!!!!!!
-    $("#blocks .number-dropdown").children("select").css({
+    $("#blocks .number-dropdown").children("select").add(".blockPalette .number-dropdown select").css({
 	"overflow": "hidden",
 	"width": "18px",
 	"margin-left": "2px",
