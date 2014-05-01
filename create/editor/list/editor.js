@@ -262,12 +262,25 @@ $(document).ready(function(){
 	console.log(value);
     });
     //Make the palette animate in and out
-    var paletteSlideUp = function(){
-	$("#palette").slideUp();
-    };
-    $("#palette").slideUp();
+    $("#palette").hide();
     $("#addNew").click(function(){
-	$("#palette").slideDown();
+	$("#palette").show("blind", 400);
+    });
+    $(".catsUp").click(function(){
+	$("#palette").hide("blind", 400, function(){
+	    $(this).children().hide();
+	    $("#palette").children("#cats").show();
+	    $(".catsUp").parent().show();
+	});
+    });
+    $(".catSelect").click(function(){
+	var self = this;
+	$("#palette").hide("blind", 400, function(){
+	    $("#palette").children().hide();
+	    $("#palette").children("#" + $(self).attr("name")).show().css("height", ($(window).height() / 1.5) + "px");
+	    $(".catsUp").parent().show();
+	    $("#palette").show("blind", 400);
+	});
     });
     
     //Sprite Selection Event

@@ -150,6 +150,10 @@ the iPhone -->
                 z-index: 2000;
                 margin: 0px;
                 padding: 0px;
+                
+                border-right: 2px solid black;
+                border-bottom: 2px solid black;
+                border-bottom-right-radius: 10px;
             }
             #palette table {
                 margin-left: auto;
@@ -171,6 +175,20 @@ the iPhone -->
                 padding-left: 5px;
                 padding-right: 5px;
                 cursor: pointer;
+            }
+            #palette .catsUp {
+                color: black;
+                font-size: large;
+                width: 100%;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 5px;
+                padding-right: 5px;
+                cursor: pointer;
+            }
+            #palette .blockPalette {
+                padding: 10px;
+                overflow: scroll;
             }
             
             
@@ -227,40 +245,44 @@ the iPhone -->
                     <table border="0">
                         <tr>
                             
-                            <td><div name="motion" style="background-color: #4a6cd4;">Motion</div></td>
-                            <td><div name="events" style="background-color: #c88330;">Events</div></td>
+                            <td><div class="catSelect" name="motion" style="background-color: #4a6cd4;">Motion</div></td>
+                            <td><div class="catSelect" name="events" style="background-color: #c88330;">Events</div></td>
                         </tr>
                         <tr>
-                            <td><div name="looks" style="background-color: #8a55d7;">Looks</div></td>
-                            <td><div name="control" style="background-color: #e1a91a;">Control</div></td>
+                            <td><div class="catSelect" name="looks" style="background-color: #8a55d7;">Looks</div></td>
+                            <td><div class="catSelect" name="control" style="background-color: #e1a91a;">Control</div></td>
                         </tr>
                         <tr>
-                            <td><div name="sound" style="background-color: #bb42c3;">Sound</div></td>
-                            <td><div name="sensing" style="background-color: #2ca5e2;">Sensing</div></td>
+                            <td><div class="catSelect" name="sound" style="background-color: #bb42c3;">Sound</div></td>
+                            <td><div class="catSelect" name="sensing" style="background-color: #2ca5e2;">Sensing</div></td>
                         </tr>
                         <tr>
-                            <td><div name="pen" style="background-color: #0e9a6c;">Pen</div></td>
-                            <td><div name="operators" style="background-color: #5cb712;">Operators</div></td>
+                            <td><div class="catSelect" name="pen" style="background-color: #0e9a6c;">Pen</div></td>
+                            <td><div class="catSelect" name="operators" style="background-color: #5cb712;">Operators</div></td>
                         </tr>
                         <tr>
-                            <td><div name="data" style="background-color: #ee7d16;">Data</div></td>
-                            <td><div name="custom" style="background-color: #5947b1;">More Blocks</div></td>
+                            <td><div class="catSelect" name="data" style="background-color: #ee7d16;">Data</div></td>
+                            <td><div class="catSelect" name="custom" style="background-color: #5947b1;">More Blocks</div></td>
                         </tr>
                     </table>
                 </center>
             </div>
             
-            <div id="events" style="display: none;"></div>
-            <div id="control" style="display: none;"></div>
-            <div id="sensing" style="display: none;"></div>
-            <div id="operators" style="display: none;"></div>
-            <div id="custom" style="display: none;"></div>
-            <div id="motion" style="display: none;"></div>
-            <div id="looks" style="display: none;"></div>
-            <div id="sound" style="display: none;"></div>
-            <div id="pen" style="display: none;"></div>
-            <div id="variables" style="display: none;"></div>
-            <div id="list" style="display: none;"></div>
+            <div class="blockPalette" id="events" style="display: none;"></div>
+            <div class="blockPalette" id="control" style="display: none;"></div>
+            <div class="blockPalette" id="sensing" style="display: none;"></div>
+            <div class="blockPalette" id="operators" style="display: none;"></div>
+            <div class="blockPalette" id="custom" style="display: none;"></div>
+            <div class="blockPalette" id="motion" style="display: none;"></div>
+            <div class="blockPalette" id="looks" style="display: none;"></div>
+            <div class="blockPalette" id="sound" style="display: none;"></div>
+            <div class="blockPalette" id="pen" style="display: none;"></div>
+            <div class="blockPalette" id="variables" style="display: none;"></div>
+            <div class="blockPalette" id="list" style="display: none;"></div>
+            
+            <center>
+                <div class="catsUp">^^^</div>
+            </center>
         </div>
         
         <div id="costumes" style="display: none;"></div>
