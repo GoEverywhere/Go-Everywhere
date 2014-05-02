@@ -485,7 +485,7 @@ function loadCurrentSelectedSprite(){
     });
     //Make input blocks draggable
     function makeReporterDraggable(selec){
-	$(selec).draggable({
+	return $(selec).draggable({
 	    revert: "invalid",
 	    helper: "clone",
 	    start: function(event, ui){
@@ -554,7 +554,7 @@ function loadCurrentSelectedSprite(){
     
     //Make fields droppable targets for reporters
     function addFieldAcceptors(selec){
-	$(selec).droppable({
+	return $(selec).droppable({
 	    accept: ".reporter, .boolean",
 	    greedy: true,
 	    tolerance: "pointer",
@@ -588,15 +588,19 @@ function loadCurrentSelectedSprite(){
 		//Remove the "dragged-over" class
 		$(".dragged-over").removeClass("dragged-over");
 		//The block MIGHT have the dragged-over class...
-		//If the block was by itself in a script
+		//If the block was by itself in a script, but if it was a template it needs to stay
 		var parent = null;
-		if (ui.draggable.parent().hasClass("script")) {
+		if (ui.draggable.parent().hasClass("script") && !ui.draggable.hasClass("template")) {
 		    parent = ui.draggable.parent();
 		}
 		//Show the draggable
 		ui.draggable.removeAttr("style");
-		//Put the block in place of myself
-		$(this).replaceWith(ui.draggable);
+		//Put the block in place of myself, but not if it is a template. If a template, clone it.
+		if (ui.draggable.hasClass("template")) {
+		    $(this).replaceWith(makeReporterDraggable(ui.draggable.clone()).removeClass("template"));
+		}else{
+		    $(this).replaceWith(ui.draggable);
+		}
 		//Remove the parent script, if any
 		if (parent !== null) {
 		    parent.remove();
