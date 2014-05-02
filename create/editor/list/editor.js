@@ -281,6 +281,42 @@ function populatePaletteWithBlocks(extraBlocks){
 		    
 		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"stack " + value.group.toLowerCase() + (value.cap === undefined ? "" : " cap") + "\" spec=\"" + value.spec + "\">" + EditorTools.replaceTextWithParameters(value, myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div></div>");
 		    break;
+		case "reporter":
+		case "boolean":
+		    //Create some fake block array
+		    var myFakeBlockArray = [value.spec];
+		    
+		    var tmpCharacters = value.label.split("");
+		    $.each(tmpCharacters, function(index, value){
+			if (index + 1 < tmpCharacters.length) {
+			    if (value === "%") {
+				switch(tmpCharacters[index + 1])
+				{
+				    case "n":
+					myFakeBlockArray.push(10);
+					break;
+				    case "d":
+					myFakeBlockArray.push(0);
+					break;
+				    case "s":
+					myFakeBlockArray.push("Hello");
+					break;
+				    case "b":
+					myFakeBlockArray.push(false);
+					break;
+				    case "c":
+					myFakeBlockArray.push(0); //SHOULD BE CHANGED TO A RANDOM NUMBER!!
+					break;
+				    case "m":
+					myFakeBlockArray.push("");
+					break;
+				}
+			    }
+			}
+		    });
+		    
+		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"" + value.type.toLowerCase() + " " + value.group.toLowerCase() + "\" spec=\"" + value.spec + "\">" + EditorTools.replaceTextWithParameters(value, myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div></div>");
+		    break;
 	    }
 	}
     });
