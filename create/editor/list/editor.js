@@ -612,28 +612,38 @@ function loadCurrentSelectedSprite(){
     addFieldAcceptors($("#blocks").find(".number, .string, .empty"));
     
     //Make the rest of the blocks sortable
-    $("#blocks ul").sortable({
-	axis: "both",
-	placeholder: "block-placeholder",
-	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .define-hat, .define-hat * .number, .string, .boolean, .dropdown, .reporter, .outline)",
-	connectWith: "#blocks ul",
-	start: function(event, ui){
-	    //Hide the new button, Show the garbage bin
-	    $("#addNew").hide("fade", 100, function(){
-		$("#garbageBin").show("fade", 100).css("opacity", "0.5");
-	    });
-	},
-	sort: function(event, ui){
-	    //Width changing issues
-	    $(this).css("width", "auto");
-	},
-	stop: function(event, ui){
-	    //Hide the garbage bin, Show the new button
-	    $("#garbageBin").hide("fade", 100, function(){
-		$("#addNew").show("fade", 100);
-	    });
-	}
-    });
+    var makeStacksSortable = function(el){
+	return $(el).sortable({
+	    axis: "both",
+	    placeholder: "block-placeholder",
+	    items: "li, div:not(.cstart, .cend, .hat, .hat > *, .define-hat, .define-hat * .number, .string, .boolean, .dropdown, .reporter, .outline)",
+	    connectWith: "#blocks ul",
+	    start: function(event, ui){
+		//Hide the new button, Show the garbage bin
+		$("#addNew").hide("fade", 100, function(){
+		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
+		});
+	    },
+	    change: function(event, ui){
+		//Add a placeholder in the C-mouths to place a block inside
+		$("#blocks .cmouth").each(function(){
+		    if ($(this).children().not(".ui-sortable-helper").length == 0) {
+			$(this).prepend("<div class=\"cplaceholder stack\"></li>");
+			//makeStacksSortable(this);
+		    }
+		});
+	    },
+	    stop: function(event, ui){
+		//Hide the garbage bin, Show the new button
+		$("#garbageBin").hide("fade", 100, function(){
+		    $("#addNew").show("fade", 100);
+		});
+		//Remove any placeholders that we had in cmouths
+		$("#blocks .cplaceholder").remove();
+	    }
+	});
+    }
+    makeStacksSortable("#blocks ul");
     
     //BLOCK PALETTE TEMPLATING!!!!!
     $("#palette .blockPalette > div").children().addClass("template").draggable({
