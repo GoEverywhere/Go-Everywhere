@@ -274,21 +274,21 @@ function populatePaletteWithBlocks(extraBlocks){
 		    }
 		}
 	    });
-	    
+	    //Blank "C" blocks
 	    switch(value.type)
 	    {
-		case "hat":
-		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"hat " + value.group.toLowerCase() + "\" spec=\"" + value.spec + "\">" + EditorTools.replaceTextWithParameters(value, myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div></div>");
+		case "c":
+		    myFakeBlockArray.push(null);
 		    break;
-		case "command":
-		case "stack":
-		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"stack " + value.group.toLowerCase() + (value.cap === undefined ? "" : " cap") + "\" spec=\"" + value.spec + "\">" + EditorTools.replaceTextWithParameters(value, myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div></div>");
-		    break;
-		case "reporter":
-		case "boolean":
-		    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\"><div class=\"" + value.type.toLowerCase() + " " + value.group.toLowerCase() + "\" spec=\"" + value.spec + "\">" + EditorTools.replaceTextWithParameters(value, myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div></div>");
+		case "special":
+		    $.each(value.label, function(index, value){
+			myFakeBlockArray.push(null);
+		    });
 		    break;
 	    }
+	    
+	    //Get the code from the fake block data
+	    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\">" + EditorTools.findBlocksFromBlockArray(myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div>");
 	}
     });
 };
