@@ -241,10 +241,14 @@ function populatePaletteWithBlocks(extraBlocks){
 	processingBlocks = extraBlocks;
     }
     
-    $.each(blocks, function(index, value){
+    $.each(processingBlocks, function(index, value){
 	if (value.label !== undefined) {
 	    //Create some fake block array
 	    var myFakeBlockArray = [value.spec];
+	    //If it is a call block, the label needs to go next
+	    if (value.spec === "call") {
+		myFakeBlockArray.push(value.label);
+	    }
 	    
 	    var tmpCharacters = (typeof value.label !== "string") ? value.label[0].split("") : value.label.split("");
 	    $.each(tmpCharacters, function(index, value){
@@ -446,7 +450,20 @@ function loadCurrentSelectedSprite(){
     $("#blocks").html("<div class=\"sb2\">" + blockCode + "</div>");
     
     //Add blocks to the palette (all that have a defined label, at least)
+    $("#palette .blockPalette").html();
     populatePaletteWithBlocks();
+    //Find all the define hats for this sprite, and add blocks accordingly
+    var totalCustomBlockArrays = [];
+    $("#blocks .define-hat").each(function(){
+	totalCustomBlockArrays.push({
+	    type: "call",
+	    spec: "call",
+	    label: $(this).attr("label"),
+	    group: "Custom"
+	});
+    });
+    //console.log(totalCustomBlockArrays);
+    populatePaletteWithBlocks(totalCustomBlockArrays);
     
     //When dragging blocks, they somethings loop themselves into a new line (jQuery bug)
     $("#blocks .stack").each(function(){
