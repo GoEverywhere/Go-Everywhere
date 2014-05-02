@@ -468,7 +468,7 @@ function loadCurrentSelectedSprite(){
     
     //Bind the actual events!!!
     //Make hats draggable
-    $("#blocks .script > .hat").draggable({
+    $("#blocks .script").children(".hat, .define-hat").draggable({
 	revert: true,
 	drag: function(event, ui){
 	    //Hide the new button, Show the garbage bin
@@ -481,7 +481,8 @@ function loadCurrentSelectedSprite(){
 	    $("#garbageBin").hide("slide", 50, function(){
 		$("#addNew").show("slide", 50);
 	    });
-	}
+	},
+	zIndex: 1000
     });
     //Make input blocks draggable
     function makeReporterDraggable(selec){
@@ -614,7 +615,7 @@ function loadCurrentSelectedSprite(){
     $("#blocks ul").sortable({
 	axis: "both",
 	placeholder: "block-placeholder",
-	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .number, .string, .boolean, .dropdown, .reporter, .outline)",
+	items: "li, div:not(.cstart, .cend, .hat, .hat > *, .define-hat, .define-hat * .number, .string, .boolean, .dropdown, .reporter, .outline)",
 	connectWith: "#blocks ul",
 	start: function(event, ui){
 	    //Hide the new button, Show the garbage bin
