@@ -292,6 +292,19 @@ function populatePaletteWithBlocks(extraBlocks){
 	}
     });
 };
+
+var setCatsUp = function(finished){
+    $("#palette").hide("blind", 400, function(){
+	$(this).children().hide();
+	$("#palette").children("#cats").show();
+	$(".catsUp").parent().show();
+	if (finished !== undefined) {
+	    finished();
+	}
+    });
+};
+
+/*************************************************/
 $(document).ready(function(){
     //Load GET data
     vars = [];
@@ -310,12 +323,9 @@ $(document).ready(function(){
     $("#addNew").click(function(){
 	$("#palette").show("blind", 400);
     });
+    
     $(".catsUp").click(function(){
-	$("#palette").hide("blind", 400, function(){
-	    $(this).children().hide();
-	    $("#palette").children("#cats").show();
-	    $(".catsUp").parent().show();
-	});
+	setCatsUp();
     });
     $(".catSelect").click(function(){
 	var self = this;
@@ -618,6 +628,34 @@ function loadCurrentSelectedSprite(){
 		$("#addNew").show("fade", 100);
 	    });
 	}
+    });
+    
+    //BLOCK PALETTE TEMPLATING!!!!!
+    $("#palette .blockPalette > div").children().addClass("template").draggable({
+	revert: "invalid",
+	revertDuration: 0,
+	helper: "clone",
+	containment: "window",
+	start: function(e, ui){
+	    ui.helper.css({
+		"white-space": "nowrap"
+	    });
+	    
+	    $(".blockPalette").add("#palette").css("overflow", "visible");
+	    $("#palette").css({
+		"left": (-($("#palette").width() + 50)) + "px"
+	    });
+	},
+	stop: function(e, ui){
+	    setCatsUp(function(){
+		$(".blockPalette").css("overflow", "scroll");
+		$("#palette").css({
+		    "overflow": "hidden",
+		    "left": "0px"
+		});
+	    });
+	},
+	zIndex: 1000
     });
     
     //PARAMETER CHANGE EVENTS!!!!!!
