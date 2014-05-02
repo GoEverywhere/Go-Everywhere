@@ -15,20 +15,6 @@ var EditorTools = {
             group: "Obsolete"
         };
     },
-    getBlockDataFromScratchblocks : function(cat, label)
-    {
-        var rightBlock = this.getBlockData("");
-        $.each(blocks, function(index, currentBlock){
-            if (currentBlock.group == undefined) {
-                console.warn("Warning: label: \"" + label + "\" has something wrong");
-            }
-            if (currentBlock.group.toLowerCase() == cat && currentBlock.renderLabel == label) {
-                rightBlock = currentBlock;
-                return false;
-            }
-        });
-        return rightBlock;
-    },
     /********************************************************************************************************************/
     findBlocksFromStack: function(stackArray, info) {
 	var totalStackCode = "";
