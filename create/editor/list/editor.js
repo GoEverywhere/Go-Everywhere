@@ -632,10 +632,10 @@ function loadCurrentSelectedSprite(){
     
     //BLOCK PALETTE TEMPLATING!!!!!
     $("#palette .blockPalette > div").children().addClass("template").draggable({
+	connectToSortable: "#blocks ul",
 	revert: "invalid",
 	revertDuration: 0,
 	helper: "clone",
-	containment: "window",
 	start: function(e, ui){
 	    ui.helper.css({
 		"white-space": "nowrap"
@@ -653,10 +653,11 @@ function loadCurrentSelectedSprite(){
 		    "overflow": "hidden",
 		    "left": "0px"
 		});
+		$("#blocks .template").removeClass("template").removeClass("ui-draggable");
 	    });
 	},
 	zIndex: 1000
-    });
+    }).filter(".reporter, .boolean,.hat").draggable("option", "connectToSortable", false);
     
     //PARAMETER CHANGE EVENTS!!!!!!
     $("#blocks input[type=text]").bind("load ready keypress", function(){
