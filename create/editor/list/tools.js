@@ -57,12 +57,12 @@ var EditorTools = {
                                 case "n":
                                 case "s":
                                     tmpCharacters.splice(index + 1, 1);
-                                    tmpCharacters[index] = "<div class=\"reporter custom-arg\">" + singleBlockArray[2][parameterOffset] + "</div>";
+                                    tmpCharacters[index] = "<div class=\"reporter custom-arg template\">" + singleBlockArray[2][parameterOffset] + "</div>";
                                     parameterOffset++;
                                     break;
                                 case "b":
                                     tmpCharacters.splice(index + 1, 1);
-                                    tmpCharacters[index] = "<div class=\"boolean custom-arg\">" + singleBlockArray[2][parameterOffset] + "</div>";
+                                    tmpCharacters[index] = "<div class=\"boolean custom-arg template\">" + singleBlockArray[2][parameterOffset] + "</div>";
                                     parameterOffset++;
                                     break;
                             }

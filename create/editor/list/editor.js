@@ -598,7 +598,7 @@ function loadCurrentSelectedSprite(){
 		ui.draggable.removeAttr("style");
 		//Put the block in place of myself, but not if it is a template. If a template, clone it.
 		if (ui.draggable.hasClass("template")) {
-		    $(this).replaceWith(makeReporterDraggable(ui.draggable.clone()).removeClass("template"));
+		    $(this).replaceWith(makeReporterDraggable(ui.draggable.clone()));
 		}else{
 		    $(this).replaceWith(ui.draggable);
 		}
@@ -651,6 +651,7 @@ function loadCurrentSelectedSprite(){
 	revert: "invalid",
 	revertDuration: 0,
 	helper: "clone",
+	zIndex: 1000,
 	start: function(e, ui){
 	    ui.helper.css({
 		"white-space": "nowrap"
@@ -670,9 +671,22 @@ function loadCurrentSelectedSprite(){
 		});
 		$("#blocks .template").removeClass("template").removeClass("ui-draggable");
 	    });
-	},
-	zIndex: 1000
+	}
     }).filter(".reporter, .boolean,.hat").draggable("option", "connectToSortable", false);
+    //Custom-param templating
+    $("#blocks .define-hat .custom-arg").draggable({
+	revert: "invalid",
+	helper: "clone",
+	zIndex: 1000,
+	start: function(e, ui){
+	    ui.helper.css({
+		"white-space": "nowrap"
+	    });
+	},
+	stop: function(e, ui){
+	    $("#blocks .template").removeClass("ui-draggable");
+	}
+    });
     
     //PARAMETER CHANGE EVENTS!!!!!!
     $("#blocks input[type=text]").bind("load ready keypress", function(){
