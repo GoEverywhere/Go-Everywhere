@@ -243,11 +243,15 @@ function populatePaletteWithBlocks(extraBlocks){
     
     $.each(processingBlocks, function(index, value){
 	if (value.label !== undefined) {
+	    var hasPriority = false;
 	    //Create some fake block array
 	    var myFakeBlockArray = [value.spec];
-	    //If it is a call block, the label needs to go next
-	    if (value.spec === "call") {
+	    //If it is a call block (or a variable), the label needs to go next
+	    if (value.spec === "call" || value.spec === "readVariable") {
 		myFakeBlockArray.push(value.label);
+	    }
+	    if (value.spec === "readVariable") {
+		hasPriority = true;
 	    }
 	    
 	    var tmpCharacters = (typeof value.label !== "string") ? value.label[0].split("") : value.label.split("");
@@ -292,7 +296,8 @@ function populatePaletteWithBlocks(extraBlocks){
 	    }
 	    
 	    //Get the code from the fake block data
-	    $("#palette #" + value.group.toLowerCase()).html($("#palette #" + value.group.toLowerCase()).html() + "<div class=\"script\">" + EditorTools.findBlocksFromBlockArray(myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div>");
+	    var realGroup = (value.group.toLowerCase() === "variables" || value.group.toLowerCase() === "list") ? "data" : value.group.toLowerCase();
+	    $("#palette #" + realGroup).html((hasPriority ? "" : $("#palette #" + realGroup).html()) + "<div class=\"script\">" + EditorTools.findBlocksFromBlockArray(myFakeBlockArray, { currentObj: currentObj, project: project }) + "</div>" + (hasPriority ? $("#palette #" + realGroup).html() : ""));
 	}
     });
 };
@@ -462,7 +467,27 @@ function loadCurrentSelectedSprite(){
 	    group: "Custom"
 	});
     });
-    //console.log(totalCustomBlockArrays);
+    //Find all the variables for this sprite, and add blocks accordingly
+    if (project.variables) {
+	$.each(project.variables, function(index, value){
+	    totalCustomBlockArrays.push({
+		type: "readVariable",
+		spec: "readVariable",
+		label: value.name,
+		group: "Variables"
+	    });
+	});
+    }
+    if (currentObj.variables && currentObj.name !== "Stage") {
+	$.each(currentObj.variables, function(index, value){
+	    totalCustomBlockArrays.push({
+		type: "readVariable",
+		spec: "readVariable",
+		label: value.name,
+		group: "Variables"
+	    });
+	});
+    }
     populatePaletteWithBlocks(totalCustomBlockArrays);
     
     //When dragging blocks, they somethings loop themselves into a new line (jQuery bug)
