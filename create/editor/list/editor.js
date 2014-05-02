@@ -551,7 +551,7 @@ function loadCurrentSelectedSprite(){
 	    }
 	});
     }
-    makeReporterDraggable($("#blocks").find(".reporter:not(.custom-arg), .boolean:not(.empty,.custom-arg)"));
+    makeReporterDraggable($("#blocks").find(".reporter:not(.template), .boolean:not(.empty,.template)"));
     
     //Make fields droppable targets for reporters
     function addFieldAcceptors(selec){
