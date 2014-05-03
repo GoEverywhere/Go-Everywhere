@@ -5,7 +5,10 @@ Go Everywhere is an attempt at transforming Scratch 2.0 into HTML5, optimized fo
 
 How To Use
 =============
-Run a local web server, then load /create/editor/list/index.html
+For Mac OSX users, double click on the OSX.app file.
+For Windows and Linux users, go download node-webkit (https://github.com/rogerwang/node-webkit) and open the Go-Everywhere directory (containing package.json) in node-webkit.
+
+Alternatively, run a local web server, then load /create/editor/list/index.html
 
 How To Contribute
 =============
