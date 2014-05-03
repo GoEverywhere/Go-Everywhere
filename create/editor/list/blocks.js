@@ -104,7 +104,8 @@ blocks.push({
                 type: "hat",
                 spec: "whenCloned",
                 label: "when I start as a clone",
-                group: "Control"
+                group: "Control",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
@@ -117,32 +118,37 @@ blocks.push({
                 spec: "deleteClone",
                 label: "delete this clone",
                 group: "Control",
-                cap: true
+                cap: true,
+                owner: "sprite"
 });
 //**//SENSING
 blocks.push({
 		type: "boolean",
 		spec: "touching:",
 		label: "touching %m.touching ?",
-		group: "Sensing"
+		group: "Sensing",
+                owner: "sprite"
 	    });
 blocks.push({
 		type: "boolean",
 		spec: "touchingColor:",
 		label: "touching color %c?",
-		group: "Sensing"
+		group: "Sensing",
+                owner: "sprite"
 	    });
 blocks.push({
 		type: "boolean",
 		spec: "color:sees:",
 		label: "color %c is touching %c?",
-		group: "Sensing"
+		group: "Sensing",
+                owner: "sprite"
 	    });
 blocks.push({
                 type: "reporter",
                 spec: "distanceTo:",
                 label: "distance to %m.spriteOrMouse",
-                group: "Sensing"
+                group: "Sensing",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
@@ -374,154 +380,179 @@ blocks.push({
                 type: "command",
                 spec: "forward:",
                 label: "move %n steps",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "turnRight:",
                 label: "turn @turnRight %n degrees",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "turnLeft:",
                 label: "turn @turnLeft %n degrees",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "heading:",
                 label: "point in direction %d.direction",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
 		type: "command",
 		spec: "pointTowards:",
 		label: "point towards %m.spriteOrMouse",
-		group: "Motion"
+		group: "Motion",
+                owner: "sprite"
 	    });
 blocks.push({
 		type: "command",
 		spec: "gotoX:y:",
 		label: "go to x:%n y:%n",
-		group: "Motion"
+		group: "Motion",
+                owner: "sprite"
 	    });
 blocks.push({
 		type: "command",
 		spec: "gotoSpriteOrMouse:",
 		label: "go to %m.spriteOrMouse",
-		group: "Motion"
+		group: "Motion",
+                owner: "sprite"
 	    });
 blocks.push({
                 type: "command",
                 spec: "glideSecs:toX:y:elapsed:from:",
                 label: "glide %n secs to x: %n y: %n",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "changeXposBy:",
                 label: "change x by %n",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "xpos:",
                 label: "set x to %n",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "changeYposBy:",
                 label: "change y by %n",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "ypos:",
                 label: "set y to %n",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "bounceOffEdge",
                 label: "if on edge, bounce",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "setRotationStyle",
                 label: "set rotation style %m.rotationStyle",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "reporter",
                 spec: "xpos",
                 label: "x position",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "reporter",
                 spec: "ypos",
                 label: "y position",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 blocks.push({
                 type: "reporter",
                 spec: "heading",
                 label: "direction",
-                group: "Motion"
+                group: "Motion",
+                owner: "sprite"
 });
 //**//LOOKS
 blocks.push({
                 type: "command",
                 spec: "say:duration:elapsed:from:",
                 label: "say %s for %n secs",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 blocks.push({
 		type: "command",
 		spec: "say:",
 		label: "say %s",
 		parameters: ["string"],
-		group: "Looks"
+		group: "Looks",
+                owner: "sprite"
 	    });
 blocks.push({
                 type: "command",
                 spec: "think:duration:elapsed:from:",
                 label: "think %s for %n secs",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 blocks.push({
 		type: "command",
 		spec: "think:",
 		label: "think %s",
-		group: "Looks"
+		group: "Looks",
+                owner: "sprite"
 	    });
 blocks.push({
                 type: "command",
                 spec: "show",
 		label: "show",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
             });
 blocks.push({
                 type: "command",
                 spec: "hide",
 		label: "hide",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
             });
 blocks.push({
                 type: "command",
                 spec: "lookLike:",
                 label: "switch costume to %m.costume",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "nextCostume",
 		label: "next costume",
 		parameters: [],
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
             });
 blocks.push({
                 type: "command",
@@ -545,68 +576,79 @@ blocks.push({
                 type: "command",
                 spec: "changeSizeBy:",
                 label: "change size by %n",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 blocks.push({
 		type: "command",
 		spec: "setSizeTo:",
 		label: "set size to %n %",
-		group: "Looks"
+		group: "Looks",
+                owner: "sprite"
 	    });
 blocks.push({
                 type: "command",
                 spec: "comeToFront",
                 label: "go to front",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "goBackByLayers:",
                 label: "go back %n layers",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 blocks.push({
                 type: "reporter",
                 spec: "costumeIndex",
                 label: "costume #",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 blocks.push({
                 type: "reporter",
                 spec: "scale",
                 label: "size",
-                group: "Looks"
+                group: "Looks",
+                owner: "sprite"
 });
 //Stage-only blocks
 blocks.push({
 		type: "command",
 		spec: "startScene",
 		label: "switch backdrop to %m.backdrop",
-		group: "Looks"
+		group: "Looks",
+                owner: "stage"
 	    });
 blocks.push({
 		type: "command",
 		spec: "startSceneAndWait",
 		label: "switch backdrop to %m.backdrop and wait",
-		group: "Looks"
+		group: "Looks",
+                owner: "stage"
 	    });
 blocks.push({
 		type: "command",
 		spec: "nextScene",
 		label: "next backdrop",
-		group: "Looks"
+		group: "Looks",
+                owner: "stage"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "sceneName",
 		label: "backdrop name",
-		group: "Looks"
+		group: "Looks",
+                owner: "stage"
 	    });
 blocks.push({
 		type: "reporter",
 		spec: "backgroundIndex",
 		label: "backdrop #",
-		group: "Looks"
+		group: "Looks",
+                owner: "stage"
 	    });
 //**//SOUND
 blocks.push({
@@ -698,61 +740,71 @@ blocks.push({
                 type: "command",
                 spec: "stampCostume",
                 label: "stamp",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "putPenDown",
                 label: "pen down",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "putPenUp",
                 label: "pen up",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "penColor:",
                 label: "set pen color to %c",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "changePenHueBy:",
                 label: "change pen color by %n",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "setPenHueTo:",
                 label: "set pen color to %n",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "setPenShadeTo:",
                 label: "set pen shade to %n",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "changePenShadeBy:",
                 label: "change pen shade by %n",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "changePenSizeBy:",
                 label: "change pen size by %n",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 blocks.push({
                 type: "command",
                 spec: "penSize:",
                 label: "set pen size to %n",
-                group: "Pen"
+                group: "Pen",
+                owner: "sprite"
 });
 //**//DATA
 //Variables blocks

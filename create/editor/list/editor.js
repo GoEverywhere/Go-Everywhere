@@ -243,6 +243,27 @@ function populatePaletteWithBlocks(extraBlocks){
     
     $.each(processingBlocks, function(index, value){
 	if (value.label !== undefined) {
+	    if (value.owner) {
+		switch(value.owner.toLowerCase())
+		{
+		    case "sprite":
+			if (currentObj == project) {
+			    //This block is only for a sprite, yet we are the stage
+			    return true; //continue
+			}
+			break;
+		    case "stage":
+			if (currentObj != project) {
+			    //This block is only for the Stage, yet we are a sprite
+			    return true; //continue
+			}
+			break;
+		    case "all":
+		    default:
+			//Continue on
+			break;
+		}
+	    }
 	    var hasPriority = false;
 	    //Create some fake block array
 	    var myFakeBlockArray = [value.spec];
