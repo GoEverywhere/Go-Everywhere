@@ -531,22 +531,25 @@ function loadCurrentSelectedSprite(){
     
     //Bind the actual events!!!
     //Make hats draggable
-    $("#blocks .script").children(".hat, .define-hat").draggable({
-	revert: true,
-	drag: function(event, ui){
-	    //Hide the new button, Show the garbage bin
-	    $("#addNew").hide("slide", 50, function(){
-		$("#garbageBin").show("slide", 50).css("opacity", "0.5");
-	    });
-	},
-	stop: function(event, ui){
-	    //Hide the garbage bin, Show the new button
-	    $("#garbageBin").hide("slide", 50, function(){
-		$("#addNew").show("slide", 50);
-	    });
-	},
-	zIndex: 1000
-    });
+    var makeHatDraggable = function(el){
+	return $(el).draggable({
+	    revert: true,
+	    drag: function(event, ui){
+		//Hide the new button, Show the garbage bin
+		$("#addNew").hide("slide", 50, function(){
+		    $("#garbageBin").show("slide", 50).css("opacity", "0.5");
+		});
+	    },
+	    stop: function(event, ui){
+		//Hide the garbage bin, Show the new button
+		$("#garbageBin").hide("slide", 50, function(){
+		    $("#addNew").show("slide", 50);
+		});
+	    },
+	    zIndex: 1000
+	});
+    };
+    makeHatDraggable($("#blocks .script").children(".hat, .define-hat"));
     //Make input blocks draggable
     function makeReporterDraggable(selec){
 	return $(selec).draggable({
@@ -750,6 +753,17 @@ function loadCurrentSelectedSprite(){
 	    $("#blocks .template").removeClass("ui-draggable");
 	}
     });
+    //Templatable hat blocks (should support positioning in the future)
+    $("#blocks").droppable({
+	accept: ".hat.template",
+	tolerance: "pointer",
+	drop: function(e, ui){
+	    $("#blocks .sb2").prepend("<ul class=\"script\"><div id=\"hatTemplatePlaceholder\"></div></ul>");
+	    $("#blocks .sb2 #hatTemplatePlaceholder").replaceWith(ui.draggable.clone()).removeClass("template");
+	    makeHatDraggable($("#blocks .script").children(".hat, .define-hat"));
+	    makeStacksSortable("#blocks ul");
+	}
+    })
     
     //PARAMETER CHANGE EVENTS!!!!!!
     $("#blocks input[type=text]").bind("load ready keypress", function(){
