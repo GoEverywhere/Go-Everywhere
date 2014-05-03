@@ -1,6 +1,0 @@
-Files in this directory ("root") MUST be copied to the root of the
-server (where the folder "Go-Everywhere" exists). This is extremely
-important, and the website will not function otherwise (unless specific
-code changes it). You will also need to read the comments in each file,
-for specific setup. In most cases, the scripts have default setup, and
-will work with minimal setup required.
