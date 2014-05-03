@@ -5,11 +5,17 @@ the iPhone -->
 <html>
     <head>
         <title>Editor</title>
+        <!-- important libraries -->
+        <script src="../../../scripts/jquery.min.js">//jQuery</script>
+        <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
+        
         <script>
             //Little bit of global stuff
             var blocks = [];
             var params = [];
             var broadcasts = [];
+                        
+            var zipFile;
         </script>
         <script src="./blocks.js">
             //Load Scratch blocks.
@@ -20,12 +26,10 @@ the iPhone -->
         <script src="./tools.js">
             //Load tools for the editor
         </script>
-        <script src="./io.js">
-            //Project IO
+        <script src="./nw.js">
+            //Extras for if we are running in node-webkit
         </script>
         <!-- include JavaScript libraries and plugins -->
-        <script src="../../../scripts/jquery.min.js">//jQuery</script>
-        <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
         <script src="../../../scripts/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
         <script src="../../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
         <script src="../../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>

@@ -1,6 +1,5 @@
 //VARIABLES
-var zipFile,
-project = {},
+var project = {},
 currentObj = {},
 projectName = "",
 vars;
@@ -385,15 +384,22 @@ $(document).ready(function(){
 	
 	loadCurrentSelectedSprite();
     });
-    $("#saveProject").bind("click touchend", function(e){
-	generateAndDownloadZIP();
-    });
     
-    if (vars['project'] && vars['project'] != "") {
-	//load project
-	loadProject(vars['project']);
-    }else{
-	$("#blocks").html("<br /><br /><h3>Please provide a project in ?project=PROJECT_PATH</h3>");
+    //IO (with node.js)
+    if (usingnw) {
+	$("#saveProject").remove();
+    }
+    //IO (with not using node.js)
+    if (!usingnw) {
+	$("#saveProject").bind("click touchend", function(e){
+	    generateAndDownloadZIP();
+	});
+	if (vars['project'] && vars['project'] != "") {
+	    //load project
+	    loadProject(vars['project']);
+	}else{
+	    $("#blocks").html("<br /><br /><h3>Please provide a project in ?project=PROJECT_PATH</h3>");
+	}
     }
 });
 function loadProject(url) {
@@ -410,7 +416,7 @@ function loadProject(url) {
 	doneReadingZip(zipFile);
     });
 }
-function doneReadingZip(zip) {
+function doneReadingZip() {
     //Load the project JSON into the project variable
     $.each(zipFile.files, function(index, value){
 	if (value.name == "project.json") {
