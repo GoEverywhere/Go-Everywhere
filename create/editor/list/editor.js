@@ -455,7 +455,7 @@ function loadCurrentSelectedSprite(){
     $("#blocks").html("<div class=\"sb2\">" + blockCode + "</div>");
     
     //Add blocks to the palette (all that have a defined label, at least)
-    $("#palette .blockPalette").html();
+    $("#palette .blockPalette").html("");
     populatePaletteWithBlocks();
     //Find all the define hats for this sprite, and add blocks accordingly
     var totalCustomBlockArrays = [];
