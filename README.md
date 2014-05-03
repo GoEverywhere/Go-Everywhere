@@ -5,7 +5,7 @@ Go Everywhere is an attempt at transforming Scratch 2.0 into HTML5, optimized fo
 
 How To Use
 =============
-Currently, we have a very unstable site at www.goeverywhere.cf
+Run a local web server, then load /create/editor/list/index.html
 
 How To Contribute
 =============
@@ -15,4 +15,4 @@ Trello: https://trello.com/b/E6N7Zp6C/go-everywhere
 
 License
 =============
-Our code is licensed with the LGPL-2.1 open source license.
+Our code is licensed with the LGPL-3.0 open source license.
