@@ -1,7 +1,5 @@
 //VARIABLES
-var project = {},
-currentObj = {},
-projectName = "",
+var projectName = "",
 vars;
 
 //PROJECT SAVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -220,6 +218,9 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
+    if (scripts.length === 0) {
+	return currentObj;
+    }
     /**We're done here**/
     $("#waiting").hide();
     return $.extend(currentObj, {
@@ -230,7 +231,17 @@ function generateObjectJSON(){
 
 function generateAndDownloadZIP(){
     //Make sure that our currentObj is saved
-    generateObjectJSON();
+    var tmpJSON = generateObjectJSON();
+    if (tmpJSON.objName == "Stage") {
+	project = tmpJSON;
+    }else{
+	$.each(project.children, function(index, value){
+	    if (project.children[index].objName == tmpJSON.objName) {
+		project.children[index] = tmpJSON;
+		return false; //jQuery's way of breaking
+	    }
+	});
+    }
     //ONLY SAVES THE JSON!!!!!
     zipFile.file("project.json", JSON.stringify(project));
     
@@ -425,6 +436,7 @@ function doneReadingZip() {
     //Load the project JSON into the project variable
     $.each(zipFile.files, function(index, value){
 	if (value.name == "project.json") {
+	    initialProject = JSON.parse(value.asText());
 	    project = JSON.parse(value.asText());
 	    return true;
 	}
