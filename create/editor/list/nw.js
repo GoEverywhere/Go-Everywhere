@@ -129,7 +129,7 @@ try{
         }
     });
 }catch(e){
-    nw = false;
+    usingnw = false;
     console.log(e);
     console.warn("GE isn't running in node-webkit; some features may not work correctly or be unavailable.")
 }
