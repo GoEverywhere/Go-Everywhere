@@ -6,6 +6,9 @@ vars;
 
 //PROJECT SAVING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function generateObjectJSON(){
+    /**This may take a while...**/
+    $("#waiting").show();
+    
     var objName = currentObj.objName;
     var scripts = [];
     //Loop through the #blocks section to find each block stack,
@@ -217,6 +220,8 @@ function generateObjectJSON(){
 	
 	scripts.push([0, 0, findBlocks(this)]);
     });
+    /**We're done here**/
+    $("#waiting").hide();
     return $.extend(currentObj, {
 	objName: objName,
 	scripts: scripts
@@ -456,6 +461,9 @@ function doneReadingZip() {
     
 }
 function loadCurrentSelectedSprite(){
+    /** We'll need to wait **/
+    $("#waiting").show();
+    
     var blockCode = "";
     
     if ($("#toolbar #spriteSelect select").val() == project.objName) {
@@ -823,6 +831,9 @@ function loadCurrentSelectedSprite(){
 	    ui.draggable.removeClass("dragged-over");
 	}
     });
+    
+    /** We're done here **/
+    $("#waiting").hide();
 }
 
 

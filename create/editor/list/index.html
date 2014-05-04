@@ -233,9 +233,32 @@ the iPhone -->
             {
                 background: rgb(255, 255, 255);
             }
+            
+            #waiting {
+                width: 100%;
+                height: 100%;
+                background: rgba(163, 163, 163, 0.5);
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                z-index: 10000;
+                display: none;
+                vertical-align: middle;
+            }
+            #waiting img {
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: auto;
+                margin-bottom: auto;
+                display: block;
+            }
         </style>
     </head>
     <body>
+        <div id="waiting">
+            <center><img src="../images/loading.gif" /></center>
+        </div>
+        
         <div id="toolbar">
             <div id="addNew">
                 <img src="../images/new.png" />
