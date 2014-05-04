@@ -10,7 +10,16 @@ try{
     var NodeJSZip = require("jszip");
     
     //***LOCAL SERVER!***//
-    
+    //Hold a version of http
+    var http = require("http");
+    //Hold a version of Connect
+    var connect = require('connect');
+    try{
+        http.createServer(connect().use(connect.static("./"))).listen(6564);
+    }catch(e){
+        console.log(e);
+        console.warn("Something is using port [6564]. Relieve this port if you want to host GE files on your computer.");
+    }
     
     //***WINDOW MENUS!***//
     var windowMenu = new gui.Menu({ type: 'menubar' });
