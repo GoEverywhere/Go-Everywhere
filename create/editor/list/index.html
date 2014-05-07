@@ -10,6 +10,7 @@ the iPhone -->
         <!-- important libraries -->
         <script src="../../../scripts/jquery.min.js">//jQuery</script>
         <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
+        <script src="cordova.js">//Cordova (for PhoneGap Android)</script>
         
         <script>
             //Little bit of global stuff
@@ -17,11 +18,19 @@ the iPhone -->
             var params = [];
             var broadcasts = [];
                         
-            var zipFile,
+            var zipFile = null,
             initialProject = {},
             project = {},
             currentObj = {};
             
+            //Load GET data
+            vars = [];
+            var hash;
+            var hashes = window.location.search.substr(1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = unescape(hashes[i]).split('=');
+                vars[hash[0]] = hash[1];
+            }
             
             Object.equals = function( x, y ) {
                 if ( x === y ) return true;
@@ -69,6 +78,9 @@ the iPhone -->
         </script>
         <script src="./nw.js">
             //Extras for if we are running in node-webkit
+        </script>
+        <script src="./gap.js">
+            //Extras for if we are running in PhoneGap (android)
         </script>
         <!-- include JavaScript libraries and plugins -->
         <script src="../../../scripts/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
@@ -292,6 +304,14 @@ the iPhone -->
                 margin-bottom: auto;
                 display: block;
             }
+            
+            #androidTools {
+                display: none;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                padding: 15px;
+            }
         </style>
     </head>
     <body>
@@ -315,6 +335,9 @@ the iPhone -->
             </div>
             <div id="saveProject">
                 Save to your Computer
+            </div>
+            <div id="androidTools">
+                <div id="open">Open</div>
             </div>
         </div>
         <div class="sb2" id="palette" style="display: none;">

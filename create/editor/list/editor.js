@@ -351,14 +351,6 @@ var setCatsUp = function(finished){
 
 /*************************************************/
 $(document).ready(function(){
-    //Load GET data
-    vars = [];
-    var hash;
-    var hashes = window.location.search.substr(1).split('&');
-    for (var i = 0; i < hashes.length; i++) {
-	hash = unescape(hashes[i]).split('=');
-	vars[hash[0]] = hash[1];
-    }
     
     //Hide the garbage bin
     $("#garbageBin").hide();
@@ -402,11 +394,34 @@ $(document).ready(function(){
     });
     
     //IO (with node.js)
-    if (usingnw) {
+    if (usingnw || usinggap) {
+	//We don't need this here
 	$("#saveProject").remove();
+	if (usingnw) {
+	    //We are in nw mode, so there is a project waiting (is required, either by user or default)
+	    doneReadingZip();
+	}else if (usinggap) {
+	    //Show the Android tools
+	    $("#androidTools").show();
+	    //Hold a copy of the FileSystem (persistant?)
+	    window.requestFileSystem(LocalFileSystem.PERSISTANT, 0, function(fs){
+		//SUCCESS!
+		window.alert("We have the FileSystem!")
+	    }, function(evt){
+		//FAILURE!
+		console.error(evt.target.error.code);
+	    });
+	    //Bind the "open" to the file browser
+	    $("#androidTools #open").bind("touchstart", function(){
+		
+	    });
+	    //We are in gap, so we need to load the file here (we own the function)
+	    loadProject("../default.ge");
+	}
+	
     }
     //IO (with not using node.js)
-    if (!usingnw) {
+    if (!usingnw && !usinggap) {
 	$("#saveProject").bind("click touchend", function(e){
 	    generateAndDownloadZIP();
 	});

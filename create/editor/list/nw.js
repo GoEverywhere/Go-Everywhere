@@ -1,5 +1,3 @@
-"use strict";
-
 var usingnw = true;
 try{
     //Hold the node-webkit GUI
@@ -30,104 +28,102 @@ try{
     gui.Window.get().menu.insert(new gui.MenuItem({ label: "File", submenu: fileSubMenu }), 1);
     
     
-    
-    $(document).ready(function(){
-        //SET SUB-MENUS!!
-        fileSubMenu.append(new gui.MenuItem({ label: "New Project", click: function(e){
-                if (window.confirm("Are you sure you want to make a new project?")) {
-                    //Load up the default project
-                    fs.readFile("./create/editor/default.ge", function(err, data){
-                        if (err) throw err;
-                        zipFile = new NodeJSZip(data);
-                        doneReadingZip();
-                    });
-                }
-            }
-        }));
-        fileSubMenu.append(new gui.MenuItem({ type: "separator" }));
-        fileSubMenu.append(new gui.MenuItem({
-            label: "Open...",
-            click: function(e){
-                $("#openFileDialog").off("change").one("change", function(){
-                    //Open it
-                    fs.readFile($(this).val(), function(err, data){
-                        if (err) throw err;
-                        zipFile = new NodeJSZip(data);
-                        doneReadingZip();
-                    });
-                }).click();
-            }
-        }));
-        fileSubMenu.append(new gui.MenuItem({
-            label: "Save",
-            click: function(e){
-                saveProject();
-            }
-        }));
-        fileSubMenu.append(new gui.MenuItem({
-            label: "Save As...",
-            click: function(e){
-                saveProjectAs();
-            }
-        }));
-        fileSubMenu.append(new gui.MenuItem({ type: "separator" }));
-        fileSubMenu.append(new gui.MenuItem({
-            label: "Quit",
-            click: function(e){
-                gui.Window.get().close();
-            }
-        }));
-        
-        //Listen to the window for closing; if there is an unsaved project, we should
-        //ask the user if they want to save
-        gui.Window.get().on("close", function(e){
-            //CHECK FOR UNSAVED PROJECT!!
-            var tmpJSON = generateObjectJSON();
-            if (tmpJSON.objName == "Stage") {
-                project = tmpJSON;
-            }else{
-                $.each(project.children, function(index, value){
-                    if (project.children[index].objName == tmpJSON.objName) {
-                        project.children[index] = tmpJSON;
-                        return false; //jQuery's way of breaking
-                    }
+    //SET SUB-MENUS!!
+    fileSubMenu.append(new gui.MenuItem({ label: "New Project", click: function(e){
+            if (window.confirm("Are you sure you want to make a new project?")) {
+                //Load up the default project
+                fs.readFile("./create/editor/default.ge", function(err, data){
+                    if (err) throw err;
+                    zipFile = new NodeJSZip(data);
+                    doneReadingZip();
                 });
             }
-            if (!Object.equals(initialProject, project)) {
-                if(window.confirm("Your project is unsaved!\nWould you like me to save it for you?"))
-                {
-                    saveProject();
-                }
-            }
-            
-            this.hide();
-            //Shutdown
-            this.close(true);
-        });
-        
-        function saveProject() {
-            window.alert("Save project code here");
         }
-        function saveProjectAs(){
-            window.alert("Save project as code here");
+    }));
+    fileSubMenu.append(new gui.MenuItem({ type: "separator" }));
+    fileSubMenu.append(new gui.MenuItem({
+        label: "Open...",
+        click: function(e){
+            $("#openFileDialog").off("change").one("change", function(){
+                //Open it
+                fs.readFile($(this).val(), function(err, data){
+                    if (err) throw err;
+                    zipFile = new NodeJSZip(data);
+                    doneReadingZip();
+                });
+            }).click();
         }
-        //If we were opened by a file, open the file (only the first one, though)
-        if (gui.App.argv && gui.App.argv[0]) {
-            //Open it
-            fs.readFile(gui.App.argv[0], function(err, data){
-                if (err) throw err;
-                zipFile = new NodeJSZip(data);
-                doneReadingZip();
-            });
+    }));
+    fileSubMenu.append(new gui.MenuItem({
+        label: "Save",
+        click: function(e){
+            saveProject();
+        }
+    }));
+    fileSubMenu.append(new gui.MenuItem({
+        label: "Save As...",
+        click: function(e){
+            saveProjectAs();
+        }
+    }));
+    fileSubMenu.append(new gui.MenuItem({ type: "separator" }));
+    fileSubMenu.append(new gui.MenuItem({
+        label: "Quit",
+        click: function(e){
+            gui.Window.get().close();
+        }
+    }));
+    
+    //Listen to the window for closing; if there is an unsaved project, we should
+    //ask the user if they want to save
+    gui.Window.get().on("close", function(e){
+        //CHECK FOR UNSAVED PROJECT!!
+        var tmpJSON = generateObjectJSON();
+        if (tmpJSON.objName == "Stage") {
+            project = tmpJSON;
         }else{
-            //Load up the default project
-            fs.readFile("./create/editor/default.ge", function(err, data){
-                if (err) throw err;
-                zipFile = new NodeJSZip(data);
-                doneReadingZip();
+            $.each(project.children, function(index, value){
+                if (project.children[index].objName == tmpJSON.objName) {
+                    project.children[index] = tmpJSON;
+                    return false; //jQuery's way of breaking
+                }
             });
         }
+        if (!Object.equals(initialProject, project)) {
+            if(window.confirm("Your project is unsaved!\nWould you like me to save it for you?"))
+            {
+                saveProject();
+            }
+        }
+        
+        this.hide();
+        //Shutdown
+        this.close(true);
     });
+    
+    function saveProject() {
+        window.alert("Save project code here");
+    }
+    function saveProjectAs(){
+        window.alert("Save project as code here");
+    }
+    //If we were opened by a file, open the file (only the first one, though)
+    if (gui.App.argv && gui.App.argv[0]) {
+        //Open it
+        fs.readFile(gui.App.argv[0], function(err, data){
+            if (err) throw err;
+            zipFile = new NodeJSZip(data);
+            //doneReadingZip();
+        });
+    }else{
+        //Load up the default project
+        fs.readFile("./create/editor/default.ge", function(err, data){
+            if (err) throw err;
+            zipFile = new NodeJSZip(data);
+            //doneReadingZip();
+        });
+    }
+    
 }catch(e){
     usingnw = false;
     console.log(e);
