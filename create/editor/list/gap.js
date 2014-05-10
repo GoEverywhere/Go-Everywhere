@@ -6,7 +6,7 @@ if ( vars["gap"] && /android/i.test(navigator.userAgent)) {
     usinggap = true;
     
     //PHONEGAP ANDROID!!
-    /*document.addEventListener("deviceready", function(){
+    document.addEventListener("deviceready", function(){
         window.alert("Cordova ready!");
-    }, false);*/
+    }, false);
 }
