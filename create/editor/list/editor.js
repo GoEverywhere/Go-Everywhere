@@ -571,6 +571,19 @@ function loadCurrentSelectedSprite(){
     });
     
     //Bind the actual events!!!
+    //Make scripts sortable
+    var makeScriptSortable = function(el){
+	$(el).sortable({
+	    items: ".script",
+	    handle: ":first",
+	    placeholder: "block-placeholder",
+	    start: function(e, ui){
+		$(".block-placeholder").css("height", $(ui.helper).height());
+	    }
+	});
+    };
+    makeScriptSortable($("#blocks .sb2"));
+    
     //Make hats draggable
     var makeHatDraggable = function(el){
 	return $(el).draggable({
@@ -590,7 +603,7 @@ function loadCurrentSelectedSprite(){
 	    zIndex: 1000
 	});
     };
-    makeHatDraggable($("#blocks .script").children(".hat, .define-hat"));
+    //makeHatDraggable($("#blocks .script").children(".hat, .define-hat"));
     //Make input blocks draggable
     function makeReporterDraggable(selec){
 	return $(selec).draggable({
@@ -724,8 +737,9 @@ function loadCurrentSelectedSprite(){
 	    axis: "both",
 	    placeholder: "block-placeholder",
 	    items: "li, div:not(.cstart, .cend, .hat, .hat > *, .define-hat, .define-hat * .number, .string, .boolean, .dropdown, .reporter, .outline)",
-	    connectWith: "#blocks ul",
+	    connectWith: "#blocks ul,.sb2",
 	    start: function(event, ui){
+		$(".block-placeholder").css("height", $(ui.helper).height());
 		//Hide the new button, Show the garbage bin
 		$("#addNew").hide("fade", 100, function(){
 		    $("#garbageBin").show("fade", 100).css("opacity", "0.5");
@@ -754,7 +768,7 @@ function loadCurrentSelectedSprite(){
     
     //BLOCK PALETTE TEMPLATING!!!!!
     $("#palette .blockPalette > div").children().addClass("template").draggable({
-	connectToSortable: "#blocks ul",
+	connectToSortable: "#blocks ul,.sb2",
 	revert: "invalid",
 	revertDuration: 0,
 	helper: "clone",
@@ -804,7 +818,7 @@ function loadCurrentSelectedSprite(){
 	    makeHatDraggable($("#blocks .script").children(".hat, .define-hat"));
 	    makeStacksSortable("#blocks ul");
 	}
-    })
+    });
     
     //PARAMETER CHANGE EVENTS!!!!!!
     $("#blocks input[type=text]").bind("load ready keypress", function(){
