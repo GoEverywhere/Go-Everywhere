@@ -10,9 +10,8 @@ the iPhone -->
         <!-- important libraries -->
         <script src="../../../scripts/jquery.min.js">//jQuery</script>
         <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
-        
-        <!--<script src="cordova.js">//Cordova (for PhoneGap Android)</script>
-        <script src="phonegap.js">//PhoneGap (for PhoneGap Android)</script>-->
+        <script src="../../../../cordova.js">//Cordova functions (for PhoneGap Android)</script>
+        <script src="../../../../phonegap.js">//PhoneGap (for PhoneGap Android)</script>
         
         <script>
             //Little bit of global stuff
@@ -69,7 +68,38 @@ the iPhone -->
                 return true;
             };
         </script>
+        <!--JAVASCRIPT!!!-->
         
+        <script src="./blocks.js">
+            //Load Scratch blocks.
+        </script>
+        <script src="./params.js">
+            //Load Scratch parameters.
+        </script>
+        <script src="./tools.js">
+            //Load tools for the editor
+        </script>
+        <script src="./nw.js">
+            //Extras for if we are running in node-webkit
+        </script>
+        <script src="./gap.js">
+            //Extras for if we are running in PhoneGap (android)
+        </script>
+        <!-- include JavaScript libraries and plugins -->
+        <script src="../../../scripts/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
+        <script src="../../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
+        <script src="../../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>
+        <script src="../jszip/jszip.min.js">//To unzip the sb2 format</script>
+        <script src="../jszip/jszip-utils.min.js">//Extra tools to make the zipping job easier</script>
+        <script src="../jszip/FileSaver.js">//To save the files with a name</script>
+        <script src="../../../scripts/justtext.jquery.js">//justtext for block label extraction</script>
+        <script src="../../../scripts/isolatedScroll.jquery.js">//isolate scrolling to a sigle div</script>
+        <!-- Go Everywhere Add-ons below this comment!! -->
+        <!-- Go Everywhere Add-ons above this comment!! -->
+        <script src="./editor.js">
+            //Editor goes last so that extensions can get ready for the events
+        </script>
+		
         <style>
             @import url("../scratchblocks2/build/scratchblocks2.css");
             
@@ -362,43 +392,7 @@ the iPhone -->
         <div id="sounds" style="display: none;"></div>
         
         <div id="blocks">
-            <!-- Blocks will be loaded here -->
-            <h3>Loading...</h3>
+            <!-- Blocks from project will be loaded here per sprite, as sprite is loaded -->
         </div>
-        
-        <!--JAVASCRIPT!!!-->
-        <script src="../../../../cordova.js">//Cordova functions (for PhoneGap Android)</script>
-        <script src="../../../../phonegap.js">//PhoneGap (for PhoneGap Android)</script>
-        <script src="http://debug.phonegap.com/target/target-script-min.js#goev">//Remote debugging (for PhoneGap Android)</script>
-        
-        <script src="./blocks.js">
-            //Load Scratch blocks.
-        </script>
-        <script src="./params.js">
-            //Load Scratch parameters.
-        </script>
-        <script src="./tools.js">
-            //Load tools for the editor
-        </script>
-        <script src="./nw.js">
-            //Extras for if we are running in node-webkit
-        </script>
-        <script src="./gap.js">
-            //Extras for if we are running in PhoneGap (android)
-        </script>
-        <!-- include JavaScript libraries and plugins -->
-        <script src="../../../scripts/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
-        <script src="../../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
-        <script src="../../../scripts/gShake.js">//Useful interactive features EX. Shake-to-Save</script>
-        <script src="../jszip/jszip.min.js">//To unzip the sb2 format</script>
-        <script src="../jszip/jszip-utils.min.js">//Extra tools to make the zipping job easier</script>
-        <script src="../jszip/FileSaver.js">//To save the files with a name</script>
-        <script src="../../../scripts/justtext.jquery.js">//justtext for block label extraction</script>
-        <script src="../../../scripts/isolatedScroll.jquery.js">//isolate scrolling to a sigle div</script>
-        <!-- Go Everywhere Add-ons below this comment!! -->
-        <!-- Go Everywhere Add-ons above this comment!! -->
-        <script src="./editor.js">
-            //Editor goes last so that extensions can get ready for the events
-        </script>
     </body>
 </html>
