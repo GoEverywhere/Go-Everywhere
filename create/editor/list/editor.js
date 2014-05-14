@@ -514,6 +514,9 @@ function loadCurrentSelectedSprite(){
     }
     
     $("#blocks").html("<div class=\"sb2\">" + blockCode + "</div>");
+    if (blockCode === "") {
+	$("#blocks .sb2").height($(window).height()).css("overflow", "visible");
+    }
     
     //Add blocks to the palette (all that have a defined label, at least)
     $("#palette .blockPalette").html("");
