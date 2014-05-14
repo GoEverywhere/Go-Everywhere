@@ -400,9 +400,14 @@ $(document).ready(function(){
 		if (usingnw) {
 			//We are in nw mode, so there is a project waiting (is required, either by user or default)
 			$(document).one("geprojectload", function(){
-				doneReadingZip();
+			    doneReadingZip();
 			});
-			//loadProject("../default.ge");
+			//We'll try reading the zip, just in case the file loaded quicker than we arrived here
+			try {
+			    doneReadingZip();
+			} catch(e) {
+			    //Nope, just wait.
+			}
 		}else if (usinggap) {
 			//Show the Android tools
 			$("#androidTools").show();
