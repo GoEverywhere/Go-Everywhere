@@ -1,3 +1,4 @@
+//<input style="display: none;" id="openFileDialog" type="file" accept=".ge,.sb2" />
 var usingnw = true,
 hasLoadedProject = false;
 try{

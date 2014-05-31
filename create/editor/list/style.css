@@ -1,0 +1,206 @@
+body {
+    padding-right: 10px;
+    padding-top: 40px;
+}
+
+#toolbar {
+    height: 50px;
+    width: 100%;
+    
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    
+    z-index: 1000;
+    
+    padding-left: 5px;
+    
+    border:2px solid black;
+    background-color: white;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #B0B0B0),
+        color-stop(1, #FFFFFF)
+    );
+    background-image: -o-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+    background-image: -moz-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+    background-image: -webkit-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+    background-image: -ms-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
+    background-image: linear-gradient(to bottom, #B0B0B0 0%, #FFFFFF 100%);
+}
+#toolbar div {
+    display: inline-block;
+}
+#toolbar #garbageBin img
+{
+    width:40px;
+    height:40px;
+    
+    opacity: 0.5;
+    
+    border: 2px groove black;
+}
+#toolbar #garbageBin
+{
+    margin-top: 3px;
+    
+    width: 40px;
+    height: 40px;
+}
+#toolbar #addNew {
+    
+    background-color: white;
+    
+    width: 40px;
+    height: 40px;
+    
+    color: black;
+    
+    font-size: 40px;
+    
+    margin-top: 3px;
+    
+    opacity: 0.5;
+    
+    border: 2px groove black;
+    
+    cursor: pointer;
+}
+#toolbar #addNew img {
+    width: 40px;
+    height: 40px;
+}
+#toolbar #spriteSelect {
+    position: absolute;
+    left: 60px;
+    top: 17px;
+}
+#toolbar #spriteSelect select {
+    top: 5px;
+    background: transparent;
+    font-size: 20px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 0;
+    height: 40px;
+    margin-top: -20px;
+}
+#toolbar #zipDownloadButton {
+    font-size: 20px;
+    position: absolute;
+    left: 180px;
+    top: 8px;
+    cursor: pointer;
+    border: 2px solid black;
+    padding: 3px;
+}
+#toolbar #androidTools {
+    display: none;
+}
+
+#palette
+{
+    background-color: white;
+    overflow: hidden;
+    width: auto;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 2000;
+    margin: 0px;
+    padding: 0px;
+    
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-bottom-right-radius: 10px;
+}
+#palette table {
+    margin-left: auto;
+    margin-right: auto;
+}
+#palette #cats {
+    color: white;
+}
+#palette #cats td {
+    padding: 0px;
+    margin: 0px;
+    width: 50%;
+}
+#palette #cats div {
+    font-size: large;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+#palette .catsUp {
+    color: black;
+    font-size: large;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+#palette .blockPalette {
+    padding: 10px;
+    overflow: scroll;
+}
+
+
+#blocks li
+{
+    list-style: none;
+    padding: 0px;
+}
+#blocks ul
+{
+    padding: 0px;
+}
+
+#blocks *
+{
+    white-space: nowrap;
+}
+
+#blocks .embeddedPlaceholder
+{
+    display: none;
+}
+#blocks .sortable-script
+{
+    margin-top: -20px;
+}
+#blocks .block-placeholder
+{
+    background-color: #FAFF69;
+    width: 100px;
+    height: 6px;
+}
+#blocks .cplaceholder
+{
+    background: rgb(255, 255, 255);
+}
+
+#waiting {
+    width: 100%;
+    height: 100%;
+    background: rgba(163, 163, 163, 0.5);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 10000;
+    vertical-align: middle;
+}
+#waiting img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: block;
+}

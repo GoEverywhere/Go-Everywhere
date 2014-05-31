@@ -10,81 +10,7 @@ the iPhone -->
         <!-- important libraries -->
         <script src="../../../scripts/jquery.min.js">//jQuery</script>
         <script src="../../../scripts/jquery-migrate.min.js">//jQuery Migrate (support for old functions)</script>
-        <script src="../../../../cordova.js">//Cordova functions (for PhoneGap Android)</script>
-        <script src="../../../../phonegap.js">//PhoneGap (for PhoneGap Android)</script>
-        
-        <script>
-            //Little bit of global stuff
-            var blocks = [];
-            var params = [];
-            var broadcasts = [];
-                        
-            var zipFile = null,
-            initialProject = {},
-            project = {},
-            currentObj = {};
-            
-            //Load GET data
-            vars = [];
-            var hash;
-            var hashes = window.location.search.substr(1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = unescape(hashes[i]).split('=');
-                vars[hash[0]] = hash[1];
-            }
-            
-            Object.equals = function( x, y ) {
-                if ( x === y ) return true;
-                  // if both x and y are null or undefined and exactly the same
-              
-                if ( ! ( x instanceof Object ) || ! ( y instanceof Object ) ) return false;
-                  // if they are not strictly equal, they both need to be Objects
-              
-                if ( x.constructor !== y.constructor ) return false;
-                  // they must have the exact same prototype chain, the closest we can do is
-                  // test there constructor.
-              
-                for ( var p in x ) {
-                  if ( ! x.hasOwnProperty( p ) ) continue;
-                    // other properties were tested using x.constructor === y.constructor
-              
-                  if ( ! y.hasOwnProperty( p ) ) return false;
-                    // allows to compare x[ p ] and y[ p ] when set to undefined
-              
-                  if ( x[ p ] === y[ p ] ) continue;
-                    // if they have the same strict value or identity then they are equal
-              
-                  if ( typeof( x[ p ] ) !== "object" ) return false;
-                    // Numbers, Strings, Functions, Booleans must be strictly equal
-              
-                  if ( ! Object.equals( x[ p ],  y[ p ] ) ) return false;
-                    // Objects and Arrays must be tested recursively
-                }
-              
-                for ( p in y ) {
-                  if ( y.hasOwnProperty( p ) && ! x.hasOwnProperty( p ) ) return false;
-                    // allows x[ p ] to be set to undefined
-                }
-                return true;
-            };
-        </script>
         <!--JAVASCRIPT!!!-->
-        
-        <script src="./blocks.js">
-            //Load Scratch blocks.
-        </script>
-        <script src="./params.js">
-            //Load Scratch parameters.
-        </script>
-        <script src="./tools.js">
-            //Load tools for the editor
-        </script>
-        <script src="./nw.js">
-            //Extras for if we are running in node-webkit
-        </script>
-        <script src="./gap.js">
-            //Extras for if we are running in PhoneGap (android)
-        </script>
         <!-- include JavaScript libraries and plugins -->
         <script src="../../../scripts/jquery-ui.min.js">//jQuery UI effects, does not include the theme</script>
         <script src="../../../scripts/jquery.ui.touch-punch.min.js">//Punch in Touch events to jQuery UI (ex. drag-n-drop with touch)</script>
@@ -94,307 +20,38 @@ the iPhone -->
         <script src="../jszip/FileSaver.js">//To save the files with a name</script>
         <script src="../../../scripts/justtext.jquery.js">//justtext for block label extraction</script>
         <script src="../../../scripts/isolatedScroll.jquery.js">//isolate scrolling to a sigle div</script>
-        <!-- Go Everywhere Add-ons below this comment!! -->
-        <!-- Go Everywhere Add-ons above this comment!! -->
-        <script src="./editor.js">
-            //Editor goes last so that extensions can get ready for the events
+        
+        <script src="./classes/ge.js"></script>
+        <script src="./classes/Tools.js"></script>
+        <script src="./classes/blocks.js"></script>
+        <script src="./classes/params.js"></script>
+        <script src="./classes/editor.js"></script>
+        <script src="./classes/io.js"></script>
+        <script>
+            $(function(){
+                ge.initialize();
+                
+                //For the web version, we will enable the download button
+                ge.enableZipDownloadButton();
+                
+                //Load the project from the URL
+                var vars = [],
+                    hash;
+                var hashes = window.location.search.substr(1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = unescape(hashes[i]).split('=');
+                    vars[hash[0]] = hash[1];
+                }
+                ge.io.loadProjectZipFromURL(vars["project"]);
+            });
         </script>
-		
+        
         <style>
             @import url("../scratchblocks2/build/scratchblocks2.css");
-            
-            body {
-                padding-right: 10px;
-                padding-top: 40px;
-            }
-            
-            #toolbar {
-                height: 50px;
-                width: 100%;
-                
-                position: fixed;
-                top: 0px;
-                left: 0px;
-                
-                z-index: 1000;
-                
-                padding-left: 5px;
-                
-                border:2px solid black;
-                background-color: white;
-                background-image: -webkit-gradient(
-                    linear,
-                    left top,
-                    left bottom,
-                    color-stop(0, #B0B0B0),
-                    color-stop(1, #FFFFFF)
-                );
-                background-image: -o-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
-                background-image: -moz-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
-                background-image: -webkit-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
-                background-image: -ms-linear-gradient(bottom, #B0B0B0 0%, #FFFFFF 100%);
-                background-image: linear-gradient(to bottom, #B0B0B0 0%, #FFFFFF 100%);
-            }
-            #toolbar div {
-                display: inline-block;
-            }
-            #toolbar #garbageBin img
-            {
-                width:40px;
-                height:40px;
-                
-                opacity: 0.5;
-                
-                border: 2px groove black;
-            }
-            #toolbar #garbageBin
-            {
-                margin-top: 3px;
-                
-                width: 40px;
-                height: 40px;
-            }
-            #toolbar #addNew {
-                
-                background-color: white;
-                
-                width: 40px;
-                height: 40px;
-                
-                color: black;
-                
-                font-size: 40px;
-                
-                margin-top: 3px;
-                
-                opacity: 0.5;
-                
-                border: 2px groove black;
-                
-                cursor: pointer;
-            }
-            #toolbar #addNew img {
-                width: 40px;
-                height: 40px;
-            }
-            #toolbar #spriteSelect {
-                position: absolute;
-                left: 60px;
-                top: 17px;
-            }
-            #toolbar #spriteSelect select {
-                top: 5px;
-                background: transparent;
-                font-size: 20px;
-                padding: 5px;
-                border: 1px solid black;
-                border-radius: 0;
-                height: 40px;
-                margin-top: -20px;
-            }
-            #toolbar #saveProject {
-                font-size: 20px;
-                position: absolute;
-                left: 180px;
-                top: 8px;
-                cursor: pointer;
-                border: 2px solid black;
-                padding: 3px;
-            }
-            #toolbar #androidTools {
-                display: none;
-            }
-            
-            #palette
-            {
-                background-color: white;
-                overflow: hidden;
-                width: auto;
-                position: fixed;
-                left: 0px;
-                top: 0px;
-                z-index: 2000;
-                margin: 0px;
-                padding: 0px;
-                
-                border-right: 2px solid black;
-                border-bottom: 2px solid black;
-                border-bottom-right-radius: 10px;
-            }
-            #palette table {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            #palette #cats {
-                color: white;
-            }
-            #palette #cats td {
-                padding: 0px;
-                margin: 0px;
-                width: 50%;
-            }
-            #palette #cats div {
-                font-size: large;
-                width: 100%;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                padding-left: 5px;
-                padding-right: 5px;
-                cursor: pointer;
-            }
-            #palette .catsUp {
-                color: black;
-                font-size: large;
-                width: 100%;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                padding-left: 5px;
-                padding-right: 5px;
-                cursor: pointer;
-            }
-            #palette .blockPalette {
-                padding: 10px;
-                overflow: scroll;
-            }
-            
-            
-            #blocks li
-            {
-                list-style: none;
-                padding: 0px;
-            }
-            #blocks ul
-            {
-                padding: 0px;
-            }
-            
-            #blocks *
-            {
-                white-space: nowrap;
-            }
-            
-            #blocks .embeddedPlaceholder
-            {
-                display: none;
-            }
-            #blocks .sortable-script
-            {
-                margin-top: -20px;
-            }
-            #blocks .block-placeholder
-            {
-                background-color: #FAFF69;
-                width: 100px;
-                height: 6px;
-            }
-            #blocks .cplaceholder
-            {
-                background: rgb(255, 255, 255);
-            }
-            
-            #waiting {
-                width: 100%;
-                height: 100%;
-                background: rgba(163, 163, 163, 0.5);
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                z-index: 10000;
-                vertical-align: middle;
-            }
-            #waiting img {
-                margin-left: auto;
-                margin-right: auto;
-                margin-top: auto;
-                margin-bottom: auto;
-                display: block;
-            }
-            
-            #androidTools {
-                display: none;
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                padding: 15px;
-            }
+            @import url("./style.css");
         </style>
     </head>
     <body>
-        <input style="display: none;" id="openFileDialog" type="file" accept=".ge,.sb2" />
-        
-        <div id="waiting">
-            <center><img src="../images/loading.gif" /></center>
-        </div>
-        
-        <div id="toolbar">
-            <div id="addNew">
-                <img src="../images/new.png" />
-            </div>
-            <div id="garbageBin">
-                <img src="../images/trash-bin.jpg" />
-            </div>
-            <div id="spriteSelect">
-                <select>
-                    <option name="Sprite1">Sprite1</option>
-                </select>
-            </div>
-            <div id="saveProject">
-                Save to your Computer
-            </div>
-            <div id="androidTools">
-                <div id="open">Open</div>
-            </div>
-        </div>
-        <div class="sb2" id="palette" style="display: none;">
-            <div id="cats">
-                <center>
-                    <table border="0">
-                        <tr>
-                            
-                            <td><div class="catSelect" name="motion" style="background-color: #4a6cd4;">Motion</div></td>
-                            <td><div class="catSelect" name="events" style="background-color: #c88330;">Events</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="catSelect" name="looks" style="background-color: #8a55d7;">Looks</div></td>
-                            <td><div class="catSelect" name="control" style="background-color: #e1a91a;">Control</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="catSelect" name="sound" style="background-color: #bb42c3;">Sound</div></td>
-                            <td><div class="catSelect" name="sensing" style="background-color: #2ca5e2;">Sensing</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="catSelect" name="pen" style="background-color: #0e9a6c;">Pen</div></td>
-                            <td><div class="catSelect" name="operators" style="background-color: #5cb712;">Operators</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="catSelect" name="data" style="background-color: #ee7d16;">Data</div></td>
-                            <td><div class="catSelect" name="custom" style="background-color: #5947b1;">More Blocks</div></td>
-                        </tr>
-                    </table>
-                </center>
-            </div>
-            
-            <div class="blockPalette" id="events" style="display: none;"></div>
-            <div class="blockPalette" id="control" style="display: none;"></div>
-            <div class="blockPalette" id="sensing" style="display: none;"></div>
-            <div class="blockPalette" id="operators" style="display: none;"></div>
-            <div class="blockPalette" id="custom" style="display: none;"></div>
-            <div class="blockPalette" id="motion" style="display: none;"></div>
-            <div class="blockPalette" id="looks" style="display: none;"></div>
-            <div class="blockPalette" id="sound" style="display: none;"></div>
-            <div class="blockPalette" id="pen" style="display: none;"></div>
-            <div class="blockPalette" id="data" style="display: none;"></div>
-            
-            <center>
-                <div class="catsUp">^^^</div>
-            </center>
-        </div>
-        
-        <div id="costumes" style="display: none;"></div>
-        <div id="sounds" style="display: none;"></div>
-        
-        <div id="blocks">
-            <!-- Blocks from project will be loaded here per sprite, as sprite is loaded -->
-        </div>
+        <!-- we will load the content of the body from ge.js -->
     </body>
 </html>
