@@ -2,7 +2,7 @@
 //Adds support for node-webkit
 var nwAddon = new Addon();
 
-ge.addons.population.push(nwAddon);
+ge.addons.addAddon(nwAddon);
 
 nwAddon.usingnw = true;
 
