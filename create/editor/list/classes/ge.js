@@ -3,6 +3,7 @@ var ge = {
     //This will hold all the project information (JSON for .ge and .sb2, others for .sb [Scratch 1.X])
     projectInfo : {
         json: null,
+        initialJSON: null,
         fileName: "project"
     },
     
@@ -12,6 +13,7 @@ var ge = {
     params : [],
     //This holds all the broadcasts that are available (per object; broadcasts[OBJNAME] >> array of broadcasts for that object)
     broadcasts : [],
+    
     //initialize >> makes sure that all the classes are loaded, and loades HTML into the specified container (default = body)
     initialize : function(container){
         //If the container isn't specified, then use the body.
@@ -19,7 +21,7 @@ var ge = {
             container = $("body");
         }
         //We need to make sure all the required classes were loaded
-        if (!this.Tools || !this.editor || !this.io) {
+        if (!this.Tools || !this.editor || !this.io || !this.addons) {
             throw "Go Everywhere Exception: Not all the required classes were loaded. Go check the source code!";
         }
         //Great! Just need to place all the HTML we need into the container
@@ -129,11 +131,23 @@ var ge = {
             });
         });
         $(".blockPalette").isolatedScroll();
+        
+        //INITIALIZE FIRST STEP OF ADDONS!
+        $.each(ge.addons.population, function(index, value){
+            value.initialize();
+            value.initialized = true;
+        });
     }
 };
+
 //enableZipDownloadButton >> enables the button that will download the project in the zip format, with extension .ge, and file name of the original project
 ge.enableZipDownloadButton = function(){
+    ge.addons.triggerEvent("ge.enableZipDownloadButton:before");
+    
     $("#zipDownloadButton").click(function(e){
         ge.io.generateAndDownloadProjectZIP();
     }).show();
+    
+    
+    ge.addons.triggerEvent("ge.enableZipDownloadButton:after");
 };

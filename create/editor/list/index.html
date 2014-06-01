@@ -23,26 +23,35 @@ the iPhone -->
         
         <script src="./classes/ge.js"></script>
         <script src="./classes/Tools.js"></script>
+        <script src="./classes/addons.js"></script>
+        <script src="./classes/AddonTemplate.js"></script>
         <script src="./classes/blocks.js"></script>
         <script src="./classes/params.js"></script>
         <script src="./classes/editor.js"></script>
         <script src="./classes/io.js"></script>
+        
+        <!-- GE Official add-ons (not required for functionality) -->
+        <script src="./addons/nw.js"></script>
+        
         <script>
             $(function(){
                 ge.initialize();
                 
-                //For the web version, we will enable the download button
-                ge.enableZipDownloadButton();
-                
-                //Load the project from the URL
-                var vars = [],
-                    hash;
-                var hashes = window.location.search.substr(1).split('&');
-                for (var i = 0; i < hashes.length; i++) {
-                    hash = unescape(hashes[i]).split('=');
-                    vars[hash[0]] = hash[1];
+                //Check to see if we are running in node-webkit
+                if (!nwAddon.usingnw) {
+                    //For the web version, we will enable the download button
+                    ge.enableZipDownloadButton();
+                    
+                    //Load the project from the URL
+                    var vars = [],
+                        hash;
+                    var hashes = window.location.search.substr(1).split('&');
+                    for (var i = 0; i < hashes.length; i++) {
+                        hash = unescape(hashes[i]).split('=');
+                        vars[hash[0]] = hash[1];
+                    }
+                    ge.io.loadProjectZipFromURL(vars["project"]);
                 }
-                ge.io.loadProjectZipFromURL(vars["project"]);
             });
         </script>
         

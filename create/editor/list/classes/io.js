@@ -1,4 +1,4 @@
-//DEPENDANCY: ge.js, tools.js
+//DEPENDANCY: ge.js, tools.js, editor.js
 //Holds the functions needed to manipulate data from files
 
 //Create the io object
@@ -9,12 +9,15 @@ ge.io = {
 
 //extractProjectZipInfo >> takes the io.zipFile and extracts the contents into various places
 ge.io.extractProjectZipInfo = function(){
+    ge.addons.triggerEvent("ge.io.extractProjectZipInfo:before");
+    
     //Loop through all the files inside the project zip
     $.each(this.zipFile.files, function(index, value){
         //Check for the main project JSON
         if (value.name == "project.json") {
             //Set the project info the this project
             ge.projectInfo.json = JSON.parse(value.asText());
+            ge.projectInfo.initialJSON = JSON.parse(value.asText());
             //continue
             return true;
         }
@@ -51,10 +54,14 @@ ge.io.extractProjectZipInfo = function(){
             return true;
         }
     });
+    
+    ge.addons.triggerEvent("ge.io.extractProjectZipInfo:after");
 };
 
 //loadProjectZipFromURL >> loads a project in its ZIP format from the HTTP URL given
 ge.io.loadProjectZipFromURL = function(url) {
+    ge.addons.triggerEvent("ge.io.loadProjectZipFromURL:before");
+    
     JSZipUtils.getBinaryContent(url, function(err, data){
 	if (err) {
 	    throw err;
@@ -64,6 +71,9 @@ ge.io.loadProjectZipFromURL = function(url) {
 	
 	//Save the project's filename
 	ge.projectInfo.fileName = (url.substring(url.lastIndexOf('/')+1)).replace(/.[^.]+$/g, "").replace(/.[^.]+$/g, "");
+        
+        //Extract information from the project ZIP
+        ge.io.extractProjectZipInfo();
 	
         //Reload the project
 	ge.editor.reloadProject();
@@ -71,10 +81,14 @@ ge.io.loadProjectZipFromURL = function(url) {
         //Load the current selected sprite
         ge.editor.loadCurrentSelectedSprite();
     });
+    
+    ge.addons.triggerEvent("ge.io.loadProjectZipFromURL:after");
 };
 
 //generateAndDonloadProjectZIP >> generates the project zip and initializes a download
 ge.io.generateAndDownloadProjectZIP = function(){
+    ge.addons.triggerEvent("ge.io.generateAndDownloadProjectZIP:before");
+    
     //Make sure that our currentObj is saved
     ge.editor.parser.saveCurrentObjectInJSON();
     
@@ -83,4 +97,6 @@ ge.io.generateAndDownloadProjectZIP = function(){
     
     //Compress the zip and give it to the user!
     saveAs(ge.io.zipFile.generate({ type: "blob" }), ge.projectInfo.fileName + ".ge");
+    
+    ge.addons.triggerEvent("ge.io.generateAndDownloadProjectZIP:after");
 };

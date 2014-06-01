@@ -1,4 +1,4 @@
-//DEPENDANCY: ge.js, tools.js, blocks.js, params.js
+//DEPENDANCY: ge.js, tools.js, addons.js blocks.js, params.js
 //Provides functions essential for the editor
 
 //Create the editor object
@@ -8,8 +8,7 @@ ge.editor = {
 };
 //reloadProject >> Extracts information about the project for editing
 ge.editor.reloadProject = function(){
-    //Extract information from the project ZIP
-    ge.io.extractProjectZipInfo();
+    ge.addons.triggerEvent("ge.editor.reloadProject:before");
     
     //Load stage into selector
     $("#toolbar #spriteSelect select").html("<option name=\"Stage\">Stage</option>");
@@ -32,9 +31,13 @@ ge.editor.reloadProject = function(){
 	
 	ge.editor.loadCurrentSelectedSprite();
     });
+    
+    ge.addons.triggerEvent("ge.editor.reloadProject:after");
 };
 //populatePaletteWithBlocks >> populates the palette with the [blocks] array
 ge.editor.populatePaletteWithBlocks = function(extraBlocks){
+    ge.addons.triggerEvent("ge.editor.populatePaletteWithBlocks:before");
+    
     var processingBlocks = ge.blocks;
     if (extraBlocks !== undefined) {
 	processingBlocks = extraBlocks;
@@ -120,9 +123,13 @@ ge.editor.populatePaletteWithBlocks = function(extraBlocks){
 	    $("#palette #" + realGroup).html((hasPriority ? "" : $("#palette #" + realGroup).html()) + "<div class=\"script\">" + ge.editor.parser.findHtmlBlockCodeFromBlockArray(myFakeBlockArray) + "</div>" + (hasPriority ? $("#palette #" + realGroup).html() : ""));
 	}
     });
+    
+    ge.addons.triggerEvent("ge.editor.populatePaletteWithBlocks:after");
 };
 //loadCurrentSelectedSprite >> Loads everything needed for editing current slected sprite (according to #spriteSelect DOM object)
 ge.editor.loadCurrentSelectedSprite = function(){
+    ge.addons.triggerEvent("ge.editor.loadCurrentSelectedSprite:before");
+    
     /** We'll need to wait **/
     $("#waiting").show();
     
@@ -511,6 +518,8 @@ ge.editor.loadCurrentSelectedSprite = function(){
     
     /** We're done here **/
     $("#waiting").hide();
+    
+    ge.addons.triggerEvent("ge.editor.loadCurrentSelectedSprite:after");
 };
 
 /***PROJECT PARSER***/
@@ -519,6 +528,8 @@ ge.editor.parser = function(){
 };
 //findHtmlBlockCodeFromStack >> returns HTML code mixed with scratchblocks2 css from a array containing a stack of blocks from a project JSON
 ge.editor.parser.findHtmlBlockCodeFromStack = function(stackArray) {
+    ge.addons.triggerEvent("ge.editor.parser.findHtmlBlockCodeFromStack:before");
+    
     //Hold the block code that we will collect
     var totalStackCode = "";
     
@@ -528,11 +539,15 @@ ge.editor.parser.findHtmlBlockCodeFromStack = function(stackArray) {
         totalStackCode += ge.editor.parser.findHtmlBlockCodeFromBlockArray(value);
     });
     
+    ge.addons.triggerEvent("ge.editor.parser.findHtmlBlockCodeFromStack:after");
+    
     //Return the code in the stack
     return totalStackCode;
 };
 //findHtmlBlockCodeFromBlockArray >> returns HTML code mixed with scratchblocks2 css from a array of a single block from a project JSOn
 ge.editor.parser.findHtmlBlockCodeFromBlockArray = function(singleBlockArray) {
+    ge.addons.triggerEvent("ge.editor.parser.findHtmlBlockCodeFromBlockArray:before");
+    
     //Hold the block code that we will collect
     var myBlockCode = "";
     //Store the block's data (first item in any block is it's label, except custom blocks?);
@@ -745,11 +760,16 @@ ge.editor.parser.findHtmlBlockCodeFromBlockArray = function(singleBlockArray) {
             break;
         
     }
+    
+    ge.addons.triggerEvent("ge.editor.parser.findHtmlBlockCodeFromBlockArray:after");
+    
     //Return the block code that we have collected
     return myBlockCode;
 };
 //replaceLabelWithHtmlParameterCode >> Replaces block label with parameters set to info in block array given with HTML code for rendering
 ge.editor.parser.replaceLabelWithHtmlParameterCode = function(blockData, blockArray) {
+    ge.addons.triggerEvent("ge.editor.parser.replaceLabelWithHtmlParameterCode:before");
+    
     if (blockData.type == "special") {
         //Hold the block code that we will collect
         var myBlockCode = blockData.label[0];
@@ -906,11 +926,15 @@ ge.editor.parser.replaceLabelWithHtmlParameterCode = function(blockData, blockAr
         myBlockCode += value;
     });
 
+    ge.addons.triggerEvent("ge.editor.parser.replaceLabelWithHtmlParameterCode:after");
+    
     //Return the new block label (after replacing block label image)
     return ((myBlockCode.replace("@greenFlag", "<span class=\"green-flag\"></span>")).replace("@turnRight", "<span class=\"arrow-cw\"></span>")).replace("@turnLeft", "<span class=\"arrow-ccw\"></span>");
 };
 //saveCurrentObjectInJSON >> converts scripts in the current selected object to JSON and saves them in the main project.json
 ge.editor.parser.saveCurrentObjectInJSON = function(){
+    ge.addons.triggerEvent("ge.editor.parser.saveCurrentObjectInJSON:before");
+    
     /**This may take a while...**/
     $("#waiting").show();
     
@@ -1134,4 +1158,6 @@ ge.editor.parser.saveCurrentObjectInJSON = function(){
 	objName: objName,
 	scripts: scripts
     });
+    
+    ge.addons.triggerEvent("ge.editor.parser.saveCurrentObjectInJSON:after");
 };
