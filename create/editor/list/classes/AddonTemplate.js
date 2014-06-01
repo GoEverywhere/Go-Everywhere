@@ -13,7 +13,7 @@
  */
 function Addon(name) {
     //Name of the add-on
-    this.name = name;
+    this.name = name || "ge-addon";
     //Get the ID of the add-on (to tell the uniqueness of the add-on)
     this.id = (ge.addons.length);
     //This is so that GE knows if an add-on has been initialized
