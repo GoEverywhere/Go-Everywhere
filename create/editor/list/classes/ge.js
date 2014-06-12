@@ -78,7 +78,7 @@ var ge = {
                 '<div class="blockPalette" id="control" style="display: none;"></div>' +
                 '<div class="blockPalette" id="sensing" style="display: none;"></div>' +
                 '<div class="blockPalette" id="operators" style="display: none;"></div>' +
-                '<div class="blockPalette" id="custom" style="display: none;"></div>' +
+                '<div class="blockPalette" id="custom" style="display: none;"><input type="button" id="createNewCustomBlock" value="Make a Block" onclick="$(\'#newCustomBlockDialog\').dialog(\'open\');ge.setCatsUp();" /></div>' +
                 '<div class="blockPalette" id="motion" style="display: none;"></div>' +
                 '<div class="blockPalette" id="looks" style="display: none;"></div>' +
                 '<div class="blockPalette" id="sound" style="display: none;"></div>' +
@@ -95,6 +95,24 @@ var ge = {
             
             '<div id="blocks">' +
                 '<!-- Blocks from project will be loaded here per sprite, as sprite is loaded -->' +
+            '</div>' + 
+            
+            '<div id="dialogs">' +
+            
+                '<div id="newCustomBlockDialog" title="New Block" class="nowrap" ondialogcancel="$(\'#blockDesigner\').children().children().val(\'\').not(\':first\').remove();" ondialogok="var tmpLabel = \'\', tmpVarNames = [], tmpDefaults = [], tmpAtomic = $(\'#isCustomAtomic\').prop(\'checked\'); $(\'#blockDesigner\').children().children().each(function(){ if($(this).hasClass(\'label\')) { tmpLabel += $(this).val() + \' \'; }else if($(this).hasClass(\'string\')){ tmpLabel += \' %s \'; tmpVarNames.push($(this).val()); tmpDefaults.push(\'\'); }else if($(this).hasClass(\'number\')){ tmpLabel += \' %n \'; tmpVarNames.push($(this).val()); tmpDefaults.push(1); } }); ge.editor.parser.saveCurrentObjectInJSON(); ge.editor.currentObj.scripts.push([0, 0, [[\'procDef\', tmpLabel, tmpVarNames, tmpDefaults, tmpAtomic]]]); ge.editor.loadCurrentSelectedSprite();">' +
+                    '<div id="blockDesigner" class="sb2">' +
+                        '<div class="stack custom"><input style="background-color: purple; color: white;" class="label string" length="5" type="text" /></div>' + 
+                    '</div>' +
+                    
+                    '<span>' +
+                        'Add number input: <div class="button" id="addLabelToDeclaration" onclick="$(\'#blockDesigner\').children().append(\'<input class=\\\'number\\\' length=\\\'5\\\' type=\\\'text\\\' />\');"><div style="background-color: gray;width: 40px; height: 20px; border-radius: 10px;"></div></div><br />' +
+                        'Add number input: <div class="button" id="addLabelToDeclaration" onclick="$(\'#blockDesigner\').children().append(\'<input class=\\\'string\\\' length=\\\'5\\\' type=\\\'text\\\' />\');"><div style="background-color: gray;width: 40px; height: 20px;"></div></div><br />' +
+                        'Add label text: <div class="button" id="addLabelToDeclaration" onclick="$(\'#blockDesigner\').children().append(\'<input style=\\\'background-color: purple; color: white;\\\' class=\\\'label string\\\' length=\\\'5\\\' type=\\\'text\\\' />\');">text</div><br />' +
+                        '<input id="isCustomAtomic" type="checkbox" /> Run without screen refresh' +
+                    '</span>' +
+                    
+                '</div>' +
+            
             '</div>'
             );
         
@@ -131,6 +149,36 @@ var ge = {
             });
         });
         $(".blockPalette").isolatedScroll();
+        
+        //Initialize the dialogs
+        $("#dialogs").children().dialog({
+            autoOpen: false,
+            dialogClass: "no-close-button",
+            resizable: false,
+            buttons: [
+                        {
+                            text: "OK",
+                            click: function() {
+                                $(this).dialog("close");
+                                if ($(this).attr("ondialogok") !== "") {
+                                    eval($(this).attr("ondialogok"));
+                                }
+                            }
+                        },
+                        {
+                          text: "Cancel",
+                          click: function() {
+                            $( this ).dialog( "close" );
+                            if ($(this).attr("ondialogcancel") !== "") {
+                                eval($(this).attr("ondialogcancel"));
+                            }
+                          }
+                        }
+                      ]
+        });
+        
+        //Initialize the buttons
+        $(".button").button();
         
         //INITIALIZE FIRST STEP OF ADDONS!
         $.each(ge.addons.population, function(index, value){

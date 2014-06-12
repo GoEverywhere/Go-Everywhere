@@ -160,7 +160,7 @@ ge.editor.loadCurrentSelectedSprite = function(){
     }
     
     //Add blocks to the palette (all that have a defined label, at least)
-    $("#palette .blockPalette").html("");
+    $("#palette .blockPalette").children(":not(input)").remove();
     ge.editor.populatePaletteWithBlocks();
     //Find all the define hats for this sprite, and add blocks accordingly
     var totalCustomBlockArrays = [];
@@ -569,7 +569,7 @@ ge.editor.parser.findHtmlBlockCodeFromBlockArray = function(singleBlockArray) {
             break;
         case "define":
             //The define block. Is like a hat block, except has a block inside it as well.
-            myBlockCode += "<div class=\"define-hat " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\" label=\"" + singleBlockArray[1] + "\" varnames=\"" + singleBlockArray[2] + "\" defaults=\"" + singleBlockArray[3] + "\">";
+            myBlockCode += "<div class=\"define-hat " + myBlockData.group.toLowerCase() + "\" spec=\"" + myBlockData.spec + "\" label=\"" + singleBlockArray[1] + "\" varnames=\"" + singleBlockArray[2] + "\" defaults=\"" + singleBlockArray[3] + "\" atomic=\"" + (singleBlockArray.length == 5 && singleBlockArray[4]) + "\">";
                 //Replace the parameters in the custom label with custom argument variables
                 var tmpCharacters = singleBlockArray[1].split("");
                 var parameterOffset = 0;

@@ -167,6 +167,10 @@ body {
 {
     white-space: nowrap;
 }
+#blockPalette *
+{
+    white-space: nowrap;
+}
 
 #blocks .embeddedPlaceholder
 {
@@ -203,4 +207,12 @@ body {
     margin-top: auto;
     margin-bottom: auto;
     display: block;
+}
+
+.no-close-button .ui-dialog-titlebar-close {
+  display: none;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
