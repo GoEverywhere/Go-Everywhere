@@ -874,9 +874,11 @@ ge.editor.parser.replaceLabelWithHtmlParameterCode = function(blockData, blockAr
                         });
                         //Set the parameter to the value that the block array has
                         tmpMenuCode = tmpMenuCode.replace("value=\"" + blockArray[parameterOffset + arrayOffset] + "\"", "selected=\"true\" value=\"" + blockArray[parameterOffset + arrayOffset] + "\"");
+                        //Fix for extra box around dropdown
+                        tmpMenuCode = tmpMenuCode.replace("<select>", "<select class=\"dropdown\">");
                         
                         //Add it to the label
-                        tmpCharacters[index] = "<div class=\"dropdown\">" + tmpMenuCode + "</div>";
+                        tmpCharacters[index] = tmpMenuCode;
                         
                         parameterOffset++;
                         break;
