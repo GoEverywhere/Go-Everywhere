@@ -216,3 +216,21 @@ body {
 .nowrap {
     white-space: nowrap;
 }
+
+/**EXPERIMENTAL BOOLEAN SHAPING**/
+.boolean-shape > .triangle-left {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid gray;
+    /*margin-right: -4px;*/
+}
+.boolean-shape > .triangle-right {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid gray;
+    /*margin-left: -4px;*/
+}
+.boolean-shape > * {
+    padding: 0px;
+    display: inline-block;
+}
