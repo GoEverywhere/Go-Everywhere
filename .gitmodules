@@ -1,0 +1,3 @@
+[submodule "scratch-html5"]
+	path = scratch-html5
+	url = https://github.com/GoEverywhere/scratch-html5.git
