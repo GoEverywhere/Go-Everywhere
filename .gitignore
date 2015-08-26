@@ -4,3 +4,12 @@
 .DS_Store
 
 .DS_Store
+OSX.app
+node_modules
+Go-Everywhere.komodoproject
+ffmpegsumo.dll
+icudt.dll
+libEGL.dll
+libGLESv2.dll
+nw.exe
+nw.pak
